@@ -1,0 +1,5 @@
+match: "**/*.py"
+header:
+  VANTA-ID: agentic_core
+  TOOLS: [SummarizeTranscript]
+  ENVS: [OPENAI_API_KEY]

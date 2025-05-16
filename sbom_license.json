@@ -1,0 +1,10 @@
+{
+  "secrets": ["OPENAI_API_KEY", "STRIPE_SECRET_KEY"],
+  "tools": ["SummarizeNotebook", "CollapseMerger"],
+  "bound_apis": ["OpenAI", "Stripe", "Supabase", "Firebase"],
+  "license": {
+    "tier": "Pro",
+    "token": "vnt-abc123",
+    "expires": "2026-01-01"
+  }
+}

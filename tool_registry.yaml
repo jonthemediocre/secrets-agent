@@ -1,0 +1,10 @@
+# tool_registry.yaml
+tools:
+  SummarizeTranscript:
+    version: v2
+    path: ~/.vanta/mcp/tools/SummarizeTranscript.mcp
+    assigned_to: [InnerCircle, Athena]
+  ChronoMeshSync:
+    version: v1
+    path: ~/.vanta/mcp/tools/ChronoMeshSync.mcp
+    assigned_to: [InnerCircle]

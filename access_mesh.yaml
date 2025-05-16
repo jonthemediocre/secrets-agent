@@ -1,0 +1,6 @@
+test_project:
+  tools:
+  - ChronoMeshSync
+  - SummarizeTranscript
+  secrets:
+  - OPENAI_API_KEY

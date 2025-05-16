@@ -1,0 +1,56 @@
+# collapse_log.yaml
+meta:
+  project: MetaFabric
+  version: v1.1.1
+  timestamp: 2025-05-15T18:19:33.093866Z
+  mode: Domino
+  rule: SYMBOLIC_SUCCESS_1
+
+history:
+  - version: v1.0.0
+    summary: Initial ThePlan.md
+    status: stable
+
+  - version: v1.0.1
+    summary: Added scanner, broker, access mesh stubs
+    status: logic
+
+  - version: v1.0.2
+    summary: Symlink manager + CLI link
+    status: symbolic
+
+  - version: v1.0.3
+    summary: Test project folder + real scan
+    status: real
+
+  - version: v1.0.4
+    summary: Full resolve + symlink + secret injection
+    status: binding
+
+  - version: v1.0.5
+    summary: CLI with subcommands
+    status: operational
+
+  - version: v1.0.6
+    summary: Mesh registry + access binding
+    status: routing
+
+  - version: v1.0.7
+    summary: Validation for missing files/secrets
+    status: hardened
+
+  - version: v1.0.8
+    summary: Watcher daemon + auto bootstrap on change
+    status: daemonized
+
+  - version: v1.0.9
+    summary: Test runner for CLI results
+    status: ritual_test
+
+  - version: v1.1.0
+    summary: Production release with config + headers
+    status: SYMBOLIC_SUCCESS_1
+
+  - version: v1.1.1
+    summary: Created collapse log with tracked evolution
+    status: current

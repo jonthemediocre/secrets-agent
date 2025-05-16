@@ -1,0 +1,14 @@
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Secrets Agent",
+  "description": "Symbolic agent platform for secrets, AI, and environment binding.",
+  "url": "https://secretsagent.com",
+  "applicationCategory": "DeveloperTool",
+  "operatingSystem": "Windows, Linux, Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0.00",
+    "priceCurrency": "USD"
+  }
+}

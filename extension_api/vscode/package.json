@@ -1,0 +1,128 @@
+{
+  "name": "secrets-agent",
+  "displayName": "Secrets Agent",
+  "description": "Environment variable & secrets management for AI projects",
+  "version": "0.1.0",
+  "publisher": "vanta",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:secretsAgentExplorer",
+    "onCommand:vanta.scanProject",
+    "onCommand:vanta.linkSecrets",
+    "onCommand:vanta.showCommands",
+    "onCommand:vanta.setMasterPassword",
+    "onCommand:vanta.listSecrets",
+    "onCommand:vanta.addSecret",
+    "onCommand:vanta.refreshSecrets"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vanta.scanProject",
+        "title": "Secrets Agent: Scan Project"
+      },
+      {
+        "command": "vanta.linkSecrets",
+        "title": "Secrets Agent: Link .env & Tools"
+      },
+      {
+        "command": "vanta.showCommands",
+        "title": "Secrets Agent: Show Commands"
+      },
+      {
+        "command": "vanta.setMasterPassword", 
+        "title": "Secrets Agent: Set Master Password"
+      },
+      {
+        "command": "vanta.listSecrets",
+        "title": "Secrets Agent: List Secrets"
+      },
+      {
+        "command": "vanta.addSecret",
+        "title": "Secrets Agent: Add Secret"
+      },
+      {
+        "command": "vanta.refreshSecrets",
+        "title": "Secrets Agent: Refresh Secrets"
+      },
+      {
+        "command": "secretsAgentExplorer.refreshEntry",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "secrets-agent-sidebar",
+          "title": "Secrets Agent",
+          "icon": "$(key)"
+        }
+      ]
+    },
+    "views": {
+      "secrets-agent-sidebar": [
+        {
+          "id": "secretsAgentExplorer",
+          "name": "Secrets"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "secretsAgentExplorer.refreshEntry",
+          "when": "view == secretsAgentExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "vanta.addSecret",
+          "when": "view == secretsAgentExplorer",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vanta.scanProject",
+          "when": "editorIsOpen"
+        },
+        {
+          "command": "vanta.linkSecrets",
+          "when": "editorIsOpen"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Secrets Agent",
+      "properties": {
+        "secretsAgent.apiUrl": {
+          "type": "string",
+          "default": "http://localhost:5001/api",
+          "description": "The URL of the Secrets Agent API server"
+        },
+        "secretsAgent.autoScan": {
+          "type": "boolean", 
+          "default": false,
+          "description": "Automatically scan projects on open"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "vsce package"
+  },
+  "dependencies": {
+    "axios": "^0.27.2"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.70.0",
+    "vsce": "^2.6.7"
+  }
+}

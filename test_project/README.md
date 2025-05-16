@@ -1,0 +1,1 @@
+This project uses OpenAI and needs transcript summarization.

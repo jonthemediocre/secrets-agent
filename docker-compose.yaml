@@ -1,0 +1,76 @@
+version: '3.8'
+
+services:
+  # Secrets Agent API service
+  api:
+    build: .
+    command: python agent_core/router.py
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./secrets_secure:/app/secrets_secure
+      - ./test_project:/app/projects/test_project
+      - ./secrets.yaml:/app/secrets.yaml
+      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      - secrets_volume:/app/secrets
+    environment:
+      - PRODUCTION=true
+      - API_KEY=${API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - SECURE_STORAGE=true
+      - MASTER_PASSWORD=${MASTER_PASSWORD}
+    networks:
+      - secrets-network
+
+  # Watcher service for automatically updating projects
+  watcher:
+    build: .
+    command: python watcher_daemon.py /app/projects
+    restart: unless-stopped
+    volumes:
+      - ./projects:/app/projects
+      - ./test_project:/app/projects/test_project
+      - ./secrets_secure:/app/secrets_secure
+      - ./secrets.yaml:/app/secrets.yaml
+      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      - secrets_volume:/app/secrets
+    environment:
+      - PRODUCTION=true
+      - API_KEY=${API_KEY}
+      - SECURE_STORAGE=true
+      - MASTER_PASSWORD=${MASTER_PASSWORD}
+    networks:
+      - secrets-network
+
+  # VS Code extension backend
+  vscode-backend:
+    build: .
+    command: python extension_api/vscode/server.py
+    restart: unless-stopped
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./data:/app/data
+      - ./secrets_secure:/app/secrets_secure
+      - ./test_project:/app/projects/test_project
+      - ./secrets.yaml:/app/secrets.yaml
+      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      - secrets_volume:/app/secrets
+    environment:
+      - PRODUCTION=true
+      - API_KEY=${API_KEY}
+      - DEBUG=true
+      - SECURE_STORAGE=true
+      - MASTER_PASSWORD=${MASTER_PASSWORD}
+    networks:
+      - secrets-network
+
+volumes:
+  secrets_volume:
+    driver: local
+
+networks:
+  secrets-network:
+    driver: bridge

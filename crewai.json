@@ -1,0 +1,15 @@
+{
+  "team": "CollapseOps",
+  "agents": [
+    {
+      "name": "NotebookAgent",
+      "tools": ["SummarizeNotebook"],
+      "envs": ["OPENAI_API_KEY"]
+    },
+    {
+      "name": "MeshBinder",
+      "tools": ["CollapseMerger"],
+      "envs": ["QDRANT_API_KEY"]
+    }
+  ]
+}

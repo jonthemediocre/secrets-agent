@@ -1,0 +1,8 @@
+# Native YAML Rule (Secrets Agent)
+match: "**/notebooks/*.ipynb"
+header:
+  VANTA-ID: "notebook-core"
+  TOOLS: ["SummarizeNotebook"]
+  ENVS: ["OPENAI_API_KEY"]
+  AGENT: "NotebookAgent"
+  PRIORITY: high

@@ -1,0 +1,7 @@
+# config.yaml
+project_defaults:
+  secret_store: secrets.yaml
+  mesh_registry: access_mesh.yaml
+  mcp_path: ~/.vanta/mcp/tools/
+  env_path: ~/.vanta/envs/
+  watcher_enabled: true

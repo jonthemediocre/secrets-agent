@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.env
+.env.generated
+secrets.yaml
+secrets.enc
+secret.key
+
+# PyInstaller
+dist/
+build/
+*.spec
+
+# VS Code
+.vscode/

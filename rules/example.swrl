@@ -1,0 +1,2 @@
+# SWRL Rule (Semantic Web Logic)
+Notebook(?x) ^ uses(?x, SummarizeNotebook) ^ requiresEnv(?x, OPENAI_API_KEY) → AuthorizedNotebookAgent(?x)

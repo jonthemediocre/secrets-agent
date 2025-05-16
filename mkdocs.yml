@@ -1,0 +1,14 @@
+site_name: Secrets Agent
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: teal
+    accent: pink
+nav:
+  - Home: index.md
+  - Collapse Log: collapse_log.md
+  - Branding: branding_hex_positioning.md
+  - Mobile UX: mobile_ui_plan.md
+  - Windows UI: windows_ui_plan.md
+  - Installer: installer/README.md

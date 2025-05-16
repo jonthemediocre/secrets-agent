@@ -1,0 +1,21 @@
+# global_mesh.yaml
+projects:
+  InnerCircle:
+    agents:
+      - Athena
+    tools:
+      - SummarizeTranscript@v2
+      - ChronoMeshSync@v1
+    secrets:
+      - OPENAI_API_KEY
+
+tools:
+  SummarizeTranscript:
+    version: v2
+    assigned_to: [Athena]
+    source: ~/.vanta/mcp/tools/SummarizeTranscript.mcp
+
+  ChronoMeshSync:
+    version: v1
+    assigned_to: [InnerCircle]
+    source: ~/.vanta/mcp/tools/ChronoMeshSync.mcp
