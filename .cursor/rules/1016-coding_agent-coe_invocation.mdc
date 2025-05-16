@@ -1,0 +1,29 @@
+---
+description: 
+globs: **/*.py
+alwaysApply: false
+---
+---
+# RULE TYPE: Always
+# FILE PATTERNS: **/*.py
+---
+
+profiles:
+  - profile_id: "coe_invocation_standard"
+    description: "Enforce CoE invocation via orchestrator or event bus."
+    trigger_type: "AGENT_INITIATED"
+    steps:
+      - name: "Enforce Format"
+        agent: "yaml_validator_agent"
+        task_data:
+          expected_keys:
+            - type
+            - context
+            - proposal
+            - requester_agent
+      - name: "Check Invocation Method"
+        agent: "script_parser_agent"
+        task_data:
+          patterns:
+            - "orchestrator.trigger_coe"
+            - "event_bus.publish"

@@ -1,0 +1,84 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always (Core AI Operational Principle)
+# FILE PATTERNS: N/A (Universal Architectural Guideline)
+
+# 002: Level 1 / Level 2 AI Interaction & Co-evolution Protocol
+
+## 1. Purpose
+This rule defines the distinction between "Level 1" (L1) and "Level 2" (L2) operational contexts for AI-assisted development, particularly concerning the Cursor AI assistant and a specific, complex project like VANTA. It also outlines their intended co-evolutionary relationship.
+
+## 2. Definitions
+
+### 2.1. Level 1 (L1): AI Assistant Governance Layer
+    - **Scope:** Governs the **Cursor AI assistant's behavior** and its interaction with *any* project.
+    - **Primary Guidance:** `.cursor/rules/*.mdc` files. These rules are "hard-piped" into the AI assistant and dictate its response patterns, tool usage, coding standards application, and general operational logic when acting as a pair programmer or assistant.
+    - **Nature:** Project-agnostic principles and IDE-level integration rules.
+    - **Examples:** `000-base.mdc`, `005-destructive-op-safety.mdc`, rules for specific file types (`100-next-components.mdc`).
+
+### 2.2. Level 2 (L2): Project-Specific Implementation Layer
+    - **Scope:** Governs the **internal architecture, logic, protocols, and standards of a specific project** being developed (e.g., the VANTA framework).
+    - **Primary Guidance:** Project-internal rule directories (e.g., `framework rules/`, `DESIGN_PRINCIPLES/`), `THEPLAN.md`, `blueprint.yaml`, and the project's own codebase.
+    - **Nature:** Project-specific design decisions, internal APIs, agent contracts, domain logic, and operational protocols.
+    - **Examples (for VANTA):** Rules in `framework rules/`, `agent_cascade_definitions.mdc`, Python code defining VANTA agents and core logic.
+
+## 3. Interaction Model
+
+### 3.1. L1 Governs AI Interaction with L2
+    - The Cursor AI assistant (L1) operates based on its `.cursor/rules/`. These rules dictate *how* it should approach tasks related to an L2 project.
+    - For instance, an L1 rule might specify how the AI should propose changes to an L2 Python file, what questions to ask before refactoring L2 code, or how to use McP tools to interact with L2's environment.
+
+### 3.2. L1 AI Interacts with L2 via Defined Interfaces
+    - The L1 AI assistant primarily interacts with L2 project components and its environment through established interfaces:
+        - **Code Modification Tools:** `edit_file`, `mcp_desktop-commander_edit_block`.
+        - **File System Tools:** `read_file`, `list_dir`, `mcp_desktop-commander_read_file`, etc.
+        - **Execution Tools:** `run_terminal_cmd`, `mcp_desktop-commander_execute_command`.
+        - **Project-Specific APIs/CLIs (if L2 exposes them):** Once VANTA (L2) has its own API or CLI, the L1 AI can be instructed (via L1 rules or direct prompts) to use them.
+    - The L1 AI does not make direct, unmediated internal calls to L2 Python functions or classes as if it were part of L2's runtime. It helps *build and manage* L2.
+
+## 4. Co-evolutionary Relationship
+
+### 4.1. L2 Informs L1
+    - The challenges, successes, and evolving needs of the L2 project (e.g., VANTA) are critical sources of feedback for refining and creating L1 rules.
+    - If developing VANTA reveals a recurring pattern of AI interaction that is inefficient or error-prone, a new L1 (`.cursor/rules/*.mdc`) rule should be proposed to improve the AI's behavior for that pattern.
+    - Example: If the AI frequently struggles with understanding VANTA's specific state management, an L1 rule could be created to guide it on how to query or infer state more effectively when working on VANTA.
+
+### 4.2. L1 Guides L2 (See Rule `003-L1-enforces-L2-scaffolding.mdc`)
+    - L1 rules can be designed to actively guide the scaffolding, development, and adherence to standards within L2 projects.
+    - The AI, following L1 rules, can act as a "guardian" or "guide" for L2's structure and quality.
+
+## 5. Goal: Synergistic Development
+The ultimate goal is a synergistic relationship where the L1 AI assistant becomes an increasingly effective partner in developing and maintaining complex L2 projects like VANTA. This is achieved by:
+    - Continuously improving L1 rules based on L2 development experiences.
+    - Using L1 rules to ensure L2 development aligns with best practices and project-specific architectural goals.
+
+This distinction and interaction model is fundamental to achieving a recursive, agentic intelligence capable of sophisticated project development.
+
+## 2. L1: Cursor AI Governance (Project-Agnostic)
+
+-   **Scope:** Governs the behavior of the Cursor AI assistant.
+-   **Context:** Project-agnostic, applying broadly across different projects opened in Cursor.
+-   **Purpose:** Defines how the AI assistant should interact, format code, use tools, apply general coding standards, and assist in the development process.
+-   **Runtime:** Active when the Cursor AI is being used.
+-   **Example Rules:** `000-base.mdc`, `100-next-components.mdc`, `910-assistant-autonomy.mdc`.
+
+## 3. L2: VANTA Project Internals (Project-Specific)
+
+-   **Scope:** Defines the internal architecture, protocols, data schemas, agent contracts, and operational logic specific to the VANTA framework.
+-   **Context:** Specific to the VANTA project.
+-   **Purpose:** Provides the blueprint for how VANTA agents and components operate, communicate, and manage data *within the VANTA ecosystem itself*.
+-   **Runtime:** Active when the VANTA framework is running, whether in development (within Cursor) or deployed standalone. **L2 agents and the VANTA framework operate based on L2 rules and their own configurations, independent of L1 rules.**
+-   **Example Rules:** `framework rules/FR001-VantaAgentContract.md`, `framework rules/FR002-VantaInternalSignalSchema.md`.
+
+## 4. Co-evolution and Interaction
+
+-   **L1 Guides L2 Development:** L1 rules guide the Cursor AI in assisting with the *development and scaffolding* of L2 components. For instance, L1 rules can help generate boilerplate code for VANTA agents that adheres to L2's `FR001-VantaAgentContract.md`.
+-   **L2 Informs L1 Potential:** As sophisticated agentic patterns emerge within L2 (e.g., complex cascade behaviors, novel memory structures), these can inspire the creation or refinement of L1 rules to make the Cursor AI more effective in assisting with such advanced patterns in future projects.
+-   **Separation of Concerns:**
+    -   L1 rules **do not** dictate the runtime behavior of L2 VANTA agents.
+    -   L2 VANTA agents **do not** depend on L1 rules or Cursor-specific functionalities to operate. They are designed to be self-contained and portable.
+    -   The AI assistant (L1) helps *build* L2 components; L2 components execute based on their *own* defined L2 rules and logic.
+-   **Tooling Bridge:** L1 (Cursor AI) might use tools (like McP tools) to interact with a running L2 VANTA instance for testing or operational tasks, but this is an external interaction, not an internal dependency of L2 on L1.

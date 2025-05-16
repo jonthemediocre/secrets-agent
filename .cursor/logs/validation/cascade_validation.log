@@ -1,0 +1,1880 @@
+2025-05-09 22:23:27,756 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\000-base.mdc: while scanning an alias
+  in "<unicode string>", line 4, column 8:
+    globs: **/*
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 4, column 9:
+    globs: **/*
+            ^
+2025-05-09 22:23:27,757 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\000-framework-index.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 13, column 1:
+    ```yaml
+    ^
+2025-05-09 22:23:27,757 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\001-rule-index-watcher.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 12, column 1:
+    1. **Directory Monitoring**
+    ^
+2025-05-09 22:23:27,758 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\005-destructive-op-safety.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 13, column 1:
+    Before proposing or executing an ... 
+    ^
+2025-05-09 22:23:27,758 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 15, column 1:
+    The following files and director ... 
+    ^
+2025-05-09 22:23:27,758 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\007-desktop-commander-best-practices.mdc: while scanning an alias
+  in "<unicode string>", line 13, column 1:
+    **Always prefer absolute paths w ... 
+    ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 13, column 2:
+    **Always prefer absolute paths wh ... 
+     ^
+2025-05-09 22:23:27,759 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-backup-and-commit-protocol.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 11, column 1:
+    - **Manual:**
+    ^
+2025-05-09 22:23:27,759 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 14, column 1:
+    This rule should be conceptually ... 
+    ^
+2025-05-09 22:23:27,759 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\011-mdc-hygiene-protocol.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 13, column 1:
+    Two primary scripts support this ... 
+    ^
+2025-05-09 22:23:27,760 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\012-ai-mdc-authoring-formatting-standards.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 14, column 1:
+    An `.mdc` file containing struct ... 
+    ^
+2025-05-09 22:23:27,760 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\020-compatibility-check.mdc: expected a single document in the stream
+  in "<unicode string>", line 2, column 1:
+    \
+    ^
+but found another document
+  in "<unicode string>", line 3, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,760 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\100-next-components.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Next.js Component S ... 
+    ^
+but found another document
+  in "<unicode string>", line 5, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,760 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\100-vanta-coder-overlay.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 19:
+    - Agent Identity: **Vanta! Coder**
+                      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 20:
+    - Agent Identity: **Vanta! Coder**
+                       ^
+2025-05-09 22:23:27,761 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1000-coding_agent-feedback_instrumentation.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 6, column 160:
+     ... to record user feedback events: `accept`, `reject`, and `modify`.
+                                         ^
+2025-05-09 22:23:27,761 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1001-coding_agent-scheduled_tasks.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Recurring or periodic tasks mu ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 11, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,761 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1002-coding_agent-subprocess_security.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - All calls to `subprocess` must ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,762 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1003-coding_agent-external_api_resilience.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - All HTTP calls must read API c ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,762 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1004-coding_agent-hyperparam_tuning.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Tuning functions must return a ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 12, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,763 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1005-coding_agent-ci_cd_integration.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - CI/CD pipeline methods (`trigg ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,763 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1006-coding_agent-cli_tooling.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Scripts intended as CLI tools  ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,764 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1007-coding_agent-admin_ui.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Admin UI forms must be driven  ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good (Form):
+    ^
+2025-05-09 22:23:27,764 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1008-coding_agent-plan_sync.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Whenever adding or modifying a ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 11, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,764 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\101-vanta-agent-contract.mdc: while scanning an alias
+  in "<unicode string>", line 9, column 7:
+        - **`__init__(self, agent_id, core ... 
+          ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 9, column 8:
+        - **`__init__(self, agent_id, core_ ... 
+           ^
+2025-05-09 22:23:27,765 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1010-coding_agent-test_coverage.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - Every new feature or module mu ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 13, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,765 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1011-coding_agent-framework.mdc: mapping values are not allowed here
+  in "<unicode string>", line 24, column 96:
+     ... `core: true` in their schema) to:
+                                         ^
+2025-05-09 22:23:27,766 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1012-coding_agent-ide_preprompt.mdc: while scanning a simple key
+  in "<unicode string>", line 7, column 3:
+      1. Load and review `.cursor/rule ... 
+      ^
+could not find expected ':'
+  in "<unicode string>", line 8, column 3:
+      2. Load and review `.cursor/agen ... 
+      ^
+2025-05-09 22:23:27,766 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1013-coding_agent-moe_analysis.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - For complex analysis functions ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 11, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,766 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1014-coding_agent-best_of_n.mdc: while scanning a simple key
+  in "<unicode string>", line 7, column 3:
+      1. Generate all reasonable candi ... 
+      ^
+could not find expected ':'
+  in "<unicode string>", line 8, column 3:
+      2. Assign a confidence score or  ... 
+      ^
+2025-05-09 22:23:27,767 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - For agent actions that are com ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 14, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,767 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 6, column 3:
+    - **Invocation Method:** Use a cen ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 6, column 4:
+    - **Invocation Method:** Use a cent ... 
+       ^
+2025-05-09 22:23:27,767 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1017-coding_agent-config_convention.mdc: while scanning an alias
+  in "<unicode string>", line 6, column 3:
+    - **Location:** Store agent config ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 6, column 4:
+    - **Location:** Store agent configu ... 
+       ^
+2025-05-09 22:23:27,768 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while parsing a block collection
+  in "<unicode string>", line 6, column 1:
+    - All data passed between agents ... 
+    ^
+expected <block end>, but found '?'
+  in "<unicode string>", line 14, column 1:
+    \u2705 Good:
+    ^
+2025-05-09 22:23:27,768 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning a simple key
+  in "<unicode string>", line 13, column 1:
+    1.  Importing `StreamingResponse ... 
+    ^
+could not find expected ':'
+  in "<unicode string>", line 14, column 1:
+    2.  Creating an `async def` gene ... 
+    ^
+2025-05-09 22:23:27,768 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\110-env-config.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 12, column 1:
+    1.  **Centralized Definition (So ... 
+    ^
+2025-05-09 22:23:27,769 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\110-feature-parity.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 18, column 1:
+    Feature parity ensures a consist ... 
+    ^
+2025-05-09 22:23:27,769 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\200-icons.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Guidelines for icon ... 
+    ^
+but found another document
+  in "<unicode string>", line 7, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,770 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\201-vanta-logging-core-requirements.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 10, column 11:
+            - `timestamp_iso`: ISO 8601 format ... 
+              ^
+2025-05-09 22:23:27,771 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\300-error-handling.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 72, column 1:
+    ```tsx
+    ^
+2025-05-09 22:23:27,771 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\310-dependency-hygiene.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 11, column 1:
+    1.  **Frequency**:
+    ^
+2025-05-09 22:23:27,771 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\311-cross-platform-deps.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 13, column 1:
+    Ensuring that dependency resolut ... 
+    ^
+2025-05-09 22:23:27,772 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\312-static-analysis-checks.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 14, column 1:
+    - **`flake8`:** A popular linter ... 
+    ^
+2025-05-09 22:23:27,772 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\320-dependency-conflict-resolution-strategy.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 10, column 1:
+    Incorrectly resolved peer depend ... 
+    ^
+2025-05-09 22:23:27,772 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\320-dependency-resolution.mdc: expected a single document in the stream
+  in "<unicode string>", line 2, column 1:
+    \
+    ^
+but found another document
+  in "<unicode string>", line 3, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,773 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 51, column 1:
+    ```tsx
+    ^
+2025-05-09 22:23:27,774 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 82, column 1:
+    ```ts
+    ^
+2025-05-09 22:23:27,775 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\501-vanta-memory-principles.mdc: while scanning an alias
+  in "<unicode string>", line 12, column 7:
+        - **Episodic Memory:** Log of agen ... 
+          ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 12, column 8:
+        - **Episodic Memory:** Log of agent ... 
+           ^
+2025-05-09 22:23:27,775 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: while scanning an alias
+  in "<unicode string>", line 9, column 5:
+    -   **Clarity and Intent:** Schemas  ... 
+        ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 9, column 6:
+    -   **Clarity and Intent:** Schemas s ... 
+         ^
+2025-05-09 22:23:27,775 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\600-ai-learnings.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: AI learning documen ... 
+    ^
+but found another document
+  in "<unicode string>", line 4, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,776 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 12, column 1:
+    Ritualization patch proposals (e ... 
+    ^
+2025-05-09 22:23:27,776 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\700-opensource-mdc.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Open Source MDC Rul ... 
+    ^
+but found another document
+  in "<unicode string>", line 4, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,776 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\703-code-source-priority.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 13, column 1:
+    Blindly applying user code that  ... 
+    ^
+2025-05-09 22:23:27,777 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\900-agent-config.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: AI agent configurat ... 
+    ^
+but found another document
+  in "<unicode string>", line 4, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,777 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\901-mdc-agent.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Configuration for t ... 
+    ^
+but found another document
+  in "<unicode string>", line 4, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,777 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\902-rl-agent.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Reinforcement Learn ... 
+    ^
+but found another document
+  in "<unicode string>", line 7, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,778 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\903-rl-suggestion.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Guidelines for usin ... 
+    ^
+but found another document
+  in "<unicode string>", line 6, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,778 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\904-core-documentation.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Core Documentation  ... 
+    ^
+but found another document
+  in "<unicode string>", line 6, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,778 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\905-orchestrator-agent.mdc: mapping values are not allowed here
+  in "<unicode string>", line 8, column 25:
+     * Core responsibilities:
+                            ^
+2025-05-09 22:23:27,778 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\906-documentation-sync.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: "Documentation Sync ... 
+    ^
+but found another document
+  in "<unicode string>", line 6, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,779 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 12, column 1:
+    Project snapshot documents (e.g. ... 
+    ^
+2025-05-09 22:23:27,779 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\909-mdc-rule-optimization-protocol.mdc: while scanning an alias
+  in "<unicode string>", line 14, column 1:
+    *   **ID:** `mdc_rule_optimizer_ ... 
+    ^
+expected alphabetic or numeric character, but found ' '
+  in "<unicode string>", line 14, column 2:
+    *   **ID:** `mdc_rule_optimizer_a ... 
+     ^
+2025-05-09 22:23:27,780 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\910-assistant-autonomy.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 10, column 1:
+    This reduces interruptions for t ... 
+    ^
+2025-05-09 22:23:27,781 ERROR INVALID: C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\910-vanta-testing-protocol.mdc \u2192 ['All Protocol, API, and Agent logic must be tested via `pytest` + `pytest-asyncio`.', 'Ritual + MCP Cascade workflows must be validated using `pytest-bdd` or `pytest-scenario`.', 'FastAPI endpoints must be tested using `httpx` + `pytest-httpx`.', 'Agent interaction and orchestration scenarios must use mocking frameworks (`pytest-mock`).', 'MCP Signals and replay logs must be verified against schema using `pydantic` and log analysis.', 'Agent contracts must be validated with `mypy` + runtime `pydantic` model checks.', 'Code formatting and linting is mandatory via `black` and `flake8`.'] is not of type 'object'
+2025-05-09 22:23:27,781 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\911-ai-response-signature.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 13, column 1:
+    The signature must be clearly de ... 
+    ^
+2025-05-09 22:23:27,782 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\912-ai-prompt-assist.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 12, column 1:
+    1.  **Identify Vagueness:** When ... 
+    ^
+2025-05-09 22:23:27,782 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\912-rule-scope-distinction.mdc: while scanning an alias
+  in "<unicode string>", line 16, column 1:
+    *   **Scope:** Global to the Cur ... 
+    ^
+expected alphabetic or numeric character, but found ' '
+  in "<unicode string>", line 16, column 2:
+    *   **Scope:** Global to the Curs ... 
+     ^
+2025-05-09 22:23:27,782 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\913-compliance-script-output.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 12, column 1:
+    - **Exit Code 0 (Success):**
+    ^
+2025-05-09 22:23:27,783 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\913-frontend-init.mdc: while scanning an alias
+  in "<unicode string>", line 4, column 1:
+    **Description**: Guides the init ... 
+    ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 4, column 2:
+    **Description**: Guides the initi ... 
+     ^
+2025-05-09 22:23:27,783 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\914-pytest-scenario-alternative.mdc: while scanning an alias
+  in "<unicode string>", line 11, column 1:
+    *   Multi-step MCP (Master Core  ... 
+    ^
+expected alphabetic or numeric character, but found ' '
+  in "<unicode string>", line 11, column 2:
+    *   Multi-step MCP (Master Core P ... 
+     ^
+2025-05-09 22:23:27,783 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 9, column 5:
+    -   **Explicit States:** Agents shou ... 
+        ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 9, column 6:
+    -   **Explicit States:** Agents shoul ... 
+         ^
+2025-05-09 22:23:27,784 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\916-ai-codebase-interaction-model.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 17, column 1:
+    When the AI "writes code," it is ... 
+    ^
+2025-05-09 22:23:27,784 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\920-agent-resource-conventions.mdc: while scanning an alias
+  in "<unicode string>", line 12, column 7:
+        - **`models/`**: For ML models, or ... 
+          ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 12, column 8:
+        - **`models/`**: For ML models, org ... 
+           ^
+2025-05-09 22:23:27,784 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\920-mcp-tool-integration.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 10, column 1:
+    - `read_file`: For reading file  ... 
+    ^
+2025-05-09 22:23:27,784 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\921-mcp-server-integration.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 11, column 1:
+    - read_file
+    ^
+2025-05-09 22:23:27,785 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\921-vanta-mcp-signal-schema.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 18, column 1:
+    ```json
+    ^
+2025-05-09 22:23:27,786 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\922-agentic-replay-log-schema.mdc: while scanning for the next token
+found character '@' that cannot start any token
+  in "<unicode string>", line 7, column 1:
+    @id: 922-agentic-replay-log-schema
+    ^
+2025-05-09 22:23:27,786 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\923-agentic-build-validate.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 11, column 1:
+    This validation workflow MUST be ... 
+    ^
+2025-05-09 22:23:27,788 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\924-cascade-executor.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 12, column 1:
+    1.  **Initialization:** Must acc ... 
+    ^
+2025-05-09 22:23:27,788 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\925-cascade-agent-swarm-activation.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 13, column 1:
+    To fully integrate the `CascadeE ... 
+    ^
+2025-05-09 22:23:27,789 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\930-layer3-cli-api-activation.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 15, column 1:
+    To provide robust, secure, and u ... 
+    ^
+2025-05-09 22:23:27,790 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\950-project-scheduler-bootstrap.mdc: while scanning an alias
+  in "<unicode string>", line 16, column 1:
+    *   **Auto-Attachment:** When fi ... 
+    ^
+expected alphabetic or numeric character, but found ' '
+  in "<unicode string>", line 16, column 2:
+    *   **Auto-Attachment:** When fil ... 
+     ^
+2025-05-09 22:23:27,790 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\951-scheduled-rule-maintenance-ritual.mdc: while scanning an alias
+  in "<unicode string>", line 14, column 1:
+    *   **Location:** `".cursor/sche ... 
+    ^
+expected alphabetic or numeric character, but found ' '
+  in "<unicode string>", line 14, column 2:
+    *   **Location:** `".cursor/sched ... 
+     ^
+2025-05-09 22:23:27,791 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\960-automated-workflow-graph.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 13, column 1:
+    This process can be triggered th ... 
+    ^
+2025-05-09 22:23:27,791 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\adhd-energy-features.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: ADHD-friendly energ ... 
+    ^
+but found another document
+  in "<unicode string>", line 8, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,803 ERROR INVALID: C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\agent_cascade_definitions.mdc \u2192 'steps' is a required property
+2025-05-09 22:23:27,804 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\api-routes.mdc: while scanning an alias
+  in "<unicode string>", line 45, column 3:
+    - **@prisma.mdc**: For database ac ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 45, column 4:
+    - **@prisma.mdc**: For database acc ... 
+       ^
+2025-05-09 22:23:27,805 INFO VALID: C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\auto_attach_package_json.mdc
+2025-05-09 22:23:27,806 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning a simple key
+  in "<unicode string>", line 80, column 1:
+    The inbox cleaner helps users do ... 
+    ^
+could not find expected ':'
+  in "<unicode string>", line 81, column 1:
+    It helps them get from 10,000 it ... 
+    ^
+2025-05-09 22:23:27,807 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cursor-rules.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 12, column 1:
+    ```markdown
+    ^
+2025-05-09 22:23:27,807 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cursor.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 17, column 3:
+    - `Cmd+K`: Chat with AI assistant
+      ^
+2025-05-09 22:23:27,808 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\data-fetching.mdc: while scanning an alias
+  in "<unicode string>", line 34, column 3:
+    - **@api-routes.mdc**: For creatin ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 34, column 4:
+    - **@api-routes.mdc**: For creating ... 
+       ^
+2025-05-09 22:23:27,808 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\environment-variables.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 33, column 1:
+    ```typescript
+    ^
+2025-05-09 22:23:27,809 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\form-handling.mdc: while scanning an alias
+  in "<unicode string>", line 41, column 3:
+    - **@ui-components.mdc**: For form ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 41, column 4:
+    - **@ui-components.mdc**: For form  ... 
+       ^
+2025-05-09 22:23:27,809 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\golden-ratio-visuals.mdc: expected '<document start>', but found '<block sequence start>'
+  in "<unicode string>", line 11, column 1:
+    - Use the golden ratio to divide ... 
+    ^
+2025-05-09 22:23:27,810 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\index.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: Central index of al ... 
+    ^
+but found another document
+  in "<unicode string>", line 6, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,810 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\llm-test.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 40, column 1:
+    ```typescript
+    ^
+2025-05-09 22:23:27,811 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\llm.mdc: while scanning an alias
+  in "<unicode string>", line 47, column 3:
+    - **@llm-test.mdc**: For testing L ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 47, column 4:
+    - **@llm-test.mdc**: For testing LL ... 
+       ^
+2025-05-09 22:23:27,812 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\logging.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 15, column 3:
+    - `logger.error()` - For errors an ... 
+      ^
+2025-05-09 22:23:27,812 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\monorepo-dependency-troubleshooting.mdc: expected '<document start>', but found '<scalar>'
+  in "<unicode string>", line 13, column 1:
+    Critical - Foundational dependen ... 
+    ^
+2025-05-09 22:23:27,812 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\page-structure.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 21, column 24:
+    - Create new pages at: `apps/web/app/(app)/PAGE_NAME/pa ... 
+                           ^
+2025-05-09 22:23:27,813 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\prisma.mdc: while scanning an alias
+  in "<unicode string>", line 34, column 3:
+    - **@api-routes.mdc**: For using P ... 
+      ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 34, column 4:
+    - **@api-routes.mdc**: For using Pr ... 
+       ^
+2025-05-09 22:23:27,813 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\project-structure.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 9, column 3:
+    - `app/` - App Router routes and l ... 
+      ^
+2025-05-09 22:23:27,814 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\server-actions.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 12, column 3:
+    - `apps/web/utils/actions/NAME.val ... 
+      ^
+2025-05-09 22:23:27,814 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\swarm-config.mdc: expected '<document start>', but found '<block mapping start>'
+  in "<unicode string>", line 12, column 1:
+    All top-level items within a reg ... 
+    ^
+2025-05-09 22:23:27,814 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\template.mdc: expected a single document in the stream
+  in "<unicode string>", line 3, column 1:
+    description: [Short description  ... 
+    ^
+but found another document
+  in "<unicode string>", line 6, column 1:
+    ---
+    ^
+2025-05-09 22:23:27,815 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\testing.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 40, column 3:
+    - `vitest` is used for testing
+      ^
+2025-05-09 22:23:27,816 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\ui-components.mdc: while scanning an alias
+  in "<unicode string>", line 54, column 38:
+     ...  detailed form guidelines, see: **@form-handling.mdc**
+                                         ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 54, column 39:
+     ... detailed form guidelines, see: **@form-handling.mdc**
+                                         ^
+2025-05-09 22:23:27,817 ERROR YAML parse error in C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\utilities.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 6, column 3:
+      ```typescript
+      ^
+2025-05-12 22:04:34,458 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,458 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,459 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,459 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,459 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,459 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,460 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,460 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,460 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,460 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,461 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,461 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,465 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,466 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,467 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,468 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,469 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,472 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,472 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+nd '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,473 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+. 
+                                         ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,474 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,475 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,476 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,477 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,477 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,477 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,477 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,477 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,478 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,479 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,479 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,479 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,480 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,481 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,481 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,481 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,481 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,481 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,482 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,483 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,483 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,484 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,485 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,485 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,485 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,485 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,486 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,486 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,486 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,486 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,487 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,488 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,488 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,488 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,490 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,491 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,491 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,493 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,493 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,494 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,495 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,495 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,495 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,495 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,496 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,496 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,500 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,500 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,505 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,510 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,511 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,511 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,512 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,514 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\006-system-incoherence-protocol.mdc: while scanning for the next token
+found character '`' that cannot start any token
+  in "<unicode string>", line 1, column 14:
+    description: `run.py`: Main application entry ... 
+                 ^
+2025-05-12 22:04:34,516 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\008-relative-import-preflight.mdc: mapping values are not allowed here
+  in "<unicode string>", line 1, column 61:
+     ... d be conceptually triggered when: - A Python file (`*.py`) is sa ... 
+                                         ^
+2025-05-12 22:04:34,518 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,519 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,519 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1015-coding_agent-coe_delegation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,519 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,519 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,519 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,520 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,520 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,522 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+c character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1016-coding_agent-coe_invocation.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.py
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.py
+            ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1018-coding_agent-task_schema.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 9:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+            ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 10:
+    globs:  **/agents/**/*.py,**/orchestrator.py
+             ^
+2025-05-12 22:04:34,523 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,524 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,524 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\1019-fastapi-streaming.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/run.py, **/api/**/*.py, **/ro ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/run.py, **/api/**/*.py, **/rou ... 
+            ^
+2025-05-12 22:04:34,524 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,524 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,526 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\400-adhd-patterns.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 2, column 8:
+    globs: - "**/*.tsx"   - "**/*.jsx"   -  ... 
+           ^
+2025-05-12 22:04:34,527 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\500-prisma.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+           ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 2, column 15:
+    globs: *prisma.ts,**Prisma.ts,*.prisma
+                  ^
+2025-05-12 22:04:34,527 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\505-pydantic-schema-design.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 14:
+    description: - "**/schemas/**/*.py"           ... 
+                 ^
+2025-05-12 22:04:34,528 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\620-ritualization-protocol.mdc: sequence entries are not allowed here
+  in "<unicode string>", line 1, column 49:
+     ... Patch_Proposal*.md"             - "docs/rituals/*.md"            ... 
+                                         ^
+2025-05-12 22:04:34,528 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,528 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,532 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,532 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,532 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\907-project-snapshot.mdc: while scanning an alias
+  in "<unicode string>", line 1, column 14:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                 ^
+expected alphabetic or numeric character, but found '.'
+  in "<unicode string>", line 1, column 23:
+    description: *SNAPSHOT.md, docs/*_SNAPSHOT.md
+                          ^
+2025-05-12 22:04:34,535 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\915-agent-state-lifecycle.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/agents/**/*.py, **/services/* ... 
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/agents/**/*.py, **/services/** ... 
+            ^
+2025-05-12 22:04:34,538 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,540 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^
+2025-05-12 22:04:34,542 ERROR YAML parse error in frontmatter of C:\Users\Jonbr\pinokio\api\VANTA\.cursor\rules\cleaner.mdc: while scanning an alias
+  in "<unicode string>", line 2, column 8:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+           ^
+expected alphabetic or numeric character, but found '*'
+  in "<unicode string>", line 2, column 9:
+    globs: **/*.ts, **/*.tsx, **/*.js, **/*.jsx
+            ^

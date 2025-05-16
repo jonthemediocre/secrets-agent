@@ -1,0 +1,80 @@
+name: Agentic Build and Validate Ritual
+description: >
+  Represents the automated CI/CD validation process defined in 
+  .github/workflows/validate_agentic_commit.yml and enforced by 
+  .cursor/rules/923-agentic-build-validate.mdc.
+  This ritual is typically triggered by Git events (push/PR) via GitHub Actions, 
+  but can be invoked manually or by agents for pre-flight checks.
+
+trigger:
+  event: ["manual", "git_push_primary", "git_pr_primary", "agent_request"]
+  # Example agent request filter:
+  # filter: 
+  #  intent: "request_pre_merge_validation"
+  #  target_branch: "main"
+
+preconditions:
+  - description: Code is committed locally.
+    check_script: # Optional: Add a script to check git status if needed
+      # command: git diff --quiet HEAD
+      # success_code: 0 
+  - description: Required dependencies are installed.
+    check_script:
+      # command: pip check 
+      # success_code: 0
+
+steps:
+  - name: Run Full Validation Suite (Simulated/Local)
+    description: Executes the core validation steps locally as defined in the CI workflow.
+    agent: "devops_agent" # Or a dedicated validation agent
+    tool_calls:
+      - tool: mcp_desktop-commander_execute_command # Or use default_api.run_terminal_cmd
+        parameters:
+          command: "python scripts/validate_json_schemas.py"
+      - tool: mcp_desktop-commander_execute_command
+        parameters:
+          command: "python scripts/validate_mdc_rules.py"
+      - tool: mcp_desktop-commander_execute_command
+        parameters:
+          command: "pytest tests/"
+      - tool: mcp_desktop-commander_execute_command
+        parameters:
+          command: "black --check ."
+      - tool: mcp_desktop-commander_execute_command
+        parameters:
+          command: "flake8 ."
+      - tool: mcp_desktop-commander_execute_command
+        parameters:
+          command: "python scripts/validate_agents.py"
+    on_failure:
+      action: "log_and_halt"
+      message: "Local validation failed. Do not push or create PR until issues are fixed."
+
+postconditions:
+  - description: All validation steps passed successfully.
+    check_script: 
+      # command: echo $? # Check exit code of last command - needs state passing
+      # success_code: 0
+  - description: Results logged to agentic_replay.log.jsonl
+    check_script: # Placeholder
+
+outcomes:
+  - name: validation_passed
+    description: All checks passed.
+    conditions: # Based on successful completion of all steps
+    actions:
+      - action: "log_event"
+        details: { event_type: "VALIDATION_PASSED", ritual: "agentic_build_validate" }
+      - action: "signal_mcp"
+        details: { signal: "validation_complete", status: "success" }
+        
+  - name: validation_failed
+    description: One or more checks failed.
+    conditions: # Based on failure of any step
+    actions:
+      - action: "log_event"
+        details: { event_type: "VALIDATION_FAILED", ritual: "agentic_build_validate", reason: "{{failure_reason}}" }
+      - action: "signal_mcp"
+        details: { signal: "validation_complete", status: "failure", reason: "{{failure_reason}}" }
+      - action: "notify_user"
+        details: { message: "Agentic Build and Validate Ritual FAILED. Check logs." } 

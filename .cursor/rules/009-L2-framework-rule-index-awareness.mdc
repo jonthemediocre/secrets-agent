@@ -1,0 +1,56 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always (Core AI Operational Principle)
+# FILE PATTERNS: N/A (Universal AI-Assisted Development Guideline for L2 Projects)
+
+# 009: L1 Promotion of L2 Framework Rule Index Awareness
+
+## 1. Purpose
+This rule ensures that the Cursor AI assistant (Level 1) actively promotes awareness and utilization of Level 2 (L2) project-specific rule indexes (e.g., `framework rules/index.md` for VANTA). The goal is to empower developers to leverage their project's internal standards, with L1 acting as a guide and reminder rather than a direct consumer of L2 rules for its own operational logic.
+
+## 2. Principle: L1 Facilitates Developer Use of L2 Standards
+   - **L1 Awareness of L2 Index:** The AI assistant MUST recognize the existence and importance of a dedicated index file for L2 project-specific rules (e.g., `framework rules/index.md`).
+   - **L1 Guidance, Not Direct L2 Rule Consumption:** Instead of L1 directly reading and interpreting detailed L2 rules to formulate its responses, L1 should guide the developer to the relevant L2 rules and their index. L1's primary role is to provide scaffolding and high-level architectural suggestions consistent with general best practices, making it easier for the developer to then apply specific L2 rules.
+   - **Prompting L2 Index Maintenance:** L1 SHOULD proactively suggest the creation or update of the L2 project's rule index when new L2 rules are developed or existing ones are modified with L1's assistance.
+
+## 3. Operational Guidelines for the AI Assistant
+
+   - **Discovery/Verification of L2 Index:**
+     - If working on a known L2 project like VANTA, the AI should assume `framework rules/index.md` exists and is the primary reference for VANTA-specific standards.
+     - For other projects, if the AI assists in creating a rules directory (e.g., `PROJECT_RULES/`), it SHOULD suggest creating an `index.md` for it.
+
+   - **Guidance during Task Execution:**
+     - **Query Analysis:** If a user asks, "How should I implement error handling in VANTA agents?", the AI should:
+       1. Recognize this is an L2 VANTA-specific query.
+       2. State that VANTA likely has specific protocols for this, documented in its `framework rules/`.
+       3. Remind the user to consult `framework rules/index.md` to find the relevant VANTA error handling protocol (e.g., `003-error-handling-protocol.md`).
+       4. Offer to help implement the pattern once the user has identified the specific L2 rule they want to follow.
+     - **Code Generation/Modification:** If asked to implement a new VANTA agent:
+       1. L1 might provide a generic agent scaffold based on best practices (see `013-L1-guides-L2-architecture.mdc`).
+       2. L1 MUST then remind the user to ensure this scaffold is aligned with VANTA's specific `FR001-VantaAgentContract.md` and other relevant rules found via `framework rules/index.md`.
+
+   - **Assisting with L2 Index Integrity:**
+     - If the AI assists in creating a new L2 project rule (e.g., a new file in `framework rules/`), it MUST proactively suggest or offer to update the L2 project's rule index (`framework rules/index.md`) to include a reference to the new rule.
+
+## 4. Relationship to L1 Index (`.cursor/rules/index.mdc`)
+   - The L1 index (`.cursor/rules/index.mdc`) governs the AI's general behavior and its meta-level understanding of how to assist in L2 development.
+   - The L2 project rule index (e.g., `framework rules/index.md`) is the L2 project's internal source of truth for its specific standards, intended for developer use, with L1 facilitating its creation and promoting its consultation.
+
+## 5. Example AI Interaction Flow
+   ```
+   User: "How do I add a new data model for VANTA?"
+   AI Response:
+   "Adding a new data model in VANTA involves defining its schema and ensuring it integrates with existing systems. VANTA has specific standards for this, likely detailed in its `framework rules/`.
+
+   I recommend you consult your `framework rules/index.md` to find the specific data schema or Pydantic model guidelines (e.g., `FR003-VantaDataSchemas.md`).
+
+   Once you've reviewed those, I can help you:
+   - Create the Pydantic model file.
+   - Integrate it into relevant agents or services.
+   - Ensure it's validated correctly."
+   ```
+
+This protocol ensures that L1 empowers the developer by guiding them to the L2 project's own documented standards, reinforcing L2's architectural integrity and autonomy.

@@ -1,0 +1,48 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: Not applicable for Always rules (Applies to project setup/validation phases)
+
+# 1009: Environment Configuration File Check
+
+## Purpose
+To ensure that projects have a clear template for environment variables (`.env.template`) or an active environment configuration (`.env`) to prevent runtime errors due to missing configuration, especially during setup, CI/CD, or validation phases.
+
+## Requirements
+
+1.  **Presence Check:**
+    *   During project setup, initialization scripts, or CI/CD validation steps, the system (or an automated check) SHOULD verify the presence of either:
+        *   A `.env.template` file: This file lists all required environment variables with placeholder or example values. It serves as a template for developers to create their actual `.env` file.
+        *   A `.env` file: This file contains the actual environment variable settings for the current environment. (Note: `.env` files themselves should typically be gitignored).
+
+2.  **Guidance on Failure:**
+    *   If neither file is found during a critical phase (e.g., pre-build validation, CI), the process SHOULD:
+        *   Issue a clear warning or error message indicating the missing configuration.
+        *   Ideally, guide the user to create a `.env` file by copying `.env.template` (if the template exists).
+
+3.  **Template Content (If `.env.template` is used):**
+    *   The `.env.template` file MUST include all environment variables required for the application to run in a development or testing environment.
+    *   It SHOULD use comments to explain each variable and provide example (non-sensitive) values.
+    *   Example:
+        ```env
+        # Database connection string
+        DATABASE_URL="postgresql://user:password@localhost:5432/mydb?schema=public"
+
+        # API Key for external service
+        EXTERNAL_API_KEY="your_api_key_here"
+        ```
+
+## Rationale
+-   Ensures developers are aware of required environment variables from the start.
+-   Facilitates easier onboarding for new team members.
+-   Reduces "it works on my machine" issues by standardizing environment setup.
+-   Allows CI/CD pipelines to validate that necessary configuration placeholders exist.
+
+## Integration
+-   This check can be integrated into:
+    *   `scripts/validate_project_setup.py` (or similar validation scripts).
+    *   CI/CD pipeline configurations (e.g., a step in `.github/workflows/validate_agentic_commit.yml`).
+    *   Initialization logic within `VantaMasterCore` or a bootstrap script.

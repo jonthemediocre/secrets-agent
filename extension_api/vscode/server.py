@@ -9,28 +9,38 @@ import traceback
 from pathlib import Path
 from flask import Flask, request, jsonify
 import yaml
+import logging # Import the logging module
 
 app = Flask(__name__)
 
-# Enable more verbose error messages
-app.config['DEBUG'] = True
-app.config['PROPAGATE_EXCEPTIONS'] = True
+# Configure Flask app logger
+# Gunicorn will capture this logger's output.
+# Set level via environment variable or default to INFO for production, DEBUG for development.
+LOG_LEVEL = os.environ.get('LOG_LEVEL', 'INFO').upper()
+app.logger.setLevel(getattr(logging, LOG_LEVEL, logging.INFO))
+
+# Flask settings
+# DEBUG should be controlled by environment (e.g., FLASK_DEBUG or a custom env var)
+# app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'false').lower() == 'true'
+# PROPAGATE_EXCEPTIONS is often True for development, False for production if Gunicorn handles errors.
+# app.config['PROPAGATE_EXCEPTIONS'] = os.environ.get('FLASK_PROPAGATE_EXCEPTIONS', 'false').lower() == 'true'
 
 # Check if secure storage is enabled
 SECURE_STORAGE = os.environ.get('SECURE_STORAGE', 'false').lower() == 'true'
 MASTER_PASSWORD = os.environ.get('MASTER_PASSWORD', '')
 
 if SECURE_STORAGE:
-    print("✓ Secure storage mode enabled")
+    app.logger.info("✓ Secure storage mode enabled")
 else:
-    print("⚠ WARNING: Using plaintext secrets storage")
+    app.logger.warning("⚠ WARNING: Using plaintext secrets storage")
 
 # Load config
 try:
     with open('config.yaml', 'r') as f:
         config = yaml.safe_load(f)
+    app.logger.info("✓ Configuration loaded from config.yaml")
 except Exception as e:
-    print(f"Warning: Could not load config.yaml: {e}")
+    app.logger.warning(f"Warning: Could not load config.yaml: {e}. Using default configuration.")
     config = {
         'project_defaults': {
             'secret_store': 'secrets.yaml',
@@ -43,6 +53,7 @@ except Exception as e:
 @app.route('/api/health', methods=['GET'])
 def health_check():
     """Health check endpoint"""
+    app.logger.info(f"Health check request from {request.remote_addr}")
     return jsonify({'status': 'ok', 'version': '1.0.0', 'secure_storage': SECURE_STORAGE})
 
 @app.route('/api/scan', methods=['POST'])

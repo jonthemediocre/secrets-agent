@@ -1,0 +1,148 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+@id: chrono-orchestrator-agent
+@mode: agent
+enabled: true
+@persona:
+  ChronoTaskMaker: "I am ChronoTaskMaker: dedicated Chrono Task Maker, Scheduler, and Executor."
+@desc: |
+  **Role:** ChronoTaskMaker  
+  **Mission:** Parse `.cursor/actions/schedule_index.yaml`, determine due tasks, execute them with retries and timeouts, and log outcomes.  
+  **Limit scope:** Do **not** generate new code; only orchestrate scheduled tasks.
+
+AGENT_MODE: System Architect + Recursive Builder + Agentic Orchestrator
+
+CONTEXT_DIRECTORIES:
+  - .cursor/actions/
+  - .cursor/rituals/
+  - .cursor/references/
+  - framework rules/
+
+CONTEXT_FILES:
+  - blueprint.yaml
+  - THEPLAN.md
+  - logs/agentic_replay.log.jsonl
+  - .cursor/actions/schedule_index.yaml
+  - .cursor/rules/agent_cascade_definitions.mdc
+  - vanta_seed/core/vanta_master_core.py
+
+TASK_FILES:
+  - [target_file.py]
+  - [related_file.py]
+  - [TODO.md]
+
+OBJECTIVE:
+  - Interpret context and dynamically orchestrate scheduled tasks.
+  - **Recursive Agentic Workflow Decision Making:**
+    1. **Check** `.cursor/actions/schedule_index.yaml` for due tasks.
+    2. **Execute** each due task via its defined command.
+    3. **Log** executed tasks and outcomes in `agentic_replay.log.jsonl`.
+
+EXECUTION DIRECTIVE:
+>> Engage **ChronoMesh SchedulerProtocol** → Recursive Orchestrator Mode:
+   - Pull latest `schedule_index.yaml` context on every run.
+   - Evaluate due tasks according to their cron schedule.
+   - Run commands, capture output and errors.
+   - Maintain cascade awareness: if a task emits an MCP signal, enqueue corresponding cascade.
+   - Append execution records to `logs/agentic_replay.log.jsonl`.
+
+@onCommand: RunScheduledTasks
+script: |
+  import yaml, datetime, subprocess, json, time, shlex
+  from croniter import croniter
+
+  # Load schedule index
+  with open('.cursor/actions/schedule_index.yaml') as f:
+      idx = yaml.safe_load(f)
+  now = datetime.datetime.now()
+  log_entries = []
+
+  for task in idx.get('tasks', []):
+      schedule = task.get('schedule')
+      # Check if due within last minute
+      if not schedule:
+          continue
+      last_min = now - datetime.timedelta(minutes=1)
+      try:
+          next_run = croniter(schedule, last_min).get_next(datetime.datetime)
+      except Exception:
+          continue
+      if next_run <= now:
+          # Prepare command
+          cmd_info = task.get('command')
+          if isinstance(cmd_info, dict) and 'exec' in cmd_info:
+              cmd = cmd_info['exec']
+              shell = False
+          else:
+              # Fallback for string commands, or if cmd_info is not a dict (e.g. None)
+              cmd_str = cmd_info if isinstance(cmd_info, str) else ''
+              cmd = shlex.split(cmd_str)
+              shell = False # Always prefer shell=False
+
+          retries = task.get('retry', 0)
+          timeout = task.get('timeout') # Can be None if not specified
+          attempt = 0
+          success = False
+          status = 'pending' # Initialize status
+          output = ''
+
+          while attempt <= retries and not success:
+              attempt += 1 # Increment attempt counter at the start of the loop
+              try:
+                  result = subprocess.run(
+                      cmd,
+                      shell=shell, # Should be False based on above logic
+                      capture_output=True,
+                      text=True,
+                      timeout=timeout
+                  )
+                  output = result.stdout or result.stderr
+                  if result.returncode == 0:
+                      success = True
+                      status = 'success'
+                  else:
+                      status = 'error' # Command ran but returned non-zero
+              except subprocess.TimeoutExpired as te:
+                  status = 'timeout'
+                  output = str(te)
+              except Exception as e: # Catch other potential errors like FileNotFoundError for cmd
+                  status = 'exception'
+                  output = str(e)
+              
+              if not success and attempt <= retries:
+                  time.sleep(1)  # brief pause before retry
+              elif success: # if successful, break loop
+                  break
+              # If not successful and no more retries, loop will terminate
+
+          log_entries.append({
+              'agent_id': 'chrono-orchestrator-agent',
+              'task_id': task.get('id'),
+              'scheduled_time': next_run.isoformat(),
+              'execution_time': now.isoformat(),
+              'status': status,
+              'attempts': attempt,
+              'output': output,
+          })
+
+  # Append to log file
+  # Ensure logs directory exists
+  logs_dir = 'logs'
+  if not os.path.exists(logs_dir):
+      os.makedirs(logs_dir)
+  log_file_path = os.path.join(logs_dir, 'agentic_replay.log.jsonl')
+
+  with open(log_file_path, 'a') as logf:
+      for entry in log_entries:
+          logf.write(json.dumps(entry) + '\n')
+
+  return f"✅ Attempted execution for relevant tasks. Processed {len(log_entries)} due tasks."
+
+@onSchedule:
+  - cron: "0 * * * *"    # hourly
+    action: RunScheduledTasks
+  - cron: "0 6 * * *"    # daily at 6am
+    action: RunScheduledTasks

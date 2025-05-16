@@ -13,13 +13,23 @@
   "activationEvents": [
     "onStartupFinished",
     "onView:secretsAgentExplorer",
+    "onView:secretsAgentWelcome",
     "onCommand:vanta.scanProject",
     "onCommand:vanta.linkSecrets",
     "onCommand:vanta.showCommands",
     "onCommand:vanta.setMasterPassword",
     "onCommand:vanta.listSecrets",
     "onCommand:vanta.addSecret",
-    "onCommand:vanta.refreshSecrets"
+    "onCommand:vanta.refreshSecrets",
+    "onCommand:vanta.editSecret",
+    "onCommand:vanta.deleteSecret",
+    "onCommand:vanta.copySecretValue",
+    "onCommand:vanta.toggleAutoRefresh",
+    "onCommand:vanta.showHelp",
+    "onCommand:vanta.importSecrets",
+    "onCommand:vanta.exportSecrets",
+    "onCommand:vanta.showWelcome",
+    "onCommand:vanta.changeVisualization"
   ],
   "main": "./extension.js",
   "contributes": {
@@ -56,6 +66,53 @@
         "command": "secretsAgentExplorer.refreshEntry",
         "title": "Refresh",
         "icon": "$(refresh)"
+      },
+      {
+        "command": "vanta.editSecret",
+        "title": "Edit Secret",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vanta.deleteSecret",
+        "title": "Delete Secret",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vanta.copySecretValue",
+        "title": "Copy Secret Value",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanta.toggleAutoRefresh",
+        "title": "Secrets Agent: Toggle Auto-Refresh"
+      },
+      {
+        "command": "vanta.showHelp",
+        "title": "Secrets Agent: Help"
+      },
+      {
+        "command": "vanta.importSecrets",
+        "title": "Secrets Agent: Import Secrets",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "vanta.exportSecrets",
+        "title": "Secrets Agent: Export Secrets",
+        "icon": "$(cloud-upload)"
+      },
+      {
+        "command": "vanta.showWelcome",
+        "title": "Secrets Agent: Show Welcome Page"
+      },
+      {
+        "command": "vanta.changeVisualization",
+        "title": "Secrets Agent: Change Visualization",
+        "icon": "$(eye)"
+      },
+      {
+        "command": "vanta.rotateMasterPassword",
+        "title": "Secrets Agent: Rotate Master Password",
+        "icon": "$(sync~spin)" 
       }
     ],
     "viewsContainers": {
@@ -69,6 +126,12 @@
     },
     "views": {
       "secrets-agent-sidebar": [
+        {
+          "id": "secretsAgentWelcome",
+          "name": "Welcome",
+          "when": "config.secretsAgent.showWelcomeView == true",
+          "type": "webview"
+        },
         {
           "id": "secretsAgentExplorer",
           "name": "Secrets"
@@ -86,6 +149,38 @@
           "command": "vanta.addSecret",
           "when": "view == secretsAgentExplorer",
           "group": "navigation"
+        },
+        {
+          "command": "vanta.importSecrets",
+          "when": "view == secretsAgentExplorer",
+          "group": "1_import_export"
+        },
+        {
+          "command": "vanta.exportSecrets",
+          "when": "view == secretsAgentExplorer",
+          "group": "1_import_export"
+        },
+        {
+          "command": "vanta.changeVisualization",
+          "when": "view == secretsAgentExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vanta.editSecret",
+          "when": "view == secretsAgentExplorer && viewItem == secret",
+          "group": "inline"
+        },
+        {
+          "command": "vanta.copySecretValue",
+          "when": "view == secretsAgentExplorer && viewItem == secret",
+          "group": "inline"
+        },
+        {
+          "command": "vanta.deleteSecret",
+          "when": "view == secretsAgentExplorer && viewItem == secret",
+          "group": "inline"
         }
       ],
       "commandPalette": [
@@ -96,6 +191,18 @@
         {
           "command": "vanta.linkSecrets",
           "when": "editorIsOpen"
+        },
+        {
+          "command": "vanta.editSecret",
+          "when": "false"
+        },
+        {
+          "command": "vanta.deleteSecret",
+          "when": "false"
+        },
+        {
+          "command": "vanta.copySecretValue",
+          "when": "false"
         }
       ]
     },
@@ -104,13 +211,54 @@
       "properties": {
         "secretsAgent.apiUrl": {
           "type": "string",
-          "default": "http://localhost:5001/api",
-          "description": "The URL of the Secrets Agent API server"
+          "default": "https://localhost:5001/api",
+          "description": "The URL of the Secrets Agent API server (HTTPS is expected)",
+          "scope": "window"
         },
         "secretsAgent.autoScan": {
           "type": "boolean", 
           "default": false,
-          "description": "Automatically scan projects on open"
+          "description": "Automatically scan projects on open for environment variables and tools.",
+          "scope": "resource"
+        },
+        "secretsAgent.autoRefresh": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically refresh the Secrets Explorer list at regular intervals.",
+          "scope": "window"
+        },
+        "secretsAgent.refreshIntervalSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 5,
+          "maximum": 3600,
+          "description": "Time in seconds between auto-refresh operations (used if autoRefresh is enabled).",
+          "scope": "window"
+        },
+        "secretsAgent.storeMasterPassword": {
+          "type": "boolean",
+          "default": false,
+          "description": "Store the master password in VS Code secure storage. This is less secure than entering it each session but more convenient. Use with caution.",
+          "scope": "window"
+        },
+        "secretsAgent.showWelcomeView": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Welcome view in the Secrets Agent sidebar on startup.",
+          "scope": "window"
+        },
+        "secretsAgent.visualization": {
+          "type": "string",
+          "enum": ["flat", "categorized", "tagged"],
+          "default": "flat",
+          "description": "Selects how secrets are displayed in the Secrets Explorer view (e.g., flat list, grouped by category, or by tags).",
+          "scope": "window"
+        },
+        "secretsAgent.workspaceSettings": {
+          "type": "object",
+          "default": {},
+          "description": "Project-specific (workspace) settings for Secrets Agent. These can override global settings.",
+          "scope": "resource"
         }
       }
     }

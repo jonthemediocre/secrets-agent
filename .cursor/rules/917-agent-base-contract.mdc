@@ -1,0 +1,152 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 917-agent-base-contract.mdc
+# BaseAgent class for all VANTA agents.
+# This rule defines the common structure and behavior expected of all agents in the VANTA framework.
+
+description: |
+  The `BaseAgent` class serves as the foundational class for all agents in the VANTA framework. It provides common functionalities such as logging, configuration management, and integration with the core orchestration layer (VantaMasterCore). All agents should inherit from this base class to ensure consistency across the system.
+
+dependencies:
+  - VantaMasterCore # Conceptual dependency, actual Python import might be different
+  - .cursor/rules/921-vanta-mcp-signal-schema.mdc # For message structures if receive_message is used
+  - .cursor/rules/922-agentic-replay-log-schema.mdc # For logging format alignment
+
+globs:
+  - "**/vanta_seed/core/base_agent.py" # So it's attached when viewing the base agent
+  - "**/vanta_seed/agents/**/*.py"      # So it's attached when creating/viewing any agent
+
+agent_attributes:
+  name: # Changed from agent_id to name to align with GitOpsAgent and BaseAgent usage
+    type: string
+    description: |
+      A unique name or identifier for each agent instance. Often set from agent_id or a specific name.
+  config:
+    type: dict
+    description: |
+      Configuration dictionary for the agent, passed during initialization.
+  logger:
+    type: reference
+    description: |
+      A logger instance (e.g., Python's `logging.Logger`) for the agent to use for its internal logging.
+  orchestrator_ref:
+    type: reference
+    description: |
+      A reference to the orchestrator (e.g., VantaMasterCore instance). This allows agents to access central services like standardized agentic event logging.
+  instance_path: # Kept from user's outline for completeness, though less common in BaseAgent itself
+    type: string
+    description: |
+      Optional: Path to the agent's instance directory, used for accessing configuration files, logs, and other resources specific to the agent's execution context if not managed by the orchestrator.
+
+methods:
+  __init__:
+    description: |
+      The `__init__` method for the BaseAgent class. It sets up the agent's name, configuration, logger, and orchestrator reference.
+    signature: |
+      def __init__(self, name: str, config: dict, logger: logging.Logger, orchestrator_ref: Optional[object] = None):
+    attributes:
+      - `name`: Unique name/identifier for the agent instance.
+      - `config`: Configuration dictionary for the agent.
+      - `logger`: Logger instance for internal agent logging.
+      - `orchestrator_ref`: A reference to the orchestrator (e.g., VantaMasterCore) for standardized agentic event logging and other central services.
+    notes: |
+      All agent subclasses must call `super().__init__(...)` with these parameters to ensure proper initialization of core attributes.
+
+  log_agentic_event: # This refers to the orchestrator's method, made accessible via orchestrator_ref
+    description: |
+      This is THE PREFERRED METHOD for logging significant agent actions and outcomes that should be part of the auditable agentic replay log. It typically calls a method on the `orchestrator_ref` (e.g., `VantaMasterCore.log_agentic_event`).
+    signature: |
+      def log_agentic_event(self, event_type: str, payload: dict, agent_id: Optional[str] = None, status: Optional[str] = None):
+    attributes:
+      - `event_type`: The primary type of event being logged (e.g., "GIT_OPERATION", "TASK_EXECUTION").
+      - `payload`: A dictionary containing detailed structured data about the event, including `action_type_detail`, `status`, and `parameters`.
+      - `agent_id`: The ID of the agent performing the action (defaults to self.name if None).
+      - `status`: (Often part of payload) Overall status like "COMPLETED", "FAILED".
+    notes: |
+      Agents should use `self.orchestrator_ref.log_agentic_event(...)` if `orchestrator_ref` is available. 
+      The payload structure should align with `.cursor/schemas/agentic_replay_log_entry.schema.json` (excluding fields like `log_id`, `timestamp` which are added by the logging system itself).
+      This method is distinct from the agent's internal `self.logger` which is for general debug/info/error messages not necessarily for the formal agentic replay log.
+
+  # Abstract/Optional methods to be implemented by subclasses:
+  startup:
+    description: "Optional asynchronous method called once when the agent is being initialized by the orchestrator after basic __init__."
+    signature: "async def startup(self):"
+    notes: "For one-time setup like loading resources, connecting to services."
+
+  shutdown:
+    description: "Optional asynchronous method called once when the agent is being shut down by the orchestrator."
+    signature: "async def shutdown(self):"
+    notes: "For graceful cleanup, releasing resources."
+
+  perform_task: # Placeholder for the primary synchronous execution logic if an agent uses it
+    description: |
+      A primary method that might be called by an orchestrator if the agent is designed for synchronous task execution. Often wrapped by an async variant.
+    signature: |
+      def perform_task(self, task_data: dict) -> dict:
+    attributes:
+      - `task_data`: Data provided for the task, including parameters or state information.
+    notes: |
+      This method should be implemented by subclasses of BaseAgent if they handle synchronous tasks directly.
+      It's expected to return a dictionary with results.
+
+  execute: # Common name for an async execution entry point
+    description: |
+      An asynchronous method often used as the main entry point for an agent to perform its core task when invoked by the orchestrator.
+    signature: |
+      async def execute(self, task_data: dict) -> dict:
+    attributes:
+      - `task_data`: Data provided for the task.
+    notes: |
+      This method should be implemented by subclasses. It's responsible for executing the task associated with the agent and returning a result dictionary.
+
+  receive_message:
+    description: |
+      Optional asynchronous method for agents that need to react to messages or signals from other agents or the system, outside of direct task invocation.
+    signature: |
+      async def receive_message(self, message: dict):
+    attributes:
+      - `message`: The message or signal being received (should conform to a defined schema, e.g., MCP Signal).
+    notes: |
+      This method is optional and can be overridden by subclasses that need to process incoming messages/events.
+
+logging_schema_reference: # Renamed from logging_format to point to the canonical schema
+  description: "All agentic events logged via the orchestrator_ref.log_agentic_event should conform to the schema defined in agentic_replay_log_entry.schema.json."
+  schema_file: ".cursor/schemas/agentic_replay_log_entry.schema.json"
+  key_fields_in_payload: # Highlights important parts of the payload for the log_agentic_event
+    - action_type_detail: "The specific sub-type of action (e.g., 'GIT_ADD', 'GIT_COMMIT') within the broader event_type."
+    - status: "The status of the action (e.g., 'COMPLETED', 'FAILED', 'IN_PROGRESS')."
+    - parameters:
+        type: object
+        description: "Additional context or parameters related to the action (e.g., operation details, error messages)."
+
+---
+
+### Example Agentic Event Log Payload (Simplified for `log_agentic_event` call)
+
+When an agent calls `self.orchestrator_ref.log_agentic_event(event_type="GIT_OPERATION", payload=git_payload, agent_id=self.name)`, the `git_payload` might look like this:
+
+```json
+{
+  "action_type_detail": "GIT_COMMIT",
+  "status": "COMPLETED",
+  "parameters": {
+    "operation": "git commit",
+    "message": "Test commit for new_file.txt"
+  }
+  // The VantaMasterCore.log_agentic_event method would add log_id, timestamp, correlation_id etc.
+}
+```
+
+### Core Agent Lifecycle (Conceptual)
+
+1.  **Instantiation**: `AgentClass(name="agent_name", config={...}, logger=logger_instance, orchestrator_ref=vmc_instance)`
+2.  **Registration**: Orchestrator registers the agent.
+3.  **Startup**: Orchestrator calls `await agent.startup()` (if defined).
+4.  **Task Execution/Message Handling**: Orchestrator calls `await agent.execute(task_data)` or `await agent.receive_message(message)` based on triggers/routing.
+    *   During execution, agent uses `self.logger` for internal debug/info.
+    *   Agent uses `self.orchestrator_ref.log_agentic_event(...)` for significant, auditable actions.
+5.  **Shutdown**: Orchestrator calls `await agent.shutdown()` (if defined).
+

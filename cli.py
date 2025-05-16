@@ -9,6 +9,10 @@ from env_scanner import scan_env_and_tools
 from secret_broker import SecretBroker
 from symlink_manager import link_env, link_tool
 from access_mesh import AccessMesh
+import yaml
+import json
+import time
+import shutil # Import shutil for copy operations
 
 def cmd_scan(project_path: Path):
     result = scan_env_and_tools(project_path)
@@ -44,6 +48,137 @@ def cmd_link(project_path: Path, secure=False, password=None):
     mesh = AccessMesh(Path("access_mesh.yaml"))
     mesh.bind(project_path.name, tool_paths, list(secrets.keys()))
 
+def cmd_sync_shared_resources(project_path: Path, master_shared_resources_yaml_path: Path):
+    """Synchronizes shared resources to the project based on a manifest file."""
+    print(f"[SYNC SHARED] Synchronizing shared resources for {project_path} from {master_shared_resources_yaml_path}")
+
+    if not master_shared_resources_yaml_path.exists():
+        print(f"[X] Master shared resources manifest not found: {master_shared_resources_yaml_path}")
+        return
+
+    try:
+        with open(master_shared_resources_yaml_path, 'r') as f:
+            manifest = yaml.safe_load(f)
+    except Exception as e:
+        print(f"[X] Error loading shared resources manifest {master_shared_resources_yaml_path}: {e}")
+        return
+
+    if not manifest or 'shared_resources' not in manifest:
+        print(f"[!] No 'shared_resources' defined in {master_shared_resources_yaml_path} or manifest is empty.")
+        return
+
+    master_config_root = master_shared_resources_yaml_path.parent
+    sync_info = {
+        "last_sync_timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "source_manifest": str(master_shared_resources_yaml_path),
+        "synced_items": []
+    }
+
+    for item in manifest['shared_resources']:
+        item_type = item.get('type')
+        item_source_rel = item.get('source')
+        item_target_rel = item.get('target')
+
+        if not all([item_type, item_source_rel, item_target_rel]):
+            print(f"[X] Skipping invalid item in manifest: {item} (missing type, source, or target)")
+            continue
+
+        source_abs = (master_config_root / item_source_rel).resolve()
+        target_abs = (project_path / item_target_rel).resolve()
+
+        print(f"  Processing: [{item_type}] {item_source_rel} -> {item_target_rel}")
+        print(f"    Source Absolute: {source_abs}")
+        print(f"    Target Absolute: {target_abs}")
+
+        # Ensure source exists
+        if not source_abs.exists():
+            print(f"    [X] Source path does not exist: {source_abs}")
+            sync_info['synced_items'].append({
+                "source": str(item_source_rel),
+                "target": str(item_target_rel),
+                "status": "error",
+                "message": f"Source not found: {source_abs}"
+            })
+            continue
+
+        # Ensure target parent directory exists
+        target_abs.parent.mkdir(parents=True, exist_ok=True)
+
+        try:
+            if item_type == "symlink_file":
+                if target_abs.exists() and target_abs.is_symlink():
+                    target_abs.unlink()
+                elif target_abs.exists(): # It's a real file/dir, remove it before symlinking
+                    print(f"    [!] Target {target_abs} exists and is not a symlink. Removing it.")
+                    if target_abs.is_dir():
+                        shutil.rmtree(target_abs)
+                    else:
+                        target_abs.unlink()
+                target_abs.symlink_to(source_abs)
+                print(f"    [✓] Symlinked file: {target_abs} -> {source_abs}")
+                sync_info['synced_items'].append({"source": str(item_source_rel), "target": str(item_target_rel), "status": "symlinked_file"})
+            
+            elif item_type == "symlink_dir":
+                if target_abs.exists() and target_abs.is_symlink():
+                    target_abs.unlink() # Remove old symlink
+                elif target_abs.exists(): # It's a real dir/file, remove it
+                    print(f"    [!] Target {target_abs} exists and is not a symlink. Removing it.")
+                    if target_abs.is_dir():
+                        shutil.rmtree(target_abs)
+                    else:
+                        target_abs.unlink()
+                # For directory symlinks, target_is_directory=True is important on Windows
+                target_abs.symlink_to(source_abs, target_is_directory=True)
+                print(f"    [✓] Symlinked directory: {target_abs} -> {source_abs}")
+                sync_info['synced_items'].append({"source": str(item_source_rel), "target": str(item_target_rel), "status": "symlinked_dir"})
+
+            elif item_type == "copy_file":
+                if target_abs.exists():
+                    print(f"    [!] Target {target_abs} exists. Removing it before copying.")
+                    if target_abs.is_dir(): # Should not happen if source is a file
+                        shutil.rmtree(target_abs)
+                    else:
+                        target_abs.unlink()
+                shutil.copy2(source_abs, target_abs) # copy2 preserves metadata
+                print(f"    [✓] Copied file: {source_abs} -> {target_abs}")
+                sync_info['synced_items'].append({"source": str(item_source_rel), "target": str(item_target_rel), "status": "copied_file"})
+            
+            elif item_type == "copy_dir":
+                if target_abs.exists():
+                    print(f"    [!] Target {target_abs} exists. Removing it before copying.")
+                    shutil.rmtree(target_abs) # Remove existing directory/file
+                shutil.copytree(source_abs, target_abs) # copytree copies directory contents
+                print(f"    [✓] Copied directory: {source_abs} -> {target_abs}")
+                sync_info['synced_items'].append({"source": str(item_source_rel), "target": str(item_target_rel), "status": "copied_dir"})
+
+            else:
+                print(f"    [X] Unknown item type: {item_type}")
+                sync_info['synced_items'].append({
+                    "source": str(item_source_rel),
+                    "target": str(item_target_rel),
+                    "status": "error",
+                    "message": f"Unknown type: {item_type}"
+                })
+        except Exception as e:
+            print(f"    [X] Error processing item {item}: {e}")
+            sync_info['synced_items'].append({
+                "source": str(item_source_rel),
+                "target": str(item_target_rel),
+                "status": "error",
+                "message": str(e)
+            })
+
+    # Write sync_info
+    project_vanta_dir = project_path / ".vanta"
+    project_vanta_dir.mkdir(parents=True, exist_ok=True)
+    sync_info_file = project_vanta_dir / ".sync-info.json"
+    try:
+        with open(sync_info_file, 'w') as f:
+            json.dump(sync_info, f, indent=2)
+        print(f"[✓] Sync info written to {sync_info_file}")
+    except Exception as e:
+        print(f"[X] Error writing sync info to {sync_info_file}: {e}")
+
 def cmd_list():
     print("Available commands: scan, link, bootstrap, list")
 
@@ -75,6 +210,11 @@ def cmd_bootstrap(project_path: Path, secure=False, password=None):
     print(f"[BOOTSTRAP] Running full symbolic binding...")
     cmd_scan(project_path)
     cmd_link(project_path, secure=secure, password=password)
+    
+    # Assuming shared_resources.yaml is in the root of the current project directory (where cli.py is)
+    # This path points to the shared_resources.yaml in the *current* project, acting as the master.
+    master_manifest_path = Path(".").resolve() / "shared_resources.yaml"
+    cmd_sync_shared_resources(project_path, master_manifest_path)
 
 def cmd_add_secret(key, value, secure=False, password=None):
     """Add or update a secret"""
@@ -123,6 +263,11 @@ if __name__ == "__main__":
     scanroot_parser = subparsers.add_parser("scan-root")
     scanroot_parser.add_argument("--dir", required=True)
 
+    # New subparser for sync-shared-resources
+    sync_shared_parser = subparsers.add_parser("sync-shared-resources", help="Synchronize shared resources from a master manifest to a project.")
+    sync_shared_parser.add_argument("project_path", type=Path, help="Path to the target project directory.")
+    sync_shared_parser.add_argument("master_shared_resources_yaml_path", type=Path, help="Path to the master shared_resources.yaml manifest file.")
+
     subparsers.add_parser("list")
 
     args = parser.parse_args()
@@ -153,5 +298,7 @@ if __name__ == "__main__":
         watch_project(str(args.project_path))
     elif args.command == "add-secret":
         cmd_add_secret(args.key, args.value, secure=args.secure, password=password)
+    elif args.command == "sync-shared-resources":
+        cmd_sync_shared_resources(args.project_path, args.master_shared_resources_yaml_path)
     else:
         parser.print_help()

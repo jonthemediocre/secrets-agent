@@ -1,0 +1,72 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# RULE TYPE: Always (Core VANTA Event Governance)
+# FILE PATTERNS: N/A (Universal Event Governance Principle)
+
+# 101: VANTA Kernel Event Bus (KEB) Governance Protocol
+
+## 1. Purpose
+This rule establishes the governance framework for defining, managing, and utilizing events communicated via the VantaMasterCore Kernel Event Bus (KEB), as specified in `ADR-VMC-KEB-001`.
+
+## 2. Scope
+This protocol applies to all events published to or consumed from the KEB by any VANTA component (agents, services, core).
+
+## 3. Core Principles
+
+*   **Standardization:** Events MUST adhere to defined schemas.
+*   **Discoverability:** Event schemas MUST be centrally registered and versioned.
+*   **Clarity:** Event names and payloads MUST be clear and unambiguous.
+*   **Immutability:** Once published, an event payload SHOULD NOT be mutated (publish new events for state changes).
+*   **Idempotency:** Consumers SHOULD be designed to handle duplicate events gracefully where possible.
+*   **Decoupling:** Events should represent meaningful state changes or occurrences, avoiding tight coupling between producer and consumer logic.
+
+## 4. Event Schema Management
+
+*   **Registry Location:** The canonical source for event schemas is the `/event_schemas/` directory within the VANTA project.
+*   **Schema Format:** JSON Schema (Draft 7 or later) is the standard format. Each schema file should correspond to a specific event type and version (e.g., `agent_started.v1.schema.json`).
+*   **Base Schema:** All event schemas MUST conceptually inherit from a base schema (`_base_event.v1.schema.json` or similar) defining mandatory fields like `eventId` (UUID), `timestamp` (ISO8601 UTC), `sourceSystem` (agent/service ID), `eventType` (e.g., "AgentStarted.v1"), `schemaVersion`, `correlationId` (optional UUID).
+*   **Versioning:** Semantic versioning (MAJOR.MINOR) MUST be used for schemas. Backwards-incompatible changes require a MAJOR version bump.
+*   **Governance Process:** Adding or modifying schemas requires:
+    1.  Drafting the schema.
+    2.  Submitting a Pull Request.
+    3.  Validation against JSON Schema standards (automated via CI - see `VANTA Kernel Protocol Automation`).
+    4.  Review for clarity, necessity, and adherence to principles.
+    5.  Merging and updating documentation (automated via CI).
+
+## 5. Event Naming Conventions
+
+*   Use `PascalCase` for event type names.
+*   Follow a `Domain.Noun.VerbPastTense.Version` pattern (e.g., `Agent.Lifecycle.Started.v1`, `Data.Entity.Unified.v2`).
+*   Names should clearly indicate the event's purpose.
+
+## 6. Event Payload Guidelines
+
+*   Payloads MUST be valid JSON.
+*   Include sufficient context for consumers but avoid excessive data.
+*   Do NOT include sensitive information (PII, credentials) directly in payloads unless specifically required and secured (e.g., encrypted fields).
+*   Reference entity IDs rather than embedding large objects where feasible.
+
+## 7. KEB Client Library (`vanta_seed.utils.keb_client`)
+
+*   The standard KEB client library MUST:
+    *   Provide simple `publish(event_type, payload)` and `subscribe(event_type, handler)` methods.
+    *   Automatically add mandatory base schema fields (`eventId`, `timestamp`, etc.) during publishing.
+    *   Validate outgoing payloads against the registered schema before publishing.
+    *   Handle connection management and error handling for the underlying broker (Redis Streams).
+
+## 8. Tooling & Automation
+
+*   **Schema Validation:** CI workflows MUST validate all schemas in `/event_schemas/`.
+*   **Documentation Generation:** CI workflows SHOULD automatically update `docs/events.md` based on the schema registry.
+*   **Stub Generation (Optional):** Tooling MAY be developed to generate Pydantic models or typed client stubs from schemas.
+
+## 9. Compliance
+
+*   All VANTA components interacting with the KEB MUST adhere to this protocol.
+*   The `GuardianAgent` MAY monitor the KEB for non-compliant events or patterns.
+
+*This protocol ensures a robust, maintainable, and understandable event-driven architecture for VANTA.*
+

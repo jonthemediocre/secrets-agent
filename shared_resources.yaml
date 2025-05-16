@@ -1,0 +1,10 @@
+shared_resources:
+  - type: symlink_dir
+    source: ".cursor/rules/common_mcp_rules"  # Assuming a sub-directory for truly common rules
+    target: ".cursor/rules/common_mcp_rules"  # Target in projects consuming this 
+  - type: copy_file
+    source: "templates/LICENSE.template"
+    target: "LICENSE" # Target filename in projects
+  - type: copy_dir
+    source: "templates/docs_template"
+    target: "docs/project_docs" # Target directory in projects 

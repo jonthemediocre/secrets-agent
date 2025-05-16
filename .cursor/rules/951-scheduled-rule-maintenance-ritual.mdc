@@ -1,0 +1,62 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Manual / Process Description
+# FILE PATTERNS: .cursor/scheduler/run_mdc_maintenance.py
+# INTENDED AUDIENCE: Developers, System Administrators, CI/CD Systems
+
+# 951: Scheduled MDC Rule Maintenance Ritual
+
+## 1. Purpose
+
+This document describes the **Scheduled MDC Rule Maintenance Ritual**, which utilizes the `".cursor/scheduler/run_mdc_maintenance.py"` script. The goal of this ritual is to ensure the ongoing quality, consistency, and correctness of all MDC rules within the `".cursor/rules/"` directory through automated validation and formatting.
+
+## 2. The Maintenance Script: `run_mdc_maintenance.py`
+
+*   **Location:** `".cursor/scheduler/run_mdc_maintenance.py"`
+*   **Functionality:** This script serves as a centralized executor for MDC rule hygiene tasks. Currently, it performs the following actions in sequence:
+    1.  **Validates MDC Rules:** Executes `"scripts/validate_mdc_rules.py"` to check for syntax errors, structural issues, broken links, and glob pattern functionality within all `.mdc` files.
+    2.  **Formats MDC Rules:** Executes `"scripts/format_mdc_rules.py"` to automatically format the YAML frontmatter of all `.mdc` files according to predefined standards (e.g., key order), preserving comments.
+*   **Output:** The script prints detailed output from each sub-script and indicates overall success or failure.
+
+## 3. Scheduling and Execution
+
+The `"run_mdc_maintenance.py"` script is designed to be executed by various means, effectively creating a "scheduler" at the `.cursor` level once an external trigger is configured:
+
+*   **Manual Execution:**
+    *   Developers can run this script manually from the project root as needed:
+        ```bash
+        python .cursor/scheduler/run_mdc_maintenance.py
+        ```
+*   **Operating System Scheduler (Cron/Task Scheduler):
+    *   For project-specific, automated local checks, you can set up a cron job (on Linux/macOS) or a Task Scheduler job (on Windows) to execute the script at regular intervals (e.g., daily, weekly).
+        *   Example Cron (daily at 3 AM): `0 3 * * * /usr/bin/python /path/to/your/project/.cursor/scheduler/run_mdc_maintenance.py >> /path/to/your/project/logs/mdc_maintenance.log 2>&1`
+*   **CI/CD Integration (e.g., GitHub Actions):
+    *   This script can be integrated into a scheduled workflow in your CI/CD pipeline to perform rule hygiene checks automatically for the repository.
+    *   Example GitHub Actions schedule trigger:
+        ```yaml
+        on:
+          schedule:
+            - cron: '0 5 * * SUN' # Run every Sunday at 5 AM UTC
+        ```
+*   **Git Pre-Commit Hook:
+    *   Parts of this script (especially validation) could be adapted to run as a pre-commit hook to catch issues before they are committed.
+*   **VANTA Internal Scheduler (Future):
+    *   If/when the VANTA framework implements its own robust internal agent scheduler (e.g., using APScheduler as discussed), that scheduler could be configured to run `".cursor/scheduler/run_mdc_maintenance.py"` as a periodic internal maintenance task for the VANTA project itself.
+
+## 4. Benefits
+
+*   **Proactive Maintenance:** Regularly catches and fixes issues in MDC rules.
+*   **Consistency:** Ensures all rules adhere to formatting standards.
+*   **Reliability:** Improves the reliability of the AI assistant, which depends on correct and well-formed rules.
+*   **Automation:** Reduces manual effort in maintaining the rule set.
+
+## 5. Customization
+
+The `"run_mdc_maintenance.py"` script can be extended to include more advanced maintenance tasks, such as:
+*   Triggering the conceptual `"MDC Rule Optimizer Agent"` (defined in `"909-mdc-rule-optimization-protocol.mdc"`).
+*   Generating reports on rule statistics or health.
+
+By copying the `".cursor"` directory (containing this script and its dependent validation/formatting scripts) to new projects, you effectively propagate this standardized maintenance ritual capability.

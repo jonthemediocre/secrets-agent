@@ -1,0 +1,114 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# RULE TYPE: Best Practice / Integration Guideline
+# FILE PATTERNS: vanta_seed/core/mcp_server_tools.py, config/tool_registry.yaml (adjust as needed)
+
+# 926: VANTA External MCP Tool Integration Standard
+
+## Purpose
+This rule outlines the standard procedure for integrating third-party MCP (Master Control Program) tools, especially those discovered or installed via external mechanisms like Smithery CLI, into the VANTA framework's internal tool registry and execution capabilities. This ensures consistent, secure, and maintainable access to external functionalities for VANTA agents.
+
+## Prerequisites
+- The external MCP tool should be installed and accessible (e.g., as a running service, SaaS API).
+- API documentation for the external tool (endpoint URL, request/response formats, authentication method, parameters) MUST be available.
+
+## Integration Steps
+
+1.  **API Analysis:**
+    *   Identify the exact HTTP endpoint(s) for the tool's functionality.
+    *   Determine the required HTTP method (GET, POST, etc.).
+    *   Identify all required and optional parameters for the request (query parameters, request body).
+    *   Understand the expected structure of successful responses and error responses.
+    *   Determine the authentication mechanism (e.g., API Key in header, Bearer token, OAuth).
+
+2.  **Secure Credential Management (Ref: `1003-coding_agent-external_api_resilience.mdc`):**
+    *   Store any required API keys, tokens, or other secrets securely using environment variables (`os.getenv`) or a dedicated secrets management system configured for VANTA.
+    *   **DO NOT** hardcode credentials in the VANTA codebase.
+
+3.  **Tool Definition (Ref: `921-mcp-server-integration.mdc`):**
+    *   Define the tool using VANTA's standard `ToolDefinition` dataclass (or equivalent structure).
+    *   Specify the `name`, `category` (e.g., `ToolCategory.WEB`, `ToolCategory.AI`), `description`, `parameters` (with types), and `required_params`.
+    *   Ensure the `name` is unique and descriptive within VANTA's tool namespace.
+
+4.  **Tool Registration:**
+    *   Register the `ToolDefinition` with VANTA's central tool registry (e.g., the `MCPServerTools` instance within `VantaMasterCore` or a configuration file loaded by it).
+    *   Ensure the registration happens during VANTA's initialization sequence.
+
+5.  **Implementation of Execution Logic:**
+    *   Implement the actual HTTP call logic within the appropriate VANTA module (e.g., as a private method `_execute_<tool_name>_tool` within the `MCPServerTools` class or a dedicated integration service).
+    *   Use a robust HTTP client library (e.g., `httpx` preferred for async, or `requests`).
+    *   Construct the request URL, headers (including authentication), and body based on the input `params` provided to `execute_tool`.
+    *   Implement necessary error handling:
+        *   Catch network errors (`Timeout`, `ConnectionError`).
+        *   Handle non-2xx HTTP status codes appropriately (raise exceptions or return structured errors).
+        *   Parse the response body (e.g., JSON) and handle potential parsing errors.
+        *   Implement retry logic with backoff for transient server errors (5xx) if appropriate (Ref: `1003`).
+        *   Include reasonable `timeout` values for all external calls (Ref: `1003`).
+    *   Return the relevant data from the successful response in the format expected by the `ToolResult` structure.
+
+6.  **Dependency Management:**
+    *   Add any new external library dependencies (e.g., `httpx`) to `requirements.in` and regenerate `requirements.txt` using `pip-compile`.
+
+7.  **Documentation:**
+    *   Document the newly integrated tool's availability, parameters, and expected usage within VANTA's internal documentation (e.g., `docs/tools.md`, `THEPLAN.md`, or agent-specific docs).
+
+8.  **Testing (Ref: `1010-coding_agent-test_coverage.mdc`):**
+    *   Write unit/integration tests for the execution logic.
+    *   Use mocking libraries (e.g., `pytest-mock`, `respx` for `httpx`) to simulate the external API responses (both success and error cases) without making actual network calls during tests.
+    *   Verify correct parameter handling, authentication header construction, response parsing, and error handling.
+
+## Example Snippet (Conceptual Implementation within `MCPServerTools`)
+
+```python
+# Example conceptual implementation within MCPServerTools class
+
+# ... (Assume ToolDefinition for 'mermaid_render' is registered) ...
+
+async def _execute_mermaid_render_tool(self, params: Dict[str, Any]) -> Any:
+    """Executes the external Mermaid rendering tool."""
+    mermaid_code = params.get("code")
+    output_format = params.get("format", "svg") # Example optional param with default
+
+    if not mermaid_code:
+        raise ValueError("Missing required parameter: code")
+
+    api_key = os.getenv("MERMAID_MCP_API_KEY")
+    endpoint = os.getenv("MERMAID_MCP_ENDPOINT") # Get from config/env
+
+    if not api_key or not endpoint:
+        raise ValueError("Mermaid MCP API Key or Endpoint not configured.")
+
+    headers = {"Authorization": f"Bearer {api_key}"}
+    payload = {"code": mermaid_code, "format": output_format}
+
+    async with httpx.AsyncClient(timeout=15.0) as client: # Use httpx for async
+        try:
+            response = await client.post(endpoint, json=payload, headers=headers)
+            response.raise_for_status() # Raise exception for 4xx/5xx
+            # Assuming the API returns the rendered output directly or a URL
+            return response.json() # Or response.text, response.content depending on API
+        except httpx.TimeoutException:
+            # Log error
+            raise TimeoutError("Request to Mermaid MCP timed out.")
+        except httpx.RequestError as e:
+            # Log error (e.g., connection error)
+            raise ConnectionError(f"Network error calling Mermaid MCP: {e}")
+        except httpx.HTTPStatusError as e:
+            # Log error (specific HTTP error)
+            # Consider inspecting e.response.status_code for specific handling
+            # You might parse e.response.text for API error details
+            raise ValueError(f"Mermaid MCP API error: {e.response.status_code} - {e.response.text}")
+        except Exception as e:
+            # Catch other potential errors (e.g., JSON decode error)
+            # Log error
+            raise RuntimeError(f"Unexpected error during Mermaid MCP call: {e}")
+
+# ... (MCPServerTools.execute_tool would call this method) ...
+```
+
+## Compliance
+All new external MCP tool integrations within VANTA MUST follow these steps to ensure consistency, security, and maintainability. Deviations require explicit justification in `THEPLAN.md`.
+

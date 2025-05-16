@@ -4,7 +4,7 @@ services:
   # Secrets Agent API service
   api:
     build: .
-    command: python agent_core/router.py
+    command: gunicorn --bind 0.0.0.0:5000 agent_core.router:app
     restart: unless-stopped
     ports:
       - "5000:5000"
@@ -12,15 +12,19 @@ services:
       - ./data:/app/data
       - ./secrets_secure:/app/secrets_secure
       - ./test_project:/app/projects/test_project
-      - ./secrets.yaml:/app/secrets.yaml
-      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      # - ./secrets.yaml:/app/secrets.yaml # Potentially managed by the app itself now
+      # - ./secrets.yaml.bak:/app/secrets.yaml.bak
       - secrets_volume:/app/secrets
     environment:
       - PRODUCTION=true
-      - API_KEY=${API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - API_KEY=${API_KEY} # Provided via .env file (not committed) or runtime injection
+      - OPENAI_API_KEY=${OPENAI_API_KEY} # Provided via .env file (not committed) or runtime injection
       - SECURE_STORAGE=true
-      - MASTER_PASSWORD=${MASTER_PASSWORD}
+      # MASTER_PASSWORD should be provided securely at runtime.
+      # For Docker Swarm/Kubernetes, use Docker secrets.
+      # For other environments, inject as an environment variable at container start.
+      # For local development, you can add MASTER_PASSWORD to a .env file (ensure .env is in .gitignore).
+      # e.g., - MASTER_PASSWORD=${MASTER_PASSWORD_FROM_ENV}
     networks:
       - secrets-network
 
@@ -33,14 +37,14 @@ services:
       - ./projects:/app/projects
       - ./test_project:/app/projects/test_project
       - ./secrets_secure:/app/secrets_secure
-      - ./secrets.yaml:/app/secrets.yaml
-      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      # - ./secrets.yaml:/app/secrets.yaml
+      # - ./secrets.yaml.bak:/app/secrets.yaml.bak
       - secrets_volume:/app/secrets
     environment:
       - PRODUCTION=true
-      - API_KEY=${API_KEY}
+      - API_KEY=${API_KEY} # Provided via .env file (not committed) or runtime injection
       - SECURE_STORAGE=true
-      - MASTER_PASSWORD=${MASTER_PASSWORD}
+      # MASTER_PASSWORD should be provided securely (see comments in 'api' service)
     networks:
       - secrets-network
 
@@ -55,15 +59,15 @@ services:
       - ./data:/app/data
       - ./secrets_secure:/app/secrets_secure
       - ./test_project:/app/projects/test_project
-      - ./secrets.yaml:/app/secrets.yaml
-      - ./secrets.yaml.bak:/app/secrets.yaml.bak
+      # - ./secrets.yaml:/app/secrets.yaml
+      # - ./secrets.yaml.bak:/app/secrets.yaml.bak
       - secrets_volume:/app/secrets
     environment:
       - PRODUCTION=true
-      - API_KEY=${API_KEY}
-      - DEBUG=true
+      - API_KEY=${API_KEY} # Provided via .env file (not committed) or runtime injection
+      - DEBUG=false
       - SECURE_STORAGE=true
-      - MASTER_PASSWORD=${MASTER_PASSWORD}
+      # MASTER_PASSWORD should be provided securely (see comments in 'api' service)
     networks:
       - secrets-network
 
