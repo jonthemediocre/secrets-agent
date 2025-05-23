@@ -1,0 +1,159 @@
+# Event Schema for System-Level Events
+# Version: 1.0
+# Defines the structure for events related to system operations, status, and configuration.
+
+# --- Base System Event Structure (Conceptual) ---
+# Most system events might share a similar base, but it could differ from Task Events.
+# For simplicity here, we'll define fields directly, but in a larger system,
+# a BaseSystemEvent could be defined in components.schemas.
+#
+# Common fields might include:
+# event_id:
+#   type: string
+#   format: uuid
+# timestamp_iso:
+#   type: string
+#   format: date-time
+# source_component_id: # e.g., 'VantaMasterCore', 'ConfigManager', 'HealthMonitor'
+#   type: string
+
+# --- SystemStartupCompletedEvent ---
+SystemStartupCompletedEvent:
+  description: Published when the Secrets Agent system has successfully started.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "VantaMasterCore" }
+    message: { type: string, default: "System startup completed successfully." }
+    active_profile: { type: string, description: "Name of the active configuration profile (e.g., 'production', 'development')." }
+    loaded_components:
+      type: array
+      items: { type: string }
+      description: List of major components or agents successfully initialized.
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - active_profile
+
+# Example: SystemStartupCompletedEvent
+# event_id: "s1a2b3c4-e5f6-7890-1234-567890abcdef"
+# timestamp_iso: "2024-07-15T09:00:00.000Z"
+# source_component_id: "VantaMasterCore"
+# message: "System startup completed successfully."
+# active_profile: "production"
+# loaded_components:
+#   - "SecretStorageAgent"
+#   - "AccessControlAgent"
+#   - "AuditLogAgent"
+#   - "KernelEventBusClient"
+
+# --- ConfigurationReloadedEvent ---
+ConfigurationReloadedEvent:
+  description: Published when the system's configuration has been reloaded.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "ConfigManager" }
+    reloaded_files:
+      type: array
+      items: { type: string }
+      description: List of configuration files that were reloaded (e.g., ["config.yaml", "secrets_policies.yaml"]).
+    changes_detected:
+      type: boolean
+      description: True if changes were detected and applied, false otherwise.
+    summary_of_changes: # Optional: a brief summary or list of changed keys
+      type: string
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - reloaded_files
+    - changes_detected
+
+# --- HealthStatusReportEvent ---
+HealthStatusReportEvent:
+  description: Periodically published to report the health status of system components.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "HealthMonitorAgent" }
+    overall_status:
+      type: string
+      enum: [HEALTHY, DEGRADED, UNHEALTHY]
+    component_statuses:
+      type: array
+      items:
+        type: object
+        properties:
+          component_id: { type: string }
+          status: { type: string, enum: [HEALTHY, DEGRADED, UNHEALTHY, UNKNOWN] }
+          message: { type: string, nullable: true }
+          metrics: { type: object, nullable: true, description: "Key metrics for the component." }
+        required:
+          - component_id
+          - status
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - overall_status
+    - component_statuses
+
+# Example: HealthStatusReportEvent
+# event_id: "h1b2c3d4-e5f6-7890-1234-567890abcdef"
+# timestamp_iso: "2024-07-15T09:05:00.000Z"
+# source_component_id: "HealthMonitorAgent"
+# overall_status: "HEALTHY"
+# component_statuses:
+#   - component_id: "DatabaseConnection"
+#     status: "HEALTHY"
+#     message: "Connected to PostgreSQL."
+#     metrics: { ping_ms: 15 }
+#   - component_id: "EncryptionService"
+#     status: "HEALTHY"
+#     message: "Hardware security module responsive."
+#   - component_id: "KEBConnection"
+#     status: "HEALTHY"
+#     message: "Connected to Redis Streams."
+
+# --- SecurityPolicyUpdatedEvent ---
+SecurityPolicyUpdatedEvent:
+  description: Published when a global security policy has been updated and applied.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "PolicyEnforcementAgent" }
+    policy_name: { type: string, description: "Name of the policy that was updated (e.g., 'PasswordComplexity', 'AuditLogRetention')." }
+    policy_version: { type: string, description: "New version of the policy." }
+    previous_version: { type: string, nullable: true, description: "Previous version of the policy." }
+    summary_of_change: { type: string }
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - policy_name
+    - policy_version
+    - summary_of_change
+
+# --- ResourceThresholdWarningEvent ---
+ResourceThresholdWarningEvent:
+  description: Published when a monitored system resource is nearing its capacity.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "ResourceMonitorAgent" }
+    resource_type: { type: string, description: "Type of resource (e.g., 'DiskSpace', 'Memory', 'DatabaseConnections')." }
+    resource_identifier: { type: string, description: "Specific identifier for the resource (e.g., '/var/log/audit', 'secrets_db_connection_pool')." }
+    current_value: { type: string } # String to allow for units e.g. "95%", "10GB remaining"
+    threshold_value: { type: string }
+    severity: { type: string, enum: [WARNING, CRITICAL] }
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - resource_type
+    - resource_identifier
+    - current_value
+    - threshold_value
+    - severity 

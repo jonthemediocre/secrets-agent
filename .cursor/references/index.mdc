@@ -124,6 +124,13 @@ All MCP tools are running as services and are available for use in your requests
 - **@cleaner.mdc @project-structure.mdc**: For code cleanup and organization
 - **@testing.mdc @logging.mdc**: For testable code with proper debugging
 
+## Architecture Decision Records
+**ADR-VMC-KEB-001.md**: Kernel Event Bus (KEB) design decision and rationale.
+
+## Integration Plans
+- **PLAN-KEB-PILOT-AGENTS.md**: Plan for pilot agents (DataUnifierAgent, CollapseMonitorAgent) integration with KEB.
+- **PLAN-KEB-INFRASTRUCTURE.md**: Deployment and management plan for Redis Streams event broker.
+
 ## Essential Project Documents
 - **TODO.md**: [ESSENTIAL] Project task list with priorities and current status
 - **README.md**: Project overview and setup instructions

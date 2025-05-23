@@ -1,111 +1,287 @@
-# 📜 THEPLAN.md — Secrets Agent Master Blueprint
+# 📜 ThePlan.md — Secrets Agent: Agentic Infrastructure Blueprint (v2)
 
 ---
 
-## 🧬 Mission
+## 🧬 Mission & Vision
 
-Create a secure, agentic, and symbolic app that handles:
-- AI API binding
-- Secrets management
-- CLI-first project scaffolding
-- Encrypted runtime environment patching
-- Full launch to production (web, desktop, VS Code)
+**Secrets Agent** is evolving beyond a mere secrets manager into a foundational **agentic infrastructure component**.
 
----
+**Core Mission:** To provide an exceptionally secure, locally-hosted, and programmatically extensible vault for managing secrets, configurations, and eventually, agentic toolsets.
 
-## 🛠 Modules
-
-- `cli.py`: Core command dispatcher
-- `vanta_export.py`: Format-agnostic export tool
-- `project_scanner.py`: Scans and applies `.rule.yaml` headers
-- `encrypted_store.py`: Fernet-based vault
-- `router.py`: Flask-based agent interface
-- `windows_gui_launcher.py`: Visual interface for CLI control
-- `test_runner.py`: Runs core symbolic ops
+**Strategic Vision:** To serve as a private, auditable, and resilient backbone for both human developers and autonomous AI agents, enabling secure and efficient secret access, lifecycle management, and inter-agent cooperation. This platform aims to combine the rigor of cryptographic best practices with the flexibility of modern agentic architectures.
 
 ---
 
-## 🎨 Branding
+## 🚀 Core Architectural Pillars & Differentiators
 
-Reference: `BRAND_GUIDE.md`
-
-Includes:
-- Logos
-- Hex colors
-- Font use
-- Voice & copy tone
-- Splash art design rules
+*   **Agent-Native by Design:** Unlike traditional secret managers (1Password, Doppler, HashiCorp Vault), Secrets Agent is engineered from the ground up to be queried, mutated, and extended by other software agents. This is a primary strategic advantage.
+*   **Real Cryptographic Rigor (SOPS + Age):** Anchored in robust, auditable encryption using SOPS (Secrets OPerationS) with Age encryption. This provides a verifiable security layer, not just obfuscation.
+*   **Local-First, Encrypted Storage:** All vault data is stored locally and encrypted, ensuring user control, privacy, and full offline capability—a significant advantage over cloud-dependent solutions.
+*   **Rich, Project-Based Vault Schema:** Features a structured, project-aware vault with comprehensive metadata per secret (tags, timestamps, source, notes), surpassing the often flat key-value UX of many CLI-first tools.
+*   **Cross-Platform Parity (Mobile & Web):** Built with React Native and Expo, targeting both mobile and web interfaces for consistent user experience and accessibility.
+*   **Token-Aware HTTP Management (`AuthAgent`, `APIManagerAgent`):** Integrated capabilities for secure token handling, refresh, and injection for authenticated operations.
 
 ---
 
-## 🖼 Visual Blueprints
+## 🎯 Key Capabilities & Feature Roadmap (Iterative)
 
-- ✅ `windows_ui_mockup.png` — GUI layout
-- ✅ `landing.json` — SEO + structured data
-- ✅ `logo glyphs` — vector-based icons
-- 🚧 Suggested: `ai_panel_mockup.png`, `collapse_log_chart.svg`
+*(Reflects current status and near-term goals based on recent audit)*
+
+### Phase 1: Core Vault & Authentication (Largely Complete)
+
+*   **[✅] Secure User Authentication (`AuthAgent`):** Google OAuth (Expo/Web), PKCE, token management, secure storage, user profile. Fully tested.
+*   **[✅] Foundational Vault Structure (`VaultAgent` - In-Memory):** Schema (`VaultTypes.ts`), CRUD for projects/secrets, global tags. Tested (in-memory).
+*   **[✅] SOPS Encrypted Vault I/O (`VaultAgent` + `SOPSIntegration`):**
+    *   Logic for `sops` CLI interaction to encrypt/decrypt vault (`SOPSIntegration.ts`).
+    *   `VaultAgent.loadVault()` & `saveVault()` integrated with SOPS.
+    *   Rigorous testing with mocked SOPS CLI completed.
+
+### Phase 2: Enhancing Core & Agentic Capabilities
+
+*   **[🧊 TODO] Full `.env` Import/Export Flow (UI & Logic):**
+    *   **Priority 2:** Scan `.env`, preview mappings, confirm, commit to vault. For export: filter, redact toggle, download.
+    *   Address potential conflicts and provide clear user feedback.
+*   **[🧊 TODO] Secret Rotation Tracking & Reminders (Dashboard Integration):**
+    *   **Priority 3:** Add `rotationPolicy` (e.g., `duration`, `nextRotationDate`), `lastRotated` to `SecretEntry`.
+    *   Implement warnings/visual cues in the future `SecretsPanel.tsx`.
+*   **[🧊 TODO] Per-Secret Access Logs (Auditing):**
+    *   Introduce `accessedAt: string[]` or a more structured log to `SecretEntry` or a separate (optionally unencrypted for performance) `.vault.accesslog.yaml`.
+*   **[🧊 TODO] Environment Switching UX (`dev`, `stage`, `prod` vaults):**
+    *   Surface existing support for environment-suffixed vault files (e.g., `app.secrets.dev.yaml`) in the UI.
+    *   Add a UI toggle and potentially auto-detection based on project context (e.g., git branch, folder).
+*   **[🧊 TODO] Vault File Switching / Multi-Profile Mode:**
+    *   Dedicated UI component (`VaultSwitcher`) and API abstraction.
+
+### Phase 3: Advanced Agentic Features & Ecosystem Integration
+
+*   **[🧊 TODO] Secret Suggestion via Code/README Scan (`SecretScaffoldAgent`):**
+    *   New agent to analyze `.env.example`, `docker-compose.yml`, `README.md` etc., to suggest secret schemas or missing secrets.
+*   **[🧊 TODO] Secrets Misuse Detection (Watchdog):**
+    *   Optional service/feature to alert if decrypted files (e.g., temporary `.env` from export) persist unencrypted for too long.
+*   **[🧊 TODO] Multi-Key Sharing for Vaults (Age Recipients):**
+    *   Extend vault creation/management to support multiple `age` public keys for shared team vaults (serverless sharing).
+*   **[🧊 TODO] Vault Fingerprint Hashing (Integrity Check):**
+    *   Display a SHA256 hash of the (potentially canonicalized) `.vault.yaml` content in the UI for integrity verification.
+*   **[🧊 TODO] Per-Secret Access Control (Granular Permissions):**
+    *   Even for single-user, allow flags like "hidden from auto-export," "require confirmation for access/export."
+*   **[🧊 TODO] Secret History Timeline (Visual):**
+    *   Track changes per-secret, potentially stored in a `.vault-history.yaml` or integrated with Git if the vault is in a repo.
+
+### P3: Secret Lifecycle Management - Rotation (Conceptual)
+- **Objective**: Implement mechanisms for automated and manual secret rotation.
+- **Components**:
+    - P3.1: Model `RotationPolicy.ts`
+    - P3.2: Agent `SecretRotatorAgent.ts`
+    - P3.3: Service `RotationSchedulerService.ts`
+    - P3.4: API Endpoints for rotation
+    - P3.5: UI Components for rotation policy management
+    - P3.6: Test Suite for rotation
+
+### UI/UX Principles & Framework
+- **Inspiration**: HashiCorp Vault UI (clear navigation, contextual main area, action-oriented design).
+- **Key UI Components Needed (Conceptual Drafts Done for some):**
+    - `AppLayout.tsx` - Main application shell.
+    - `EnvManagerPanel.tsx` - For `.env` import/export.
+    - `RotationPolicyManager.tsx` - For managing secret rotation policies.
+- **Chosen UI Framework**: `shadcn/ui` will be adopted for building the user interface. This decision aims to leverage its accessible, customizable, and modern component library.
+    - **Impact**: Existing conceptual UI drafts (`AppLayout.tsx`, `EnvManagerPanel.tsx`, `RotationPolicyManager.tsx`) will need to be refactored to utilize `shadcn/ui` components. Core setup of `shadcn/ui` will be a prerequisite.
+
+### Phase 4: Advanced Vault Operations (Conceptual)
+
+*   **[🧊 TODO] Secret Sharing via Code/README Scan (`SecretScaffoldAgent`):**
+    *   New agent to analyze `.env.example`, `docker-compose.yml`, `README.md` etc., to suggest secret schemas or missing secrets.
+*   **[🧊 TODO] Secrets Misuse Detection (Watchdog):**
+    *   Optional service/feature to alert if decrypted files (e.g., temporary `.env` from export) persist unencrypted for too long.
+*   **[🧊 TODO] Multi-Key Sharing for Vaults (Age Recipients):**
+    *   Extend vault creation/management to support multiple `age` public keys for shared team vaults (serverless sharing).
+*   **[🧊 TODO] Vault Fingerprint Hashing (Integrity Check):**
+    *   Display a SHA256 hash of the (potentially canonicalized) `.vault.yaml` content in the UI for integrity verification.
+*   **[🧊 TODO] Per-Secret Access Control (Granular Permissions):**
+    *   Even for single-user, allow flags like "hidden from auto-export," "require confirmation for access/export."
+*   **[🧊 TODO] Secret History Timeline (Visual):**
+    *   Track changes per-secret, potentially stored in a `.vault-history.yaml` or integrated with Git if the vault is in a repo.
 
 ---
 
-## 📦 Distributions
+## 💡 Visionary Threads & Future Architecture
 
-- Web via Netlify
-- `.exe` for Windows
-- VS Code extension
-- Optional: Mobile wrapper
+### 1. `.cursor rules MDC` (Markdown Component Rules)
+
+*   **Concept:** A system for defining, parsing, and enforcing operational rules or behavioral expectations for agents and UI components within the "Secrets Agent" ecosystem.
+*   **Implementation Idea:**
+    *   Store rules in `docs/rules/*.mdc` or a central `docs/RULES.md`.
+    *   Develop a lightweight parser or convention for these rules.
+    *   Integrate rule checks/awareness into agent logic (e.g., `VaultAgent` checks a rule before performing a sensitive operation) or UI components.
+    *   Provide mechanisms for "tagging" code sections or agent functions with relevant rule IDs for discoverability and documentation.
+
+### 2. MCP Tool Repository as a Secure Vault
+
+*   **Concept:** Extend the `VaultAgent` paradigm to manage a registry of available tools (MCP tools, other agent capabilities, CLI paths, API keys for tools) as a secure, encrypted `.tool.vault.yaml`.
+*   **Benefits:**
+    *   Decentralized, secure tool discovery.
+    *   `APIManagerAgent` or a new `ToolBrokerAgent` could query this vault for tool availability, versions, permissions, or access credentials.
+    *   Enables dynamic, secure tool management without hardcoding, unique in the local-first agent space.
+
+### 3. A2A (Agent-to-Agent) Communication Standard & Manifest
+
+*   **Concept:** Define a standardized format (`a2a.yaml` or `AgentManifest.ts` interfaces) for agents to declare their capabilities, inputs, outputs, tool needs, and trust levels. This facilitates robust, predictable inter-agent cooperation. **Foundational work for this has significantly progressed with the implementation and governance of the Kernel Event Bus (KEB), including core event schemas and client libraries, establishing a robust mechanism for inter-agent messaging.**
+*   **Proposed Manifest Fields:**
+    *   `agentId`: Unique identifier for the agent.
+    *   `version`: Semantic version of the agent's interface.
+    *   `description`: Human-readable purpose.
+    *   `intent`: High-level goal the agent serves (could be a standardized vocabulary).
+    *   `inputSchema`: JSON schema defining required input structure.
+    *   `outputSchema`: JSON schema defining guaranteed output structure.
+    *   `toolRequirements`: List of tools/services needed (e.g., `sops_cli`, `google_oauth_token`).
+    *   `permissionsRequired`: List of permissions this agent needs on resources (e.g., `vault:read:projectX`, `file:write:/temp`).
+    *   `trustLevel`: e.g., `readOnly`, `mutatesStateNoConfirmation`, `mutatesStateWithConfirmation`.
+    *   `invokeSignature`: How to call the agent (e.g., function name, API endpoint pattern).
+    *   `errorCodes`: Standardized errors it might return.
+    *   `fallbacks`: Optional strategies or alternative agents to call on failure.
+*   **Impact:** Forms the basis for a symbolic cooperation protocol, moving beyond current ad-hoc agent integrations. **The KEB now provides the core mechanism to realize such a protocol.**
 
 ---
 
-## 💳 Licensing
+## 🏛️ External Ecosystem & Long-Term Integration Considerations
 
-- Stripe webhook at `/webhook`
-- Generates `license.json`
-- CLI runs `vanta license check`
+Insights from observing standard secrets management architectures (e.g., resembling HashiCorp Vault) highlight potential long-term evolution paths for the Secrets Agent, particularly if deeper integration with such ecosystems is desired.
+
+### Key Architectural Parallels & Learnings:
+
+*   **Cloud-Native Secrets Management Model:** Typical architectures involve:
+    *   **Clients** (human or machine) authenticating via diverse **identity providers**.
+    *   A central vault validating identity, applying **authorization rules**, and then retrieving secrets.
+    *   Support for multiple **authentication methods** (GitHub, LDAP, AWS IAM, etc.) and various **secrets engines** (Key/Value, SSH, Database, cloud-specific).
+
+### Relevance to `VaultAgent.ts` & Secrets Agent Evolution:
+
+While the Secrets Agent is currently local-first, considering these patterns informs future development:
+
+1.  **Enhanced Secret Metadata & Capabilities:**
+    *   **Source Tagging:** The ability to tag secrets with their origin (e.g., imported from GitHub, AWS, or created via UI) could be valuable for auditing and context.
+    *   **Dynamic Secret Engines/Token Types:** Future versions might explore concepts of dynamic or short-lived secrets, moving beyond static key-value pairs for certain use cases.
+    *   **Authorization Logic & Audit Trails:** As the agent ecosystem grows, more sophisticated internal authorization logic or identity-linked audit trails for secret access might become necessary.
+
+2.  **`.env` Import/Export Alignment:**
+    *   The current `.env` import/export functionality aligns well with the common "Key/Value" secrets engine paradigm.
+    *   The `SecretEntry` structure (key, value, tags, timestamps) is compatible with this model.
+    *   Future extensions could involve mapping these to specific paths within a more structured backend if integrated with a hierarchical key/value store.
+
+3.  **Potential HashiCorp Vault Integration (or similar):**
+    *   If direct integration with an external HashiCorp Vault instance becomes a requirement, `VaultAgent.ts` would need:
+        *   **API Connectors:** To securely communicate with the Vault API.
+        *   **Path Mapping:** Logic to map `.env` files or project-specific secrets to appropriate Vault paths (e.g., `secrets/myproject/dev/.env`).
+        *   **Authentication Handling:** Mechanisms to manage Vault tokens or other authentication methods required by the external Vault.
+    *   This would shift `VaultAgent.ts` from a purely local SOPS-based manager to a hybrid or client interacting with a more powerful external secrets backend.
+
+These considerations, while not immediate priorities, provide a strategic lens for future architectural decisions and feature development, ensuring the Secrets Agent can evolve to meet more complex enterprise or team-based requirements.
 
 ---
 
-## 📅 Launch Flow
+This plan will be updated iteratively as the project evolves and new strategic insights emerge.
 
-- Push GitHub repo
-- Deploy with Netlify
-- Run Stripe test checkout
-- Publish to ProductHunt + IndieHackers
+## 📊 Competitive Landscape & Gap Analysis
+
+### Summary
+
+Competitor platforms like AWS Secrets Manager provide automatic secret rotation and cross-region replication out of the box , Azure Key Vault supports both software- and HSM-backed secure containers for secrets and keys , and HashiCorp Vault generates dynamic secrets with fine-grained identity-based policies . Solutions such as Doppler integrate seamlessly with CI/CD pipelines, offering webhooks, Git-style activity logs, and rollback capabilities , while platforms like Google Secret Manager include versioning, replication policies, and Terraform integration for infrastructure as code . Moreover, these systems often include built-in audit logging through CloudTrail or similar services, ensuring compliance and traceability .
 
 ---
 
-## 🚀 Core Technology Stack
+### Integration & Automation
 
-This project acknowledges the **Enhanced AI Stack** outlined in `globalrules.md`. However, for the "Secrets Agent" application, the primary components will leverage a specific, established technology set focused on its core mission as a VS Code extension and Python-based backend.
+* **Automatic Rotation & Replication**
+  AWS Secrets Manager can automatically rotate database credentials on a configurable schedule without disrupting applications  and natively replicates secrets across multiple AWS Regions for disaster recovery .
+* **Pipeline & CI/CD Hooks**
+  Azure Key Vault integrates with Azure Resource Manager and Azure DevOps for pipeline-based deployments and access control . Doppler offers first-class CI/CD integrations, including webhooks for secret-change notifications and Git-style activity logs with rollback support .
+* **Developer Workflows**
+  1Password Secrets Automation exposes a Connect server and API for seamless secret retrieval in scripts and cloud applications . Google Secret Manager's API-first design simplifies integration into Terraform and GitHub Actions pipelines .
+* **Current Gap**
+  Secrets Agent currently lacks built-in scheduling for rotation, multi-region replication, and native CI/CD hooks, relying instead on custom scripts or manual processes.
 
-**Current & Primary Stack for Secrets Agent:**
+---
 
-*   **VS Code Extension:**
-    *   JavaScript (Node.js environment via VS Code API)
-    *   VS Code API (`vscode`)
-    *   `axios` for HTTP communication.
-*   **Backend & CLI Tools:**
-    *   Python
-    *   Flask (for `router.py` - the agent/API interface)
-    *   Fernet (for `encrypted_store.py` - cryptography)
-    *   Standard Python libraries for core logic.
-*   **Deployment:**
-    *   VS Code Extension Marketplace
-    *   Windows Executable (`.exe`)
-    *   Netlify (for potential web-based documentation or supplementary tools)
+### Secret Lifecycle Management
 
-**Integration with "Enhanced AI Stack" Components:**
+* **Dynamic Secrets & Leasing**
+  HashiCorp Vault can generate dynamic credentials for databases, PKI certificates, and cloud APIs, leasing and revoking them automatically at expiration .
+* **Versioning & Rollback**
+  Google Secret Manager supports first-class versioning, enabling pinning and rolling back to specific secret versions, and offers replication policies for regional data residency .
+* **Custom Rotation Logic**
+  AWS Secrets Manager integrates with AWS Lambda for custom rotation workflows and provides native rotation support for services like RDS and DocumentDB .
+* **Current Gap**
+  Secrets Agent only handles static secrets without automated rotation schedules, version histories, or lease-based expirations.
 
-While the full "Enhanced AI Stack" (e.g., Next.js, Prisma, Agentica) is not being implemented for the primary "Secrets Agent" components, this project **will integrate with the following specified AI components** from that stack:
+---
 
-*   **Cloud AI**: OpenAI and Claude APIs will be leveraged for advanced AI-driven features within the Secrets Agent (e.g., for future intelligent secret detection, analysis, or agentic capabilities built on top of the Python backend).
+### Security & Compliance
 
-**Justification for Deviation:**
+* **Encryption at Rest**
+  AWS encrypts secrets with customer-managed AWS KMS keys ; Azure Key Vault offers both software and hardware security module (HSM) backing ; Google Secret Manager uses Cloud KMS with VPC Service Controls for network-level protection .
+* **Compliance Certifications**
+  Doppler is SOC 2 verified, demonstrating formal compliance with security best practices and controls .
+* **Current Gap**
+  Secrets Agent relies on SOPS for file-based encryption, lacking managed HSM integration or formal compliance attestations out of the box.
 
-The "Secrets Agent" project has an established architecture tailored to its function as a developer tool integrated within VS Code and a supporting Python backend. The decision to utilize the current stack for its primary components is based on:
-1.  **Fitness for Purpose:** The existing stack is well-suited for building a VS Code extension and a lightweight Python backend for secret management and CLI operations.
-2.  **Development Velocity:** Leveraging the current stack allows for focused development on the core "Secrets Agent" functionalities.
-3.  **Targeted AI Integration:** The primary AI value will be delivered through direct integration with Cloud AI APIs (OpenAI, Claude) for specific features, rather than requiring a full-stack web framework or a complex agent orchestration framework like Agentica for the core product at this stage.
+---
 
-This approach allows the "Secrets Agent" to meet its immediate goals effectively while strategically incorporating powerful AI capabilities. Future, separate web frontends or more complex agentic systems developed under the "MetaFabric" vision may fully adopt the "Enhanced AI Stack."
+### Developer Experience & Tools
 
-Any further significant deviations from this stated approach or the adoption of other components from the "Enhanced AI Stack" will be documented here and are subject to CoE review.
+* **SDKs & CLI**
+  AWS and Azure both provide comprehensive SDKs, CLI tools, and Terraform providers for infrastructure as code workflows . Google Secret Manager's API-first design and Terraform module simplify secret management in CI/CD .
+* **Secret Store Interfaces**
+  Doppler's CLI and UI allow easy secret imports, environment scoping, and versioning without custom scripting . 1Password's Connect API and CLI enable secure secret fetches in any environment or CI step .
+* **Current Gap**
+  Secrets Agent includes a TypeScript `VaultAgent` for CRUD operations but has no integrated CLI, SDK language bindings, or Terraform provider for seamless automation.
+
+---
+
+### Observability & Auditing
+
+* **Audit Logging**
+  AWS Secrets Manager logs all API calls via CloudTrail, capturing rotation, replication, and access events for compliance and forensics .
+* **Activity Logs**
+  Azure Key Vault integrates with Azure Monitor and Activity Logs to alert on key and secret operations . Doppler provides Git-style activity logs with rollback capabilities .
+* **Current Gap**
+  Secrets Agent lacks built-in audit logging or an events dashboard, requiring manual instrumentation or third-party tooling for observability.
+
+---
+
+### UI & UX
+
+* **Web Consoles**
+  AWS, Azure, and Google all offer polished browser-based consoles with filtering, tagging, and role-based access controls .
+* **Dashboard Features**
+  Doppler's dashboard groups secrets by project and environment, shows visual diffs of version changes, and sends real-time notifications on updates .
+* **Mobile & Desktop Clients**
+  1Password includes location-aware "Nearby" filtering for quicker access to relevant items .
+* **Current Gap**
+  Secrets Agent is currently code-driven with no dedicated GUI, limiting accessibility for non-developer stakeholders.
+
+---
+
+### Extensibility & Ecosystem
+
+* **Infrastructure as Code**
+  Terraform, Ansible, and Kubernetes operators exist for major providers, enabling secrets management as part of deployment workflows ([hashicorp.com][1]).
+* **Provider Support**
+  AWS supports CloudFormation, Azure offers ARM templates, and Google integrates with Deployment Manager; Doppler and 1Password offer community plugins and APIs .
+* **Current Gap**
+  Secrets Agent lacks an official provider or operator ecosystem, constraining integration in large-scale or heterogeneous infrastructures.
+
+---
+
+### Pricing & Business Model
+
+* **Per-Secret & API Charges**
+  AWS Secrets Manager bills per secret and per 10,000 API calls plus KMS usage fees ; Azure Key Vault charges by operations and key types with separate HSM tiers ; Google offers a free tier for six secret versions, then per-version pricing .
+* **Team & Usage-Based Pricing**
+  Doppler's user-based pricing covers unlimited machine identities at no extra cost ; 1Password bundles Secrets Automation into organizational subscriptions with tiers for service accounts and Connect usage .
+* **Current Gap**
+  Secrets Agent has not yet defined a clear pricing model, making it difficult for customers to evaluate cost versus value.
+
+---
+
+By comparing these areas, you can prioritize features such as automated rotation, dynamic secret leasing, audit logging, HSM integration, GUI dashboards, and ecosystem providers to align Secrets Agent with market expectations.
+
+[1]: https://www.hashicorp.com/en/blog/terraform-1-10-improves-handling-secrets-in-state-with-ephemeral-values "Terraform 1.10 improves handling secrets in state with ephemeral ..."

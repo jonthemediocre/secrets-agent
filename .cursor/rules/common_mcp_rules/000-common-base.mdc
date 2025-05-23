@@ -3,3 +3,16 @@ description:
 globs:
 alwaysApply: false
 ---
+# Common Base Rules (Placeholder)
+
+---
+description: Placeholder for common base rules shared across projects.
+globs: "**/*"
+alwaysApply: false
+---
+
+# Universal Principles
+
+- Strive for clarity and simplicity.
+- Document non-obvious decisions.
+- Ensure configurations are environment-aware (dev vs. prod).

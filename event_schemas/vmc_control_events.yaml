@@ -1,0 +1,53 @@
+# Event Schema for VantaMasterCore Control Events
+# Version: 1.0
+# Defines the structure for events specifically intended to be consumed by VantaMasterCore
+# to control its behavior or orchestrate other agents.
+
+# --- Base VMC Control Event Structure (Conceptual) ---
+# event_id: { type: string, format: uuid }
+# timestamp_iso: { type: string, format: date-time }
+# source_component_id: { type: string, description: "ID of the component that sent this control signal." }
+
+# --- TriggerAgentActionEvent ---
+TriggerAgentActionEvent:
+  description: >
+    Published to instruct VantaMasterCore to trigger a specific action
+    (task) on a registered agent.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string }
+    target_agent_id:
+      type: string
+      description: The ID of the agent to trigger.
+    task_type:
+      type: string
+      description: A string identifying the type of task for the agent.
+    task_parameters:
+      type: object
+      description: A dictionary of parameters to be passed to the agent's task handler.
+      additionalProperties: true # Allows flexible parameters
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - target_agent_id
+    - task_type
+    - task_parameters
+
+# Example Usage in KEBClient:
+# keb_client.publish(
+#     stream_name="vmc_control_events",
+#     event_data={
+#         "event_type": "TriggerAgentActionEvent", # Key to identify this event
+#         "event_id": str(uuid.uuid4()),
+#         "timestamp_iso": datetime.utcnow().isoformat() + "Z",
+#         "source_component_id": "ExternalTriggerSystem_OR_AnotherAgent",
+#         "target_agent_id": "data_processor_agent_01",
+#         "task_type": "PROCESS_NEW_FILE",
+#         "task_parameters": {
+#             "file_path": "/data/new_file.txt",
+#             "priority": 1
+#         }
+#     }
+# ) 

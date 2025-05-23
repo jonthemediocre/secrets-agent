@@ -1,0 +1,96 @@
+# Event Schema for Agent Lifecycle Events
+# Version: 1.0
+# Defines the structure for events related to the lifecycle of individual agents.
+
+# --- Base Agent Lifecycle Event Structure (Conceptual) ---
+# event_id: { type: string, format: uuid }
+# timestamp_iso: { type: string, format: date-time }
+# agent_id: { type: string, description: "The ID of the agent this event pertains to." }
+# source_component_id: { type: string, default: "VantaMasterCore", description: "Component reporting the lifecycle event, often VMC or the agent itself."}
+
+# --- AgentRegisteredEvent ---
+AgentRegisteredEvent:
+  description: Published when a new agent has been successfully registered with the system.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, default: "VantaMasterCore" }
+    agent_id: { type: string }
+    agent_type: { type: string, description: "The class or type of the agent (e.g., 'DataUnifierAgent', 'SecretScannerAgent')." }
+    initial_config: { type: object, nullable: true, description: "A summary of the initial configuration provided to the agent." }
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - agent_id
+    - agent_type
+
+# --- AgentStartedEvent ---
+AgentStartedEvent:
+  description: Published when an agent has successfully started its main operational loop or process.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, description: "Usually the agent_id itself, or VantaMasterCore if it manages startup." }
+    agent_id: { type: string }
+    message: { type: string, default: "Agent started successfully." }
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - agent_id
+
+# --- AgentStoppedEvent ---
+AgentStoppedEvent:
+  description: Published when an agent has stopped its operations.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    source_component_id: { type: string, description: "Usually the agent_id itself, or VantaMasterCore." }
+    agent_id: { type: string }
+    reason: { type: string, nullable: true, description: "Reason for stopping (e.g., 'shutdown_signal', 'completed_tasks', 'error_state')." }
+  required:
+    - event_id
+    - timestamp_iso
+    - source_component_id
+    - agent_id
+
+# --- AgentHealthStatusEvent ---
+# This is distinct from the system-wide HealthStatusReportEvent and is focused on an individual agent's self-reported health.
+AgentHealthStatusEvent:
+  description: Periodically published by an agent to report its specific health status.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    agent_id: { type: string } # Agent itself is the source
+    status:
+      type: string
+      enum: [OPERATIONAL, IDLE, DEGRADED, ERROR, STARTING_UP]
+    message: { type: string, nullable: true, description: "Optional message providing more details about the status." }
+    current_task_count: { type: integer, nullable: true, description: "Number of active tasks being processed." }
+    custom_metrics: { type: object, nullable: true, description: "Agent-specific health metrics." }
+  required:
+    - event_id
+    - timestamp_iso
+    - agent_id
+    - status
+
+# --- AgentErrorEvent ---
+AgentErrorEvent:
+  description: Published when an agent encounters a significant operational error.
+  properties:
+    event_id: { type: string, format: uuid }
+    timestamp_iso: { type: string, format: date-time }
+    agent_id: { type: string } # Agent itself is the source
+    error_type: { type: string, description: "Type of error (e.g., 'ConfigurationError', 'ResourceUnavailable', 'ProcessingFailure')." }
+    error_message: { type: string }
+    stack_trace: { type: string, nullable: true }
+    task_id_associated: { type: string, format: uuid, nullable: true, description: "If the error is related to a specific task." }
+    is_fatal: { type: boolean, default: false, description: "Indicates if the error is fatal to the agent's operation." }
+  required:
+    - event_id
+    - timestamp_iso
+    - agent_id
+    - error_type
+    - error_message
+    - is_fatal 

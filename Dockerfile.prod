@@ -1,0 +1,72 @@
+# Production Dockerfile for Secrets Management App
+# Multi-stage build for optimal size and security
+
+# Stage 1: Dependencies
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+COPY yarn.lock* ./
+
+# Install dependencies
+RUN npm ci --only=production && npm cache clean --force
+
+# Stage 2: Builder
+FROM node:18-alpine AS builder
+WORKDIR /app
+
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Install all dependencies for build
+RUN npm ci
+RUN npm run build
+
+# Stage 3: Runtime
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Install curl for health checks
+RUN apk add --no-cache curl
+
+# Copy built application
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/public ./public
+
+# Copy production dependencies
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+# Create necessary directories with correct permissions
+RUN mkdir -p /app/logs /app/vault/backups /app/tmp
+RUN chown -R nextjs:nodejs /app/logs /app/vault/backups /app/tmp
+
+# Security: Remove unnecessary packages and files
+RUN apk del --purge wget
+RUN rm -rf /var/cache/apk/*
+RUN rm -rf /tmp/*
+
+# Set environment variables
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV HOST=0.0.0.0
+
+# Expose port
+EXPOSE 3000
+
+# Use non-root user
+USER nextjs
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:3000/health/live || exit 1
+
+# Start the application
+CMD ["node", "dist/index.js"] 

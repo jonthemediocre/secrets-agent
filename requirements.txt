@@ -8,4 +8,7 @@ pyinstaller==6.10.0
 PySimpleGUI>=5.0.8; platform_system=="Linux"
 PySimpleGUI==4.60.5; platform_system=="Windows"
 python-dotenv==1.0.0
-pytest==7.3.1 
+pytest==7.3.1
+redis>=4.0.0,<5.0.0
+# Add other dependencies here as the project grows
+openai>=0.27.0

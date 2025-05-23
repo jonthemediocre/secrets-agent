@@ -14,7 +14,11 @@ let refreshInterval = null;
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
-    console.log('Secrets Agent extension activated');
+    // Use VSCode's output channel for logging instead of console.log
+    const outputChannel = vscode.window.createOutputChannel('Secrets Agent');
+    
+    outputChannel.appendLine('Secrets Agent extension activated');
+    outputChannel.show();
 
     // Load configuration
     const config = vscode.workspace.getConfiguration('secretsAgent');
@@ -117,24 +121,24 @@ function activate(context) {
 
 // Helper function to handle errors consistently
 function handleError(title, message, error = null) {
-    console.error(`${title}: ${message}`, error);
+    // Use VSCode's output channel for logging instead of console.log
+    const outputChannel = vscode.window.createOutputChannel('Secrets Agent');
     
-    // Provide user-friendly error message with potential solution
-    let fullMessage = message;
+    outputChannel.appendLine(`${title}: ${message}`);
     if (error) {
         if (error.response && error.response.data && error.response.data.error) {
-            fullMessage += ` Error: ${error.response.data.error}`;
+            outputChannel.appendLine(`Error: ${error.response.data.error}`);
         } else if (error.message) {
-            fullMessage += ` Error: ${error.message}`;
+            outputChannel.appendLine(`Error: ${error.message}`);
         }
     }
     
     // Add troubleshooting link for common errors
     if (error && error.code === 'ECONNREFUSED') {
-        fullMessage += ' Make sure Docker containers are running or the API server is started.';
+        outputChannel.appendLine('Make sure Docker containers are running or the API server is started.');
     }
     
-    vscode.window.showErrorMessage(fullMessage);
+    vscode.window.showErrorMessage(message);
 }
 
 // Setup auto-refresh for the tree view

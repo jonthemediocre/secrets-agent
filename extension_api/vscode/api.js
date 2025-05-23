@@ -83,7 +83,7 @@ class SecretsAgentAPI {
      */
     async listSecrets(password) {
         try {
-            let params = {};
+            const params = {};
             if (this.secureStorage) {
                 params.secure = 'true';
                 params.password = password;
@@ -105,7 +105,7 @@ class SecretsAgentAPI {
      */
     async getSecret(key, password) {
         try {
-            let params = {};
+            const params = {};
             if (this.secureStorage) {
                 params.secure = 'true';
                 params.password = password;

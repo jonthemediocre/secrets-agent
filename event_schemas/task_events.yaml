@@ -1,0 +1,191 @@
+# Event Schema for Task-Related Events
+# Version: 1.0
+# Defines the structure for events related to task assignment, progress, and completion.
+
+# --- Base Event Structure ---
+# All task events should include these base fields:
+# event_id:
+#   type: string
+#   format: uuid
+#   description: Unique identifier for this event instance.
+# timestamp_iso:
+#   type: string
+#   format: date-time
+#   description: ISO 8601 timestamp when the event was generated.
+# source_agent_id:
+#   type: string
+#   description: The ID of the agent or component that generated this event.
+# task_id:
+#   type: string
+#   format: uuid
+#   description: Unique identifier for the task this event pertains to.
+
+# --- TaskAssignedEvent ---
+TaskAssignedEvent:
+  description: Published when a task is assigned to an agent.
+  allOf:
+    - $ref: "#/components/schemas/BaseEvent" # Conceptual reference to a base schema
+  properties:
+    agent_id_assigned_to:
+      type: string
+      description: The ID of the agent responsible for executing this task.
+    task_type:
+      type: string
+      description: Categorizes the specific task.
+      examples:
+        - STORE_NEW_SECRET
+        - RETRIEVE_SECRET
+        - UPDATE_SECRET_VALUE
+        - DELETE_SECRET
+        - UPDATE_ACCESS_POLICY
+        - AUDIT_SECRET_ACCESS
+        - ROTATE_SECRET_KEY
+    parameters:
+      type: object
+      description: Task-specific input data. Schema varies based on task_type.
+    priority:
+      type: integer
+      minimum: 1
+      maximum: 5
+      default: 3
+      description: Task priority (1=Highest, 5=Lowest).
+  required:
+    - agent_id_assigned_to
+    - task_type
+    - parameters
+
+# Example: TaskAssignedEvent for STORE_NEW_SECRET
+# event_id: "a1b2c3d4-e5f6-7890-1234-567890abcdef"
+# timestamp_iso: "2024-07-15T10:00:00.000Z"
+# source_agent_id: "vmc_orchestrator"
+# task_id: "t1a2b3c4-d5e6-f789-0123-456789abcdef"
+# agent_id_assigned_to: "secret_storage_agent"
+# task_type: "STORE_NEW_SECRET"
+# parameters:
+#   secret_name: "database_production_password"
+#   secret_value: "a_very_secure_encrypted_value_placeholder" # Actual value would be handled securely
+#   project_id: "project_alpha"
+#   environment: "production"
+#   metadata:
+#     description: "Password for the production PostgreSQL database."
+#     rotation_policy_id: "pol_rotate_90d"
+# priority: 1
+
+# --- TaskProgressUpdateEvent ---
+TaskProgressUpdateEvent:
+  description: Published by an agent to report progress on an ongoing task.
+  allOf:
+    - $ref: "#/components/schemas/BaseEvent"
+  properties:
+    progress_percentage:
+      type: number
+      format: float
+      minimum: 0
+      maximum: 100
+      description: Estimated percentage of task completion.
+    status_message:
+      type: string
+      description: Human-readable message describing the current progress.
+    details:
+      type: object
+      description: Optional additional structured data about the progress.
+  required:
+    - status_message
+
+# Example: TaskProgressUpdateEvent for ROTATE_SECRET_KEY
+# event_id: "b2c3d4e5-f6a7-8901-2345-67890abcdef0"
+# timestamp_iso: "2024-07-15T10:05:00.000Z"
+# source_agent_id: "key_rotation_agent"
+# task_id: "t2b3c4d5-e6f7-8901-a234-56789bcdef01" # Task ID for the rotation
+# progress_percentage: 50.0
+# status_message: "Old key successfully deprecated. New key generated and pending distribution."
+# details:
+#   new_key_id: "key_xyz_new"
+#   old_key_id: "key_abc_old"
+#   affected_services_count: 5
+
+# --- TaskCompletionEvent ---
+TaskCompletionEvent:
+  description: Published when an agent completes a task.
+  allOf:
+    - $ref: "#/components/schemas/BaseEvent"
+  properties:
+    status:
+      type: string
+      enum: [success, failure, error]
+      description: The final status of the task.
+    result:
+      type: object
+      description: Output data from the task if it was successful. Schema varies.
+    error_details:
+      type: object
+      description: Detailed information if the task status is 'failure' or 'error'.
+      properties:
+        error_code:
+          type: string
+        message:
+          type: string
+        details: # Further nested details specific to the error
+          type: object
+    duration_ms:
+      type: integer
+      description: Time taken for the task to complete, in milliseconds.
+  required:
+    - status
+    - duration_ms
+
+# Example: TaskCompletionEvent for RETRIEVE_SECRET (success)
+# event_id: "c3d4e5f6-a7b8-9012-3456-7890abcdef01"
+# timestamp_iso: "2024-07-15T10:02:00.000Z"
+# source_agent_id: "secret_retrieval_agent"
+# task_id: "t3c4d5e6-f789-0123-a456-78901bcdef01"
+# status: "success"
+# result:
+#   secret_name: "api_key_external_service"
+#   retrieved_value_snippet: "********..." # Never log the full secret value
+#   access_timestamp_iso: "2024-07-15T10:01:59.000Z"
+#   requesting_entity_id: "service_connector_agent_instance_1"
+# duration_ms: 550
+
+# Example: TaskCompletionEvent for UPDATE_ACCESS_POLICY (failure)
+# event_id: "d4e5f6a7-b8c9-0123-4567-890abcdef012"
+# timestamp_iso: "2024-07-15T10:15:00.000Z"
+# source_agent_id: "policy_management_agent"
+# task_id: "t4d5e6f7-8901-a234-b567-89012cdef012"
+# status: "failure"
+# error_details:
+#   error_code: "VALIDATION_ERROR"
+#   message: "Specified user_group_id does not exist."
+#   details:
+#     field_name: "user_group_id"
+#     provided_value: "group_non_existent_123"
+# duration_ms: 120
+
+# --- Component for Base Event Structure ---
+# This is a conceptual shared component. In a full OpenAPI/AsyncAPI setup,
+# this would be defined in a 'components.schemas' section.
+components:
+  schemas:
+    BaseEvent:
+      type: object
+      properties:
+        event_id:
+          type: string
+          format: uuid
+          description: Unique identifier for this event instance.
+        timestamp_iso:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the event was generated.
+        source_agent_id:
+          type: string
+          description: The ID of the agent or component that generated this event.
+        task_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the task this event pertains to.
+      required:
+        - event_id
+        - timestamp_iso
+        - source_agent_id
+        - task_id 

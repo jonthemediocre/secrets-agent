@@ -1,0 +1,11 @@
+creation_rules:
+  - path_regex: .*test_secret\.yaml$
+    age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
+  - path_regex: .*app\.secrets\.yaml$ # For the generic one
+    age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
+  - path_regex: .*app\.secrets\.dev\.yaml$
+    age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
+  - path_regex: .*app\.secrets\.stage\.yaml$
+    age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
+  - path_regex: .*app\.secrets\.prod\.yaml$
+    age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
