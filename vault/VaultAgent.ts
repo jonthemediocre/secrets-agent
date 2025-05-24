@@ -4,7 +4,7 @@ import path from 'path';
 import { createLogger } from '../src/utils/logger';
 import { SOPSIntegration } from './SOPSIntegration';
 import { parseEnvFile, serializeEnvFile } from '../src/utils/EnvFileParser';
-import { VaultData, SecretEntry, VaultProject, VaultCategory } from './VaultTypes';
+import { VaultData, SecretEntry, VaultProject } from './VaultTypes';
 
 const logger = createLogger('VaultAgent');
 
@@ -20,28 +20,21 @@ export class VaultAgent {
   }
 
   private _initializeEmptyVault(): VaultData {
-    // Ensure a version number is part of the initial vault structure
     return { 
-      projects: [], 
-      metadata: { 
-        version: '1.0.0', 
-        created: Date.now(), 
-        lastUpdated: Date.now() 
-      } 
+      version: 1,
+      metadata: {
+        created: Date.now(),
+        lastUpdated: Date.now()
+      },
+      projects: [],
+      globalTags: []
     }; 
   }
 
   async initializeVault(): Promise<void> {
     try {
       if (!fs.existsSync(this.vaultPath)) {
-        const initialData: VaultData = {
-          projects: [],
-          metadata: {
-            version: '1.0.0',
-            created: Date.now(),
-            lastUpdated: Date.now(),
-          },
-        };
+        const initialData: VaultData = this._initializeEmptyVault();
 
         // Create directory if it doesn't exist
         const vaultDir = path.dirname(this.vaultPath);
@@ -96,6 +89,9 @@ export class VaultAgent {
         throw new Error('Invalid vault data structure: missing or invalid metadata');
       }
 
+      this.vaultData = data;
+      this.isDirty = false;
+      
       logger.info('Vault loaded successfully', { 
         vaultPath: this.vaultPath,
         projectCount: data.projects.length 
@@ -112,10 +108,15 @@ export class VaultAgent {
     }
   }
 
-  async saveVault(data: VaultData): Promise<void> {
+  async saveVault(data?: VaultData): Promise<void> {
     try {
+      const vaultData = data || this.vaultData;
+      if (!vaultData) {
+        throw new Error('No vault data to save');
+      }
+
       // Update metadata
-      data.metadata.lastUpdated = Date.now();
+      vaultData.metadata.lastUpdated = Date.now();
       
       // Create backup
       const backupPath = `${this.vaultPath}.backup.${Date.now()}`;
@@ -125,7 +126,7 @@ export class VaultAgent {
 
       // Write new data
       const tempPath = `${this.vaultPath}.tmp`;
-      fs.writeFileSync(tempPath, JSON.stringify(data, null, 2));
+      fs.writeFileSync(tempPath, JSON.stringify(vaultData, null, 2));
       
       // Encrypt with SOPS
       await this.sopsIntegration.encrypt(tempPath);
@@ -133,12 +134,16 @@ export class VaultAgent {
       // Atomic move
       fs.renameSync(tempPath, this.vaultPath);
       
+      // Update internal state
+      this.vaultData = vaultData;
+      this.isDirty = false;
+      
       // Clean up old backup (keep only last 5)
       this.cleanupBackups();
       
       logger.info('Vault saved successfully', { 
         vaultPath: this.vaultPath,
-        projectCount: data.projects.length 
+        projectCount: vaultData.projects.length 
       });
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown save error';
@@ -160,192 +165,15 @@ export class VaultAgent {
 
   // --- CRUD Methods ---
 
-  getSecret(project: string, category: string, identifier: string): SecretEntry | null {
-    if (!this.vaultData) return null; // Should be initialized by loadVault
-    return this.vaultData.projects?.[project]?.[category]?.[identifier] || null;
-  }
-
-  addProject(project: string): void {
-    if (!this.vaultData) this.vaultData = this._initializeEmptyVault();
-    if (!this.vaultData.projects[project]) {
-      this.vaultData.projects[project] = {} as VaultProject; // Assuming VaultProject is a map of categories
-      this.isDirty = true;
-    }
-  }
-
-  addSecret(project: string, category: string, identifier: string, secret: SecretEntry): void {
-    if (!this.vaultData) this.vaultData = this._initializeEmptyVault();
-    
-    if (!this.vaultData.projects[project]) {
-      this.vaultData.projects[project] = {} as VaultProject;
-    }
-    if (!this.vaultData.projects[project][category]) {
-      this.vaultData.projects[project][category] = {} as VaultCategory; // Assuming VaultCategory is a map of secrets
-    }
-    const now = new Date().toISOString();
-    // Ensure created and lastUpdated are set
-    const newSecret: SecretEntry = {
-        ...secret, // Spread incoming secret first
-        created: secret.created || now, // Preserve if provided, else new
-        lastUpdated: now, // Always update lastUpdated
-    };
-    this.vaultData.projects[project][category][identifier] = newSecret;
-    this.isDirty = true;
-  }
-
-  updateSecret(project: string, category: string, identifier: string, updates: Partial<SecretEntry>): void {
-    if (!this.vaultData) return; // Or initialize: this.vaultData = this._initializeEmptyVault();
-    const secret = this.getSecret(project, category, identifier);
-    if (!secret) {
-        return;
-    }
-    Object.assign(secret, updates);
-    secret.lastUpdated = new Date().toISOString();
-    this.isDirty = true;
-  }
-
-  updateSecretValue(project: string, category: string, identifier: string, newKey: string): void {
-    if (!this.vaultData) return;
-    const secret = this.getSecret(project, category, identifier);
-    if (!secret) {
-        return;
-    }
-    secret.key = newKey; 
-    secret.lastUpdated = new Date().toISOString();
-    this.isDirty = true;
-  }
-
-  deleteSecret(project: string, category: string, identifier: string): void {
-    if (!this.vaultData || !this.vaultData.projects?.[project]?.[category]?.[identifier]) {
-        return;
-    }
-    
-    delete this.vaultData.projects[project][category][identifier];
-    this.isDirty = true;
-
-    if (Object.keys(this.vaultData.projects[project][category]).length === 0) {
-      delete this.vaultData.projects[project][category];
-    }
-    if (Object.keys(this.vaultData.projects[project]).length === 0) {
-      delete this.vaultData.projects[project];
-    }
-  }
-
-  getGlobalTags(): string[] {
-    if (!this.vaultData) return []; // Should be initialized
-    return this.vaultData.globalTags;
-  }
-
-  addGlobalTag(tag: string): void {
-    if (!this.vaultData) this.vaultData = this._initializeEmptyVault();
-    if (this.vaultData.globalTags.includes(tag)) return;
-    this.vaultData.globalTags.push(tag);
-    this.isDirty = true;
-  }
-
-  removeGlobalTag(tag: string): void {
-    if (!this.vaultData || !this.vaultData.globalTags) return; // Check globalTags existence
-    this.vaultData.globalTags = this.vaultData.globalTags.filter((t: string) => t !== tag);
-    this.isDirty = true;
-  }
-
-  /**
-   * Import .env file content into the vault under a default project/category.
-   * @param envContent The raw .env file content as a string
-   * @param options Optional: { project, category, overwrite }
-   * @returns { imported: string[], skipped: string[], errors: string[] }
-   */
-  importEnvToVault(envContent: string, options?: { project?: string; category?: string; overwrite?: boolean }) {
-    const project = options?.project || 'default';
-    const category = options?.category || 'env';
-    const overwrite = options?.overwrite ?? false;
-    const parsed = parseEnvFile(envContent);
-    const imported: string[] = [];
-    const skipped: string[] = [];
-    const errors: string[] = [];
-    const now = new Date().toISOString();
-    if (!this.vaultData) this.vaultData = this._initializeEmptyVault();
-    if (!this.vaultData.projects[project]) this.vaultData.projects[project] = {};
-    if (!this.vaultData.projects[project][category]) this.vaultData.projects[project][category] = {};
-    for (const [key, value] of Object.entries(parsed)) {
-      try {
-        const exists = this.vaultData.projects[project][category][key];
-        if (exists && !overwrite) {
-          skipped.push(key);
-          continue;
-        }
-        this.vaultData.projects[project][category][key] = {
-          key: value,
-          source: 'env',
-          envFile: '.env',
-          created: exists?.created || now,
-          lastUpdated: now,
-        };
-        imported.push(key);
-      } catch (err: unknown) {
-        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
-        errors.push(key + ': ' + errorMessage);
-      }
-    }
-    this.isDirty = true;
-    return { imported, skipped, errors };
-  }
-
-  /**
-   * Export vault secrets as .env file content from a default project/category.
-   * @param options Optional: { project, category }
-   * @returns .env file string
-   */
-  exportEnvFromVault(options?: { project?: string; category?: string }): string {
-    const project = options?.project || 'default';
-    const category = options?.category || 'env';
-    if (!this.vaultData || 
-        !this.vaultData.projects[project] || 
-        !this.vaultData.projects[project][category]) {
-      return serializeEnvFile({}); // Ensure serializeEnvFile is called for non-existent paths
-    }
-    const secretsToExport: Record<string, string> = {};
-    const secrets = this.vaultData.projects[project][category];
-    for (const identifier in secrets) {
-        secretsToExport[identifier] = secrets[identifier].key;
-    }
-    return serializeEnvFile(secretsToExport);
-  }
-
-  private cleanupBackups(): void {
-    try {
-      const vaultDir = path.dirname(this.vaultPath);
-      const vaultName = path.basename(this.vaultPath);
-      const backupPattern = `${vaultName}.backup.`;
-      
-      const files = fs.readdirSync(vaultDir)
-        .filter(file => file.startsWith(backupPattern))
-        .map(file => ({
-          name: file,
-          path: path.join(vaultDir, file),
-          time: parseInt(file.replace(backupPattern, ''), 10)
-        }))
-        .sort((a, b) => b.time - a.time);
-
-      // Keep only the 5 most recent backups
-      const filesToDelete = files.slice(5);
-      for (const file of filesToDelete) {
-        fs.unlinkSync(file.path);
-        logger.debug('Backup file deleted', { file: file.name });
-      }
-    } catch (error: unknown) {
-      const errorMessage = error instanceof Error ? error.message : 'Unknown cleanup error';
-      logger.warn('Failed to cleanup backups', { error: errorMessage });
-    }
-  }
-
   async createProject(projectName: string, description?: string): Promise<VaultProject> {
-    await this.loadVault();
     if (!this.vaultData) {
-      throw new Error('Vault data not loaded');
+      await this.loadVault();
     }
 
-    // Check if project already exists
+    if (!this.vaultData) {
+      throw new Error('Failed to load vault data');
+    }
+
     const existingProject = this.vaultData.projects.find(p => p.name === projectName);
     if (existingProject) {
       throw new Error(`Project '${projectName}' already exists`);
@@ -361,13 +189,18 @@ export class VaultAgent {
 
     this.vaultData.projects.push(newProject);
     this.isDirty = true;
+    
     await this.saveVault();
     
+    logger.info('Project created successfully', { projectName });
     return newProject;
   }
 
   async getProject(projectName: string): Promise<VaultProject | null> {
-    await this.loadVault();
+    if (!this.vaultData) {
+      await this.loadVault();
+    }
+
     if (!this.vaultData) {
       return null;
     }
@@ -377,9 +210,12 @@ export class VaultAgent {
   }
 
   async addSecret(projectName: string, secret: Omit<SecretEntry, 'created' | 'lastUpdated'>): Promise<void> {
-    await this.loadVault();
     if (!this.vaultData) {
-      throw new Error('Vault data not loaded');
+      await this.loadVault();
+    }
+
+    if (!this.vaultData) {
+      throw new Error('Failed to load vault data');
     }
 
     const project = this.vaultData.projects.find(p => p.name === projectName);
@@ -387,28 +223,33 @@ export class VaultAgent {
       throw new Error(`Project '${projectName}' not found`);
     }
 
-    // Check if secret already exists
     const existingSecret = project.secrets.find(s => s.key === secret.key);
     if (existingSecret) {
-      throw new Error(`Secret '${secret.key}' already exists in project '${projectName}'`);
+      throw new Error(`Secret with key '${secret.key}' already exists in project '${projectName}'`);
     }
 
     const newSecret: SecretEntry = {
       ...secret,
-      created: Date.now(),
-      lastUpdated: Date.now(),
+      created: new Date().toISOString(),
+      lastUpdated: new Date().toISOString(),
     };
 
     project.secrets.push(newSecret);
     project.lastUpdated = Date.now();
     this.isDirty = true;
+    
     await this.saveVault();
+    
+    logger.info('Secret added successfully', { projectName, secretKey: secret.key });
   }
 
   async updateSecret(projectName: string, secretKey: string, updates: Partial<Omit<SecretEntry, 'key' | 'created' | 'lastUpdated'>>): Promise<void> {
-    await this.loadVault();
     if (!this.vaultData) {
-      throw new Error('Vault data not loaded');
+      await this.loadVault();
+    }
+
+    if (!this.vaultData) {
+      throw new Error('Failed to load vault data');
     }
 
     const project = this.vaultData.projects.find(p => p.name === projectName);
@@ -418,20 +259,25 @@ export class VaultAgent {
 
     const secret = project.secrets.find(s => s.key === secretKey);
     if (!secret) {
-      throw new Error(`Secret '${secretKey}' not found in project '${projectName}'`);
+      throw new Error(`Secret with key '${secretKey}' not found in project '${projectName}'`);
     }
 
-    // Apply updates
-    Object.assign(secret, updates, { lastUpdated: Date.now() });
+    Object.assign(secret, updates, { lastUpdated: new Date().toISOString() });
     project.lastUpdated = Date.now();
     this.isDirty = true;
+    
     await this.saveVault();
+    
+    logger.info('Secret updated successfully', { projectName, secretKey });
   }
 
   async deleteSecret(projectName: string, secretKey: string): Promise<void> {
-    await this.loadVault();
     if (!this.vaultData) {
-      throw new Error('Vault data not loaded');
+      await this.loadVault();
+    }
+
+    if (!this.vaultData) {
+      throw new Error('Failed to load vault data');
     }
 
     const project = this.vaultData.projects.find(p => p.name === projectName);
@@ -441,12 +287,143 @@ export class VaultAgent {
 
     const secretIndex = project.secrets.findIndex(s => s.key === secretKey);
     if (secretIndex === -1) {
-      throw new Error(`Secret '${secretKey}' not found in project '${projectName}'`);
+      throw new Error(`Secret with key '${secretKey}' not found in project '${projectName}'`);
     }
 
     project.secrets.splice(secretIndex, 1);
     project.lastUpdated = Date.now();
     this.isDirty = true;
+    
     await this.saveVault();
+    
+    logger.info('Secret deleted successfully', { projectName, secretKey });
+  }
+
+  getGlobalTags(): string[] {
+    return this.vaultData?.globalTags || [];
+  }
+
+  addGlobalTag(tag: string): void {
+    if (!this.vaultData) {
+      this.vaultData = this._initializeEmptyVault();
+    }
+    if (!this.vaultData.globalTags.includes(tag)) {
+      this.vaultData.globalTags.push(tag);
+      this.isDirty = true;
+    }
+  }
+
+  removeGlobalTag(tag: string): void {
+    if (!this.vaultData) return;
+    const index = this.vaultData.globalTags.indexOf(tag);
+    if (index > -1) {
+      this.vaultData.globalTags.splice(index, 1);
+      this.isDirty = true;
+    }
+  }
+
+  importEnvToVault(envContent: string, options?: { project?: string; category?: string; overwrite?: boolean }): void {
+    const envVars = parseEnvFile(envContent);
+    const project = options?.project || 'default';
+    const category = options?.category || 'environment';
+    const overwrite = options?.overwrite || false;
+
+    if (!this.vaultData) {
+      this.vaultData = this._initializeEmptyVault();
+    }
+
+    // Find or create project
+    let targetProject = this.vaultData.projects.find(p => p.name === project);
+    if (!targetProject) {
+      targetProject = {
+        name: project,
+        secrets: [],
+        created: Date.now(),
+        lastUpdated: Date.now()
+      };
+      this.vaultData.projects.push(targetProject);
+    }
+
+    const now = new Date().toISOString();
+    
+    for (const [key, value] of Object.entries(envVars)) {
+      const existingSecret = targetProject.secrets.find(s => s.key === key);
+      
+      if (existingSecret && !overwrite) {
+        logger.warn('Secret already exists and overwrite is false', { key, project, category });
+        continue;
+      }
+
+      const secretEntry: SecretEntry = {
+        key,
+        value,
+        source: 'env',
+        category,
+        created: existingSecret?.created || now,
+        lastUpdated: now,
+        tags: [category]
+      };
+
+      if (existingSecret) {
+        Object.assign(existingSecret, secretEntry);
+      } else {
+        targetProject.secrets.push(secretEntry);
+      }
+    }
+
+    targetProject.lastUpdated = Date.now();
+    this.isDirty = true;
+  }
+
+  exportEnvFromVault(options?: { project?: string; category?: string }): string {
+    if (!this.vaultData) return '';
+    
+    const project = options?.project || 'default';
+    const category = options?.category;
+    
+    const targetProject = this.vaultData.projects.find(p => p.name === project);
+    if (!targetProject) {
+      logger.warn('Project not found for export', { project });
+      return '';
+    }
+
+    let secrets = targetProject.secrets;
+    if (category) {
+      secrets = secrets.filter(s => s.category === category);
+    }
+
+    const envObject: Record<string, string> = {};
+    for (const secret of secrets) {
+      if (secret.value !== undefined) {
+        envObject[secret.key] = secret.value;
+      }
+    }
+
+    return serializeEnvFile(envObject);
+  }
+
+  private cleanupBackups(): void {
+    try {
+      const vaultDir = path.dirname(this.vaultPath);
+      const vaultFilename = path.basename(this.vaultPath);
+      const files = fs.readdirSync(vaultDir);
+      
+      const backupFiles = files
+        .filter(f => f.startsWith(`${vaultFilename}.backup.`))
+        .map(f => ({
+          name: f,
+          timestamp: parseInt(f.split('.backup.')[1] || '0')
+        }))
+        .sort((a, b) => b.timestamp - a.timestamp);
+
+      // Keep only the latest 5 backups
+      const filesToDelete = backupFiles.slice(5);
+      for (const file of filesToDelete) {
+        const filePath = path.join(vaultDir, file.name);
+        fs.unlinkSync(filePath);
+        logger.debug('Cleaned up old backup', { filePath });
+      }
+         } catch (error) {       logger.warn('Failed to cleanup backups', { error: error instanceof Error ? error.message : String(error) });
+    }
   }
 } 

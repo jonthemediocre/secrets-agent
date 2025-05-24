@@ -1,230 +1,196 @@
 import { VaultAgent } from './vault/VaultAgent';
-import fs from 'fs/promises';
-import yaml from 'js-yaml';
+import { VaultData } from './vault/VaultTypes';
+import * as fs from 'fs/promises';
+import * as yaml from 'yaml';
 
-// Mock the fs/promises module
+// Mock file system
 jest.mock('fs/promises');
+jest.mock('./vault/SOPSIntegration');
 
-const mockVaultPath = './test-vault.yaml';
+const mockVaultPath = './test_vault.yaml';
 
 describe('VaultAgent', () => {
   let vaultAgent: VaultAgent;
-  const initialVaultData = {
+
+  const initialVaultData: VaultData = {
     version: 1,
-    projects: {},
+    metadata: { created: Date.now(), lastUpdated: Date.now() },
+    projects: [],
     globalTags: [],
   };
 
-  beforeEach(async () => {
-    // Reset all mocks before each test
+  beforeEach(() => {
     jest.clearAllMocks();
-
-    // Default mock for readFile (file not found)
-    (fs.readFile as jest.Mock).mockRejectedValue({ code: 'ENOENT' });
-    // Default mock for writeFile (successful)
-    (fs.writeFile as jest.Mock).mockResolvedValue(undefined);
-
     vaultAgent = new VaultAgent(mockVaultPath);
-    // Load vault will initialize an empty one if readFile mock remains as ENOENT
-    await vaultAgent.loadVault(); 
+    
+    // Setup default file system mocks
+    (fs.readFile as jest.Mock).mockResolvedValue(yaml.stringify(initialVaultData));
+    (fs.writeFile as jest.Mock).mockResolvedValue(undefined);
+    (fs.stat as jest.Mock).mockResolvedValue({ isFile: () => true });
   });
 
-  describe('Initialization and Loading', () => {
-    it('should initialize an empty vault if file does not exist', async () => {
-      // beforeEach already calls loadVault which initializes if file not found
-      const data = vaultAgent.getVaultDataForTesting(); // Helper method needed
-      expect(data).toEqual(initialVaultData);
-      expect(fs.readFile).toHaveBeenCalledWith(mockVaultPath, 'utf-8');
+  describe('Loading Vault', () => {
+    it('should load vault data successfully', async () => {
+      await vaultAgent.loadVault();
+      const data = vaultAgent.getVaultDataForTesting();
+      expect(data).toBeDefined();
+      expect(data?.version).toBe(1);
+      expect(Array.isArray(data?.projects)).toBe(true);
+      expect(vaultAgent.isDirtyForTesting()).toBe(false);
     });
 
-    it('should load vault data from an existing valid YAML file', async () => {
-      const existingData = {
+    it('should load vault data from an existing valid file', async () => {
+      const existingData: VaultData = {
         version: 1,
-        projects: { testProject: {} },
+        metadata: { created: Date.now(), lastUpdated: Date.now() },
+        projects: [
+          { name: 'testProject', secrets: [], created: Date.now(), lastUpdated: Date.now() }
+        ],
         globalTags: ['test'],
       };
-      (fs.readFile as jest.Mock).mockResolvedValue(yaml.dump(existingData));
+      (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(existingData));
       
-      await vaultAgent.loadVault(); // Re-load with new mock
-      const data = vaultAgent.getVaultDataForTesting();
-      expect(data).toEqual(existingData);
-      expect(fs.readFile).toHaveBeenCalledWith(mockVaultPath, 'utf-8');
-    });
-
-    it('should initialize an empty vault if file content is invalid YAML', async () => {
-      (fs.readFile as jest.Mock).mockResolvedValue('invalid yaml content: - ');
       await vaultAgent.loadVault();
       const data = vaultAgent.getVaultDataForTesting();
-      expect(data).toEqual(initialVaultData);
-    });
-
-    it('should initialize an empty vault if loaded data has no version number', async () => {
-      const invalidData = { projects: {} }; // Missing version
-      (fs.readFile as jest.Mock).mockResolvedValue(yaml.dump(invalidData));
-      await vaultAgent.loadVault();
-      const data = vaultAgent.getVaultDataForTesting();
-      expect(data).toEqual(initialVaultData);
+      expect(data?.projects).toHaveLength(1);
+      expect(data?.projects[0].name).toBe('testProject');
     });
   });
 
   describe('Saving Vault', () => {
-    it('should not save if not dirty', async () => {
+    it('should save vault data when dirty', async () => {
+      await vaultAgent.loadVault();
+      vaultAgent.addGlobalTag('test'); // Make it dirty
       await vaultAgent.saveVault();
-      expect(fs.writeFile).not.toHaveBeenCalled();
-    });
-
-    it('should save vault data to YAML file when dirty', async () => {
-      // Make it dirty by adding a project (or any other operation)
-      await vaultAgent.addProject('testProject'); // This sets isDirty = true
-      await vaultAgent.saveVault();
-      
-      const expectedDataToSave = {
-        ...initialVaultData,
-        projects: { testProject: {} }
-      };
-      expect(fs.writeFile).toHaveBeenCalledWith(mockVaultPath, yaml.dump(expectedDataToSave), 'utf-8');
+      expect(fs.writeFile).toHaveBeenCalled();
+      expect(vaultAgent.isDirtyForTesting()).toBe(false);
     });
   });
 
   describe('Project Management', () => {
-    it('should add a new project', async () => {
-      await vaultAgent.addProject('proj1');
-      const data = vaultAgent.getVaultDataForTesting();
-      expect(data).not.toBeNull();
-      expect(data!.projects.proj1).toEqual({});
+    beforeEach(async () => {
+      await vaultAgent.loadVault();
+    });
+
+    it('should create a new project', async () => {
+      const project = await vaultAgent.createProject('proj1', 'Test project');
+      expect(project.name).toBe('proj1');
+      expect(project.description).toBe('Test project');
+      expect(project.secrets).toEqual([]);
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
     });
 
-    it('should not add a project if it already exists', async () => {
-      await vaultAgent.addProject('proj1');
-      const consoleWarnSpy = jest.spyOn(console, 'warn');
-      await vaultAgent.addProject('proj1'); // Try adding again
-      expect(consoleWarnSpy).toHaveBeenCalled();
-      consoleWarnSpy.mockRestore();
+    it('should get an existing project', async () => {
+      await vaultAgent.createProject('proj1');
+      const project = await vaultAgent.getProject('proj1');
+      expect(project).toBeTruthy();
+      expect(project?.name).toBe('proj1');
+    });
+
+    it('should return null for non-existent project', async () => {
+      const project = await vaultAgent.getProject('nonexistent');
+      expect(project).toBeNull();
     });
   });
 
   describe('Secret Management', () => {
-    const projectName = 'secrets-app';
-    const category = 'openai';
-    const identifier = 'default';
-    
-    // Create a complete SecretEntry object for testing
-    const createTestSecret = () => {
-      const now = new Date().toISOString().split('T')[0];
-      return {
-        key: 'sk-abc123',
-        source: 'env' as const,
-        notes: 'Test note',
-        created: now,
-        lastUpdated: now,
-      };
-    };
-
     beforeEach(async () => {
-      await vaultAgent.addProject(projectName); // Ensure project exists
+      await vaultAgent.loadVault();
+      await vaultAgent.createProject('test-project');
     });
 
-    it('should add a new secret and set created/lastUpdated dates', async () => {
-      const secretPayload = createTestSecret();
-      await vaultAgent.addSecret(projectName, category, identifier, secretPayload);
-      const secret = vaultAgent.getSecret(projectName, category, identifier);
-      const today = new Date().toISOString().split('T')[0];
+    it('should add a new secret', async () => {
+      await vaultAgent.addSecret('test-project', {
+        key: 'TEST_KEY',
+        value: 'test-value',
+        source: 'manual',
+        description: 'Test secret'
+      });
 
-      expect(secret).toBeDefined();
-      expect(secret?.key).toBe(secretPayload.key);
-      expect(secret?.source).toBe(secretPayload.source);
-      expect(secret?.created).toBe(today);
-      expect(secret?.lastUpdated).toBe(today);
+      const project = await vaultAgent.getProject('test-project');
+      expect(project?.secrets).toHaveLength(1);
+      expect(project?.secrets[0].key).toBe('TEST_KEY');
+      expect(project?.secrets[0].value).toBe('test-value');
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
     });
 
-    it('should get an existing secret', async () => {
-      const secretPayload = createTestSecret();
-      await vaultAgent.addSecret(projectName, category, identifier, secretPayload);
-      const secret = vaultAgent.getSecret(projectName, category, identifier);
-      expect(secret).toBeDefined();
-      expect(secret?.key).toBe(secretPayload.key);
-    });
+    it('should update an existing secret', async () => {
+      await vaultAgent.addSecret('test-project', {
+        key: 'TEST_KEY',
+        value: 'test-value',
+        source: 'manual'
+      });
 
-    it('should return undefined for a non-existent secret', () => {
-      const secret = vaultAgent.getSecret(projectName, category, 'nonexistent');
-      expect(secret).toBeUndefined();
-    });
+      await vaultAgent.updateSecret('test-project', 'TEST_KEY', {
+        value: 'updated-value',
+        description: 'Updated description'
+      });
 
-    it('should update secret metadata and lastUpdated date', async () => {
-      const secretPayload = createTestSecret();
-      await vaultAgent.addSecret(projectName, category, identifier, secretPayload);
-      const originalSecret = vaultAgent.getSecret(projectName, category, identifier);
-      
-      // Simulate time passing for lastUpdated check
-      jest.useFakeTimers().setSystemTime(new Date('2050-01-02'));
-      const newNote = 'Updated note';
-      await vaultAgent.updateSecret(projectName, category, identifier, { notes: newNote });
-      const updatedSecret = vaultAgent.getSecret(projectName, category, identifier);
-      const futureDate = new Date('2050-01-02').toISOString().split('T')[0];
-
-      expect(updatedSecret?.notes).toBe(newNote);
-      expect(updatedSecret?.key).toBe(originalSecret?.key); // Key should not change
-      expect(updatedSecret?.created).toBe(originalSecret?.created); // Created should not change
-      expect(updatedSecret?.lastUpdated).toBe(futureDate);
+      const project = await vaultAgent.getProject('test-project');
+      const secret = project?.secrets.find(s => s.key === 'TEST_KEY');
+      expect(secret?.value).toBe('updated-value');
+      expect(secret?.description).toBe('Updated description');
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
-      jest.useRealTimers();
-    });
-
-    it('should update secret value (key) and lastUpdated date', async () => {
-      const secretPayload = createTestSecret();
-      await vaultAgent.addSecret(projectName, category, identifier, secretPayload);
-      const originalSecret = vaultAgent.getSecret(projectName, category, identifier);
-      
-      jest.useFakeTimers().setSystemTime(new Date('2050-01-03'));
-      const newKeyValue = 'sk-newkey456';
-      await vaultAgent.updateSecretValue(projectName, category, identifier, newKeyValue);
-      const updatedSecret = vaultAgent.getSecret(projectName, category, identifier);
-      const futureDate = new Date('2050-01-03').toISOString().split('T')[0];
-      
-      expect(updatedSecret?.key).toBe(newKeyValue);
-      expect(updatedSecret?.created).toBe(originalSecret?.created);
-      expect(updatedSecret?.lastUpdated).toBe(futureDate);
-      expect(vaultAgent.isDirtyForTesting()).toBe(true);
-      jest.useRealTimers();
     });
 
     it('should delete an existing secret', async () => {
-      const secretPayload = createTestSecret();
-      await vaultAgent.addSecret(projectName, category, identifier, secretPayload);
-      await vaultAgent.deleteSecret(projectName, category, identifier);
-      const secret = vaultAgent.getSecret(projectName, category, identifier);
-      expect(secret).toBeUndefined();
+      await vaultAgent.addSecret('test-project', {
+        key: 'TEST_KEY',
+        value: 'test-value',
+        source: 'manual'
+      });
+
+      await vaultAgent.deleteSecret('test-project', 'TEST_KEY');
+
+      const project = await vaultAgent.getProject('test-project');
+      expect(project?.secrets).toHaveLength(0);
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
+    });
+
+    it('should throw error when adding duplicate secret', async () => {
+      await vaultAgent.addSecret('test-project', {
+        key: 'TEST_KEY',
+        value: 'test-value',
+        source: 'manual'
+      });
+
+      await expect(vaultAgent.addSecret('test-project', {
+        key: 'TEST_KEY',
+        value: 'duplicate-value',
+        source: 'manual'
+      })).rejects.toThrow('already exists');
     });
   });
 
   describe('Global Tag Management', () => {
-    it('should add and get global tags', async () => {
-      await vaultAgent.addGlobalTag('prod');
-      await vaultAgent.addGlobalTag('shared');
+    beforeEach(async () => {
+      await vaultAgent.loadVault();
+    });
+
+    it('should add and get global tags', () => {
+      vaultAgent.addGlobalTag('prod');
+      vaultAgent.addGlobalTag('shared');
       expect(vaultAgent.getGlobalTags()).toEqual(['prod', 'shared']);
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
     });
 
-    it('should not add duplicate global tags', async () => {
-      await vaultAgent.addGlobalTag('prod');
-      await vaultAgent.addGlobalTag('prod');
+    it('should not add duplicate global tags', () => {
+      vaultAgent.addGlobalTag('prod');
+      vaultAgent.addGlobalTag('prod');
       expect(vaultAgent.getGlobalTags()).toEqual(['prod']);
     });
 
-    it('should remove an existing global tag', async () => {
-      await vaultAgent.addGlobalTag('prod');
-      await vaultAgent.addGlobalTag('internal');
-      await vaultAgent.removeGlobalTag('prod');
+    it('should remove an existing global tag', () => {
+      vaultAgent.addGlobalTag('prod');
+      vaultAgent.addGlobalTag('internal');
+      vaultAgent.removeGlobalTag('prod');
       expect(vaultAgent.getGlobalTags()).toEqual(['internal']);
       expect(vaultAgent.isDirtyForTesting()).toBe(true);
     });
 
-    it('should handle removing a non-existent global tag gracefully', async () => {
-      await vaultAgent.addGlobalTag('prod');
-      await vaultAgent.removeGlobalTag('nonexistent');
+    it('should handle removing a non-existent global tag gracefully', () => {
+      vaultAgent.addGlobalTag('prod');
+      vaultAgent.removeGlobalTag('nonexistent');
       expect(vaultAgent.getGlobalTags()).toEqual(['prod']);
     });
   });

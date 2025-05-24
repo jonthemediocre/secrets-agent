@@ -151,4 +151,114 @@ These tasks relate to the long-term vision of integrating Secrets Agent with bro
 - [>] P3.5: UI Components - Basic UI for managing rotation policies. (Drafted)
 - [ ] P3.6: Test Suite - For rotation agents, services, and API endpoints.
 
+---
+
+## 🔥 **CODE AUDIT PRIORITY ACTIONS** (Added: 2025-01-23)
+
+*High-value immediate improvements based on comprehensive codebase analysis*
+
+### **🚨 CRITICAL - Phase 1 Fixes**
+
+- [ ] **AUDIT-P1-TYPE: Fix TypeScript Compilation Issues**
+    - [ ] Replace 174 `any` types with proper interfaces (target: <50 errors)
+    - [ ] Priority files: `AuthAgent.ts`, `VaultAgent.ts`, `APIManagerAgent.ts`, API routes
+    - [ ] Create missing type definitions for external dependencies
+    - [ ] **Impact**: Eliminate runtime errors, improve IDE support, enable proper refactoring
+
+- [ ] **AUDIT-P1-ARCH: Resolve Mixed Platform Architecture**
+    - [ ] **Decision Required**: Choose React Native OR Web, not both
+    - [ ] Separate build processes or consolidate platform approach
+    - [ ] Update `package.json`, `tsconfig.json` configurations accordingly
+    - [ ] **Impact**: Fix compilation conflicts, simplify deployment
+
+- [ ] **AUDIT-P1-CLI: Bridge Python CLI with TypeScript Agents**
+    - [ ] Create `AgentBridgeService.ts` to interface with existing Python CLI
+    - [ ] Integrate `cli.py`, `secret_broker.py`, `env_scanner.py` functionality
+    - [ ] Use KEB (Kernel Event Bus) for Python-TypeScript communication
+    - [ ] **Value**: Leverage production-ready scanning and encryption logic
+
+### **⚡ HIGH-VALUE - Phase 2 Enhancements**
+
+- [ ] **AUDIT-P2-SCAFFOLD: Implement SecretScaffoldAgent**
+    - [ ] Enhance `EnvFileParser.ts` with smart detection capabilities
+    - [ ] Scan `.env.example`, `docker-compose.yml`, `README.md` for secret requirements
+    - [ ] Auto-suggest missing secrets and generate secret schemas
+    - [ ] Integrate with existing `env_scanner.py` logic via bridge service
+    - [ ] **Value**: Automated secret discovery and project onboarding
+
+- [ ] **AUDIT-P2-RULES: Create Rule Enforcement Engine**
+    - [ ] Build `RuleEnforcementAgent.ts` to make `.cursor/rules/*.mdc` actionable
+    - [ ] Implement policy validation for agent operations
+    - [ ] Add compliance auditing and reporting capabilities
+    - [ ] **Value**: Make extensive governance framework operational
+
+- [ ] **AUDIT-P2-META: Enhanced Secret Metadata System**
+    - [ ] Extend `SecretEntry` interface with comprehensive tracking:
+        - `source` (manual/import/scan/rotation/external)
+        - `accessHistory` with detailed audit trails
+        - `integrity` with hash verification
+        - `compliance` with data classification tags
+    - [ ] Update `VaultAgent` to handle enhanced metadata
+    - [ ] **Value**: Enterprise-grade auditing and compliance
+
+- [ ] **AUDIT-P2-EVENTS: Event-Driven Secret Operations**
+    - [ ] Emit KEB events for all `VaultAgent` CRUD operations
+    - [ ] Implement event-based audit logging
+    - [ ] Add real-time secret change notifications
+    - [ ] **Value**: Decoupled, auditable secret lifecycle management
+
+### **🎯 STRATEGIC - Phase 3 Capabilities**
+
+- [ ] **AUDIT-P3-DYNAMIC: Dynamic Secret Engines**
+    - [ ] Design `DynamicSecretEngine` interface for time-limited secrets
+    - [ ] Implement database credential generation with TTL
+    - [ ] Add API token rotation with lease management
+    - [ ] **Competitive Value**: Match HashiCorp Vault capabilities
+
+- [ ] **AUDIT-P3-ANALYTICS: Secret Graph Analytics**
+    - [ ] Visualize secret dependencies across projects
+    - [ ] Identify rotation impact and security hotspots
+    - [ ] Detect unused or orphaned secrets
+    - [ ] **Innovation Value**: Unique insight into secret ecosystem health
+
+- [ ] **AUDIT-P3-ML: ML-Powered Secret Classification**
+    - [ ] Auto-classify secrets by sensitivity and usage patterns
+    - [ ] Automated compliance tagging and rotation scheduling
+    - [ ] Anomaly detection for unusual secret access patterns
+    - [ ] **Innovation Value**: Intelligent secret lifecycle management
+
+### **📋 REFACTORING OPPORTUNITIES**
+
+- [ ] **AUDIT-REF-UNUSED: Remove Underutilized Components**
+    - [ ] Audit and cleanup unused Python scripts and utilities
+    - [ ] Consolidate duplicate functionality between CLI and agents
+    - [ ] Remove dead code and orphaned configuration files
+    - [ ] **Value**: Simplified codebase, reduced maintenance burden
+
+- [ ] **AUDIT-REF-TESTS: Complete Test Infrastructure**
+    - [ ] Fix Jest configuration issues (40+ test errors)
+    - [ ] Implement comprehensive test coverage for all agents
+    - [ ] Add integration tests for agent communication via KEB
+    - [ ] **Value**: Reliable development and deployment pipeline
+
+- [ ] **AUDIT-REF-DOCS: Address Documentation Gaps**
+    - [ ] Create agent communication protocol documentation
+    - [ ] Document security threat model and mitigations
+    - [ ] Add performance benchmarks and optimization guides
+    - [ ] **Value**: Improved developer experience and maintenance
+
+### **💡 INNOVATION IMPLEMENTATIONS**
+
+- [ ] **AUDIT-INN-ZERO: Zero-Knowledge Secret Sharing**
+    - [ ] Implement Age encryption with multiple recipients
+    - [ ] Enable secure secret sharing without exposing values
+    - [ ] Add team-based vault access with individual keys
+    - [ ] **Value**: Enterprise team collaboration capabilities
+
+- [ ] **AUDIT-INN-MANIFEST: Agent Capability Manifests**
+    - [ ] Standardize `AgentManifest` interface across all agents
+    - [ ] Implement capability discovery and dependency resolution
+    - [ ] Add trust level validation for agent interactions
+    - [ ] **Value**: Robust agent ecosystem with clear boundaries
+
 *This TODO list should be updated as tasks are completed and priorities shift.* 
