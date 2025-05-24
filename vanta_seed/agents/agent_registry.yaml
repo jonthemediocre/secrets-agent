@@ -1,0 +1,50 @@
+# VANTA Agent Registry
+# Central registry for all VANTA agents following .cursor/rules/swarm-config.mdc standards
+
+agents:
+  - id: cursor_rules_sync_agent
+    name: "Cursor & Rules Sync Agent"
+    type: agent
+    description: "Recursively scans all project directories to analyze, generate, and synchronize .cursor (dev) and .rules (prod) configuration files."
+    metadata:
+      version: 1.0
+      created_at: "2024-01-20T00:00:00Z"
+      last_updated: "2024-01-20T00:00:00Z"
+      status: active
+      tags: ["configuration", "automation", "development", "production", "symbolic"]
+    class_path: "vanta_seed.agents.cursor_rules_sync_agent.CursorRulesSyncAgent"
+    capabilities:
+      - "directory_scanning"
+      - "file_generation"
+      - "template_management"
+      - "symlink_creation"
+      - "rule_inheritance"
+      - "index_stitching"
+    env_config:
+      development:
+        log_level: DEBUG
+        enable_symlinks: true
+        auto_generate: false
+      production:
+        log_level: INFO
+        enable_symlinks: true
+        auto_generate: true
+    default_options:
+      exclude_dirs: [".git", "__pycache__", "node_modules", ".venv", ".next", "coverage", "dist", "build"]
+      scan_patterns:
+        cursor_files: ["**/.cursor/**/*.mdc", "**/.cursor/**/index.mdc"]
+        rules_files: ["**/.rules/**/*.yaml", "**/.rules/**/*.mdc", "**/rules.yaml"]
+        agent_files: ["**/agents/*.py", "**/agent_*.py"]
+        index_files: ["**/index.yaml", "**/index.mdc", "**/registry.yaml"]
+      template_mappings:
+        agent: "agent_template"
+        processor: "processor_template"
+        ui_component: "ui_template"
+        symbolic_kernel: "kernel_template"
+        runtime_node: "runtime_template"
+        cli_tool: "cli_template"
+    cascade_profiles:
+      - "cursor_rules_sync_full_audit_cascade"
+      - "cursor_rules_quick_scan_cascade"
+
+  # Add more agents as they are created 
