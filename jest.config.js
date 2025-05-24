@@ -3,7 +3,7 @@ module.exports = {
   roots: ['<rootDir>'],
   transform: {
     '^.+\\.(ts|tsx)$': ['ts-jest', {
-      tsconfig: 'tsconfig.json',
+        tsconfig: 'tsconfig.json',
     }],
   },
   testMatch: ['**/__tests__/**/*.ts?(x)', '**/?(*.)+(spec|test).ts?(x)'],

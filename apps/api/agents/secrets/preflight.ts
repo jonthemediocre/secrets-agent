@@ -32,7 +32,7 @@ function inferServices(content: string): Set<string> {
 
 function inferSecretNames(services: Set<string>, content: string): Set<string> {
   const names = new Set<string>();
-  for (const svc of services) {
+  for (const svc of Array.from(services)) {
     switch (svc) {
       case 'openai':
         names.add('OPENAI_API_KEY');

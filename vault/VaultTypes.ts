@@ -4,7 +4,7 @@ export interface SecretEntry {
   key: string;
   value?: string; // The actual secret value
   description?: string; // Human readable description
-  source: 'env' | 'manual' | 'api' | 'sops' | 'vault' | 'scaffold'; // Origin of the secret
+  source: 'env' | 'manual' | 'api' | 'sops' | 'vault' | 'scaffold' | 'cli_scan'; // Origin of the secret
   envFile?: string; // If sourced from an .env file
   created: string; // ISO 8601 timestamp
   lastUpdated: string; // ISO 8601 timestamp

@@ -59,39 +59,15 @@ export function securityHeaders() {
 // Input sanitization
 export function sanitizeInput() {
   return (req: Request, res: Response, next: NextFunction): void => {
-    // Sanitize query parameters
-    if (req.query) {
-      req.query = sanitizeObject(req.query);
-    }
-
-    // Sanitize body
-    if (req.body) {
-      req.body = sanitizeObject(req.body);
-    }
-    
-    // Sanitize params
-    if (req.params) {
-      req.params = sanitizeObject(req.params);
-    }
+        // Sanitize query parameters    if (req.query) {      req.query = sanitizeObject(req.query) as typeof req.query;    }    // Sanitize body    if (req.body) {      req.body = sanitizeObject(req.body);    }        // Sanitize params    if (req.params) {      req.params = sanitizeObject(req.params) as typeof req.params;    }
     
     next();
   };
 }
 
-function sanitizeObject(obj: Record<string, unknown>): Record<string, unknown> {
-  if (typeof obj !== 'object' || obj === null) {
-    return sanitizeValue(obj);
-  }
+function sanitizeObject(obj: unknown): unknown {  if (typeof obj !== 'object' || obj === null) {    return sanitizeValue(obj);  }    if (Array.isArray(obj)) {    return obj.map(item => sanitizeObject(item));  }
   
-  if (Array.isArray(obj)) {
-    return obj.map(item => sanitizeObject(item as Record<string, unknown>));
-  }
-  
-  const sanitized: Record<string, unknown> = {};
-  for (const [key, value] of Object.entries(obj)) {
-    const sanitizedKey = sanitizeKey(key);
-    sanitized[sanitizedKey] = sanitizeObject(value as Record<string, unknown>);
-  }
+    const sanitized: Record<string, unknown> = {};  for (const [key, value] of Object.entries(obj as Record<string, unknown>)) {    const sanitizedKey = sanitizeKey(key);    sanitized[sanitizedKey] = sanitizeObject(value);  }
   
   return sanitized;
 }

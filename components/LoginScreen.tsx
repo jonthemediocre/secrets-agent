@@ -1,9 +1,10 @@
 // components/LoginScreen.tsx
 import React, { useEffect } from 'react';
-import { View, Text, Button, StyleSheet, ActivityIndicator, Alert, Platform, Image } from 'react-native';
+import { StyleSheet, Alert, Platform } from 'react-native';
 import { useAuthAgent } from '../hooks/useAuthAgent'; // Import useAuthAgent
 import { useUserAgent } from '../hooks/useUserAgent'; // Import useUserAgent
 import { createLogger } from '../src/utils/logger';
+import AuthAgent, { GoogleAuthConfig, AuthSessionData } from '../AuthAgent';
 
 const logger = createLogger('LoginScreen');
 
@@ -14,6 +15,84 @@ const logger = createLogger('LoginScreen');
 // };
 
 // const authAgent = new AuthAgent(authConfig); // No longer instantiating directly
+
+// Type definitions for cross-platform components
+interface ViewProps {
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+}
+
+interface TextProps {
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}
+
+interface ImageProps {
+  source: { uri: string };
+  style?: React.CSSProperties;
+}
+
+// Web implementations of React Native-like components
+const View: React.FC<ViewProps> = ({ style, children }) => (
+  <div style={style}>{children}</div>
+);
+
+const Text: React.FC<TextProps> = ({ style, children }) => (
+  <span style={style}>{children}</span>
+);
+
+const TouchableOpacity: React.FC<{
+  onPress: () => void;
+  style?: React.CSSProperties;
+  children: React.ReactNode;
+}> = ({ onPress, style, children }) => (
+  <button onClick={onPress} style={{ border: 'none', background: 'none', ...style }}>
+    {children}
+  </button>
+);
+
+const Image: React.FC<ImageProps> = ({ source, style }) => (
+  <img src={source.uri} style={style} alt="Google Logo" />
+);
+
+const Button: React.FC<{ 
+  title: string; 
+  onPress: () => void; 
+  color?: string 
+}> = ({ title, onPress, color }) => (
+  <button 
+    onClick={onPress} 
+    style={{ 
+      backgroundColor: color || '#007AFF', 
+      color: 'white', 
+      border: 'none', 
+      padding: '10px 20px', 
+      borderRadius: '5px',
+      cursor: 'pointer'
+    }}
+  >
+    {title}
+  </button>
+);
+
+const ActivityIndicator: React.FC<{ size?: string }> = ({ size }) => (
+  <div style={{ 
+    display: 'inline-block',
+    width: size === 'large' ? '40px' : '20px',
+    height: size === 'large' ? '40px' : '20px',
+    border: '3px solid #f3f3f3',
+    borderTop: '3px solid #3498db',
+    borderRadius: '50%',
+    animation: 'spin 1s linear infinite'
+  }}>
+    <style>{`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
+  </div>
+);
 
 const LoginScreen: React.FC = () => {
   // Use hooks for auth and user state

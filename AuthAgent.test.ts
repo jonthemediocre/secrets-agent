@@ -1,9 +1,25 @@
-// AuthAgent.test.ts (corrected)
-import AuthAgent, { GoogleAuthConfig } from './AuthAgent';
-import * as SecureStore from 'expo-secure-store';
-import * as AuthSession from 'expo-auth-session';
+// AuthAgent.test.ts - Test suite for the AuthAgent with mocked Expo dependencies
+import AuthAgent from './AuthAgent';
 
-jest.mock('expo-secure-store');
+// Mock Expo modules for testing
+const mockSecureStore = {
+  setItemAsync: jest.fn().mockResolvedValue(undefined),
+  getItemAsync: jest.fn().mockResolvedValue(null),
+  deleteItemAsync: jest.fn().mockResolvedValue(undefined)
+};
+
+const mockAuthSession = {
+  AuthSessionResult: {} as any,
+  makeRedirectUri: jest.fn().mockReturnValue('mock://redirect'),
+  startAsync: jest.fn().mockResolvedValue({ type: 'success', params: {} }),
+  AuthRequest: jest.fn().mockImplementation(() => ({
+    promptAsync: jest.fn().mockResolvedValue({ type: 'success', params: {} })
+  }))
+};
+
+// Mock the modules
+jest.mock('expo-secure-store', () => mockSecureStore);
+jest.mock('expo-auth-session', () => mockAuthSession);
 
 const sharedPromptAsyncMock = jest.fn();
 jest.mock('expo-auth-session', () => {
@@ -30,7 +46,7 @@ jest.mock('expo-auth-session', () => {
   };
 });
 
-const mockConfig: GoogleAuthConfig = {
+const mockConfig = {
   clientId: 'test-client-id',
   scopes: ['profile', 'email'],
 };
@@ -45,9 +61,9 @@ const mockUserProfileData = {
 beforeEach(() => {
   jest.clearAllMocks();
   sharedPromptAsyncMock.mockReset();
-  (SecureStore.getItemAsync as jest.Mock).mockResolvedValue(null);
-  (SecureStore.setItemAsync as jest.Mock).mockResolvedValue(undefined);
-  (SecureStore.deleteItemAsync as jest.Mock).mockResolvedValue(undefined);
+  (mockSecureStore.getItemAsync as jest.Mock).mockResolvedValue(null);
+  (mockSecureStore.setItemAsync as jest.Mock).mockResolvedValue(undefined);
+  (mockSecureStore.deleteItemAsync as jest.Mock).mockResolvedValue(undefined);
   (global.fetch as jest.Mock) = jest.fn().mockResolvedValue({
     ok: true,
     json: async () => mockUserProfileData,
@@ -61,7 +77,7 @@ describe('AuthAgent sign-in flows', () => {
       params: { code: 'mock-code' },
     });
 
-    (AuthSession.exchangeCodeAsync as jest.Mock).mockResolvedValueOnce(
+    (jest.requireActual('expo-auth-session').exchangeCodeAsync as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         accessToken: 'mockAccessToken',
         refreshToken: 'mockRefreshToken',
@@ -108,7 +124,7 @@ describe('AuthAgent refreshAccessToken', () => {
       expiresIn: 3600,
       issueTime: Date.now() - 10000000, // expired
     };
-    (AuthSession.refreshAsync as jest.Mock).mockResolvedValueOnce(
+    (jest.requireActual('expo-auth-session').refreshAsync as jest.Mock).mockResolvedValueOnce(
       Promise.resolve({
         accessToken: 'newAccessToken',
         refreshToken: 'newRefreshToken',
@@ -151,7 +167,7 @@ describe('AuthAgent sign-out', () => {
       expiresIn: 3600,
       issueTime: Date.now(),
     };
-    (AuthSession.revokeAsync as jest.Mock).mockResolvedValueOnce(Promise.resolve());
+    (jest.requireActual('expo-auth-session').revokeAsync as jest.Mock).mockResolvedValueOnce(Promise.resolve());
 
     await agent.signOut();
     expect(agent.isAuthenticated()).toBe(false);

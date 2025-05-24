@@ -1,4 +1,10 @@
 creation_rules:
+  # Development mode - unencrypted for testing
+  - path_regex: vault/secrets\.sops\.yaml$
+    unencrypted_suffix: "_unencrypted"
+  - path_regex: vault/.*\.yaml$
+    unencrypted_suffix: "_unencrypted"
+  # Production rules with age encryption (when age keys are available)
   - path_regex: .*test_secret\.yaml$
     age: age18xsflnzt3xmsn2amqkqddj36975f8kxk6906myvpt6qd6rlxdpps3yg40v
   - path_regex: .*app\.secrets\.yaml$ # For the generic one

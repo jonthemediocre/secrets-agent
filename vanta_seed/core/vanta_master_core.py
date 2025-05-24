@@ -78,6 +78,16 @@ class VantaMasterCore:
         
         logger.info("VMC startup sequence completed.")
 
+    async def _shutdown_agent_async(self, agent_id: str, agent_instance: Any) -> None:
+        """
+        Helper method to shut down an agent asynchronously with proper error handling.
+        """
+        try:
+            await agent_instance.shutdown()
+            logger.info(f"VMC: Agent {agent_id} shut down successfully (async)")
+        except Exception as e:
+            logger.error(f"VMC: Error shutting down agent {agent_id} (async): {e}", exc_info=True)
+
     async def shutdown(self):
         """
         Perform shutdown routines for VantaMasterCore.
@@ -97,6 +107,41 @@ class VantaMasterCore:
         #     if hasattr(agent_instance, 'shutdown') and asyncio.iscoroutinefunction(agent_instance.shutdown):
         #         try: await agent_instance.shutdown()
         #         except Exception as e: logger.error(f"Error shutting down agent {agent_id}: {e}")
+        
+        # Gracefully shut down managed agents
+        logger.info("VMC: Shutting down managed agents...")
+        shutdown_tasks = []
+        
+        for agent_id, agent_instance in self.agents.items():
+            try:
+                if hasattr(agent_instance, 'shutdown'):
+                    if asyncio.iscoroutinefunction(agent_instance.shutdown):
+                        # Async shutdown method
+                        logger.info(f"VMC: Initiating async shutdown for agent {agent_id}")
+                        shutdown_tasks.append(self._shutdown_agent_async(agent_id, agent_instance))
+                    elif callable(agent_instance.shutdown):
+                        # Sync shutdown method
+                        logger.info(f"VMC: Initiating sync shutdown for agent {agent_id}")
+                        try:
+                            agent_instance.shutdown()
+                            logger.info(f"VMC: Agent {agent_id} shut down successfully (sync)")
+                        except Exception as e:
+                            logger.error(f"VMC: Error shutting down agent {agent_id} (sync): {e}", exc_info=True)
+                else:
+                    logger.info(f"VMC: Agent {agent_id} has no shutdown method, skipping")
+            except Exception as e:
+                logger.error(f"VMC: Error checking shutdown capability for agent {agent_id}: {e}", exc_info=True)
+        
+        # Wait for all async shutdowns to complete
+        if shutdown_tasks:
+            logger.info(f"VMC: Waiting for {len(shutdown_tasks)} async agent shutdowns to complete...")
+            try:
+                await asyncio.gather(*shutdown_tasks, return_exceptions=True)
+                logger.info("VMC: All async agent shutdowns completed")
+            except Exception as e:
+                logger.error(f"VMC: Error during batch agent shutdown: {e}", exc_info=True)
+        
+        logger.info("VMC: Agent shutdown sequence completed")
         
         if self.keb_client: self.keb_client.disconnect()
         logger.info("VantaMasterCore shutdown complete.")

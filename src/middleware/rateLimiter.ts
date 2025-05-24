@@ -12,58 +12,9 @@ interface RateLimitOptions {
   keyGenerator?: (req: Request) => string; // Custom key generator
 }
 
-interface RateLimitStore {
-  increment: (key: string) => Promise<{ totalHits: number; timeToExpire?: number }>;
-  decrement: (key: string) => Promise<void>;
-  resetKey: (key: string) => Promise<void>;
-  resetAll?: () => Promise<void>;
-}
+interface RateLimitStore {  [key: string]: { count: number; resetTime: number };}
 
-// Simple in-memory store for rate limiting
-class MemoryStore implements RateLimitStore {
-  private store: Map<string, { count: number; resetTime: number }> = new Map();
-
-  async increment(key: string): Promise<{ totalHits: number; timeToExpire?: number }> {
-    const now = Date.now();
-    const existing = this.store.get(key);
-    
-    if (!existing || now > existing.resetTime) {
-      // New window or expired
-      this.store.set(key, { count: 1, resetTime: now + (15 * 60 * 1000) }); // 15 minutes
-      return { totalHits: 1, timeToExpire: 15 * 60 * 1000 };
-    }
-    
-    existing.count++;
-    this.store.set(key, existing);
-    return { 
-      totalHits: existing.count, 
-      timeToExpire: existing.resetTime - now 
-    };
-  }
-
-  async decrement(key: string): Promise<void> {
-    const existing = this.store.get(key);
-    if (existing) {
-      existing.count--;
-      this.store.set(key, existing);
-    }
-  }
-
-  async resetKey(key: string): Promise<void> {
-    this.store.delete(key);
-  }
-
-  async resetAll(): Promise<void> {
-    this.store.clear();
-  }
-}
-
-class RateLimiter {
-  private store: RateLimitStore;
-  private options: Required<RateLimitOptions>;
-
-  constructor(options: RateLimitOptions) {
-    this.store = new MemoryStore();
+class RateLimiter {  private store: RateLimitStore;  private options: Required<RateLimitOptions>;  constructor(options: RateLimitOptions) {    this.store = {};
     this.options = {
       windowMs: options.windowMs,
       maxRequests: options.maxRequests,

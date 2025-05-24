@@ -61,7 +61,7 @@ export const UserAgentProvider: React.FC<UserAgentProviderProps> = ({ children }
       });
       return loadedUser;
     } catch (error) {
-      logger.error('Failed to load user data', { error });
+      logger.error('Failed to load user data', {         error: error instanceof Error ? error.message : String(error)       });
       setUserRecord(null);
       return null;
     } finally {

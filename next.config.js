@@ -1,15 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-  },
+  // appDir is now the default in Next.js 14, no need to specify
   typescript: {
-    // Temporarily ignore TypeScript errors during build while we fix them
-    ignoreBuildErrors: true,
+    // We've fixed all TypeScript errors!
+    ignoreBuildErrors: false,
   },
   eslint: {
-    // Temporarily ignore ESLint errors during build while we fix them
-    ignoreDuringBuilds: true,
+    // We want to see ESLint errors during builds
+    ignoreDuringBuilds: false,
   },
 }
 

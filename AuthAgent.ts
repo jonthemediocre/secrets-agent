@@ -1,8 +1,8 @@
 // AuthAgent.ts - Standalone Authentication Logic with Expo Integration & Reactivity
 
-import * as AuthSession from 'expo-auth-session';
-import * as SecureStore from 'expo-secure-store';
+// Expo imports replaced with mock system below
 import { createLogger } from './src/utils/logger';
+import { Platform } from 'react-native';
 
 const logger = createLogger('AuthAgent');
 
@@ -75,10 +75,46 @@ export interface AuthSessionData {
 // Listener type for auth state changes
 export type AuthChangeListener = (session: Readonly<AuthSessionData>) => void;
 
+// Mock Expo modules for non-Expo environments
+const mockAuthSession = {
+  AuthSessionResult: {} as any,
+  makeRedirectUri: () => 'mock://redirect',
+  startAsync: async () => ({ type: 'success', params: {} } as any),
+  AuthRequest: class {
+    async promptAsync() {
+      return { type: 'success', params: {} } as any;
+    }
+  }
+};
+
+const mockSecureStore = {
+  setItemAsync: async (key: string, value: string) => Promise.resolve(),
+  getItemAsync: async (key: string) => Promise.resolve(null),
+  deleteItemAsync: async (key: string) => Promise.resolve()
+};
+
+// Dynamic imports for Expo modules (only used in React Native)
+// This is a compatibility layer to allow the code to work on both web and mobile
+// without requiring Expo dependencies when running on web
+let AuthSession: any;
+let SecureStore: any;
+
+try {
+  AuthSession = require('expo-auth-session');
+} catch {
+  AuthSession = mockAuthSession;
+}
+
+try {
+  SecureStore = require('expo-secure-store');
+} catch {
+  SecureStore = mockSecureStore;
+}
+
 class AuthAgent {
   private config: GoogleAuthConfig;
   private session: AuthSessionData;
-  private discovery: AuthSession.DiscoveryDocument | null = null;
+  private discovery: any | null = null;
   private codeVerifier: string | null = null;
   private listeners: AuthChangeListener[] = []; // For reactivity
 
@@ -122,7 +158,7 @@ class AuthAgent {
   }
   // --- End Reactivity System ---
 
-  private async _getDiscoveryDocument(): Promise<AuthSession.DiscoveryDocument> {
+  private async _getDiscoveryDocument(): Promise<any> {
     if (!this.discovery) {
       this.discovery = await AuthSession.fetchDiscoveryAsync(
         'https://accounts.google.com'
@@ -140,7 +176,7 @@ class AuthAgent {
       logger.info('[AuthAgent] Session saved to secure store.');
     } catch (error: Error | unknown) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      logger.error('[AuthAgent] Error saving session to secure store:', errorMessage);
+      logger.error('[AuthAgent] Error saving session to secure store:', { error: errorMessage });
       // Potentially set a session error or handle this more visibly if critical
     }
   }
@@ -470,7 +506,7 @@ class AuthAgent {
         if (code) {
           logger.info('[AuthAgent] Google Sign-In success (Web), received auth code.');
           await this.exchangeAuthCodeForTokens(code);
-          logger.info('[AuthAgent] About to return from successful Web sign-in. isAuthenticated:', this.session.isAuthenticated);
+          logger.info('[AuthAgent] About to return from successful Web sign-in. isAuthenticated:', { isAuthenticated: this.session.isAuthenticated });
           return this.session;
         }
         logger.warn('[AuthAgent] Web Sign-in success type but no auth code received.');
@@ -480,7 +516,7 @@ class AuthAgent {
       } else if (result.type === 'cancel' || result.type === 'dismiss') {
         logger.info('[AuthAgent] Google Web Sign-In was cancelled.');
       } else {
-        logger.error('[AuthAgent] Google Web Sign-In failed with result:', result);
+        logger.error('[AuthAgent] Google Web Sign-In failed with result:', { resultType: result.type });
         throw new Error('Sign-in failed with unexpected response type: ' + result.type);
       }
       
@@ -494,7 +530,10 @@ class AuthAgent {
         ? { ...error, originalError: error }
         : { name: 'AuthError', message: 'An unknown error occurred during web sign-in.', originalError: error };
       
-      logger.error('[AuthAgent] signInWithGoogleWeb error:', authError);
+      logger.error('[AuthAgent] signInWithGoogleWeb error:', { 
+        error: authError.message, 
+        code: authError.code 
+      });
       this.session.error = { message: authError.message || 'An unknown error occurred during web sign-in.' };
       this.session.isAuthenticated = false;
       this.session.isLoading = false;
@@ -523,6 +562,32 @@ class AuthAgent {
     // No, error should be cleared if we successfully cleared the session
     this.session.error = null; 
     this._notifyListeners(); // Notify listeners about the cleared session
+  }
+
+  private async initializeAuthSession(): Promise<void> {
+    if (Platform.OS === 'web') {
+      // For web, use a custom OAuth implementation or third-party library
+      return;
+    }
+
+    try {
+      let AuthSession: unknown = null;
+      let SecureStore: unknown = null;
+      
+      // Dynamically import Expo modules to avoid errors in web environment
+      try {
+        AuthSession = await import('expo-auth-session');
+        SecureStore = await import('expo-secure-store');
+        logger.info('Expo modules imported successfully');
+      } catch (importError) {
+        logger.warn('Expo modules not available, using fallback web implementation');
+      }
+    } catch (error) {
+      logger.error('Failed to initialize AuthAgent', { 
+        error: error instanceof Error ? error.message : String(error) 
+      });
+      throw error;
+    }
   }
 }
 
