@@ -13,6 +13,9 @@ import yaml
 import json
 import time
 import shutil # Import shutil for copy operations
+import glob
+import os
+import fnmatch
 
 def cmd_scan(project_path: Path):
     result = scan_env_and_tools(project_path)
@@ -231,6 +234,91 @@ def cmd_add_secret(key, value, secure=False, password=None):
     else:
         print(f"[X] Failed to add secret '{key}'")
 
+def cmd_mcp_read_file(file_path: str) -> dict:
+    """Read contents of a file and return as JSON response."""
+    try:
+        path = Path(file_path)
+        if not path.exists():
+            return {"success": False, "error": f"File not found: {file_path}"}
+        
+        content = path.read_text(encoding='utf-8')
+        return {
+            "success": True,
+            "content": content,
+            "metadata": {
+                "size": path.stat().st_size,
+                "modified": path.stat().st_mtime,
+                "created": path.stat().st_ctime
+            }
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+def cmd_mcp_list_dir(directory: str, pattern: str = "*") -> dict:
+    """List contents of a directory with optional pattern matching."""
+    try:
+        path = Path(directory)
+        if not path.exists():
+            return {"success": False, "error": f"Directory not found: {directory}"}
+        
+        items = []
+        for item in path.glob(pattern):
+            items.append({
+                "name": item.name,
+                "path": str(item),
+                "type": "directory" if item.is_dir() else "file",
+                "size": item.stat().st_size if item.is_file() else None
+            })
+        
+        return {
+            "success": True,
+            "items": items,
+            "metadata": {
+                "total_items": len(items),
+                "pattern": pattern
+            }
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+def cmd_mcp_search_files(directory: str, pattern: str, recursive: bool = True) -> dict:
+    """Search for files matching a pattern."""
+    try:
+        path = Path(directory)
+        if not path.exists():
+            return {"success": False, "error": f"Directory not found: {directory}"}
+        
+        matches = []
+        if recursive:
+            for root, _, files in os.walk(path):
+                for filename in fnmatch.filter(files, pattern):
+                    file_path = Path(root) / filename
+                    matches.append({
+                        "name": filename,
+                        "path": str(file_path),
+                        "size": file_path.stat().st_size
+                    })
+        else:
+            for item in path.glob(pattern):
+                if item.is_file():
+                    matches.append({
+                        "name": item.name,
+                        "path": str(item),
+                        "size": item.stat().st_size
+                    })
+        
+        return {
+            "success": True,
+            "matches": matches,
+            "metadata": {
+                "total_matches": len(matches),
+                "pattern": pattern,
+                "recursive": recursive
+            }
+        }
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="MetaFabric CLI")
     subparsers = parser.add_subparsers(dest="command")
@@ -270,6 +358,18 @@ if __name__ == "__main__":
 
     subparsers.add_parser("list")
 
+    # Add new MCP commands
+    mcp_read_file_parser = subparsers.add_parser("mcp-read-file")
+    mcp_read_file_parser.add_argument("--file-path", help="Path to file for mcp-read-file")
+    mcp_list_dir_parser = subparsers.add_parser("mcp-list-dir")
+    mcp_list_dir_parser.add_argument("--directory", help="Directory path for mcp-list-dir and mcp-search-files")
+    mcp_list_dir_parser.add_argument("--pattern", help="Pattern for mcp-list-dir and mcp-search-files")
+    mcp_search_files_parser = subparsers.add_parser("mcp-search-files")
+    mcp_search_files_parser.add_argument("--directory", help="Directory path for mcp-search-files")
+    mcp_search_files_parser.add_argument("--pattern", help="Pattern for mcp-search-files")
+    mcp_search_files_parser.add_argument("--recursive", action="store_true", help="Recursive search for mcp-search-files")
+    mcp_search_files_parser.add_argument("--format", choices=["text", "json"], default="text", help="Output format")
+
     args = parser.parse_args()
     
     # Handle password for secure storage operations
@@ -300,5 +400,35 @@ if __name__ == "__main__":
         cmd_add_secret(args.key, args.value, secure=args.secure, password=password)
     elif args.command == "sync-shared-resources":
         cmd_sync_shared_resources(args.project_path, args.master_shared_resources_yaml_path)
+    # Add new MCP command handlers
+    elif args.command == "mcp-read-file":
+        result = cmd_mcp_read_file(args.file_path)
+        if args.format == "json":
+            print(json.dumps(result, indent=2))
+        else:
+            if result["success"]:
+                print(result["content"])
+            else:
+                print(f"Error: {result['error']}")
+    elif args.command == "mcp-list-dir":
+        result = cmd_mcp_list_dir(args.directory, args.pattern or "*")
+        if args.format == "json":
+            print(json.dumps(result, indent=2))
+        else:
+            if result["success"]:
+                for item in result["items"]:
+                    print(f"[{item['type']}] {item['name']} ({item['size']} bytes)")
+            else:
+                print(f"Error: {result['error']}")
+    elif args.command == "mcp-search-files":
+        result = cmd_mcp_search_files(args.directory, args.pattern, args.recursive)
+        if args.format == "json":
+            print(json.dumps(result, indent=2))
+        else:
+            if result["success"]:
+                for match in result["matches"]:
+                    print(f"{match['path']} ({match['size']} bytes)")
+            else:
+                print(f"Error: {result['error']}")
     else:
         parser.print_help()

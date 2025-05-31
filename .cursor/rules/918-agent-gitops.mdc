@@ -3,6 +3,19 @@ description:
 globs: 
 alwaysApply: false
 ---
+# Automated-GitOps-for-Agents
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule outlines principles and practices for applying GitOps methodologies to the deployment and management of agents. It covers versioning agent configurations and code in Git, automating deployment pipelines based on Git events, and ensuring that the agent's state in production reflects the desired state defined in the repository.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
 # 918-agent-gitops.mdc
 # GitOpsAgent class for automating Git workflows within the VANTA framework.
 # This rule defines the GitOpsAgent's functionality, including its Git operation tools and how it interacts with the VantaMasterCore.

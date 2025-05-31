@@ -1,0 +1,471 @@
+# MCP Bridges Configuration
+# Hardened configuration for external tool orchestration platforms
+
+# Global MCP Bridge Settings
+global:
+  # Default timeout for all bridges (can be overridden per bridge)
+  default_timeout: 30000  # 30 seconds
+  
+  # Default retry configuration
+  default_retry:
+    max_retries: 3
+    backoff_factor: 0.5
+    retry_on_errors: ["connection_timeout", "server_error_5xx", "rate_limit_exceeded"]
+  
+  # Security settings
+  security:
+    require_https: true
+    validate_certificates: true
+    max_request_size: "10MB"
+    rate_limiting:
+      enabled: true
+      requests_per_minute: 60
+      burst_limit: 10
+  
+  # Monitoring and observability
+  monitoring:
+    health_check_interval: 30000  # 30 seconds
+    metrics_collection: true
+    log_requests: true
+    log_responses: false  # Set to true for debugging
+    performance_tracking: true
+
+# MCP Bridge Definitions
+bridges:
+  # AI/LLM Bridges
+  openai:
+    id: "openai"
+    name: "OpenAI GPT"
+    description: "OpenAI GPT models for text generation, code analysis, and reasoning"
+    category: "ai"
+    enabled: true
+    
+    # Connection configuration
+    connection:
+      url: "${OPENAI_MCP_URL:-https://api.openai.com/v1/mcp}"
+      api_key: "${OPENAI_API_KEY}"
+      timeout: 45000  # 45 seconds for AI operations
+      
+    # Authentication
+    auth:
+      type: "bearer"
+      header: "Authorization"
+      prefix: "Bearer"
+      
+    # Retry configuration
+    retry:
+      max_retries: 5
+      backoff_factor: 0.7
+      max_backoff: 30000  # 30 seconds max
+      
+    # Tool categories available
+    tool_categories:
+      - "text_generation"
+      - "code_analysis"
+      - "reasoning"
+      - "translation"
+      
+    # Rate limiting (per bridge)
+    rate_limit:
+      requests_per_minute: 30
+      burst_limit: 5
+
+  anthropic:
+    id: "anthropic"
+    name: "Anthropic Claude"
+    description: "Anthropic Claude models for advanced reasoning and analysis"
+    category: "ai"
+    enabled: true
+    
+    connection:
+      url: "${ANTHROPIC_MCP_URL:-https://api.anthropic.com/v1/mcp}"
+      api_key: "${ANTHROPIC_API_KEY}"
+      timeout: 60000  # 60 seconds for complex reasoning
+      
+    auth:
+      type: "api_key"
+      header: "x-api-key"
+      
+    retry:
+      max_retries: 4
+      backoff_factor: 0.8
+      
+    tool_categories:
+      - "reasoning"
+      - "analysis"
+      - "writing"
+      - "research"
+
+  gemini:
+    id: "gemini"
+    name: "Google Gemini"
+    description: "Google Gemini models for multimodal AI capabilities"
+    category: "ai"
+    enabled: false  # Disabled by default
+    
+    connection:
+      url: "${GEMINI_MCP_URL:-https://generativelanguage.googleapis.com/v1/mcp}"
+      api_key: "${GEMINI_API_KEY}"
+      timeout: 45000
+      
+    auth:
+      type: "api_key"
+      header: "x-goog-api-key"
+      
+    tool_categories:
+      - "multimodal"
+      - "vision"
+      - "text_generation"
+
+  # Local AI Bridges
+  ollama:
+    id: "ollama"
+    name: "Ollama Local"
+    description: "Local Ollama instance for privacy-focused AI operations"
+    category: "ai"
+    enabled: false
+    
+    connection:
+      url: "${OLLAMA_MCP_URL:-http://localhost:11434/api/mcp}"
+      timeout: 120000  # 2 minutes for local processing
+      
+    auth:
+      type: "none"
+      
+    retry:
+      max_retries: 2  # Fewer retries for local
+      backoff_factor: 0.3
+      
+    tool_categories:
+      - "local_ai"
+      - "privacy_focused"
+
+  lm_studio:
+    id: "lm_studio"
+    name: "LM Studio"
+    description: "LM Studio local model server"
+    category: "ai"
+    enabled: false
+    
+    connection:
+      url: "${LM_STUDIO_MCP_URL:-http://localhost:1234/v1/mcp}"
+      timeout: 90000
+      
+    auth:
+      type: "none"
+
+  # Database Bridges
+  supabase:
+    id: "supabase"
+    name: "Supabase"
+    description: "Supabase database and backend services"
+    category: "database"
+    enabled: false
+    
+    connection:
+      url: "${SUPABASE_MCP_URL}"
+      api_key: "${SUPABASE_ANON_KEY}"
+      timeout: 15000
+      
+    auth:
+      type: "bearer"
+      header: "Authorization"
+      prefix: "Bearer"
+      
+    tool_categories:
+      - "database"
+      - "storage"
+      - "auth"
+      - "realtime"
+
+  postgresql:
+    id: "postgresql"
+    name: "PostgreSQL"
+    description: "Direct PostgreSQL database operations"
+    category: "database"
+    enabled: false
+    
+    connection:
+      url: "${POSTGRES_MCP_URL}"
+      timeout: 30000
+      
+    auth:
+      type: "basic"
+      username: "${POSTGRES_USER}"
+      password: "${POSTGRES_PASSWORD}"
+      
+    tool_categories:
+      - "sql_queries"
+      - "schema_management"
+      - "data_analysis"
+
+  # API Integration Bridges
+  github:
+    id: "github"
+    name: "GitHub API"
+    description: "GitHub repository and workflow management"
+    category: "api"
+    enabled: false
+    
+    connection:
+      url: "${GITHUB_MCP_URL:-https://api.github.com/mcp}"
+      api_key: "${GITHUB_TOKEN}"
+      timeout: 20000
+      
+    auth:
+      type: "bearer"
+      header: "Authorization"
+      prefix: "token"
+      
+    tool_categories:
+      - "repository_management"
+      - "issue_tracking"
+      - "ci_cd"
+
+  slack:
+    id: "slack"
+    name: "Slack API"
+    description: "Slack workspace and communication management"
+    category: "api"
+    enabled: false
+    
+    connection:
+      url: "${SLACK_MCP_URL:-https://slack.com/api/mcp}"
+      api_key: "${SLACK_BOT_TOKEN}"
+      timeout: 15000
+      
+    auth:
+      type: "bearer"
+      header: "Authorization"
+      prefix: "Bearer"
+      
+    tool_categories:
+      - "messaging"
+      - "workspace_management"
+      - "notifications"
+
+  # Tool Bridges
+  code_interpreter:
+    id: "code_interpreter"
+    name: "Code Interpreter"
+    description: "Secure code execution environment"
+    category: "tool"
+    enabled: true
+    
+    connection:
+      url: "${CODE_INTERPRETER_MCP_URL:-http://localhost:8000/mcp}"
+      timeout: 60000  # 1 minute for code execution
+      
+    auth:
+      type: "api_key"
+      header: "x-api-key"
+      value: "${CODE_INTERPRETER_API_KEY}"
+      
+    retry:
+      max_retries: 2
+      backoff_factor: 0.5
+      
+    tool_categories:
+      - "python_execution"
+      - "data_analysis"
+      - "visualization"
+      
+    # Security settings for code execution
+    security:
+      sandbox_enabled: true
+      timeout_per_execution: 30000
+      max_memory_usage: "512MB"
+      allowed_packages: ["pandas", "numpy", "matplotlib", "seaborn", "requests"]
+
+  file_processor:
+    id: "file_processor"
+    name: "File Processor"
+    description: "Document processing and analysis tools"
+    category: "tool"
+    enabled: false
+    
+    connection:
+      url: "${FILE_PROCESSOR_MCP_URL}"
+      timeout: 45000
+      
+    auth:
+      type: "api_key"
+      header: "x-api-key"
+      value: "${FILE_PROCESSOR_API_KEY}"
+      
+    tool_categories:
+      - "pdf_processing"
+      - "document_analysis"
+      - "text_extraction"
+      - "ocr"
+
+# Environment-specific overrides
+environments:
+  development:
+    global:
+      security:
+        require_https: false
+        validate_certificates: false
+      monitoring:
+        log_responses: true
+        
+    bridges:
+      # Enable more bridges in development
+      ollama:
+        enabled: true
+      lm_studio:
+        enabled: true
+      code_interpreter:
+        connection:
+          url: "http://localhost:8000/mcp"
+        auth:
+          value: "dev-api-key"
+
+  staging:
+    global:
+      default_timeout: 45000
+      monitoring:
+        log_requests: true
+        log_responses: true
+        
+    bridges:
+      # Reduced timeouts for staging
+      openai:
+        connection:
+          timeout: 30000
+      anthropic:
+        connection:
+          timeout: 40000
+
+  production:
+    global:
+      default_timeout: 60000
+      security:
+        rate_limiting:
+          requests_per_minute: 120
+          burst_limit: 20
+      monitoring:
+        health_check_interval: 15000  # More frequent health checks
+        
+    bridges:
+      # Production-optimized settings
+      openai:
+        retry:
+          max_retries: 7
+          backoff_factor: 1.0
+        rate_limit:
+          requests_per_minute: 60
+          burst_limit: 10
+          
+      anthropic:
+        retry:
+          max_retries: 6
+          backoff_factor: 0.9
+
+# Health Check Configuration
+health_checks:
+  enabled: true
+  interval: 30000  # 30 seconds
+  timeout: 10000   # 10 seconds
+  
+  # Health check tests for each bridge
+  tests:
+    - name: "connectivity"
+      type: "http_ping"
+      description: "Basic connectivity test"
+      
+    - name: "authentication"
+      type: "auth_test"
+      description: "Verify authentication works"
+      
+    - name: "tool_discovery"
+      type: "list_tools"
+      description: "Verify tool discovery works"
+      max_response_time: 15000
+      
+    - name: "basic_execution"
+      type: "execute_test_tool"
+      description: "Test basic tool execution"
+      max_response_time: 30000
+
+# Circuit Breaker Configuration
+circuit_breaker:
+  enabled: true
+  failure_threshold: 5      # Open circuit after 5 failures
+  recovery_timeout: 60000   # 1 minute before trying half-open
+  half_open_max_calls: 3    # Max calls in half-open state
+  
+  # Per-bridge circuit breaker overrides
+  overrides:
+    openai:
+      failure_threshold: 10  # Higher threshold for critical AI bridge
+    anthropic:
+      failure_threshold: 8
+    code_interpreter:
+      failure_threshold: 3   # Lower threshold for code execution
+
+# Metrics and Monitoring
+metrics:
+  enabled: true
+  collection_interval: 60000  # 1 minute
+  
+  # Metrics to collect
+  collect:
+    - "request_count"
+    - "response_time"
+    - "error_rate"
+    - "tool_execution_count"
+    - "cache_hit_rate"
+    - "active_operations"
+    - "circuit_breaker_state"
+    - "rate_limit_hits"
+  
+  # Export configuration
+  export:
+    format: "prometheus"
+    endpoint: "/metrics"
+    labels:
+      service: "vanta-secrets-agent"
+      component: "mcp-bridge"
+
+# Error Handling and Alerting
+error_handling:
+  # Structured error responses
+  structured_errors: true
+  include_stack_trace: false  # Set to true in development
+  max_error_details_length: 1000
+  
+  # Error classification
+  error_types:
+    - "authentication_error"
+    - "authorization_error"
+    - "rate_limit_error"
+    - "timeout_error"
+    - "connection_error"
+    - "validation_error"
+    - "execution_error"
+    - "unknown_error"
+  
+  # Alerting configuration
+  alerting:
+    enabled: true
+    channels:
+      - type: "log"
+        level: "error"
+      - type: "webhook"
+        url: "${ALERT_WEBHOOK_URL}"
+        enabled: false
+    
+    # Alert conditions
+    conditions:
+      - name: "high_error_rate"
+        condition: "error_rate > 0.1"  # 10% error rate
+        duration: "5m"
+        
+      - name: "bridge_down"
+        condition: "bridge_health == false"
+        duration: "1m"
+        
+      - name: "high_latency"
+        condition: "avg_response_time > 30000"  # 30 seconds
+        duration: "3m" 

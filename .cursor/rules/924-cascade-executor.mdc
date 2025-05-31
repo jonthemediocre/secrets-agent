@@ -58,3 +58,16 @@ Defines the standard implementation and usage patterns for the `CascadeExecutor`
 -   Ensure agents called within cascades are designed to handle the provided `task_data` and return meaningful results.
 -   Log comprehensively for traceability and debugging.
 
+# Sequential-Task-Execution-Engine
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the principles and expected behavior of a sequential task execution engine (e.g., "Cascade Executor"). It covers how tasks are defined, ordered, executed, and how dependencies and outputs are managed in a step-by-step workflow, particularly for complex, multi-stage operations.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

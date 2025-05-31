@@ -1,0 +1,91 @@
+# Firecrawl Tool Configuration
+version: "1.0"
+
+# Tool Identity
+name: "firecrawl"
+description: "Web crawling and content extraction tool"
+type: "required"  # required or optional
+
+# Access Control
+permissions:
+  roles:
+    - "developer"
+    - "reviewer"
+  capabilities:
+    - "web_crawl"
+    - "content_extract"
+    - "search"
+
+# Resource Limits
+limits:
+  max_concurrent_requests: 5
+  max_depth: 3
+  request_delay_ms: 1000
+  max_pages_per_domain: 100
+  timeout_ms: 30000
+
+# Security Settings
+security:
+  allowed_domains:
+    - "*.github.com"
+    - "*.npmjs.com"
+    - "*.stackoverflow.com"
+  blocked_domains:
+    - "*.local"
+    - "localhost"
+  require_https: true
+  verify_ssl: true
+
+# Cache Configuration
+cache:
+  enabled: true
+  ttl_minutes: 60
+  max_size_mb: 100
+  storage_path: ".cursor/cache/tools/firecrawl"
+
+# Monitoring
+monitoring:
+  metrics:
+    - "requests_per_minute"
+    - "average_response_time"
+    - "error_rate"
+    - "cache_hit_ratio"
+  alerts:
+    error_rate:
+      threshold: 0.1
+      window_minutes: 5
+    response_time:
+      threshold_ms: 5000
+      window_minutes: 5
+
+# Integration
+integration:
+  cursor:
+    shortcuts:
+      - key: "ctrl+alt+f"
+        command: "firecrawl.search"
+    statusbar:
+      show: true
+      priority: 1
+    commands:
+      - id: "firecrawl.search"
+        title: "Firecrawl: Search"
+      - id: "firecrawl.extract"
+        title: "Firecrawl: Extract Content"
+
+# Default Parameters
+defaults:
+  formats: ["markdown"]
+  onlyMainContent: true
+  removeBase64Images: true
+  waitFor: 1000
+
+# Error Handling
+error_handling:
+  retry:
+    max_attempts: 3
+    delay_ms: 1000
+    backoff_multiplier: 2
+  fallback:
+    enabled: true
+    alternative_tool: "duckduckgo" 

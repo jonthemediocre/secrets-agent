@@ -1,0 +1,3 @@
+rule_roots:
+- ~/.vanta/global_rules
+- ./.vanta/local_rules

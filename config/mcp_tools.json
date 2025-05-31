@@ -1,0 +1,45 @@
+{
+  "version": "1.0.0",
+  "metadata": {
+    "created": "2024-01-01T00:00:00.000Z",
+    "updated": "2024-01-01T00:00:00.000Z",
+    "environment": "development",
+    "author": "MCP Bridge System"
+  },
+  "tools": [
+    {
+      "name": "echo",
+      "category": "utility",
+      "description": "Echo input text",
+      "version": "1.0.0",
+      "enabled": true,
+      "bridgeId": "default-bridge",
+      "parameters": {
+        "message": {
+          "type": "string",
+          "required": true,
+          "description": "Message to echo"
+        }
+      }
+    },
+    {
+      "name": "status-check",
+      "category": "system",
+      "description": "Check system status",
+      "version": "1.0.0",
+      "enabled": true,
+      "bridgeId": "default-bridge",
+      "parameters": {}
+    }
+  ],
+  "categories": [
+    {
+      "name": "utility",
+      "description": "General utility tools"
+    },
+    {
+      "name": "system",
+      "description": "System monitoring tools"
+    }
+  ]
+} 

@@ -1,0 +1,743 @@
+{
+  "timestamp": "2025-05-25T23:34:15.075Z",
+  "executionTime": 2363,
+  "totalProjects": 81,
+  "projectsScanned": 81,
+  "projectsWithMCP": 28,
+  "topFindings": [
+    {
+      "projectName": "My supertookit MCP server",
+      "mcpFileCount": 18,
+      "totalReferences": 1923,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 813,
+          "fileSize": 59826,
+          "preview": "# Awesome MCP Servers [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?lo..."
+        },
+        {
+          "relativePath": "README-zh.md",
+          "mcpReferences": 582,
+          "fileSize": 42687,
+          "preview": "# 精选的 MCP 服务器 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?logo=disco..."
+        },
+        {
+          "relativePath": "README-ja.md",
+          "mcpReferences": 341,
+          "fileSize": 32042,
+          "preview": "# 素晴らしいMCPサーバー [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?logo=disc..."
+        },
+        {
+          "relativePath": "supertoolkit-mcp\\start-server.ps1",
+          "mcpReferences": 34,
+          "fileSize": 3831,
+          "preview": "# SuperToolkit MCP Server Launcher\n# This script starts the SuperToolkit MCP server and handles any necessary configuration\nWrite-Host \"Starting Super..."
+        },
+        {
+          "relativePath": "supertoolkit-mcp\\tool-status.md",
+          "mcpReferences": 32,
+          "fileSize": 7359,
+          "preview": "This document tracks the status of tools implemented in the SuperToolkit MCP server.\n| `vectorDatabase` | Vector database operations with Pinecone and..."
+        }
+      ]
+    },
+    {
+      "projectName": "awesome-mcp-servers",
+      "mcpFileCount": 17,
+      "totalReferences": 1903,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 813,
+          "fileSize": 59826,
+          "preview": "# Awesome MCP Servers [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?lo..."
+        },
+        {
+          "relativePath": "README-zh.md",
+          "mcpReferences": 582,
+          "fileSize": 42687,
+          "preview": "# 精选的 MCP 服务器 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?logo=disco..."
+        },
+        {
+          "relativePath": "README-ja.md",
+          "mcpReferences": 341,
+          "fileSize": 32042,
+          "preview": "# 素晴らしいMCPサーバー [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)\n[![Discord](https://img.shields.io/discord/1312302100125843476?logo=disc..."
+        },
+        {
+          "relativePath": "supertoolkit-mcp\\start-server.ps1",
+          "mcpReferences": 31,
+          "fileSize": 7382,
+          "preview": "# SuperToolkit MCP Server Launcher\n# This script starts the SuperToolkit MCP server and handles any necessary configuration\nWrite-Host \"Starting Super..."
+        },
+        {
+          "relativePath": "supertoolkit-mcp\\tool-status.md",
+          "mcpReferences": 28,
+          "fileSize": 6434,
+          "preview": "This document tracks the status of tools implemented in the SuperToolkit MCP server.\n| `vectorDatabase` | Vector database operations with Pinecone and..."
+        }
+      ]
+    },
+    {
+      "projectName": "Secrets agent",
+      "mcpFileCount": 16,
+      "totalReferences": 1182,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "docs\\PRD_MCP_Bridge_Integration.md",
+          "mcpReferences": 617,
+          "fileSize": 74295,
+          "preview": "# **Product Requirements Document: MCP Bridge Integration for VANTA Secrets Agent**\nIntegrate a **Master Control Program (MCP) Bridge** into the VANTA..."
+        },
+        {
+          "relativePath": "cursor_rules.md",
+          "mcpReferences": 163,
+          "fileSize": 482152,
+          "preview": "- For instance, an L1 rule might specify how the AI should propose changes to an L2 Python file, what questions to ask before refactoring L2 code, or ..."
+        },
+        {
+          "relativePath": "docs\\MCP_DISCOVERY_FINDINGS_SUMMARY.md",
+          "mcpReferences": 103,
+          "fileSize": 8345,
+          "preview": "# MCP Discovery Findings Summary\n**Scan Results:** 81 projects scanned, 28 projects with MCP content found\nThe MCP discovery scan revealed a rich ecos..."
+        },
+        {
+          "relativePath": "docs\\MCP_IMPLEMENTATION_ROADMAP.md",
+          "mcpReferences": 97,
+          "fileSize": 7771,
+          "preview": "# **MCP Bridge Implementation Roadmap**\n**Phase:** 6 - MCP Bridge Integration\nBased on our comprehensive MCP discovery scan of 81 projects, we've iden..."
+        },
+        {
+          "relativePath": "CROSS_PLATFORM_FEATURE_PARITY_TODO.md",
+          "mcpReferences": 89,
+          "fileSize": 10630,
+          "preview": "## Phase 6: MCP Bridge Integration - Cross-Platform Tool Orchestration\n**Objective:** Integrate Master Control Program (MCP) Bridge capabilities into ..."
+        }
+      ]
+    },
+    {
+      "projectName": "repomix",
+      "mcpFileCount": 5,
+      "totalReferences": 713,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "repomix-output-plain.txt",
+          "mcpReferences": 317,
+          "fileSize": 980872,
+          "preview": "src/core/mcp/mcpServer.ts\nsrc/core/mcp/tools/packCodebaseTool.ts\nsrc/core/mcp/tools/packRemoteRepositoryTool.ts\nwebsite/client/src/de/guide/mcp-server..."
+        },
+        {
+          "relativePath": "repomix-output.xml",
+          "mcpReferences": 317,
+          "fileSize": 980872,
+          "preview": "src/core/mcp/mcpServer.ts\nsrc/core/mcp/tools/packCodebaseTool.ts\nsrc/core/mcp/tools/packRemoteRepositoryTool.ts\nwebsite/client/src/de/guide/mcp-server..."
+        },
+        {
+          "relativePath": "repomix-src-only.txt",
+          "mcpReferences": 30,
+          "fileSize": 204808,
+          "preview": "core/mcp/mcpServer.ts\ncore/mcp/tools/packCodebaseTool.ts\ncore/mcp/tools/packRemoteRepositoryTool.ts\nimport { runMcpServer } from '../../core/mcp/mcpSe..."
+        },
+        {
+          "relativePath": "llms-install.md",
+          "mcpReferences": 26,
+          "fileSize": 5020,
+          "preview": "# Repomix MCP Server Installation Guide\nThis guide is specifically designed for AI agents like Cline to install and configure the Repomix MCP server f..."
+        },
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 23,
+          "fileSize": 34245,
+          "preview": "#### MCP\n- `--mcp`: Run as a [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server\n### MCP Integration\nRepomix supports the [Model Co..."
+        }
+      ]
+    },
+    {
+      "projectName": "Vanta-Chat",
+      "mcpFileCount": 9,
+      "totalReferences": 67,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "VANTA_AGENT_ORCHESTRATION_AUDIT.md",
+          "mcpReferences": 18,
+          "fileSize": 13093,
+          "preview": "**Scope**: Agent orchestration, MCP integration, and workflow automation systems\n- **📡 Advanced MCP Schema**: Complete inter-agent communication prot..."
+        },
+        {
+          "relativePath": "# 📜 ThePlan.md",
+          "mcpReferences": 15,
+          "fileSize": 43994,
+          "preview": "*   Receives tool execution requests (e.g., `tool` name, `input`, `params`) from the frontend (triggered via UI elements interacting with `useRitualSt..."
+        },
+        {
+          "relativePath": "VANTA_ORCHESTRATION_IMPLEMENTATION_COMPLETE.md",
+          "mcpReferences": 10,
+          "fileSize": 9090,
+          "preview": "- **MCP signal processing** with full schema validation\n- **Signal processing endpoints** for MCP signal handling\n- **Zod schema validation** for all ..."
+        },
+        {
+          "relativePath": "VANTA_ORCHESTRATION_SYSTEM_LIVE.md",
+          "mcpReferences": 9,
+          "fileSize": 11579,
+          "preview": "- **MCP Signal Processing**: ✅ **LIVE** - Full schema validation and priority queuing system\n#### **MCP Signal Processing** ✅ **OPERATIONAL**\n### **MC..."
+        },
+        {
+          "relativePath": "components\\MCPToolsPanel.tsx",
+          "mcpReferences": 4,
+          "fileSize": 18154,
+          "preview": "// Initialize MCP server with API key (in real app, get from environment/settings)\n<h2 className=\"text-lg font-bold\">MCP Tools Hub</h2>"
+        }
+      ]
+    },
+    {
+      "projectName": "rzn-app",
+      "mcpFileCount": 9,
+      "totalReferences": 61,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "docs\\1-todo-list.md",
+          "mcpReferences": 38,
+          "fileSize": 105028,
+          "preview": "- [ ] Add agent communication protocol\n### MCP System Implementation (NEW)\n- ✅ DONE: Define MCP types and interfaces\n- ✅ DONE: Implement MCP Registry ..."
+        },
+        {
+          "relativePath": "docs\\TODO.md",
+          "mcpReferences": 11,
+          "fileSize": 37232,
+          "preview": "- Create inter-agent communication protocol\n- [ ] Improve tool execution tracking in the database\n- Create dedicated tool_executions table with status..."
+        },
+        {
+          "relativePath": "docs\\ai-learnings.md",
+          "mcpReferences": 5,
+          "fileSize": 171639,
+          "preview": "- Tool Results table - Stores results of tool executions for accountability\n- [ ] Add more sophisticated tool execution tracking in the database\n- [ ]..."
+        },
+        {
+          "relativePath": "ARCHITECTURE.md",
+          "mcpReferences": 2,
+          "fileSize": 4364,
+          "preview": "- Results of tool executions\n- Tool execution tracking and result storage"
+        },
+        {
+          "relativePath": "docs\\AI_LEARNINGS.md",
+          "mcpReferences": 1,
+          "fileSize": 9179,
+          "preview": "- ⚙️ Pattern: Transition support between tasks helps bridge executive function gaps during task switching"
+        }
+      ]
+    },
+    {
+      "projectName": "Master App Builder (make a copy)",
+      "mcpFileCount": 5,
+      "totalReferences": 56,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "docs\\project_structure.md",
+          "mcpReferences": 31,
+          "fileSize": 8550,
+          "preview": "MCP[\"Model Context Protocol\"]\nAPI --> MCP\nMCP --> AIMemory\nAnsible --> MCP\nDocker --> MCP\nMCPService[\"gtd-kanban-mcp.service.j2\"]"
+        },
+        {
+          "relativePath": "docs\\AI_MEMORY_README.md",
+          "mcpReferences": 14,
+          "fileSize": 1840,
+          "preview": "# AI Memory MCP Integration\nThis integration allows you to use AI Memory with Cursor's Model Context Protocol (MCP) for enhanced functionality.\nThe MC..."
+        },
+        {
+          "relativePath": "docs\\AI_WORKFLOW_INTEGRATION.md",
+          "mcpReferences": 7,
+          "fileSize": 15331,
+          "preview": "### 3. MCP Tools Configuration\nThe project leverages Model Context Protocol (MCP) tools for enhanced AI capabilities:\n1. Configure MCP tools in the `...."
+        },
+        {
+          "relativePath": "docs\\script_naming_conventions.md",
+          "mcpReferences": 2,
+          "fileSize": 3586,
+          "preview": "- `mcp_server.py` - MCP server implementation"
+        },
+        {
+          "relativePath": "docs\\SUMMARY.md",
+          "mcpReferences": 2,
+          "fileSize": 5441,
+          "preview": "- Model Context Protocol (MCP) for enhanced AI capabilities"
+        }
+      ]
+    },
+    {
+      "projectName": "Librechat",
+      "mcpFileCount": 9,
+      "totalReferences": 34,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "Dockerfile.multi",
+          "mcpReferences": 9,
+          "fileSize": 1666,
+          "preview": "COPY packages/mcp/package*.json ./packages/mcp/\n# Build mcp package\nFROM base AS mcp-build\nWORKDIR /app/packages/mcp\nCOPY packages/mcp ./\nCOPY --from=..."
+        },
+        {
+          "relativePath": "api\\typedefs.js",
+          "mcpReferences": 6,
+          "fileSize": 66741,
+          "preview": "* @typedef {import('librechat-mcp').MCPServers} MCPServers\n* @typedef {import('librechat-mcp').MCPManager} MCPManager\n* @typedef {import('librechat-mc..."
+        },
+        {
+          "relativePath": "eslint.config.mjs",
+          "mcpReferences": 6,
+          "fileSize": 10514,
+          "preview": "'packages/mcp/types/**/*',\n'packages/mcp/dist/**/*',\n'packages/mcp/test_bundle/**/*',\nfiles: ['./packages/mcp/**/*.ts'],\nfiles: ['./packages/mcp/specs..."
+        },
+        {
+          "relativePath": "librechat.example.yaml",
+          "mcpReferences": 4,
+          "fileSize": 11022,
+          "preview": "# Example MCP Servers Object Structure\nmcp-obsidian:\n- \"mcp-obsidian\""
+        },
+        {
+          "relativePath": "package.json",
+          "mcpReferences": 3,
+          "fileSize": 5950,
+          "preview": "\"build:mcp\": \"cd packages/mcp && npm run build\",\n\"frontend\": \"npm run build:data-provider && npm run build:mcp && cd client && npm run build\","
+        }
+      ]
+    },
+    {
+      "projectName": "env",
+      "mcpFileCount": 12,
+      "totalReferences": 12,
+      "priority": "high",
+      "topFiles": [
+        {
+          "relativePath": "Scripts\\f2py.exe",
+          "mcpReferences": 1,
+          "fileSize": 108403,
+          "preview": "\u0000\u0000\u0000�f\u0000\u0000\u0000�H��I�|�\u0000\u0000u-��\u000f\u0000\u0000�\u0015��\u0000\u0000��u\u0017H���C��������\u0000\f\u0000\u0000\u00003��\rI�\\�\u0000�\u0006�(����H�\r��\u0000\u0000�\u0015\u0002�\u0000\u0000�H�\\$0H�t$8H�|$@H�� A]���H�\\$\bWH�� Hc�H�=\u0014�\u0000\u0000H\u0003�H�<�\u0000u\u0011�������u\b�H\u0011..."
+        },
+        {
+          "relativePath": "Scripts\\fastapi.exe",
+          "mcpReferences": 1,
+          "fileSize": 108397,
+          "preview": "\u0000\u0000\u0000�f\u0000\u0000\u0000�H��I�|�\u0000\u0000u-��\u000f\u0000\u0000�\u0015��\u0000\u0000��u\u0017H���C��������\u0000\f\u0000\u0000\u00003��\rI�\\�\u0000�\u0006�(����H�\r��\u0000\u0000�\u0015\u0002�\u0000\u0000�H�\\$0H�t$8H�|$@H�� A]���H�\\$\bWH�� Hc�H�=\u0014�\u0000\u0000H\u0003�H�<�\u0000u\u0011�������u\b�H\u0011..."
+        },
+        {
+          "relativePath": "Scripts\\isympy.exe",
+          "mcpReferences": 1,
+          "fileSize": 108392,
+          "preview": "\u0000\u0000\u0000�f\u0000\u0000\u0000�H��I�|�\u0000\u0000u-��\u000f\u0000\u0000�\u0015��\u0000\u0000��u\u0017H���C��������\u0000\f\u0000\u0000\u00003��\rI�\\�\u0000�\u0006�(����H�\r��\u0000\u0000�\u0015\u0002�\u0000\u0000�H�\\$0H�t$8H�|$@H�� A]���H�\\$\bWH�� Hc�H�=\u0014�\u0000\u0000H\u0003�H�<�\u0000u\u0011�������u\b�H\u0011..."
+        },
+        {
+          "relativePath": "Scripts\\numpy-config.exe",
+          "mcpReferences": 1,
+          "fileSize": 108403,
+          "preview": "\u0000\u0000\u0000�f\u0000\u0000\u0000�H��I�|�\u0000\u0000u-��\u000f\u0000\u0000�\u0015��\u0000\u0000��u\u0017H���C��������\u0000\f\u0000\u0000\u00003��\rI�\\�\u0000�\u0006�(����H�\r��\u0000\u0000�\u0015\u0002�\u0000\u0000�H�\\$0H�t$8H�|$@H�� A]���H�\\$\bWH�� Hc�H�=\u0014�\u0000\u0000H\u0003�H�<�\u0000u\u0011�������u\b�H\u0011..."
+        },
+        {
+          "relativePath": "Scripts\\pip.exe",
+          "mcpReferences": 1,
+          "fileSize": 108408,
+          "preview": "\u0000\u0000\u0000�f\u0000\u0000\u0000�H��I�|�\u0000\u0000u-��\u000f\u0000\u0000�\u0015��\u0000\u0000��u\u0017H���C��������\u0000\f\u0000\u0000\u00003��\rI�\\�\u0000�\u0006�(����H�\r��\u0000\u0000�\u0015\u0002�\u0000\u0000�H�\\$0H�t$8H�|$@H�� A]���H�\\$\bWH�� Hc�H�=\u0014�\u0000\u0000H\u0003�H�<�\u0000u\u0011�������u\b�H\u0011..."
+        }
+      ]
+    },
+    {
+      "projectName": "innercircle",
+      "mcpFileCount": 4,
+      "totalReferences": 13,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "THEPLAN.md",
+          "mcpReferences": 5,
+          "fileSize": 12448,
+          "preview": "* Define MCP-compatible tool schemas in `tools/agentica/claude-openai.tools.json`.\n* Define agent metadata schema compatible with MCP requirements.\n* ..."
+        },
+        {
+          "relativePath": "AUDIT_FINDINGS.md",
+          "mcpReferences": 4,
+          "fileSize": 6876,
+          "preview": "- Agent metadata system with MCP compatibility\n- MCP compatibility"
+        },
+        {
+          "relativePath": "pnpm-lock.yaml",
+          "mcpReferences": 3,
+          "fileSize": 636400,
+          "preview": "babel-core@7.0.0-bridge.0:\nbabel-core@7.0.0-bridge.0(@babel/core@7.27.1):\nbabel-core: 7.0.0-bridge.0(@babel/core@7.27.1)"
+        },
+        {
+          "relativePath": "docker-compose.yml",
+          "mcpReferences": 1,
+          "fileSize": 2132,
+          "preview": "driver: bridge"
+        }
+      ]
+    },
+    {
+      "projectName": "Agency",
+      "mcpFileCount": 3,
+      "totalReferences": 11,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "A2A-Framework.md",
+          "mcpReferences": 6,
+          "fileSize": 101129,
+          "preview": "#### B-A-B: Before → After → Bridge\n[Bridge]: Suggest an automation trigger that builds the habit.\n- Basic agent communication system\n- [ ] Message bu..."
+        },
+        {
+          "relativePath": "GLOBAL.md",
+          "mcpReferences": 3,
+          "fileSize": 6802,
+          "preview": "│   ├── scaffold.shell.mcp.json    # T3 scaffold validation (potentially outdated if not using T3 CLI)\n- Defines agent roles, capabilities, triggers, ..."
+        },
+        {
+          "relativePath": "readme-todo-Workflow-PRD.txt",
+          "mcpReferences": 2,
+          "fileSize": 14362,
+          "preview": "B-A-B: Before → After → Bridge\n[Bridge]: Suggest an automation trigger that builds the habit."
+        }
+      ]
+    },
+    {
+      "projectName": "Ollm-Bridge",
+      "mcpFileCount": 2,
+      "totalReferences": 9,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 5,
+          "fileSize": 1252,
+          "preview": "# Ollm Bridge v0.6 - Easy Access to Ollama Models for LMStudio Users\nOllm Bridge is a simple tool designed to streamline the process of accessing Olla..."
+        },
+        {
+          "relativePath": "Ollm_Bridge_v0.6.ps1",
+          "mcpReferences": 4,
+          "fileSize": 4819,
+          "preview": "# Ollm Bridge v 0.6\n# Ollm Bridge aims to create a structure of directories and symlinks to make Ollama models more easily accessible to LMStudio user..."
+        }
+      ]
+    },
+    {
+      "projectName": "APPCRAFTER",
+      "mcpFileCount": 4,
+      "totalReferences": 8,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "docs\\browser-automation-implementation.md",
+          "mcpReferences": 4,
+          "fileSize": 4186,
+          "preview": "- Workflow automation with other MCP tools\nThe browser automation implementation provides a powerful yet user-friendly way to automate web tasks using..."
+        },
+        {
+          "relativePath": ".windsurfrules",
+          "mcpReferences": 2,
+          "fileSize": 23368,
+          "preview": "- **PROJECT_NAME** (Default: `\"MCP SaaS MVP\"`): Project name in metadata (Example: `PROJECT_NAME=My Awesome Project`)"
+        },
+        {
+          "relativePath": "appcrafter_prd.md",
+          "mcpReferences": 1,
+          "fileSize": 16387,
+          "preview": "APPCRAFTER is a Level 2 middleware system that bridges the gap between the Level 1 Cursor AI development environment and Level 3 end-user applications..."
+        },
+        {
+          "relativePath": "archived_tech_debt\\docker-compose.n8n-sync.yml",
+          "mcpReferences": 1,
+          "fileSize": 1392,
+          "preview": "driver: bridge"
+        }
+      ]
+    },
+    {
+      "projectName": "openssl",
+      "mcpFileCount": 1,
+      "totalReferences": 6,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "CHANGES.md",
+          "mcpReferences": 6,
+          "fileSize": 820475,
+          "preview": "implementations.  This includes an EVP_PKEY to EVP_KDF bridge for\nimplementations.  This includes a generic EVP_PKEY to EVP_MAC bridge,\n*Felix Laurie ..."
+        }
+      ]
+    },
+    {
+      "projectName": "paperless-ai",
+      "mcpFileCount": 4,
+      "totalReferences": 4,
+      "priority": "medium",
+      "topFiles": [
+        {
+          "relativePath": "docker-compose.paperless-ai.yml",
+          "mcpReferences": 1,
+          "fileSize": 496,
+          "preview": "network_mode: bridge"
+        },
+        {
+          "relativePath": "docker-compose.yml",
+          "mcpReferences": 1,
+          "fileSize": 1502,
+          "preview": "network_mode: bridge"
+        },
+        {
+          "relativePath": "docs\\index.html",
+          "mcpReferences": 1,
+          "fileSize": 26954,
+          "preview": "--network bridge \\"
+        },
+        {
+          "relativePath": "views\\setup.ejs",
+          "mcpReferences": 1,
+          "fileSize": 72592,
+          "preview": "<li class=\"mb-1\">Using <strong>localhost</strong> or <strong>127.0.0.1</strong> won't work in Docker bridge mode</li>"
+        }
+      ]
+    },
+    {
+      "projectName": "edb-installers",
+      "mcpFileCount": 3,
+      "totalReferences": 5,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "resources\\edb-side.pspimage",
+          "mcpReferences": 2,
+          "fileSize": 97808,
+          "preview": "�\u001bV*\u000b�ti�\u001a_)\t��\u0000\u0005���\u0000J{ʵW�,ehS]���\u0005\u0004#go�U�\u0019��ڰi����̺�*R�f��P\"�z�`�4�\u000b�X��d��>Cqϲ9��B͈�E�d�B�~7�b�XW��ʘ�\u0013���FB}��b\f��ϕ\u0003f\u0015�\u0005��2����\u001a��MCP���6\u001d\u0011Vg�,e�\u000f�7..."
+        },
+        {
+          "relativePath": "resources\\pg-side.pspimage",
+          "mcpReferences": 2,
+          "fileSize": 110190,
+          "preview": "�\u001bV*\u000b�ti�\u001a_)\t��\u0000\u0005���\u0000J{ʵW�,ehS]���\u0005\u0004#go�U�\u0019��ڰi����̺�*R�f��P\"�z�`�4�\u000b�X��d��>Cqϲ9��B͈�E�d�B�~7�b�XW��ʘ�\u0013���FB}��b\f��ϕ\u0003f\u0015�\u0005��2����\u001a��MCP���6\u001d\u0011Vg�,e�\u000f�7..."
+        },
+        {
+          "relativePath": "README",
+          "mcpReferences": 1,
+          "fileSize": 19378,
+          "preview": "Fusion to bridge the network adaptor instead of using NAT."
+        }
+      ]
+    },
+    {
+      "projectName": "ClaudeSync",
+      "mcpFileCount": 2,
+      "totalReferences": 4,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "embedding.txt",
+          "mcpReferences": 3,
+          "fileSize": 205327,
+          "preview": "ClaudeSync bridges your local development environment with Claude.ai projects, enabling seamless synchronization to enhance your AI-powered workflow.\n..."
+        },
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 1,
+          "fileSize": 4303,
+          "preview": "ClaudeSync bridges your local development environment with Claude.ai projects, enabling seamless synchronization to enhance your AI-powered workflow."
+        }
+      ]
+    },
+    {
+      "projectName": "Framework tester",
+      "mcpFileCount": 2,
+      "totalReferences": 4,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "preload.js",
+          "mcpReferences": 2,
+          "fileSize": 531,
+          "preview": "const { contextBridge, ipcRenderer } = require('electron');\ncontextBridge.exposeInMainWorld('electron', {"
+        },
+        {
+          "relativePath": "repomix_summary_with_claude.txt",
+          "mcpReferences": 2,
+          "fileSize": 744491,
+          "preview": "const { contextBridge, ipcRenderer } = require('electron');\ncontextBridge.exposeInMainWorld('electron', {"
+        }
+      ]
+    },
+    {
+      "projectName": "mermaid",
+      "mcpFileCount": 1,
+      "totalReferences": 3,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "pnpm-lock.yaml",
+          "mcpReferences": 3,
+          "fileSize": 760144,
+          "preview": "'@applitools/execution-grid-tunnel@3.0.8':\n'@applitools/execution-grid-tunnel@3.0.8':\n'@applitools/execution-grid-tunnel': 3.0.8"
+        }
+      ]
+    },
+    {
+      "projectName": "claude-code",
+      "mcpFileCount": 2,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "README.md",
+          "mcpReferences": 1,
+          "fileSize": 3917,
+          "preview": "This is an early version of the product experience, and it's likely to evolve as we learn more about developer preferences. Claude Code is an early lo..."
+        },
+        {
+          "relativePath": "repomix_summary_with_claude.txt",
+          "mcpReferences": 1,
+          "fileSize": 86021,
+          "preview": "This is an early version of the product experience, and it's likely to evolve as we learn more about developer preferences. Claude Code is an early lo..."
+        }
+      ]
+    },
+    {
+      "projectName": "hackaru-timeular",
+      "mcpFileCount": 1,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "repomix_summary_with_claude.txt",
+          "mcpReferences": 2,
+          "fileSize": 35828,
+          "preview": "community_bridge: # Replace with a single Community Bridge project-name e.g., cloud-foundry"
+        }
+      ]
+    },
+    {
+      "projectName": "New App Builder - Copy",
+      "mcpFileCount": 2,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "Samples of type of outputs we are looking for (not literal content but examples of depth and quality\\agent-focus-group (sample).js",
+          "mcpReferences": 1,
+          "fileSize": 34555,
+          "preview": "Your communication style should be: ${agent.communication_style || \"natural and conversational\"}"
+        },
+        {
+          "relativePath": "todo.md",
+          "mcpReferences": 1,
+          "fileSize": 17351,
+          "preview": "- [x] Create backend API for agent communication"
+        }
+      ]
+    },
+    {
+      "projectName": "Ollama open router and moldel manager UT",
+      "mcpFileCount": 2,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "COMPLETION_PLAN.md",
+          "mcpReferences": 1,
+          "fileSize": 7510,
+          "preview": "- [ ] Implement tool execution framework"
+        },
+        {
+          "relativePath": "scripts\\launch-check.ts",
+          "mcpReferences": 1,
+          "fileSize": 4027,
+          "preview": "console.log(chalk.red('❌ Android Debug Bridge (adb) not found. Please install Android SDK.'));"
+        }
+      ]
+    },
+    {
+      "projectName": "Openwebui",
+      "mcpFileCount": 1,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "open-webui\\CHANGELOG.md",
+          "mcpReferences": 2,
+          "fileSize": 133736,
+          "preview": "- **🛠️ Direct Database Execution for Tools & Functions**: Enhanced the execution of Python files for tools and functions, now directly loading from t..."
+        }
+      ]
+    },
+    {
+      "projectName": "ultimate-template",
+      "mcpFileCount": 2,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "COMPLETION_PLAN.md",
+          "mcpReferences": 1,
+          "fileSize": 7510,
+          "preview": "- [ ] Implement tool execution framework"
+        },
+        {
+          "relativePath": "scripts\\launch-check.ts",
+          "mcpReferences": 1,
+          "fileSize": 4027,
+          "preview": "console.log(chalk.red('❌ Android Debug Bridge (adb) not found. Please install Android SDK.'));"
+        }
+      ]
+    },
+    {
+      "projectName": "VANTA",
+      "mcpFileCount": 2,
+      "totalReferences": 2,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "architecture_guardian_service\\docker-compose.yml",
+          "mcpReferences": 1,
+          "fileSize": 3882,
+          "preview": "driver: bridge"
+        },
+        {
+          "relativePath": "blueprint.yaml",
+          "mcpReferences": 1,
+          "fileSize": 5724,
+          "preview": "archetype: \"Bridge\""
+        }
+      ]
+    },
+    {
+      "projectName": "MirrorMemory",
+      "mcpFileCount": 1,
+      "totalReferences": 1,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "ThePlan_MirrorMemory_v1.9.md",
+          "mcpReferences": 1,
+          "fileSize": 5233,
+          "preview": "- Local TWAIN-to-watch-folder bridge"
+        }
+      ]
+    },
+    {
+      "projectName": "New App Builder",
+      "mcpFileCount": 1,
+      "totalReferences": 1,
+      "priority": "low",
+      "topFiles": [
+        {
+          "relativePath": "Samples of type of outputs we are looking for (not literal content but examples of depth and quality\\agent-focus-group (sample).js",
+          "mcpReferences": 1,
+          "fileSize": 34555,
+          "preview": "Your communication style should be: ${agent.communication_style || \"natural and conversational\"}"
+        }
+      ]
+    }
+  ]
+}

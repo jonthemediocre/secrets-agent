@@ -3,6 +3,19 @@ description: Guides the initialization of a new Next.js frontend project, ensuri
 globs: 
 alwaysApply: false
 ---
+# 913-Frontend-Initialization-and-Setup-Standards
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines standards for initializing and setting up frontend projects. It covers aspects like project structure, essential configuration files, dependency management, build tool setup, and basic quality gates to ensure that frontend projects start with a consistent and robust foundation.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
 ### ⚙️ Rule ID: 913-frontend-init
 
 **Description**: Guides the initialization of a new Next.js frontend project, ensuring alignment with the T3 Stack principles and project structure conventions mentioned in `GLOBAL.md`.

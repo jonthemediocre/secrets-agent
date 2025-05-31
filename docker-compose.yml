@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  sync-engine:
+    build: .
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      # Add other environment variables as needed
+    ports:
+      - "3000:3000"  # If your app needs a port
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: syncuser
+      POSTGRES_PASSWORD: syncpass
+      POSTGRES_DB: syncdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  redis-data:
+  postgres-data: 

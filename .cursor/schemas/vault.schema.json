@@ -1,0 +1,122 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VANTA Vault File Schema",
+  "description": "Schema for .vault.yaml files used by the Secrets Agent and VaultAgent.",
+  "type": "object",
+  "properties": {
+    "project": {
+      "description": "A unique identifier for the project to which these secrets belong. Should be machine-readable (e.g., slug-case).",
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "description": {
+      "description": "Optional human-readable description of the vault or project.",
+      "type": "string"
+    },
+    "secrets": {
+      "description": "A map of secret entries, where each key is the secret's name.",
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/SecretEntry"
+      },
+      "minProperties": 0
+    },
+    "config": {
+      "description": "Optional configuration settings for the vault itself.",
+      "type": "object",
+      "properties": {
+        "sopsEnabled": {
+          "description": "Indicates if SOPS encryption is expected for this vault file. If true, 'value' fields should be SOPS-encrypted.",
+          "type": "boolean",
+          "default": true
+        },
+        "defaultTags": {
+          "description": "Tags to be applied to all secrets in this vault unless overridden.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "project",
+    "secrets"
+  ],
+  "additionalProperties": false,
+  "definitions": {
+    "SecretEntry": {
+      "description": "Defines a single secret within the vault.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The secret value. This will be SOPS-encrypted if sopsEnabled is true in the vault's config or globally for the VaultAgent. For non-sensitive items, can be plaintext.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Optional human-readable description of the secret.",
+          "type": "string"
+        },
+        "tags": {
+          "description": "Optional array of tags for categorizing and filtering the secret.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "expires": {
+          "description": "Optional expiry date for the secret (ISO 8601 date or date-time format). Useful for rotation reminders.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "lastUpdated": {
+          "description": "Timestamp of when the secret was last updated (ISO 8601 date-time format). Should be automatically managed by VaultAgent.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "meta": {
+          "description": "Optional metadata for the secret. Can store information like the corresponding environment variable name, source of the secret, or links to rotation policies.",
+          "type": "object",
+          "properties": {
+            "envVar": {
+              "description": "The environment variable name this secret typically maps to.",
+              "type": "string"
+            },
+            "source": {
+              "description": "Origin of the secret (e.g., 'manual', 'imported', 'generated').",
+              "type": "string"
+            },
+            "rotationPolicyId": {
+              "description": "Identifier for a rotation policy associated with this secret.",
+              "type": "string"
+            },
+            "notes": {
+              "description": "Any additional notes or context about the secret.",
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "version": {
+          "description": "Optional version number for the secret. Incremented on change.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "previousValues": {
+            "description": "Optional: A list of previous encrypted values for history/rollback (if versioning is enabled).",
+            "type": "array",
+            "items": {
+                "type": "string"
+            }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false
+    }
+  }
+} 

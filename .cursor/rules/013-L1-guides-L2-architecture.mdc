@@ -91,3 +91,16 @@ This rule defines how the Cursor AI assistant (Level 1) should guide the archite
    ```
 
 By following this rule, L1 acts as a knowledgeable partner that accelerates L2 development while respecting and reinforcing L2's own defined architectural principles and self-governance.
+
+# 013-Conceptual-Layer-Guides-Architecture
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule emphasizes how the conceptual layer (L1), including high-level plans, objectives, and requirements, should actively guide and shape the technical architecture of the implementation layer (L2). It ensures that architectural decisions are directly tied to and justified by the project's conceptual framework.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

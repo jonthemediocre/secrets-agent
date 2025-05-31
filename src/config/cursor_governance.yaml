@@ -1,0 +1,104 @@
+# Cursor Project Governance Configuration
+version: "1.0"
+
+# Project Configuration
+project:
+  # Cursor-specific metadata
+  cursor:
+    rules_dir: ".cursor/rules"
+    config_dir: ".cursor/config"
+    plugins_dir: ".cursor/plugins"
+    cache_dir: ".cursor/cache"
+
+  # Tool Management
+  tools:
+    required:
+      - name: "firecrawl"
+        config: ".cursor/tools/firecrawl.yaml"
+      - name: "memory-bank"
+        config: ".cursor/tools/memory-bank.yaml"
+    
+    optional:
+      - name: "figma-context"
+        config: ".cursor/tools/figma.yaml"
+      - name: "duckduckgo"
+        config: ".cursor/tools/search.yaml"
+
+  # Agent Configuration
+  agents:
+    workspace:
+      - name: "code_assistant"
+        type: "user_agent"
+        rules: ".cursor/agents/code_assistant.yaml"
+      - name: "test_runner"
+        type: "project_agent"
+        rules: ".cursor/agents/test_runner.yaml"
+
+  # Rule Sets
+  rules:
+    code_style:
+      file: ".cursor/rules/code_style.yaml"
+      enforcement: "strict"
+    
+    security:
+      file: ".cursor/rules/security.yaml"
+      enforcement: "strict"
+    
+    performance:
+      file: ".cursor/rules/performance.yaml"
+      enforcement: "warning"
+
+  # Access Control
+  access:
+    roles:
+      - name: "developer"
+        permissions:
+          - "use_tools"
+          - "run_tests"
+          - "debug_code"
+      - name: "reviewer"
+        permissions:
+          - "review_code"
+          - "run_tests"
+          - "view_metrics"
+
+  # Resource Limits
+  limits:
+    memory: "2GB"
+    cpu: "2 cores"
+    storage: "5GB"
+    concurrent_tools: 5
+
+  # Integration Points
+  integrations:
+    vscode:
+      extensions:
+        - "cursor.core"
+        - "cursor.tools"
+        - "cursor.agents"
+    git:
+      hooks:
+        pre_commit: ".cursor/hooks/pre-commit.sh"
+        post_merge: ".cursor/hooks/post-merge.sh"
+
+  # Monitoring
+  monitoring:
+    metrics:
+      - "tool_usage"
+      - "agent_activity"
+      - "resource_usage"
+    alerts:
+      - "resource_exceeded"
+      - "security_violation"
+      - "tool_failure"
+
+  # Audit Configuration
+  audit:
+    events:
+      - "tool_execution"
+      - "agent_action"
+      - "rule_violation"
+    retention: "30 days"
+    export:
+      format: "jsonl"
+      location: ".cursor/audit/logs" 

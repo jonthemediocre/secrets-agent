@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APIHarvester - Cut Developer Onboarding from 2 Weeks to 2 Hours</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        
+        /* Hero Section */
+        .hero { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; 
+            text-align: center; 
+            padding: 80px 20px; 
+        }
+        .hero h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 24px; line-height: 1.1; }
+        .hero .subtitle { font-size: 1.4rem; margin-bottom: 32px; opacity: 0.9; }
+        .hero .cta-primary { 
+            background: #ff6b6b; 
+            color: white; 
+            padding: 18px 40px; 
+            font-size: 1.2rem; 
+            border: none; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin: 0 16px 16px 0; 
+            font-weight: 600;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        .hero .cta-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,0.4); }
+        .hero .cta-secondary { 
+            background: transparent; 
+            color: white; 
+            border: 2px solid white; 
+            padding: 16px 32px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            margin: 0 16px 16px 0; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .hero .cta-secondary:hover { background: white; color: #667eea; }
+
+        /* ROI Section */
+        .roi-section { 
+            background: #f8fafc; 
+            padding: 80px 20px; 
+            text-align: center; 
+        }
+        .roi-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+            gap: 40px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+        }
+        .roi-card { 
+            background: white; 
+            padding: 40px 32px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            transition: all 0.3s ease;
+        }
+        .roi-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .roi-number { font-size: 3rem; font-weight: 800; color: #667eea; margin-bottom: 16px; }
+        .roi-text { font-size: 1.1rem; color: #4a5568; }
+
+        /* Pricing Section */
+        .pricing-section { padding: 80px 20px; text-align: center; }
+        .pricing-header { margin-bottom: 60px; }
+        .pricing-header h2 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+        .pricing-subtitle { font-size: 1.3rem; color: #666; margin-bottom: 40px; }
+        .competitor-beaten { 
+            background: linear-gradient(90deg, #ff6b6b, #ee5a24); 
+            color: white; 
+            padding: 12px 24px; 
+            border-radius: 30px; 
+            font-weight: 700; 
+            display: inline-block; 
+            margin-bottom: 40px;
+        }
+        
+        .pricing-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 40px; 
+            max-width: 1400px; 
+            margin: 0 auto; 
+        }
+        .pricing-card { 
+            background: white; 
+            border-radius: 20px; 
+            padding: 40px 32px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1); 
+            position: relative; 
+            transition: all 0.3s ease;
+        }
+        .pricing-card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+        .pricing-card.featured { 
+            transform: scale(1.05); 
+            border: 3px solid #ff6b6b; 
+        }
+        .popular-badge { 
+            position: absolute; 
+            top: -15px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #ff6b6b; 
+            color: white; 
+            padding: 8px 24px; 
+            border-radius: 20px; 
+            font-weight: 700; 
+            font-size: 0.9rem;
+        }
+        .plan-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+        .plan-price { font-size: 3rem; font-weight: 800; color: #667eea; margin-bottom: 8px; }
+        .plan-period { color: #666; margin-bottom: 24px; }
+        .plan-description { color: #666; margin-bottom: 32px; line-height: 1.6; }
+        .plan-features { text-align: left; margin-bottom: 40px; }
+        .plan-features li { 
+            list-style: none; 
+            padding: 8px 0; 
+            position: relative; 
+            padding-left: 24px; 
+        }
+        .plan-features li:before { 
+            content: "✓"; 
+            position: absolute; 
+            left: 0; 
+            color: #10b981; 
+            font-weight: bold; 
+        }
+        .plan-cta { 
+            width: 100%; 
+            padding: 18px; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+        }
+        .plan-cta.primary { background: #667eea; color: white; }
+        .plan-cta.primary:hover { background: #5a6fd8; }
+        .plan-cta.secondary { background: #f7fafc; color: #667eea; border: 2px solid #667eea; }
+        .plan-cta.secondary:hover { background: #667eea; color: white; }
+
+        /* Guarantee Section */
+        .guarantee { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            text-align: center; 
+            padding: 60px 20px; 
+        }
+        .guarantee h3 { font-size: 2.5rem; font-weight: 800; margin-bottom: 24px; }
+        .guarantee p { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        /* Container */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured { transform: none; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Cut Developer Onboarding from 2 Weeks to 2 Hours</h1>
+            <p class="subtitle">APIHarvester eliminates 94% of security breaches caused by credential mismanagement while saving $38,400 per new hire. Guaranteed or money back.</p>
+            <button class="cta-primary" onclick="scrollToPricing()">Start Free Trial - No Credit Card</button>
+            <button class="cta-secondary" onclick="bookDemo()">Book Live Demo</button>
+        </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="roi-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 60px; color: #2d3748;">Measurable ROI in 30 Days</h2>
+            <div class="roi-grid">
+                <div class="roi-card">
+                    <div class="roi-number">$38K</div>
+                    <div class="roi-text">Saved per developer hired<br>(1.6 weeks × $2,400/week)</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-number">94%</div>
+                    <div class="roi-text">Reduction in credential-related security breaches</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-number">2 Hours</div>
+                    <div class="roi-text">Complete API ecosystem setup<br>(vs 2 weeks manual)</div>
+                </div>
+                <div class="roi-card">
+                    <div class="roi-number">97+</div>
+                    <div class="roi-text">API services automated<br>with AI agents</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="pricing-header">
+                <h2>Choose Your Success Plan</h2>
+                <p class="pricing-subtitle">Simple, transparent pricing that scales with your success</p>
+                <div class="competitor-beaten">🎯 20% LESS than Okta, Auth0, and Kong - Guaranteed!</div>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Freemium Plan -->
+                <div class="pricing-card">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">FREE</div>
+                    <div class="plan-period">Forever</div>
+                    <div class="plan-description">Perfect for individual developers and small teams starting their API journey</div>
+                    <ul class="plan-features">
+                        <li>5 API services automated</li>
+                        <li>Basic CLI harvesting</li>
+                        <li>Community support</li>
+                        <li>Basic security scanning</li>
+                        <li>Standard documentation</li>
+                    </ul>
+                    <button class="plan-cta secondary" onclick="signupFree()">Start Free Now</button>
+                </div>
+
+                <!-- Professional Plan -->
+                <div class="pricing-card featured">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-name">Professional</div>
+                    <div class="plan-price">$39</div>
+                    <div class="plan-period">per user/month</div>
+                    <div class="plan-description">Complete API automation for growing teams and professional developers</div>
+                    <ul class="plan-features">
+                        <li>50 API services automated</li>
+                        <li>Advanced AI agent orchestration</li>
+                        <li>Priority email support</li>
+                        <li>Advanced security & compliance</li>
+                        <li>Custom integration workflows</li>
+                        <li>Team collaboration tools</li>
+                        <li>API usage analytics</li>
+                    </ul>
+                    <button class="plan-cta primary" onclick="signupPro()">Start 14-Day Free Trial</button>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-price">$89</div>
+                    <div class="plan-period">per user/month</div>
+                    <div class="plan-description">Enterprise-grade solution with unlimited power and dedicated support</div>
+                    <ul class="plan-features">
+                        <li>Unlimited API services</li>
+                        <li>Full AI agent ecosystem</li>
+                        <li>24/7 dedicated support</li>
+                        <li>SOC2 & enterprise compliance</li>
+                        <li>Custom deployment options</li>
+                        <li>Advanced analytics & reporting</li>
+                        <li>Custom integrations & plugins</li>
+                        <li>Dedicated success manager</li>
+                    </ul>
+                    <button class="plan-cta primary" onclick="contactSales()">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee">
+        <div class="container">
+            <h3>🛡️ 30-Day Money-Back Guarantee</h3>
+            <p>If APIHarvester doesn't save you at least 20 hours in the first 30 days, we'll refund every penny. No questions asked.</p>
+        </div>
+    </section>
+
+    <script>
+        function scrollToPricing() {
+            document.getElementById('pricing').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function bookDemo() {
+            // Integration with calendar booking system
+            window.open('https://calendly.com/apiharvester-demo', '_blank');
+        }
+        
+        function signupFree() {
+            // Integration with signup system
+            window.location.href = '/signup?plan=free';
+        }
+        
+        function signupPro() {
+            // Integration with signup system
+            window.location.href = '/signup?plan=professional';
+        }
+        
+        function contactSales() {
+            // Integration with sales contact system
+            window.location.href = '/contact-sales';
+        }
+
+        // Add smooth scrolling and animations
+        window.addEventListener('scroll', function() {
+            const cards = document.querySelectorAll('.roi-card, .pricing-card');
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const cardVisible = 150;
+                
+                if (cardTop < window.innerHeight - cardVisible) {
+                    card.style.animation = 'slideInUp 0.6s ease forwards';
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

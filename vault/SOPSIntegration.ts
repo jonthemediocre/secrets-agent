@@ -159,7 +159,7 @@ export class SOPSIntegration {
 
   async getMetadata(filePath: string): Promise<SOPSMetadata | null> {
     try {
-      const command = `${this.sopsPath} -d --extract '["sops"]' ${filePath}`;
+      const command = `${this.sopsPath} -d --extract 'sops' ${filePath}`;
       
       const { stdout } = await execAsync(command);
       const metadata = JSON.parse(stdout) as SOPSMetadata;

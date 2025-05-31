@@ -173,3 +173,13 @@ Your question or request here...
 ```
 @index.mdc @000-base.mdc @100-next-components.mdc @ui-components.mdc
 ```
+
+## L2 Rules (Framework & Cross-Cutting Concerns)
+
+### `L2-001-secrets-management-protocol`
+
+**Path:** `L2-001-secrets-management-protocol.mdc`
+**Status:** `DRAFT`
+**Summary:** Defines the standard protocol for all VANTA components to access and manage secrets via the VaultAgent, ensuring security, consistency, and auditability.
+**Applies to:** All agents, tools, APIs, apps requiring credentials, tokens, or config injection.
+**Key Requirements:** Use `VaultAgent`, no direct `.env` access, register secrets in `.vault.yaml`.

@@ -1,0 +1,339 @@
+{
+  "name": "vanta-secrets-agent",
+  "displayName": "VANTA Secrets Agent",
+  "description": "AI-powered secrets management with cross-platform feature parity",
+  "version": "1.0.0",
+  "publisher": "vanta",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other",
+    "Security",
+    "DevOps"
+  ],
+  "keywords": [
+    "secrets",
+    "environment",
+    "security",
+    "ai",
+    "vault",
+    "encryption"
+  ],
+  "icon": "assets/icon.png",
+  "galleryBanner": {
+    "color": "#1e1e1e",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vanta/secrets-agent"
+  },
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:vantaSecretsView",
+    "onView:vantaProjectsView",
+    "onView:vantaStatusView",
+    "onCommand:vanta.scanProject",
+    "onCommand:vanta.detectSecrets",
+    "onCommand:vanta.exportVault",
+    "onCommand:vanta.rotateSecrets",
+    "onCommand:vanta.showStatus",
+    "onCommand:vanta.refreshAll"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "vanta.scanProject",
+        "title": "🔍 Scan for Secrets",
+        "category": "VANTA",
+        "icon": "$(search)"
+      },
+      {
+        "command": "vanta.detectSecrets",
+        "title": "🤖 AI Secret Detection",
+        "category": "VANTA",
+        "icon": "$(robot)"
+      },
+      {
+        "command": "vanta.exportVault",
+        "title": "📤 Export Vault",
+        "category": "VANTA",
+        "icon": "$(export)"
+      },
+      {
+        "command": "vanta.rotateSecrets",
+        "title": "🔄 Rotate Secrets",
+        "category": "VANTA",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "vanta.showStatus",
+        "title": "📊 Show Status",
+        "category": "VANTA",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "vanta.refreshAll",
+        "title": "🔄 Refresh All",
+        "category": "VANTA",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "vanta.addSecret",
+        "title": "➕ Add Secret",
+        "category": "VANTA",
+        "icon": "$(add)"
+      },
+      {
+        "command": "vanta.editSecret",
+        "title": "✏️ Edit Secret",
+        "category": "VANTA",
+        "icon": "$(edit)"
+      },
+      {
+        "command": "vanta.deleteSecret",
+        "title": "🗑️ Delete Secret",
+        "category": "VANTA",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "vanta.copySecret",
+        "title": "📋 Copy Secret",
+        "category": "VANTA",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "vanta.openProject",
+        "title": "📁 Open Project",
+        "category": "VANTA",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "vanta.configureSettings",
+        "title": "⚙️ Configure Settings",
+        "category": "VANTA",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "vanta.showHelp",
+        "title": "❓ Help & Documentation",
+        "category": "VANTA",
+        "icon": "$(question)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "vanta-secrets-sidebar",
+          "title": "VANTA Secrets",
+          "icon": "$(key)"
+        }
+      ]
+    },
+    "views": {
+      "vanta-secrets-sidebar": [
+        {
+          "id": "vantaProjectsView",
+          "name": "Projects",
+          "when": "vanta.isActive"
+        },
+        {
+          "id": "vantaSecretsView",
+          "name": "Secrets",
+          "when": "vanta.isActive && vanta.hasSelectedProject"
+        },
+        {
+          "id": "vantaStatusView",
+          "name": "Status",
+          "when": "vanta.isActive"
+        },
+        {
+          "id": "vantaWelcomeView",
+          "name": "Welcome",
+          "when": "!vanta.isActive",
+          "type": "webview"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "vanta.scanProject",
+          "when": "view == vantaProjectsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vanta.refreshAll",
+          "when": "view == vantaProjectsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "vanta.detectSecrets",
+          "when": "view == vantaSecretsView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "vanta.addSecret",
+          "when": "view == vantaSecretsView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "vanta.exportVault",
+          "when": "view == vantaSecretsView",
+          "group": "1_export"
+        },
+        {
+          "command": "vanta.rotateSecrets",
+          "when": "view == vantaSecretsView",
+          "group": "2_rotate"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "vanta.openProject",
+          "when": "view == vantaProjectsView && viewItem == project",
+          "group": "navigation"
+        },
+        {
+          "command": "vanta.detectSecrets",
+          "when": "view == vantaProjectsView && viewItem == project",
+          "group": "1_actions"
+        },
+        {
+          "command": "vanta.editSecret",
+          "when": "view == vantaSecretsView && viewItem == secret",
+          "group": "inline@1"
+        },
+        {
+          "command": "vanta.copySecret",
+          "when": "view == vantaSecretsView && viewItem == secret",
+          "group": "inline@2"
+        },
+        {
+          "command": "vanta.deleteSecret",
+          "when": "view == vantaSecretsView && viewItem == secret",
+          "group": "inline@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "vanta.scanProject",
+          "when": "vanta.isActive"
+        },
+        {
+          "command": "vanta.detectSecrets",
+          "when": "vanta.isActive && vanta.hasSelectedProject"
+        },
+        {
+          "command": "vanta.exportVault",
+          "when": "vanta.isActive && vanta.hasSelectedProject"
+        },
+        {
+          "command": "vanta.rotateSecrets",
+          "when": "vanta.isActive && vanta.hasSelectedProject"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "VANTA Secrets Agent",
+      "properties": {
+        "vanta.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "VANTA server URL"
+        },
+        "vanta.autoRefresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically refresh data"
+        },
+        "vanta.refreshInterval": {
+          "type": "number",
+          "default": 30,
+          "description": "Auto-refresh interval in seconds"
+        },
+        "vanta.showConfidenceScores": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show AI confidence scores"
+        },
+        "vanta.enableDeepAnalysis": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable deep AI analysis by default"
+        },
+        "vanta.defaultExportFormat": {
+          "type": "string",
+          "enum": ["env", "json", "yaml"],
+          "default": "env",
+          "description": "Default export format"
+        },
+        "vanta.enableNotifications": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable status notifications"
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "command": "vanta.scanProject",
+        "key": "ctrl+shift+s",
+        "mac": "cmd+shift+s",
+        "when": "vanta.isActive"
+      },
+      {
+        "command": "vanta.detectSecrets",
+        "key": "ctrl+shift+d",
+        "mac": "cmd+shift+d",
+        "when": "vanta.isActive && vanta.hasSelectedProject"
+      },
+      {
+        "command": "vanta.exportVault",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "vanta.isActive && vanta.hasSelectedProject"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "javascript",
+        "path": "./snippets/vanta-secrets.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./snippets/vanta-secrets.json"
+      },
+      {
+        "language": "python",
+        "path": "./snippets/vanta-secrets.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js",
+    "package": "vsce package",
+    "publish": "vsce publish"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.74.0",
+    "@types/node": "16.x",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.28.0",
+    "typescript": "^4.9.4",
+    "@vscode/test-electron": "^2.2.0",
+    "@vscode/vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "ws": "^8.14.0"
+  }
+} 

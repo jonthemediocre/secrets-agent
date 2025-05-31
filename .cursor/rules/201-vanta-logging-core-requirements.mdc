@@ -51,3 +51,16 @@ alwaysApply: true
 
 *Adherence to these logging requirements is crucial for maintaining a debuggable, traceable, and analyzable VANTA system.*
 
+# 201-Core-Logging-Requirements
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the core requirements for logging across all VANTA components and projects. It mandates structured logging, specifies minimum required log fields (e.g., timestamp, level, source), discusses log levels, and emphasizes the importance of not logging sensitive information in plaintext. Adherence ensures consistent, searchable, and secure application logs.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

@@ -3,98 +3,16 @@ description:
 globs: 
 alwaysApply: false
 ---
-# 960-vanta-task-scheduling.mdc
+# 960-Automated-Task-Scheduling-Principles
 
-@id: 960-vanta-task-scheduling
-@desc: Defines standards and guidelines for task scheduling and advanced trigger definitions within the VANTA framework, drawing inspiration from chronomesh.yaml.
-@inspired_by: chronomesh.yaml
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
 
-## 1. Purpose
+## Description
 
-This rule establishes the foundational principles and structural guidelines for implementing a comprehensive task scheduling and event-triggering system within VANTA. It aims to integrate the robust concepts found in `chronomesh.yaml` into VANTA's agentic architecture, ensuring that cascades, rituals, and individual agent tasks can be invoked reliably based on time, events, or external signals.
+This rule outlines the principles for automated task scheduling within the VANTA ecosystem. It covers defining scheduled tasks, managing their frequency, handling dependencies, monitoring execution, and ensuring the reliability and efficiency of background processes and automated workflows.
+The specific content for this rule is yet to be defined in detail.
 
-## 2. Core Concepts Derived from `chronomesh.yaml`
+## Rule Content
 
-### 2.1. Task Definition (`TaskObject`)
-
-VANTA tasks, especially those intended for scheduling or complex event-driven invocation, should be conceptualized as `TaskObjects` with the following key attributes:
-
-*   **`task_id`**: (String, Unique) A unique identifier for the task definition.
-*   **`name`**: (String) Human-readable name.
-*   **`description`**: (String) Detailed purpose of the task.
-*   **`task_type`**: (Enum: `recurring`, `one_time`, `event_driven`) Nature of the task.
-*   **`schedule_config`**: (Object) Configuration for time-based tasks.
-    *   **`cron_expression`**: (String) For `recurring` tasks using cron syntax.
-    *   **`interval_seconds`**: (Integer) For `recurring` tasks at fixed intervals.
-    *   **`run_once_at`**: (String, ISO8601 DateTime) For `one_time` tasks.
-*   **`action`**: (Object) Defines what the task executes.
-    *   **`type`**: (Enum: `trigger_cascade`, `execute_ritual`, `run_agent_task`, `call_script`, `invoke_api_endpoint`)
-    *   **`target_id`**: (String) ID of the cascade, ritual, agent, script path, or API URL.
-    *   **`parameters`**: (Object) Static or dynamically resolved parameters for the action.
-*   **`trigger_conditions`**: (Array of Objects, for `event_driven` tasks) See Section 2.2.
-*   **`dependencies`**: (Array of `task_id` Strings) Tasks that must complete successfully before this task can run.
-*   **`retry_policy`**: (Object)
-    *   **`max_attempts`**: (Integer, default: 1)
-    *   **`delay_seconds`**: (Integer, default: 60) Exponential backoff can be considered.
-*   **`timeout_seconds`**: (Integer) Maximum execution time for the task.
-*   **`notification_config`**: (Object) Settings for notifications on success, failure, or timeout.
-    *   **`on_success`**: (Boolean/Object)
-    *   **`on_failure`**: (Boolean/Object)
-    *   **`on_timeout`**: (Boolean/Object)
-    *   **`channels`**: (Array: `email`, `slack`, `log_event`)
-*   **`enabled`**: (Boolean, default: true)
-
-### 2.2. Advanced Trigger Definitions (`TriggerObject`)
-
-For `event_driven` tasks, `trigger_conditions` should be an array of `TriggerObjects`:
-
-*   **`trigger_id`**: (String, Unique) Identifier for the trigger definition.
-*   **`name`**: (String) Human-readable name.
-*   **`trigger_type`**: (Enum: `file_system_event`, `webhook_event`, `message_queue_event`, `api_call_event`, `custom_mcp_signal`)
-*   **`config`**: (Object) Type-specific configuration.
-    *   For `file_system_event`: `path_to_watch`, `event_types` (create, modify, delete).
-    *   For `webhook_event`: `endpoint_path`, `http_method`, `expected_payload_schema_ref`.
-    *   For `message_queue_event`: `queue_name`, `message_filter_schema_ref`.
-    *   For `api_call_event`: (Similar to webhook, but perhaps for internal API calls).
-    *   For `custom_mcp_signal`: `signal_name_pattern`, `payload_filter_schema_ref`.
-*   **`action_to_take`**: (Object) Defines which `TaskObject` (by `task_id`) to invoke.
-
-## 3. Mapping to VANTA Architecture
-
-These concepts should be integrated into VANTA as follows:
-
-*   **Configuration Store:**
-    *   Scheduled task definitions (inspired by `TaskObject`) and advanced trigger definitions (inspired by `TriggerObject`) could reside in a dedicated YAML/JSON configuration file (e.g., `config/scheduler_tasks.yaml`, `config/event_triggers.yaml`) or be dynamically managed via an API.
-    *   `agent_cascade_definitions.mdc` should be enhanced to support `schedule_config` for cascades that are primarily time-driven, or `trigger_conditions` for event-driven cascades.
-*   **`SchedulerAgent` (or similar module within `VantaMasterCore`):**
-    *   Responsible for loading task definitions.
-    *   Managing the scheduling lifecycle (using libraries like APScheduler, Celery Beat).
-    *   Monitoring for `event_driven` triggers.
-    *   Invoking the defined `action` (e.g., calling `VantaMasterCore.trigger_cascade_by_id`, `VantaMasterCore.execute_ritual_by_name`).
-    *   Implementing retry policies and timeout logic.
-    *   Handling notifications.
-*   **`VantaMasterCore`:**
-    *   Needs to expose robust methods for the `SchedulerAgent` to trigger cascades, rituals, or agent tasks with parameters.
-    *   Needs to handle incoming webhook calls or listen to message queues if these trigger types are implemented, then relay them to the `SchedulerAgent` or directly evaluate `TriggerObjects`.
-*   **`CascadeExecutor`:**
-    *   Continues to execute cascades, but those cascades can now be invoked by the `SchedulerAgent` or event triggers, not just direct MCP signals.
-*   **Global Settings (from `chronomesh.yaml`'s `global_settings`):**
-    *   Concepts like `max_concurrent_tasks`, `default_retry_policy`, and `default_notification_channels` should be incorporated into `blueprint.yaml` or a new `scheduler_config.yaml`.
-
-## 4. Implementation Guidelines
-
-*   **Modularity:** Keep scheduling logic separate from core agent execution logic where possible.
-*   **Idempotency:** Design scheduled tasks to be idempotent if they might be retried.
-*   **Observability:** Ensure detailed logging for all scheduled task executions, trigger evaluations, and scheduler actions, adhering to `922-agentic-replay-log-schema.mdc`.
-*   **Security:** For webhook triggers, ensure proper authentication and validation.
-*   **Dynamic Configuration:** Consider allowing dynamic updates to task schedules and trigger definitions via an API (Layer 3).
-
-## 5. Relation to Other Rules
-
-*   **`1001-coding_agent-scheduled_tasks.mdc`**: This rule provides the high-level "why" and structure; `1001` advises on the "how" (e.g., using proper scheduling libraries).
-*   **`950-project-scheduler-bootstrap.mdc`**: This rule guides the AI in setting up the initial scheduler components.
-*   **`922-agentic-replay-log-schema.mdc`**: All scheduler actions and task outcomes must be logged according to this schema.
-*   **`agent_cascade_definitions.mdc`**: This file will be a key consumer of scheduling and trigger configurations.
-
-This rule provides the strategic direction for building a powerful and flexible scheduling and event management system within VANTA.
+# TODO: Add rule content here
 

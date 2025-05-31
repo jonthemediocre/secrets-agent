@@ -1,0 +1,95 @@
+# Rules Merging Configuration
+version: "1.0"
+
+# Precedence Order
+precedence:
+  - level: 1
+    source: "/globalrules.md"
+    description: "System-wide canonical rules"
+    override_policy: "base"
+    
+  - level: 2
+    source: ".cursor/rules/*.yaml"
+    description: "Project-specific rules"
+    override_policy: "overlay"
+    
+  - level: 3
+    source: ".cursor/agents/*/rules.yaml"
+    description: "Agent-specific rules"
+    override_policy: "agent_scope"
+
+# Merge Strategies
+merge_strategies:
+  security_rules:
+    policy: "most_restrictive"
+    description: "Always use the most restrictive security setting"
+    resolution:
+      - compare: "restrictions"
+        select: "highest"
+      - compare: "permissions"
+        select: "lowest"
+        
+  resource_limits:
+    policy: "most_restrictive"
+    description: "Use the lowest resource limits"
+    resolution:
+      - compare: "memory"
+        select: "lowest"
+      - compare: "cpu"
+        select: "lowest"
+      - compare: "network"
+        select: "lowest"
+        
+  tool_configurations:
+    policy: "agent_override"
+    description: "Allow agent-specific tool configs if explicitly permitted"
+    conditions:
+      - check: "override_allowed"
+        in: "tool_config"
+      - check: "agent_capability"
+        matches: "tool_requirement"
+        
+  permissions:
+    policy: "deny_overrides"
+    description: "Explicit denials take precedence over permits"
+    resolution:
+      - if: "deny_exists"
+        then: "deny"
+        else: "check_permits"
+
+# Runtime Behavior
+runtime:
+  cache_duration: 300  # Cache merged rules for 5 minutes
+  reload_triggers:
+    - "file_change"
+    - "agent_restart"
+    - "manual_request"
+  
+  validation:
+    pre_merge:
+      - "schema_validation"
+      - "syntax_check"
+    post_merge:
+      - "consistency_check"
+      - "circular_reference_check"
+
+# Conflict Resolution
+conflict_resolution:
+  strategy: "strict"  # fail on unresolvable conflicts
+  logging:
+    level: "warn"
+    include_stack: true
+  notification:
+    channels:
+      - "admin_log"
+      - "agent_log"
+
+# Audit Trail
+audit:
+  enabled: true
+  log_path: ".cursor/logs/rule_merging.jsonl"
+  events:
+    - "merge_start"
+    - "conflict_detected"
+    - "resolution_applied"
+    - "merge_complete" 

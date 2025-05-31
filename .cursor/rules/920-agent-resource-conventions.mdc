@@ -54,3 +54,16 @@ alwaysApply: true
 
 *This rule ensures that agents can reliably and consistently locate and load the resources they need to operate, facilitating maintainability and deployment across different environments.*
 
+# Agent-Resource-Naming-Conventions
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines naming conventions for resources associated with agents, such as configuration files, log files, deployment artifacts, and related assets. Consistent naming promotes better organization, discoverability, and easier automation of resource management tasks.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

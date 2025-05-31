@@ -1,0 +1,152 @@
+# Context Management Specification
+version: "1.0"
+
+# Context Levels and Inheritance
+context_hierarchy:
+  level_1:
+    type: "system"
+    source: "/globalrules.md"
+    context_store: "kernel/context/system"
+    inheritance: "downward_only"
+    persistence: "permanent"
+    
+  level_2:
+    type: "project"
+    source: ".cursor/"
+    context_store: ".cursor/context"
+    inheritance: "bidirectional"
+    persistence: "project_lifetime"
+    
+  level_3:
+    type: "agent"
+    source: ".cursor/agents/*/context"
+    context_store: ".symbols/memory"
+    inheritance: "upward_filtered"
+    persistence: "session"
+
+# Context Types
+context_types:
+  file_context:
+    description: "Current file and cursor position context"
+    scope: "editor"
+    propagation: ["code_assistant", "linter"]
+    retention: "session"
+    
+  semantic_context:
+    description: "Code understanding and relationships"
+    scope: "project"
+    propagation: ["all_agents"]
+    retention: "permanent"
+    
+  security_context:
+    description: "Security and permission states"
+    scope: "system"
+    propagation: ["secrets_agent", "security_tools"]
+    retention: "permanent"
+    encryption: "required"
+
+# Context Propagation Rules
+propagation_rules:
+  upward:
+    conditions:
+      - type: "security_relevant"
+        propagate_to: "level_1"
+      - type: "project_impact"
+        propagate_to: "level_2"
+    filters:
+      - "remove_sensitive_data"
+      - "compress_deltas"
+      
+  downward:
+    conditions:
+      - type: "agent_required"
+        propagate_to: "level_3"
+      - type: "tool_required"
+        propagate_to: "tool_context"
+    filters:
+      - "scope_to_receiver"
+      - "apply_permissions"
+
+# Context Synchronization
+sync_patterns:
+  editor_sync:
+    trigger: "cursor_move"
+    update:
+      - target: "code_assistant.context"
+        fields: ["file", "position", "selection"]
+      - target: "semantic_engine.context"
+        fields: ["symbols", "references"]
+        
+  agent_sync:
+    trigger: "agent_action"
+    update:
+      - target: "agent.memory"
+        fields: ["action_context", "results"]
+      - target: "global_context"
+        fields: ["state_changes"]
+
+# Context Enhancement
+enhancement_rules:
+  code_context:
+    enhancers:
+      - type: "symbol_resolution"
+        provider: "semantic_engine"
+      - type: "dependency_graph"
+        provider: "project_analyzer"
+        
+  security_context:
+    enhancers:
+      - type: "threat_detection"
+        provider: "secrets_agent"
+      - type: "permission_validation"
+        provider: "security_engine"
+
+# Delta Compression
+delta_rules:
+  compression:
+    algorithm: "symbolic_diff"
+    retention:
+      full_context: 5  # Keep last 5 full contexts
+      deltas: 100     # Keep last 100 deltas
+    
+  decompression:
+    strategy: "lazy"  # Only decompress when needed
+    cache:
+      size: "100MB"
+      ttl: 3600  # 1 hour
+
+# Context API
+api:
+  endpoints:
+    get_context:
+      path: "/context/{level}/{scope}"
+      methods: ["GET"]
+      
+    update_context:
+      path: "/context/{level}/{scope}"
+      methods: ["POST", "PATCH"]
+      
+    sync_context:
+      path: "/context/sync"
+      methods: ["POST"]
+      
+    subscribe_context:
+      path: "/context/subscribe"
+      methods: ["WS"]
+
+# Monitoring and Metrics
+monitoring:
+  metrics:
+    - "context_size"
+    - "sync_latency"
+    - "enhancement_time"
+    - "compression_ratio"
+    
+  alerts:
+    context_size:
+      threshold: "500MB"
+      action: "compress_and_notify"
+    
+    sync_latency:
+      threshold: "500ms"
+      action: "notify_admin" 

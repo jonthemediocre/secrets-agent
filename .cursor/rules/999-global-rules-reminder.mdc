@@ -1,0 +1,32 @@
+# RULE TYPE: Always
+# FILE PATTERNS: **/*
+
+## Global Rules Activation Reminder
+
+**IMPORTANT:** This project uses global rules that need to be activated in your IDE.
+
+### Quick Setup for Cursor IDE:
+1. Open the file `globalrules_synced.md` in this repository
+2. Copy the entire rules content 
+3. Go to Cursor Settings → Rules → Global Rules
+4. Paste the content and save
+
+### Alternative Method:
+- Set your Cursor IDE to use global rules from: `globalrules.md`
+- Or configure `CURSOR_RULE_ROOTS` environment variable
+
+### Why This Matters:
+- **Consistency:** Ensures all team members use the same coding standards
+- **Quality:** Automated enforcement of best practices and patterns
+- **Efficiency:** Reduces code review overhead and catches issues early
+
+### Files to Check:
+- `globalrules.md` - Canonical global rules
+- `globalrules_synced.md` - Copy/paste ready version
+- `.cursor/config.yaml` - Local rule roots configuration
+
+**Please activate global rules before starting development!**
+
+---
+
+*This reminder will disappear once global rules are properly configured.*

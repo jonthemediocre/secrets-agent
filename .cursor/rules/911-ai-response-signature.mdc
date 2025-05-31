@@ -92,3 +92,16 @@ MDC Suggestions: Propose adding `501-memory-schema-evolution.mdc` under `.cursor
 | MDC Suggestion       | `.cursor/rules/`                | Global Cursor AI behavior | Add memory schema evolution rule |
 
 --- 
+
+# 911-AI-Assistant-Response-Signature-Format
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines a standard format for AI assistant response signatures. It ensures that responses from AI agents are clearly attributed, potentially timestamped, and may include context or identifiers that help in tracing the interaction and the AI's reasoning or a VeyrSign if applicable.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here 

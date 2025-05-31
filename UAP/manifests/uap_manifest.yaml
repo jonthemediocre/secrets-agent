@@ -1,0 +1,19 @@
+# uap_manifest.yaml
+# Master index of symbolic agent contracts and system resources
+
+agents:
+  - file: agents/sample_agent.uap.yaml
+  - file: swarm/SwarmControllerAgent.uap.yaml
+
+rules:
+  - file: rules/ruleΣ.runtime.yaml
+
+flows:
+  - file: flow/ritual_flow.yaml
+  - file: swarm/ritual_fusion.yaml
+
+indexes:
+  - file: agents/.agent_index.yaml
+  - file: tools/.tool.vault.yaml
+  - file: plugins/.plugin_index.yaml
+  - file: memory/agent_embeddings.qdrant

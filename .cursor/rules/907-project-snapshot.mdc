@@ -40,3 +40,16 @@ Project snapshot documents (e.g., `VANTA_Project_Reality_Snapshot.md`) SHOULD in
 ## Relation to Other Docs
 
 - The snapshot provides a high-level summary. It should link to more detailed documents (`README.md`, `theplan.md`, architecture diagrams) where appropriate, rather than duplicating extensive detail.
+
+# 907-Project-Snapshot-and-Status-Reporting
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the standards and procedures for creating project snapshots and reporting status. It ensures that there is a consistent way to capture the current state of a project, track progress against goals, and communicate this information effectively to stakeholders.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

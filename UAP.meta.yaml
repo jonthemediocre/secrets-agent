@@ -1,0 +1,75 @@
+# UAP.meta.yaml for secrets-agent project
+project: secrets-agent
+version: 2.2.0
+description: "VANTA Secrets Management Agent - Core infrastructure for secure credential management"
+
+apis:
+  rest:
+    - endpoint: /tokens/generate
+      method: POST
+      description: "Generate scoped JWT access tokens"
+      input: 
+        - projectId: string
+        - scope: array
+      output:
+        - token: string
+        - expiresAt: timestamp
+    - endpoint: /vault/{env}/{key}
+      method: GET
+      description: "Retrieve decrypted secrets at runtime"
+      auth: "Bearer JWT"
+      input:
+        - env: string
+        - key: string
+      output:
+        - value: string (decrypted)
+
+events:
+  emitted:
+    - secret_accessed:
+        data: {projectId, key, timestamp}
+    - token_generated:
+        data: {projectId, scope, expiresAt}
+    - vault_updated:
+        data: {projectId, keys_modified}
+  
+  consumed:
+    - project_created:
+        action: "Initialize vault structure"
+    - permission_changed:
+        action: "Update access control"
+
+data:
+  inputs:
+    - .vault.yaml files
+    - encrypted secrets (SOPS)
+    - project configurations
+  outputs:
+    - decrypted secrets
+    - JWT tokens
+    - audit logs
+
+secrets:
+  generates:
+    - JWT access tokens
+    - encryption keys (when SOPS disabled)
+  manages:
+    - project-specific secrets
+    - environment variables
+    - API keys
+
+ai_archetypes:
+  - security_guardian: "Monitors access patterns and detects anomalies"
+  - credential_optimizer: "Suggests secret rotation and consolidation"
+  - integration_assistant: "Helps configure cross-app secret sharing"
+
+dependencies:
+  - sops (optional)
+  - age (encryption)
+  - jwt libraries
+  
+integration_points:
+  - VaultAccessAgent
+  - VaultTokenAgent
+  - TokenValidator
+  - VS Code Extension API 

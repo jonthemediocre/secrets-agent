@@ -1,0 +1,5 @@
+{
+  "discovered_components": [
+    {
+      "path": "agents\\echo_agent.py",
+      "component_type": 

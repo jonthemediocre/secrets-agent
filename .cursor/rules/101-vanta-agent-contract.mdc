@@ -52,3 +52,16 @@ All VANTA agents MUST conceptually adhere to a base contract that includes:
 
 *This rule codifies the foundational expectations for any component acting as a VANTA agent.*
 
+# Agent-Component-Interaction-Contract
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the standard interaction contract for agents and components within the VANTA ecosystem. It specifies how agents/components should expose their capabilities, how they should be invoked, expected input/output formats, and error handling mechanisms, ensuring predictable and reliable inter-component communication.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

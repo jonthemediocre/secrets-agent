@@ -1,0 +1,77 @@
+version: "1.0.0"
+projectId: "550e8400-e29b-41d4-a716-446655440000"
+syncStrategy: "adaptive"
+
+paths:
+  - source: "/data/source1"
+    destination: "/data/dest1"
+    strategy: "realtime"
+    priority: 2
+    excludePatterns:
+      - "*.tmp"
+      - "*.log"
+    includePatterns:
+      - "*.txt"
+      - "*.json"
+      - "*.yaml"
+
+  - source: "/data/source2"
+    destination: "/data/dest2"
+    strategy: "batch"
+    priority: 1
+    excludePatterns:
+      - "node_modules/**"
+      - ".git/**"
+    includePatterns:
+      - "**/*.ts"
+      - "**/*.js"
+
+security:
+  encryptionEnabled: true
+  quantumSafe: true
+  accessControl:
+    enabled: true
+    defaultPolicy: "deny"
+    rules:
+      - path: "/data/source1"
+        policy: "allow"
+        users: ["admin", "developer"]
+        groups: ["engineering"]
+      - path: "/data/source2"
+        policy: "allow"
+        groups: ["developers"]
+
+monitoring:
+  enabled: true
+  interval: 5000
+  metrics:
+    - "syncLatency"
+    - "errorRate"
+    - "throughput"
+    - "resourceUsage"
+  selfHealing:
+    enabled: true
+    strategies:
+      - "retry"
+      - "rollback"
+      - "snapshot"
+      - "repair"
+
+ml:
+  enabled: true
+  modelPath: "/models/sync-model"
+  updateInterval: 3600000
+  features:
+    - "fileSize"
+    - "changeFrequency"
+    - "errorRate"
+    - "syncHistory"
+  thresholds:
+    confidence: 0.8
+    errorRate: 0.05
+
+advanced:
+  maxConcurrentSyncs: 10
+  batchSize: 200
+  retryAttempts: 5
+  timeoutMs: 60000 

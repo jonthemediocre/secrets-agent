@@ -223,3 +223,16 @@ const recommendedTasks = energyMatchResults.perfectMatches;
 - Document integration points with other services
 
 By following these guidelines, we ensure that all energy-based features are consistent, reliable, and truly supportive of ADHD needs. 
+
+# User-Engagement-and-Focus-Enhancement-Features
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule encourages the thoughtful incorporation of features designed to enhance user engagement and focus, potentially drawing inspiration from principles that benefit users with attention differences (e.g., ADHD). This includes minimizing distractions, providing clear progress indicators, gamification elements where appropriate, and promoting a positive and productive user experience.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here 

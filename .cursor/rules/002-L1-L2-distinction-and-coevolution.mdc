@@ -8,6 +8,17 @@ alwaysApply: false
 
 # 002: Level 1 / Level 2 AI Interaction & Co-evolution Protocol
 
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule outlines the principles for distinguishing between different conceptual and implementation layers within projects (e.g., L1 - conceptual/planning, L2 - implementation/technical). It also addresses how these layers should co-evolve to maintain alignment and consistency throughout the project lifecycle.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
 ## 1. Purpose
 This rule defines the distinction between "Level 1" (L1) and "Level 2" (L2) operational contexts for AI-assisted development, particularly concerning the Cursor AI assistant and a specific, complex project like VANTA. It also outlines their intended co-evolutionary relationship.
 

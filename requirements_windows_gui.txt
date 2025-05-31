@@ -1,0 +1,13 @@
+# VANTA Secrets Agent Enhanced Windows GUI Requirements
+
+# Core GUI Framework
+PyQt6>=6.4.0
+
+# HTTP Client for API Integration
+httpx>=0.24.0
+
+# For async operations within PyQt
+PyQt6-QtAsync>=0.6.0
+
+# Optional: for better styling or icons, if used explicitly
+# PyQt6-Fluent-Widgets>=1.2.0 

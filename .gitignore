@@ -1,5 +1,91 @@
-# Secrets and Environment
+# Dependencies
+node_modules/
+__pycache__/
+.next/
+.vscode/settings.json
+
+# Environment variables and secrets
 .env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.key
+*.pem
+secrets.json
+.vault
+vault-data/
+
+# Build outputs
+dist/
+build/
+*.tsbuildinfo
+*.log
+*.pid
+*.seed
+*.pid.lock
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+coverage/
+.nyc_output/
+.coverage
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Package files
+*.tgz
+*.tar.gz
+*.zip
+
+# Python virtual environments
+venv/
+env/
+.env/
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Docker
+.dockerignore
+
+# Sensitive configuration
+config/secrets.yaml
+config/private/
+*.credentials
+
+# MCP server configs with secrets
+src/mcp/servers/*/credentials.json
+src/mcp/servers/*/secrets.yaml
+
+# Reports with potentially sensitive data
+reports/detailed-*.json
+reports/secret-scan-*.json
+
+# Secrets and Environment
 .env.*
 !.env.example
 .env.generated
@@ -41,7 +127,6 @@ MANIFEST
 htmlcov/
 .tox/
 .nox/
-.coverage
 .coverage.*
 .cache
 nosetests.xml
@@ -51,7 +136,6 @@ coverage.xml
 .pytest_cache/
 
 # Node.js and npm
-node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -127,7 +211,6 @@ coverage/
 *~
 
 # OS generated files
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100

@@ -8,6 +8,17 @@ alwaysApply: false
 
 # 009: L1 Promotion of L2 Framework Rule Index Awareness
 
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule mandates that all agents and developers should be aware of and able to consult the framework's rule index (such as `.cursor/rules/index.mdc` or the "Index of Globally Applied Rule Concepts" in `globalrules.md`). This ensures that development and operations are guided by the established rules and protocols of the VANTA ecosystem.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
 ## 1. Purpose
 This rule ensures that the Cursor AI assistant (Level 1) actively promotes awareness and utilization of Level 2 (L2) project-specific rule indexes (e.g., `framework rules/index.md` for VANTA). The goal is to empower developers to leverage their project's internal standards, with L1 acting as a guide and reminder rather than a direct consumer of L2 rules for its own operational logic.
 

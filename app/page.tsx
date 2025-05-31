@@ -3,15 +3,16 @@
 import React from 'react';
 
 interface Project {
-  projectName: string;
-  projectPath: string;
-  hasEnvFile: boolean;
-  hasPackageJson: boolean;
-  hasDockerFile: boolean;
-  estimatedSecrets: number;
-  confidence: string;
-  lastModified: string;
-  sizeKB: number;
+  name: string;
+  path: string;
+  type: string;
+  hasEnvFile?: boolean;
+  hasPackageJson?: boolean;
+  hasDockerFile?: boolean;
+  estimatedSecrets?: number;
+  confidence?: string;
+  lastModified?: string;
+  sizeKB?: number;
 }
 
 interface ScanResponse {
@@ -46,6 +47,9 @@ export default function HomePage() {
   const [loadingAction, setLoadingAction] = React.useState<string | null>(null);
   const [error, setError] = React.useState<string | null>(null);
   const [rotationStatus, setRotationStatus] = React.useState<RotationStatus | null>(null);
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [projectsPerPage] = React.useState(20);
+  const [searchFilter, setSearchFilter] = React.useState('');
 
   // Load projects on mount
   React.useEffect(() => {
@@ -97,7 +101,7 @@ export default function HomePage() {
     if (selectedProjects.size === projects.length) {
       setSelectedProjects(new Set());
     } else {
-      setSelectedProjects(new Set(projects.map(p => p.projectName)));
+      setSelectedProjects(new Set(projects.map(p => p.name)));
     }
   };
 
@@ -111,7 +115,7 @@ export default function HomePage() {
     try {
       const results = [];
       for (const projectName of Array.from(selectedProjects)) {
-        const project = projects.find(p => p.projectName === projectName);
+        const project = projects.find(p => p.name === projectName);
         if (!project) continue;
 
         const response = await fetch('/api/secrets/scaffold', {
@@ -119,7 +123,7 @@ export default function HomePage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             project: projectName,
-            projectPath: project.projectPath,
+            projectPath: project.path,
             action: 'scan'
           })
         });
@@ -216,15 +220,28 @@ export default function HomePage() {
   };
 
   const handleConfigureVault = async () => {
-    alert('🔧 Vault Configuration\n\nThis will open vault management interface.\nFor now, check:\n- SOPS keys are configured\n- Vault path is accessible\n- Encryption is working');
-    
-    // Could redirect to vault management page
-    // window.location.href = '/vault-config';
+    // Navigate to the vault management page
+    window.location.href = '/vault';
   };
+
+  // Filter and paginate projects
+  const filteredProjects = React.useMemo(() => {
+    return projects.filter(project => 
+      project.name.toLowerCase().includes(searchFilter.toLowerCase()) ||
+      project.path.toLowerCase().includes(searchFilter.toLowerCase())
+    );
+  }, [projects, searchFilter]);
+
+  const paginatedProjects = React.useMemo(() => {
+    const startIndex = (currentPage - 1) * projectsPerPage;
+    return filteredProjects.slice(startIndex, startIndex + projectsPerPage);
+  }, [filteredProjects, currentPage, projectsPerPage]);
+
+  const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
 
   const summary = React.useMemo(() => {
     const totalProjects = projects.length;
-    const totalEstimatedSecrets = projects.reduce((sum, p) => sum + p.estimatedSecrets, 0);
+    const totalEstimatedSecrets = projects.reduce((sum, p) => sum + (p.estimatedSecrets || 0), 0);
     const highConfidenceProjects = projects.filter(p => p.confidence === 'high').length;
     
     return { totalProjects, totalEstimatedSecrets, highConfidenceProjects };
@@ -301,37 +318,56 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Selection Controls */}
+        {/* Search and Selection Controls */}
         <div className="bg-white rounded-lg shadow-md p-4 mb-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col space-y-4">
+            {/* Search Bar */}
             <div className="flex items-center space-x-4">
-              <label className="flex items-center">
+              <div className="flex-1">
                 <input
-                  type="checkbox"
-                  checked={selectedProjects.size === projects.length && projects.length > 0}
-                  onChange={handleSelectAll}
-                  className="mr-2"
+                  type="text"
+                  placeholder="🔍 Search projects by name or path..."
+                  value={searchFilter}
+                  onChange={(e) => setSearchFilter(e.target.value)}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
-                Select All ({selectedProjects.size} selected)
-              </label>
+              </div>
+              <div className="text-sm text-gray-600">
+                Showing {filteredProjects.length} of {projects.length} projects
+              </div>
             </div>
             
-            <div className="flex space-x-2">
-              <button 
-                onClick={handleDeepScan}
-                disabled={selectedProjects.size === 0 || loadingAction === 'scanning'}
-                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
-              >
-                {loadingAction === 'scanning' ? '🔄 Scanning...' : '🔍 Deep Scan Selected'}
-              </button>
+            {/* Selection Controls */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-4">
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={selectedProjects.size === filteredProjects.length && filteredProjects.length > 0}
+                    onChange={handleSelectAll}
+                    className="mr-2"
+                  />
+                  Select All ({selectedProjects.size} selected)
+                </label>
+              </div>
               
-              <button 
-                onClick={handleExportEnv}
-                disabled={selectedProjects.size === 0 || loadingAction === 'exporting'}
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400 transition-colors"
-              >
-                {loadingAction === 'exporting' ? '🔄 Exporting...' : '📋 Export .env Files'}
-              </button>
+              <div className="flex space-x-2">
+                <button 
+                  onClick={handleDeepScan}
+                  disabled={selectedProjects.size === 0 || loadingAction === 'scanning'}
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+                >
+                  {loadingAction === 'scanning' ? '🔄 Scanning...' : '🔍 Deep Scan Selected'}
+                </button>
+                
+                <button 
+                  onClick={handleExportEnv}
+                  disabled={selectedProjects.size === 0 || loadingAction === 'exporting'}
+                  className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:bg-gray-400 transition-colors"
+                >
+                  {loadingAction === 'exporting' ? '🔄 Exporting...' : '📋 Export .env Files'}
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -367,19 +403,19 @@ export default function HomePage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {projects.map((project, index) => (
+                {paginatedProjects.map((project, index) => (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <input
                         type="checkbox"
-                        checked={selectedProjects.has(project.projectName)}
-                        onChange={(e) => handleProjectSelect(project.projectName, e.target.checked)}
+                        checked={selectedProjects.has(project.name)}
+                        onChange={(e) => handleProjectSelect(project.name, e.target.checked)}
                         className="h-4 w-4 text-blue-600"
                       />
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">{project.projectName}</div>
-                      <div className="text-sm text-gray-500 truncate max-w-xs">{project.projectPath}</div>
+                      <div className="text-sm font-medium text-gray-900">{project.name}</div>
+                      <div className="text-sm text-gray-500 truncate max-w-xs">{project.path}</div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
@@ -401,13 +437,38 @@ export default function HomePage() {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {new Date(project.lastModified).toLocaleDateString()}
+                      {new Date(project.lastModified || '').toLocaleDateString()}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+          
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between">
+              <div className="text-sm text-gray-600">
+                Page {currentPage} of {totalPages} ({filteredProjects.length} total projects)
+              </div>
+              <div className="flex space-x-2">
+                <button
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Action Panel */}

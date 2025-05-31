@@ -1,0 +1,79 @@
+project: secrets-agent
+description: "VANTA Secrets Management Agent - Core infrastructure for secure credential management"
+secrets:
+  # The Secrets Agent itself may need some operational secrets
+  # but these would be minimal and bootstrapped differently
+  
+  # Example: If the agent runs as an API service
+  VAULT_API_AUTH_SECRET:
+    value: "PLACEHOLDER_TO_BE_SET_VIA_ENV"
+    description: "Authentication secret for the Vault API service mode"
+    tags: ["infrastructure", "api", "auth"]
+    meta:
+      envVar: "VAULT_API_AUTH_SECRET"
+      notes: "This secret is used to authenticate incoming requests when VaultAgent runs in API mode"
+  
+  # Example: Encryption key for local vault files (if not using SOPS)
+  VAULT_MASTER_KEY:
+    value: "PLACEHOLDER_TO_BE_SET_VIA_ENV"
+    description: "Master encryption key for local vault file encryption"
+    tags: ["infrastructure", "encryption", "critical"]
+    meta:
+      envVar: "VAULT_MASTER_KEY"
+      notes: "Used only if SOPS is not configured. Should be set via secure environment variable."
+      
+  GITHUB_TOKEN:
+    key: GITHUB_TOKEN
+    type: token
+    patterns:
+      - /['"]?GITHUB_TOKEN['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+    metadata:
+      description: "GitHub Personal Access Token"
+      owner: "DevOps"
+
+  DATABASE_URL:
+    key: DATABASE_URL
+    type: custom
+    patterns:
+      - /['"]?DATABASE_URL['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+      - /['"]?DB_URL['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+    metadata:
+      description: "Database Connection String"
+      owner: "DBA"
+
+  AWS_ACCESS_KEY:
+    key: AWS_ACCESS_KEY
+    type: api_key
+    patterns:
+      - /['"]?AWS_ACCESS_KEY(_ID)?['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+    metadata:
+      description: "AWS Access Key ID"
+      owner: "Cloud"
+
+  AWS_SECRET_KEY:
+    key: AWS_SECRET_KEY
+    type: api_key
+    patterns:
+      - /['"]?AWS_SECRET(_ACCESS_)?KEY['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+    metadata:
+      description: "AWS Secret Access Key"
+      owner: "Cloud"
+
+  ENCRYPTION_KEY:
+    key: ENCRYPTION_KEY
+    type: custom
+    patterns:
+      - /['"]?ENCRYPTION_KEY['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+      - /['"]?ENC_KEY['"]?\s*[:=]\s*['"]?([^'"\s]+)['"]?/gi
+    metadata:
+      description: "Encryption Key for Data Protection"
+      owner: "Security"
+
+config:
+  sopsEnabled: false  # The Secrets Agent bootstraps before SOPS might be available
+  defaultTags: ["infrastructure", "secrets-agent"]
+  
+# Special bootstrap note
+# The Secrets Agent must be able to start without accessing itself for secrets.
+# These placeholder secrets should be provided via environment variables during bootstrap.
+# Once running, the agent can manage its own operational secrets like any other project. 

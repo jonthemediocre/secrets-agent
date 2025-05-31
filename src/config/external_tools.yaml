@@ -1,0 +1,90 @@
+# External MCP Tools Registry
+version: 2.2.0
+description: "Registry of external MCP tools"
+
+tools:
+  firecrawl:
+    description: "Web crawling and content extraction tools"
+    methods:
+      - name: "scrape"
+        description: "Scrape content from a single URL"
+      - name: "map"
+        description: "Map a website to discover URLs"
+      - name: "crawl"
+        description: "Crawl and extract content from multiple pages"
+      - name: "search"
+        description: "Search the web and extract content"
+      - name: "extract"
+        description: "Extract structured data from web pages"
+      - name: "check_crawl_status"
+        description: "Check status of a crawl job"
+
+  figma-context:
+    description: "Figma design system integration"
+    methods:
+      - name: "get_file"
+        description: "Get Figma file content"
+      - name: "get_file_nodes"
+        description: "Get specific nodes from a Figma file"
+      - name: "get_image"
+        description: "Get images for nodes"
+      - name: "get_comments"
+        description: "Get file comments"
+      - name: "get_team_projects"
+        description: "List team projects"
+
+  duckduckgo:
+    description: "DuckDuckGo web search integration"
+    methods:
+      - name: "web_search"
+        description: "Perform web searches"
+
+  terminal:
+    description: "Terminal command execution"
+    methods:
+      - name: "terminal"
+        description: "Execute terminal commands"
+
+  memory-bank:
+    description: "Project memory storage"
+    methods:
+      - name: "list_projects"
+        description: "List all projects"
+      - name: "list_project_files"
+        description: "List files in a project"
+      - name: "memory_bank_read"
+        description: "Read memory bank file"
+      - name: "memory_bank_write"
+        description: "Write to memory bank"
+      - name: "memory_bank_update"
+        description: "Update memory bank file"
+
+  desktop-commander:
+    description: "Desktop file and process management"
+    methods:
+      - name: "get_config"
+        description: "Get commander configuration"
+      - name: "read_file"
+        description: "Read file contents"
+      - name: "write_file"
+        description: "Write to file"
+      - name: "create_directory"
+        description: "Create directory"
+      - name: "list_directory"
+        description: "List directory contents"
+      - name: "search_files"
+        description: "Search for files"
+      - name: "search_code"
+        description: "Search in file contents"
+      - name: "execute_command"
+        description: "Execute terminal command"
+
+  veyrax-mcp:
+    description: "Veyrax API integration"
+    methods:
+      - name: "get_tools"
+        description: "Get available Veyrax tools"
+      - name: "tool_call"
+        description: "Execute Veyrax tool method"
+      - name: "get_flow"
+        description: "Get workflow by ID" 

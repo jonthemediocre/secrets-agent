@@ -3,59 +3,15 @@ description:
 globs:
 alwaysApply: false
 ---
-# L1 Rule: 1100 - Guidance for Assisting with L2 LangChain Integration
+# LLM-Framework-Integration-Guidance
 
-## 1. Purpose
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
 
-This Level 1 (L1) rule guides the Cursor AI assistant when helping developers integrate LangChain into Level 2 (L2) VANTA agents and task management systems. It ensures that such integrations are robust, maintainable, secure, and align with VANTA's architectural principles.
+## Description
 
-## 2. Core Principles for L1 Assistance
+This rule provides guidance for integrating Large Language Model (LLM) frameworks (such as LangChain or similar) into projects. It covers best practices for structuring LLM-based applications, managing prompts, chaining calls, integrating with vector stores, and ensuring maintainable and scalable AI solutions.
+The specific content for this rule is yet to be defined in detail.
 
-When assisting with L2 LangChain integration, the AI assistant (governed by L1 rules) MUST:
+## Rule Content
 
--   **Adhere to L2 LangChain Framework Rule:** Ensure suggestions and generated code align with `framework rules/FR005-LangChainTaskDecisionLogic.md`.
--   **Promote Modularity:** Encourage the separation of LangChain logic (chains, tools, prompts) from core agent business logic.
--   **Secure Credential Management:**
-    -   For LLM API keys (OpenAI, Anthropic, etc.), strictly enforce loading from environment variables (e.g., `os.getenv("OPENAI_API_KEY")`) or a secure VANTA configuration service.
-    -   NEVER suggest hardcoding API keys.
-    -   Explicitly remind the user to set up these environment variables or secure configurations.
--   **Effective Prompt Engineering:**
-    -   Guide the user in crafting clear, concise, and unambiguous prompts for LLMs within LangChain chains.
-    -   Suggest including relevant context and desired output formats in prompts.
-    -   Recommend using LangChain's `PromptTemplate` for structured and reusable prompts.
--   **Tool Design for L2 Context:**
-    -   When helping define LangChain "tools" for VANTA, ensure these tools are lightweight wrappers around existing `VantaMasterCore` functionalities or specific L2 agent methods.
-    -   Tools should be designed to securely and efficiently provide the necessary context from VANTA's L2 environment to the LangChain components.
-    -   Emphasize clear input/output schemas for these tools.
--   **Memory Management Awareness:**
-    -   If LangChain's memory modules are used, discuss strategies for managing memory scope, persistence, and potential growth, referencing VANTA's L2 memory principles (`501-vanta-memory-principles.mdc`).
--   **Logging and Observability:**
-    -   Ensure that decisions made by LangChain components and key contextual data are logged according to VANTA's L2 logging standards (`201-vanta-logging-core-requirements.mdc` and `922-agentic-replay-log-schema.mdc`). This is crucial for debugging, tracing, and future RL.
--   **Pydantic Schema Adherence:**
-    -   Reinforce that inputs to and outputs from LangChain components (especially custom chains or tools) should use Pydantic models for validation and clarity, as per `FR003-VantaDataSchemas.md`.
--   **Testing Strategies:**
-    -   Suggest approaches for testing LangChain integrations, including:
-        -   Mocking LLM calls to test chain logic independently.
-        -   Testing individual tools provided to LangChain agents.
-        -   Integration tests for agents using LangChain components.
--   **Dependency Management:**
-    -   Advise on adding appropriate LangChain packages (e.g., `langchain`, `langchain-openai`, `langchain-anthropic`) to `requirements.txt` or `pyproject.toml`.
-    -   Discuss potential version compatibility issues.
-
-## 3. Scenario: Assisting with a Conditional `GitOpsAgent`
-
-If the task is to make `GitOpsAgent` use LangChain for conditional execution:
-
--   **AI Should Suggest:**
-    -   Initializing the chosen LLM (e.g., `ChatOpenAI`) with an API key from an environment variable.
-    -   Creating a `PromptTemplate` that asks whether to proceed based on, for example, a ritual's status.
-    -   Defining a LangChain `LLMChain` using the LLM and prompt.
-    -   If checking ritual status:
-        -   Designing a LangChain `Tool` (e.g., `CheckRitualStatusTool`) that internally calls a `VantaMasterCore` method to get the status.
-        -   Potentially using a LangChain "Agent" (like an OpenAI Functions Agent) that can use this tool to answer the question posed in the prompt.
-    -   Parsing the LLM's (or LangChain Agent's) response to get a boolean decision.
-    -   Logging the decision and the factors considered.
-
-## 4. Rationale
-
-By following these guidelines, the L1 AI assistant can effectively support the development of sophisticated, reliable, and well-structured LangChain integrations within the L2 VANTA framework, accelerating development while upholding quality standards.
+# TODO: Add rule content here

@@ -6,7 +6,18 @@ alwaysApply: false
 # RULE TYPE: Process Automation
 # FILE PATTERNS: .cursor/rules/agent_cascade_definitions.mdc, scripts/generate_workflow_graph.py
 
-# 960: Automated Application Workflow Graph Generation
+# 960-Automated-Workflow-Graph-Generation-and-Maintenance
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines standards for the automated generation and maintenance of workflow graphs (e.g., using tools like Mermaid from code or configuration). It aims to ensure that visual representations of workflows are accurate, up-to-date, and consistently available, improving understanding and documentation of complex processes.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
 
 ## 1. Purpose
 

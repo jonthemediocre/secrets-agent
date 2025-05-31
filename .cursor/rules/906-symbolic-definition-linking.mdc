@@ -39,3 +39,16 @@ This rule should be considered or automatically suggested when:
 
 > Modified `vanta_agi_definitions.md` to refine the `Collapse` process. Updated Section 3 in `THEPLAN.md` with the new definition summary and linked back to the source MD file. #symbolic_sync
 
+# Conceptual-Definition-Linking-in-Documentation
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule promotes the use of symbolic or conceptual definition linking within documentation. It encourages creating a connected web of knowledge by consistently linking terms, concepts, and components to their definitions or primary documentation, enhancing clarity, discoverability, and understanding of the system.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

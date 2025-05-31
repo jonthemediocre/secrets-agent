@@ -8,11 +8,8 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
-  plugins: ['@typescript-eslint', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint'],
   env: {
     node: true,
     es2021: true,
@@ -24,14 +21,12 @@ module.exports = {
     'prefer-const': 'error',
     'no-unused-vars': 'off', // Use TypeScript version instead
     '@typescript-eslint/no-unused-vars': 'error',
-    
-    // React specific rules
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-non-null-assertion': 'warn',
   },
   overrides: [
     {
-      files: ['*.test.ts', '*.test.tsx', 'jest.setup.js'],
+      files: ['*.test.ts', 'jest.setup.js'],
       env: {
         jest: true,
       },

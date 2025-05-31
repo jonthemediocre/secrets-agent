@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VantaVaultAccessToken",
+  "description": "Schema for VANTA Vault Access Tokens. These tokens grant temporary, scoped access to secrets via the VaultAccessAgent API.",
+  "type": "object",
+  "properties": {
+    "jti": {
+      "description": "JWT ID (Token Identifier). Unique identifier for this token.",
+      "type": "string",
+      "format": "uuid"
+    },
+    "iss": {
+      "description": "Issuer. Identifies the principal that issued the JWT (e.g., 'VantaVaultTokenAgent').",
+      "type": "string",
+      "default": "VantaVaultTokenAgent"
+    },
+    "aud": {
+      "description": "Audience. Identifies the recipients that the JWT is intended for (e.g., 'VantaVaultAccessAgent').",
+      "type": "string",
+      "default": "VantaVaultAccessAgent"
+    },
+    "sub": {
+      "description": "Subject. Identifies the principal that is the subject of the JWT (e.g., user ID, client ID, or service ID).",
+      "type": "string"
+    },
+    "iat": {
+      "description": "Issued At. Timestamp of when the token was issued (Unix epoch time).",
+      "type": "integer"
+    },
+    "nbf": {
+      "description": "Not Before. Timestamp defining the time before which the JWT MUST NOT be accepted for processing (Unix epoch time).",
+      "type": "integer"
+    },
+    "exp": {
+      "description": "Expiration Time. Timestamp defining the expiration time on or after which the JWT MUST NOT be accepted for processing (Unix epoch time).",
+      "type": "integer"
+    },
+    "scope": {
+      "description": "Defines the access scope granted by this token.",
+      "type": "object",
+      "properties": {
+        "environment": {
+          "description": "The specific vault environment this token has access to (e.g., 'production', 'staging', 'development').",
+          "type": "string",
+          "minLength": 1
+        },
+        "key_pattern": {
+          "description": "A glob-like pattern or specific key name that this token can access (e.g., 'OPENAI_*', 'DATABASE_URL', '*'). '*' implies access to all keys within the environment, subject to other restrictions.",
+          "type": "string",
+          "minLength": 1
+        },
+        "permissions": {
+          "description": "Permissions granted by this token.",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["read"]
+          },
+          "default": ["read"],
+          "minItems": 1,
+          "uniqueItems": true
+        }
+      },
+      "required": ["environment", "key_pattern", "permissions"]
+    },
+    "usage_limit": {
+      "description": "Maximum number of times this token can be used. A value of 0 or null might indicate unlimited uses within its TTL.",
+      "type": ["integer", "null"],
+      "minimum": 0,
+      "default": 1
+    },
+    "usage_count": {
+      "description": "Current number of times this token has been used. Managed by the TokenValidator/VaultAccessAgent.",
+      "type": "integer",
+      "minimum": 0,
+      "default": 0
+    },
+    "client_pubkey_id": {
+      "description": "Optional identifier for a client's public key, if payload-level encryption is to be used.",
+      "type": ["string", "null"]
+    },
+    "metadata": {
+      "description": "Optional metadata associated with the token (e.g., requester IP, user-agent hint).",
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "required": [
+    "jti",
+    "iss",
+    "aud",
+    "sub",
+    "iat",
+    "nbf",
+    "exp",
+    "scope"
+  ]
+} 

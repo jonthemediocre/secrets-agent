@@ -1,0 +1,181 @@
+version: '3.8'
+
+services:
+  # Main application
+  secrets-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=test
+      - LOG_LEVEL=debug
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=test-token
+      - MCP_API_ENDPOINT=http://localhost:3000
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      vault:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - test-network
+    volumes:
+      - test-data:/app/data
+      - ./config:/app/config:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # HashiCorp Vault for secrets storage
+  vault:
+    image: vault:1.13
+    ports:
+      - "8200:8200"
+    environment:
+      - VAULT_DEV_ROOT_TOKEN_ID=test-token
+      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
+      - VAULT_LOCAL_CONFIG={"storage":{"inmem":{}},"listener":[{"tcp":{"address":"0.0.0.0:8200","tls_disable":true}}],"default_lease_ttl":"168h","max_lease_ttl":"720h","ui":true}
+    cap_add:
+      - IPC_LOCK
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:8200/v1/sys/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes --requirepass test-password
+    networks:
+      - test-network
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "test-password", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # PostgreSQL for metadata storage
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=secrets_test
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=test_password
+    networks:
+      - test-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d secrets_test"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Mock MCP server for testing
+  mock-mcp-server:
+    build:
+      context: .
+      dockerfile: Dockerfile.mock-mcp
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=test
+      - LOG_LEVEL=debug
+    networks:
+      - test-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Test runner service
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: build
+    environment:
+      - NODE_ENV=test
+      - VAULT_ADDR=http://vault:8200
+      - VAULT_TOKEN=test-token
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://test_user:test_password@postgres:5432/secrets_test
+      - MCP_API_ENDPOINT=http://mock-mcp-server:3001
+    depends_on:
+      vault:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      postgres:
+        condition: service_healthy
+      mock-mcp-server:
+        condition: service_healthy
+    networks:
+      - test-network
+    volumes:
+      - ./test-results:/app/test-results
+      - ./coverage:/app/coverage
+    command: ["npm", "run", "ci:test"]
+    profiles:
+      - test
+
+  # Performance testing service
+  performance-tester:
+    image: grafana/k6:latest
+    volumes:
+      - ./tests/performance:/scripts
+      - ./performance-results:/results
+    environment:
+      - K6_OUT=json=/results/performance-results.json
+    command: ["run", "--vus", "10", "--duration", "5m", "/scripts/load-test.js"]
+    depends_on:
+      secrets-agent:
+        condition: service_healthy
+    networks:
+      - test-network
+    profiles:
+      - performance
+
+  # Security scanner
+  security-scanner:
+    image: aquasec/trivy:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./security-results:/results
+    command: ["image", "--format", "json", "--output", "/results/trivy-report.json", "secrets-agent:latest"]
+    profiles:
+      - security
+
+networks:
+  test-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
+
+volumes:
+  test-data:
+    driver: local
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local 

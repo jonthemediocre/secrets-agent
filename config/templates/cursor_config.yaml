@@ -1,0 +1,137 @@
+# VANTA Global Rules - Cursor IDE Configuration Template
+#
+# This file configures rule roots for the VANTA Global Rules system.
+# Copy this to .cursor/config.yaml in your project root and customize as needed.
+
+# Rule roots in priority order (later entries override earlier ones)
+rule_roots:
+  # Local project rules (highest priority)
+  - "./.cursor/rules"
+  
+  # Team-specific rules
+  - "~/.vanta/team_rules"
+  
+  # Organizational global rules
+  - "~/.vanta/global_rules/org"
+  
+  # Community rules (optional)
+  - "~/.vanta/global_rules/community"
+  
+  # Shared network rules (optional)
+  # - "/shared/development/rules"
+
+# VANTA system configuration
+vanta:
+  # Enable automatic rule synchronization
+  auto_sync: true
+  
+  # Validation settings
+  validation:
+    # Fail build on include resolution errors
+    strict_includes: false
+    
+    # Show warnings for missing global rules
+    warn_missing_global: true
+  
+  # Format export settings
+  export:
+    # Default output directory for format exports
+    output_dir: "./build/rules"
+    
+    # Auto-export on rule changes
+    auto_export: false
+    
+    # Formats to auto-export
+    auto_export_formats: ["cursor", "eslint"]
+
+# Cursor IDE specific settings
+cursor:
+  # Global rules activation reminder
+  show_activation_reminder: true
+  
+  # Auto-generate globalrules_synced.md
+  auto_generate_sync_file: true
+  
+  # Include patterns for rule scanning
+  scan_patterns:
+    - "**/*.mdc"
+    - "**/*.md"
+    - "**/*.yaml"
+    - "**/*.yml"
+    - "**/*.json"
+  
+  # Exclude patterns
+  exclude_patterns:
+    - "**/node_modules/**"
+    - "**/venv/**"
+    - "**/.git/**"
+    - "**/build/**"
+    - "**/dist/**"
+
+# Include directive settings
+includes:
+  # Cache resolved includes for performance
+  enable_caching: true
+  
+  # Cache duration in seconds (0 = no expiration)
+  cache_duration: 3600
+  
+  # Maximum include depth to prevent infinite recursion
+  max_depth: 10
+  
+  # Default scope for includes without % prefix
+  default_scope: "all_roots"  # or "extra_roots_only"
+
+# Logging configuration
+logging:
+  # Log level: DEBUG, INFO, WARNING, ERROR
+  level: "INFO"
+  
+  # Log file location (relative to project root)
+  file: ".vanta/logs/global_rules.log"
+  
+  # Enable detailed include resolution logging
+  trace_includes: false
+
+# Integration settings
+integrations:
+  # Git hooks integration
+  git_hooks:
+    enabled: false
+    hooks: ["pre-commit", "pre-push"]
+  
+  # CI/CD integration
+  ci_cd:
+    enabled: false
+    validate_on_commit: true
+    export_artifacts: true
+  
+  # IDE integration
+  ide:
+    # VS Code settings sync
+    vscode_sync: false
+    
+    # JetBrains settings sync
+    jetbrains_sync: false
+
+# Performance settings
+performance:
+  # Enable parallel processing for large codebases
+  parallel_processing: true
+  
+  # Number of worker threads (0 = auto-detect)
+  worker_threads: 0
+  
+  # Memory limits for large rule sets (MB)
+  memory_limit: 512
+
+# Development settings (for VANTA developers)
+development:
+  # Enable debug mode
+  debug: false
+  
+  # Enable experimental features
+  experimental: false
+  
+  # Profile performance
+  profiling: false 

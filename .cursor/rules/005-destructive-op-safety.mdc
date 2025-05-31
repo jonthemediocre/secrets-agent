@@ -51,3 +51,16 @@ Before proposing or executing any of the following operations, the AI assistant 
 
 This rule ensures that AI assistants operate safely, respect user data, and prevent accidental data loss, fostering trust and reliability in AI-assisted development workflows.
 
+# 005-Destructive-Operation-Safety
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule mandates safety protocols for any operation that could lead to irreversible data loss or modification (e.g., file overwrites, deletions, database drops). It prioritizes data integrity and user control by requiring explicit confirmation and backup suggestions before such operations are executed.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

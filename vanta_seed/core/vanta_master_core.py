@@ -1,12 +1,15 @@
 import logging
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 import asyncio # Added for type hinting and potential future use
 import json # Added for parsing event data
 import uuid # Added for example usage
 from datetime import datetime # Added for example usage
 
-from .keb_client import KEBClient  # Assuming KEBClient is in the same directory
-from ..agents.echo_agent import EchoAgent # Adjusted import path
+from vanta_seed.core.keb_client import KEBClient
+from vanta_seed.agents.echo_agent import EchoAgent
+from vanta_seed.core.cascade_executor import CascadeExecutor
+from vanta_seed.agents.debug_logger_agent import DebugLoggerAgent
+from vanta_seed.agents.test_processing_agent import TestProcessingAgent
 
 # Configure basic logging for VantaMasterCore
 logging.basicConfig(level=logging.INFO)
@@ -42,6 +45,9 @@ class VantaMasterCore:
             logger.error("VantaMasterCore: KEB Client failed to connect. Event bus unavailable.")
         else:
             logger.info("VantaMasterCore initialized and KEBClient connected.")
+
+        # Initialize CascadeExecutor
+        self.cascade_executor = CascadeExecutor(self)
 
     async def startup(self):
         """
@@ -315,6 +321,27 @@ class VantaMasterCore:
         except Exception as e:
             logger.error(f"VMC error handling control event (StreamMSG_ID: {stream_message_id}): {e}", exc_info=True)
 
+    def execute_agent_task_sync(self, agent_id: str, task_type: str, task_parameters: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Synchronously execute an agent task for cascade steps. Returns result/status.
+        """
+        # TODO: Implement sync agent task execution for cascades
+        return self.dispatch_task_to_agent(agent_id, task_type, task_parameters)
+
+    def execute_tool_calls_sync(self, tool_calls: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Synchronously execute tool calls for cascade steps. Returns list of results.
+        """
+        # TODO: Implement sync tool call execution for cascades
+        return [{"status": "not_implemented", "tool_call": tc} for tc in tool_calls]
+
+    def trigger_cascade_from_signal(self, cascade_id: str, initial_data: Optional[Dict[str, Any]] = None):
+        """
+        Handles a signal/event to trigger a cascade. Calls CascadeExecutor.
+        """
+        logger.info(f"VMC: Received signal to trigger cascade '{cascade_id}' with initial_data: {initial_data}")
+        return self.cascade_executor.trigger_cascade(cascade_id, initial_data)
+
 # Example of how VMC might be instantiated and run (conceptual)
 if __name__ == "__main__":
     logger.info("VMC __main__: Starting application.")
@@ -324,18 +351,35 @@ if __name__ == "__main__":
                 "redis_keb": {
                     "host": "localhost", "port": 6379, "db": 0
                 },
-                "profile": "development" # Example config value
+                "profile": "development", # Example config value
+                "core_settings": { # Example core_settings, can be expanded
+                    "default_log_level": "INFO"
+                }
             }
             vmc = VantaMasterCore(config=vmc_config)
-            echo_agent = EchoAgent(agent_id="echo_001", config={"location": "testbed"})
+            echo_agent = EchoAgent(agent_id="echo_001", core_config=vmc_config.get("core_settings"))
             vmc.register_agent(echo_agent.agent_id, echo_agent)
-
+            # Register debug_logger_agent and test_processing_agent for cascade
+            debug_logger = DebugLoggerAgent(core_config=vmc_config.get("core_settings"))
+            test_agent = TestProcessingAgent(core_config=vmc_config.get("core_settings"))
+            vmc.register_agent(debug_logger.agent_id, debug_logger)
+            vmc.register_agent(test_agent.agent_id, test_agent)
+            # Trigger the simple_test_cascade
+            logger.info("VMC Main: Triggering simple_test_cascade...")
+            cascade_result = vmc.cascade_executor.trigger_cascade(
+                "simple_test_cascade",
+                initial_data={
+                    "initial_message": "Hello from cascade!",
+                    "test_agent_param": "42"
+                }
+            )
+            print("Cascade Result:", cascade_result)
+            # Continue with normal startup if needed
             try:
                 logger.info("VMC Main: Starting VantaMasterCore...")
                 await vmc.startup()
                 logger.info("VMC Main: VantaMasterCore started. KEB subscription active.")
                 logger.info("VMC Main: To test, publish TriggerAgentActionEvent to 'vmc_control_events' via redis-cli.")
-                # Example redis-cli command was provided in previous logs.
                 logger.info("VMC Main: Running until KeyboardInterrupt (Ctrl+C).")
                 while True: await asyncio.sleep(1)
             except KeyboardInterrupt: logger.info("VMC Main: KeyboardInterrupt. Shutting down...")
@@ -344,7 +388,6 @@ if __name__ == "__main__":
                 logger.info("VMC Main: Initiating VMC shutdown...")
                 if 'vmc' in locals() and vmc: await vmc.shutdown()
                 logger.info("VMC Main: VantaMasterCore shut down.")
-
         asyncio.run(main())
     except KeyboardInterrupt: logger.info("VMC __main__: App terminated by user.")
     except Exception as e: logger.error(f"VMC __main__: App failed: {e}", exc_info=True)

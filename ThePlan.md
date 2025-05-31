@@ -56,16 +56,96 @@
 
 *   **[🧊 TODO] Secret Suggestion via Code/README Scan (`SecretScaffoldAgent`):**
     *   New agent to analyze `.env.example`, `docker-compose.yml`, `README.md` etc., to suggest secret schemas or missing secrets.
-*   **[🧊 TODO] Secrets Misuse Detection (Watchdog):**
-    *   Optional service/feature to alert if decrypted files (e.g., temporary `.env` from export) persist unencrypted for too long.
-*   **[🧊 TODO] Multi-Key Sharing for Vaults (Age Recipients):**
-    *   Extend vault creation/management to support multiple `age` public keys for shared team vaults (serverless sharing).
-*   **[🧊 TODO] Vault Fingerprint Hashing (Integrity Check):**
-    *   Display a SHA256 hash of the (potentially canonicalized) `.vault.yaml` content in the UI for integrity verification.
-*   **[🧊 TODO] Per-Secret Access Control (Granular Permissions):**
-    *   Even for single-user, allow flags like "hidden from auto-export," "require confirmation for access/export."
 *   **[🧊 TODO] Secret History Timeline (Visual):**
     *   Track changes per-secret, potentially stored in a `.vault-history.yaml` or integrated with Git if the vault is in a repo.
+
+### Phase 4: Cross-Platform Feature Parity (MVP) - Complete
+
+*   **[✅] Objective:** Achieve a baseline level of core feature parity across the primary VANTA Secrets Agent interfaces: Web (existing), CLI, VS Code Extension, and Windows GUI.
+*   **[✅] Status: DOMINO_COMPLETE: ALL_PLATFORMS_FEATURE_PARITY_MVP_REACHED ✅**
+*   **Summary of Enhancements:**
+    *   **CLI (`cli_enhanced.py`):**
+        *   Implemented using `click`, `rich`, and `httpx` for a modern, user-friendly command-line experience.
+        *   Core commands implemented: `scan` (workspace/project), `detect` (secrets in project), `export` (project to .env), `rotate` (secret), `add/edit/delete` secret, `status`, `version`.
+        *   Comprehensive test suite (`tests/test_cli_enhanced.py`) and usage guide (`docs/CLI_USAGE_GUIDE.md`) created.
+    *   **VS Code Extension (`extension_api/vscode/`):**
+        *   Structured with TypeScript, utilizing VS Code API for UI elements (TreeViews, Webview for Welcome, Status Bar, Notifications) and commands.
+        *   Features: Project listing, secret listing/management (add, edit, delete, rotate, export), status view, configuration.
+        *   Key components: `ApiClient.ts`, `CommandManager.ts`, `ProjectsProvider.ts`, `SecretsProvider.ts`, `StatusProvider.ts`, `WelcomeProvider.ts`.
+        *   Documentation (`extension_api/vscode/README.md`) created.
+    *   **Windows GUI (`windows_gui_enhanced.py`):**
+        *   Developed using `PyQt6` and `httpx` for native Windows look and feel.
+        *   Features: Project listing, secret listing/management (add, edit, delete, rotate, export), status view, configuration, application logging view.
+        *   Key components: `VantaMainWindow`, `ApiClientThread`, `SecretEditDialog`, `ConfigDialog`.
+        *   Test suite (`tests/test_windows_gui_enhanced.py`) and usage guide (`windows_gui_README.md`) created.
+*   **Next Steps Consideration:**
+    *   With this foundational parity achieved, the project can now more effectively focus on advancing core vault capabilities and agentic features as outlined in "Phase 2: Enhancing Core & Agentic Capabilities" and "Phase 3: Advanced Agentic Features & Ecosystem Integration." Priorities can be re-evaluated based on this new baseline.
+
+### Phase 5: VaultAccessAgent – Runtime Secret Delivery & API-Based Encrypted Retrieval
+*   **Objective**: Implement a secure mechanism for runtime secret delivery to applications and services, utilizing short-lived, scoped access tokens and direct API-based retrieval of SOPS-encrypted secrets. This phase aims to reduce the need for direct file-based secret distribution.
+*   **Status**: **DOMINO_COMPLETE: VAULT_ACCESS_SYSTEM_IMPLEMENTED ✅**
+    *   **[✅] Core Agents & Auth Stubbed:** `VaultAccessAgent.py`, `VaultTokenAgent.py`, `auth/TokenValidator.py` created.
+    *   **[✅] API Routes Defined:** `app/api/v1/vault/routes.py` for `/vault/{env}/{key}` (secret retrieval) and `/tokens/generate` (token generation) created.
+    *   **[✅] CLI Commands Stubbed:** `cli_enhanced.py` updated with `token generate` and `run-with-secrets` stubs.
+    *   **[✅] CLI Integration with Phase 5 API:** `token generate` and `run-with-secrets` in `cli_enhanced.py` now use the API. Renamed from Phase 6 to Phase 5 for correct ordering.
+    *   **[✅] SOPS Integration in `VaultAccessAgent`:** Agent can now call SOPS CLI to decrypt secrets.
+    *   **[✅] Secure Configuration for JWT & SOPS Paths:** Key agents and API routes load sensitive paths/keys from environment variables.
+    *   **[✅] Initial Test Suite for Phase 5 (`tests/test_phase6_vault_access.py`):** Unit and integration tests for token generation, validation, and secret fetching (mocked SOPS) are in place. CLI commands have basic tests. (Note: Test file name `test_phase6_vault_access.py` will be kept for now to avoid breaking references, but conceptually maps to Phase 5).
+    *   **[✅] Documentation Complete:** `docs/VAULT_ACCESS_SYSTEM_README.md` and `docs/PRD_VaultAccessAgent.md` provide comprehensive documentation.
+*   **Key Features & Components**:
+    *   **`VaultAccessAgent`**: Python agent responsible for:
+        *   Validating incoming JWT access tokens (via `TokenValidator`).
+        *   Fetching the corresponding SOPS-encrypted file for the specified environment.
+        *   Using the `sops` CLI to decrypt and extract the specific secret key.
+        *   Returning the plaintext secret value.
+        *   Logging access attempts (via `SecretFetchLogger`).
+    *   **`VaultTokenAgent`**: Python agent for generating JWTs with:
+        *   Specific scopes (environment, key pattern).
+        *   Short TTLs (Time To Live).
+        *   Optional usage limits.
+    *   **`TokenValidator`**: Python component for validating JWTs (signature, expiry, scope).
+    *   **API Endpoints (FastAPI - `app/api/v1/vault/routes.py`)**:
+        *   `POST /tokens/generate`: Accepts parameters (subject, environment, key_pattern, ttl, usage_limit) and returns a signed JWT.
+        *   `GET /vault/{environment}/{key}`: Requires a `Bearer` token. Validates token, then fetches and decrypts the secret via `VaultAccessAgent`.
+    *   **CLI Enhancements (`cli_enhanced.py`)**:
+        *   `token generate`: Command to request a vault access token from the API.
+        *   `run-with-secrets`: Command to:
+            1.  Fetch a temporary, scoped token from the API.
+            2.  Fetch specified secrets using the token via the API.
+            3.  Inject secrets into a subprocess's environment or a temporary file.
+            4.  (Stretch) Invalidate/revoke the temporary token after the subprocess exits.
+    *   **UAP (User-Aware Proxy) / Sidecar Integration Pattern (Conceptual)**: For services that cannot directly call the Vault API, `run-with-secrets` acts as a local UAP, fetching secrets and providing them to the target process.
+*   **Workflows**:
+    1.  **API-Based Retrieval (Primary)**:
+        *   Service/Application requests a JWT from `VaultTokenAgent` (via API) with a specific scope.
+        *   Service uses this JWT to request a secret from `VaultAccessAgent` (via API).
+        *   `VaultAccessAgent` validates token, decrypts with SOPS, returns secret.
+    2.  **CLI-Guided Retrieval (for non-API-aware services)**:
+        *   Developer/script uses `cli_enhanced.py token generate` to get a token (can be long-lived for specific use cases if policy allows, or short-lived).
+        *   Developer/script uses `cli_enhanced.py run-with-secrets --token <token> ... your_command` OR `cli_enhanced.py run-with-secrets --environment <env> --key-pattern <pattern> ... your_command` (which handles transient token generation).
+        *   `run-with-secrets` injects secrets into the environment of `your_command`.
+
+### Phase 6: MCP Bridge Integration – Cross-Platform Tool Orchestration
+*   **Objective**: Integrate Master Control Program (MCP) Bridge capabilities into the VANTA Secrets Agent to enable seamless communication with external tool orchestration platforms across all interfaces.
+*   **Status**: **Implementation Ready - PRD Complete**
+    *   **[📋 TODO] Core Infrastructure Enhancement:** Extend `AgentBridgeService.ts` with MCP capabilities including endpoint management, tool discovery, and execution tracking.
+    *   **[📋 TODO] CLI Command Group:** Add comprehensive MCP commands to `cli.py` with retry logic and authentication integration.
+    *   **[📋 TODO] API Endpoints:** Implement `/api/v1/mcp/*` endpoints for bridge management, tool listing, and execution.
+    *   **[📋 TODO] Cross-Platform Integration:** Add MCP capabilities to VS Code extension and Windows GUI.
+    *   **[📋 TODO] Security Integration:** Leverage existing VANTA secret management for MCP authentication.
+*   **Key Features & Components**:
+    *   **MCP Bridge Management**: Configuration-driven endpoint management with support for multiple authentication types.
+    *   **Tool Discovery & Execution**: List available tools from MCP bridges and execute them with structured responses.
+    *   **Async Operation Tracking**: Support for long-running operations with status polling.
+    *   **Cross-Platform Access**: Consistent MCP tool access across Web, CLI, VS Code Extension, and Windows GUI.
+    *   **Robust Error Handling**: Exponential backoff, retry logic, and comprehensive error reporting.
+    *   **Observable Operations**: Full integration with KEB event system for monitoring and auditing.
+*   **Supported MCP Bridges**:
+    *   **AI/LLM Providers**: OpenAI, Anthropic Claude, Google Gemini
+    *   **Local AI**: Ollama, LM Studio
+    *   **Database**: Supabase, PostgreSQL
+    *   **Development/Testing**: Mock MCP for testing and development
+*   **Documentation**: Complete PRD available at `docs/PRD_MCP_Bridge_Integration.md`
 
 ### P3: Secret Lifecycle Management - Rotation (Conceptual)
 - **Objective**: Implement mechanisms for automated and manual secret rotation.

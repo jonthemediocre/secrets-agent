@@ -394,8 +394,100 @@ profiles:
       on_failure: "LOG_AND_PROCEED"
   logging_level: "VERBOSE"
 
+# --- Profile ID: cursor_rules_sync_full_audit_cascade ---
+- profile_id: "cursor_rules_sync_full_audit_cascade"
+  description: "Full recursive audit and synchronization of .cursor and .rules files across all project directories"
+  trigger_type: "AGENT_INITIATED"
+  parameters_expected:
+    - name: "target_path"
+      type: "string"
+      required: false
+      description: "Root path to start scanning from (defaults to project root)"
+    - name: "options"
+      type: "object"
+      required: false
+      description: "Configuration options for the sync operation"
+  agent_sequence:
+    - name: "Scan All Directories"
+      agent: "cursor_rules_sync_agent"
+      task_data:
+        action: "scan"
+        target_path: "{{ trigger.parameters.target_path || '.' }}"
+        options:
+          exclude_dirs: [".git", "__pycache__", "node_modules", ".venv", ".next", "coverage"]
+          include_root: false
+      on_failure: "LOG_AND_HALT"
+      
+    - name: "Generate Missing Files"
+      agent: "cursor_rules_sync_agent"
+      task_data:
+        action: "generate"
+        options:
+          generate_cursor: true
+          generate_rules: true
+      on_failure: "LOG_AND_PROCEED"
+      
+    - name: "Sync and Create Symlinks"
+      agent: "cursor_rules_sync_agent"
+      task_data:
+        action: "sync"
+        options:
+          enable_symlinks: true
+          sync_rules: true
+      on_failure: "LOG_AND_PROCEED"
+      
+    - name: "Log Summary"
+      agent: "detailed_event_logger_agent"
+      input_mapping:
+        event_type: "CURSOR_RULES_SYNC_COMPLETE"
+        event_data:
+          scan_results: "{{ step_results.step_1_output }}"
+          generation_results: "{{ step_results.step_2_output }}"
+          sync_results: "{{ step_results.step_3_output }}"
+        severity: "INFO"
+      on_failure: "LOG_ONLY"
+logging_level: "VERBOSE"
+
+# --- Profile ID: cursor_rules_quick_scan_cascade ---
+- profile_id: "cursor_rules_quick_scan_cascade"
+  description: "Quick scan to identify missing .cursor and .rules files without modification"
+  trigger_type: "USER_CONFIRMED_WHISPER"
+  trigger_conditions:
+    - condition_type: "FILE_MODIFICATION"
+      details:
+        file_patterns: ["**/.cursor/**", "**/.rules/**", "**/agent_*.py", "**/index.yaml"]
+  parameters_expected:
+    - name: "modified_files"
+      type: "list[string]"
+      required: true
+      description: "List of files that triggered the scan"
+  agent_sequence:
+    - agent_id: "cursor_rules_sync_agent"
+      input_mapping:
+        action: "scan"
+        target_path: "."
+        options:
+          exclude_dirs: [".git", "__pycache__", "node_modules", ".venv"]
+  whisper_mode_details:
+    suggestion_prompt_template: "Detected changes to configuration files. Would you like to scan for missing .cursor and .rules files?"
+    default_action: "REJECT"
+  logging_level: "STANDARD"
+
 # --- END OF PROFILES --- #
 # Ensure this file ends with a newline if more profiles are added below manually
+
+# Standard-Sequential-Workflow-Definitions
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the standard way to define sequential workflows or task cascades, particularly for agent-driven processes. It covers the structure for defining stages, inputs/outputs for each stage, conditional logic, error handling within cascades, and how these workflows are invoked and monitored.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
 
 
 

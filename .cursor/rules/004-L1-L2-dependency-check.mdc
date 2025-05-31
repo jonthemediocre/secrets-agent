@@ -44,3 +44,16 @@ When assisting with L2 development, the L1 Cursor AI (governed by L1 rules) MUST
 2.  **Promote L2 Self-Sufficiency:** Encourage the design of L2 agents and systems that are self-contained, relying only on standard Python libraries, defined VANTA core modules, and L2 framework rules for their operation.
 3.  **Focus on L2 Standards:** When generating or modifying L2 code, the AI should prioritize adherence to L2-defined contracts (e.g., `framework rules/FR001-VantaAgentContract.md`) and L2 internal protocols, rather than L1 conventions, if there's a conflict in runtime implications.
 4.  **Interface via Tools:** If L1 needs to interact with a running L2 system (e.g., for testing or operational commands), it should do so through defined interfaces (APIs, McP tools exposed by L2), not by assuming L2 shares L1's runtime context or rules.
+
+# 004-Inter-Layer-Dependency-Check
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule establishes the protocol for checking and validating dependencies between the conceptual layer (L1) and the implementation layer (L2) of a project. It ensures that technical dependencies align with planned architectural components and that conceptual requirements are met by the implementation.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

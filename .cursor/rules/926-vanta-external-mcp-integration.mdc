@@ -112,3 +112,16 @@ async def _execute_mermaid_render_tool(self, params: Dict[str, Any]) -> Any:
 ## Compliance
 All new external MCP tool integrations within VANTA MUST follow these steps to ensure consistency, security, and maintainability. Deviations require explicit justification in `THEPLAN.md`.
 
+# External-System-Integration-Gateway-Guidelines
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule provides guidelines for integrating external systems or services, potentially via a Mission Control Panel (MCP) or a dedicated integration gateway. It covers aspects like API wrapping, authentication, data transformation, error handling, and ensuring secure and reliable communication with external dependencies.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

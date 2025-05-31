@@ -70,3 +70,16 @@ L1 rules should guide the AI to generate L2 components that are **self-contained
 4.  **Independence by Design:** L1 rules will steer the AI to generate L2 code that is portable and does not have runtime dependencies on Cursor AI or L1-specific constructs. The goal is for L2 VANTA to be capable of standalone operation.
 
 ## Examples
+
+# 003-Conceptual-Layer-Enforces-Scaffolding
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines how the conceptual or planning layer (L1) of a project dictates and enforces the initial scaffolding and structure of the implementation layer (L2). It ensures that technical setup aligns with the project's high-level design and objectives from the outset.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

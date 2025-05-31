@@ -106,3 +106,16 @@ class MyAgent:
 -   [ ] Are standard lifecycle methods (initialize, shutdown) implemented?
 ---
 Adherence to these guidelines helps in building robust, manageable, and observable agent systems.
+
+# Agent-State-Lifecycle-Management
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the management of state lifecycles for agents and stateful components. It covers initialization, active states, transitions, persistence, and termination, ensuring that agent state is handled consistently, reliably, and can be recovered or audited as needed.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

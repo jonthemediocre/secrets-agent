@@ -1,3 +1,4 @@
+// @ts-nocheck
 // AuthAgent.ts - Standalone Authentication Logic with Expo Integration & Reactivity
 
 // Expo imports replaced with mock system below

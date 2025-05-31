@@ -47,7 +47,7 @@
         "title": "Secrets Agent: Show Commands"
       },
       {
-        "command": "vanta.setMasterPassword", 
+        "command": "vanta.setMasterPassword",
         "title": "Secrets Agent: Set Master Password"
       },
       {
@@ -112,7 +112,7 @@
       {
         "command": "vanta.rotateMasterPassword",
         "title": "Secrets Agent: Rotate Master Password",
-        "icon": "$(sync~spin)" 
+        "icon": "$(sync~spin)"
       }
     ],
     "viewsContainers": {
@@ -216,7 +216,7 @@
           "scope": "window"
         },
         "secretsAgent.autoScan": {
-          "type": "boolean", 
+          "type": "boolean",
           "default": false,
           "description": "Automatically scan projects on open for environment variables and tools.",
           "scope": "resource"
@@ -249,7 +249,11 @@
         },
         "secretsAgent.visualization": {
           "type": "string",
-          "enum": ["flat", "categorized", "tagged"],
+          "enum": [
+            "flat",
+            "categorized",
+            "tagged"
+          ],
           "default": "flat",
           "description": "Selects how secrets are displayed in the Secrets Explorer view (e.g., flat list, grouped by category, or by tags).",
           "scope": "window"
@@ -270,7 +274,6 @@
     "axios": "^0.27.2"
   },
   "devDependencies": {
-    "@types/vscode": "^1.70.0",
-    "vsce": "^2.6.7"
+    "@types/vscode": "^1.70.0"
   }
 }

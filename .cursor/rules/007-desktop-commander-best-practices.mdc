@@ -51,3 +51,16 @@ Before executing a command with a path, if unsure, it can be beneficial to:
 
 By consistently using well-formed absolute paths, interaction with `mcp-desktop-commander` will be more robust and predictable.
 
+# Local-Development-Orchestration-Tool-Best-Practices
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule outlines best practices for using local development orchestration tools (such as Desktop Commander or similar utilities). It aims to ensure efficient, consistent, and safe usage of such tools for tasks like file system operations, command execution, and environment management during local development.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+

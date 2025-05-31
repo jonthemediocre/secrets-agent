@@ -661,3 +661,18 @@ AGENT_METADATA = {
     "tags": ["automation", "devops", "configuration", "symbolic"],
     "status": "active"
 } 
+
+def _create_project_marker(self, path: Path, metadata: dict = None) -> bool:
+    """Create a secretsagent.proj marker file with a warning comment and optional metadata."""
+    try:
+        marker_path = path / "secretsagent.proj"
+        with open(marker_path, 'w', encoding='utf-8') as f:
+            f.write("# DO NOT PUT SECRETS OR SENSITIVE DATA IN THIS FILE\n")
+            f.write("# This file is for project metadata only.\n")
+            if metadata:
+                import yaml
+                yaml.dump(metadata, f, default_flow_style=False, sort_keys=False)
+        return True
+    except Exception as e:
+        logger.error(f"Failed to create secretsagent.proj at {path}: {str(e)}")
+        return False 

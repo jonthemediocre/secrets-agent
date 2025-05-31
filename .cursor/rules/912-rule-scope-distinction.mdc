@@ -58,3 +58,16 @@ This rule clarifies the distinct purposes and scopes of the two primary location
 | **Scope**                | Cross-Project (IDE) / File Types       | Single Project/Framework                   |
 | **Activation**           | Auto (Globs/Always), Explicit (`@`)    | Contextual Consultation (Manual/AI Read)   |
 | **Typical Content**      | AI Interaction, Formatting, Tool Use | Internal Protocols, Architecture, Logic      |
+
+# 912-Rule-Scope-Distinction-Global-vs-Local
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule clarifies the distinction and relationship between global framework rules (like those in `globalrules.md`) and local, project-specific rules (e.g., in a project's `.cursor/rules/` directory). It outlines principles of precedence, inheritance, and how conflicts are resolved, ensuring a clear governance hierarchy.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

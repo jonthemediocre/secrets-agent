@@ -1,0 +1,179 @@
+# MCP Tools Registry for VANTA Secrets Agent
+version: 2.2.0
+description: "Registry of available MCP tools for secrets management and project scanning"
+
+categories:
+  filesystem:
+    description: "File system operations and scanning tools"
+    tools:
+      list_dir:
+        description: "List directory contents"
+        implementation: "native"
+        parameters:
+          path:
+            type: "string"
+            description: "Directory path to list"
+          pattern:
+            type: "string"
+            description: "Optional glob pattern"
+            required: false
+      
+      read_file:
+        description: "Read file contents"
+        implementation: "native"
+        parameters:
+          path:
+            type: "string"
+            description: "File path to read"
+          encoding:
+            type: "string"
+            description: "File encoding"
+            default: "utf-8"
+            required: false
+      
+      search_files:
+        description: "Search for files matching pattern"
+        implementation: "ripgrep"
+        parameters:
+          path:
+            type: "string"
+            description: "Base directory for search"
+          pattern:
+            type: "string"
+            description: "Search pattern"
+          recursive:
+            type: "boolean"
+            description: "Search subdirectories"
+            default: true
+
+  runtime:
+    description: "Runtime environment and secret injection"
+    tools:
+      inject_env:
+        description: "Inject environment variables"
+        implementation: "custom"
+        parameters:
+          env_dict:
+            type: "object"
+            description: "Environment variables to inject"
+          scope:
+            type: "string"
+            description: "Injection scope"
+            enum: ["process", "session", "temporary"]
+      
+      exec_with_env:
+        description: "Execute command with environment"
+        implementation: "custom"
+        parameters:
+          command:
+            type: "string"
+            description: "Command to execute"
+          env:
+            type: "object"
+            description: "Environment variables"
+            required: false
+
+  project:
+    description: "Project analysis and secret detection"
+    tools:
+      detect_type:
+        description: "Detect project type and framework"
+        implementation: "custom"
+        parameters:
+          path:
+            type: "string"
+            description: "Project root path"
+      
+      scan_secrets_usage:
+        description: "Scan for secrets usage patterns"
+        implementation: "trufflehog"
+        parameters:
+          path:
+            type: "string"
+            description: "Project path to scan"
+          exclude:
+            type: "array"
+            description: "Patterns to exclude"
+            required: false
+      
+      infer_env_template:
+        description: "Generate environment template"
+        implementation: "custom"
+        parameters:
+          path:
+            type: "string"
+            description: "Project path"
+          scan_depth:
+            type: "number"
+            description: "Scan depth for references"
+            default: 2
+
+  vault:
+    description: "Vault operations and secret management"
+    tools:
+      link_project:
+        description: "Link project to vault profile"
+        implementation: "vault_agent"
+        parameters:
+          project_path:
+            type: "string"
+            description: "Project path"
+          vault_profile:
+            type: "string"
+            description: "Vault profile name"
+      
+      check_secret_status:
+        description: "Check secret availability"
+        implementation: "vault_agent"
+        parameters:
+          key:
+            type: "string"
+            description: "Secret key to check"
+          environment:
+            type: "string"
+            description: "Environment context"
+
+  dev:
+    description: "Development-specific tools"
+    tools:
+      scan_package_json:
+        description: "Analyze package.json for env usage"
+        implementation: "custom"
+        parameters:
+          path:
+            type: "string"
+            description: "Path to package.json"
+      
+      scan_prisma_schema:
+        description: "Analyze Prisma schema"
+        implementation: "custom"
+        parameters:
+          path:
+            type: "string"
+            description: "Path to schema.prisma"
+
+implementations:
+  native:
+    type: "internal"
+    description: "Native TypeScript/Node.js implementation"
+  
+  custom:
+    type: "internal"
+    description: "Custom implementation in AgentBridgeService"
+  
+  ripgrep:
+    type: "cli"
+    description: "Ripgrep-based implementation"
+    command: "rg"
+    version_required: ">=13.0.0"
+  
+  trufflehog:
+    type: "cli"
+    description: "TruffleHog secret scanner"
+    command: "trufflehog"
+    version_required: ">=3.0.0"
+  
+  vault_agent:
+    type: "internal"
+    description: "VaultAgent implementation"
+    module: "VaultAgent" 

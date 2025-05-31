@@ -1,0 +1,73 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# CoE Continuous Learning & Multi-Tier Review Framework
+
+## 1. Continuous Learning Loops
+
+### 1.1. Objective
+To enable the agentic system to learn from past decisions, CoE reviews, and operational outcomes, continuously improving its performance, accuracy, and efficiency.
+
+### 1.2. Mechanisms
+- **Feedback Integration**: All CoE review outcomes (approvals, rejections, modifications) MUST be fed back into a structured knowledge base accessible by relevant agents.
+- **Performance Monitoring**: Agents SHOULD track key performance indicators (KPIs) for their tasks (e.g., success rates, processing time, resource usage, human override instances).
+- **Automated Pattern Detection**: Implement a dedicated "MetaAgent" or a "LearningSubsystem" to analyze historical performance data and CoE feedback to identify patterns, common failure points, or areas for optimization.
+- **Suggestion Generation**: Based on detected patterns, the LearningSubsystem SHOULD generate suggestions for:
+    - Modifying existing agent logic.
+    - Updating or creating new rules (MDC).
+    - Adjusting CoE review thresholds or criteria.
+    - Proposing new training data for ML models (if applicable).
+- **Knowledge Base Updates**: Successful suggestions and implemented changes MUST update the central knowledge base.
+
+### 1.3. Example Flow
+1. Agent `Alpha` submits a proposal to CoE.
+2. CoE (Tier 1) modifies and approves the proposal.
+3. Outcome (original, modified, rationale, approver) is logged to `CoE_Feedback_KB`.
+4. `MetaAgent` periodically analyzes `CoE_Feedback_KB`.
+5. `MetaAgent` detects that Agent `Alpha` proposals are frequently modified in a specific way when `context_X` is present.
+6. `MetaAgent` suggests an update to Agent `Alpha`'s logic or a new MDC rule to handle `context_X` preemptively.
+7. If suggestion is approved (potentially by a CoE review itself), Agent `Alpha` is updated/new rule created.
+
+## 2. Multi-Tier Coalition of Experts (CoE)
+
+### 2.1. Objective
+To handle varying levels of proposal complexity and risk with appropriate levels of scrutiny and expertise, optimizing for both safety and agility.
+
+### 2.2. Tier Definitions
+- **Tier 0 (Automated Validation)**:
+    - **Scope**: Simple, low-risk, highly recurrent decisions with well-defined validation criteria.
+    - **Reviewers**: Specialized validation agents (e.g., `SyntaxCheckerAgent`, `ComplianceVerifierAgent`).
+    - **Process**: Fully automated. Failures may escalate to Tier 1.
+    - **Example**: Validating MDC rule syntax, checking for basic UAP compliance in simple agent code.
+
+- **Tier 1 (Standard CoE Review)**:
+    - **Scope**: Moderate complexity/risk proposals, requiring standard expert review.
+    - **Reviewers**: A standard pool of diverse expert agents (e.g., `SecurityAgent`, `ArchitectureAgent`, `EthicsAgent`) and/or designated human reviewers.
+    - **Process**: Standard CoE voting/consensus mechanism.
+    - **Example**: Approving new agent registrations, standard rule changes, minor configuration updates to existing systems.
+
+- **Tier 2 (Strategic CoE Review)**:
+    - **Scope**: High complexity, high-risk, strategically important proposals with broad system impact.
+    - **Reviewers**: Senior expert agents, core architects, and mandatory human oversight (e.g., Lead Developer, System Architect).
+    - **Process**: In-depth review, potentially requiring multi-stage approvals or sandbox testing.
+    - **Example**: Approving significant architectural changes, deploying new core agents, global rule modifications affecting all agents, changes to fundamental security protocols.
+
+### 2.3. Escalation & Devolution
+- Proposals MAY be escalated from a lower tier to a higher tier if initial review flags higher-than-expected risk or complexity.
+- Conversely, if a higher tier consistently sees low-risk, boilerplate proposals of a certain type, it MAY define criteria for those to be handled by a lower tier or automated (Tier 0).
+
+### 2.4. Confidence Scoring Integration
+- Agent proposals submitted to the CoE framework SHOULD include a self-assessed `decision_confidence_score`.
+- The CoE tier to which a proposal is routed MAY be influenced by this score (e.g., low confidence scores might automatically trigger a higher tier review).
+
+### 2.5. Implementation Notes
+- The CoE invocation mechanism (as per `1016-coding_agent-coe_invocation`) MUST allow specifying the target CoE tier or rely on a routing agent to determine the appropriate tier based on proposal metadata (risk, scope, confidence).
+- Each CoE tier MUST have clear SLAs for review times.
+- All tier review activities and decisions MUST be logged for auditability and to feed into the continuous learning loop.
+
+## 3. Cross-Project Learning Integration
+- While CoE decisions and learning are primarily project-specific, a mechanism SHOULD exist for a "GlobalCoEMetaAgent" to identify patterns and learnings that are applicable across multiple projects.
+- Such global learnings can then be proposed as new global rules, updates to agent templates, or best practices for all projects within the VANTA ecosystem.
+- This requires a secure and structured way to share anonymized or generalized learnings between project-specific CoE KBs and the GlobalCoEMetaAgent.

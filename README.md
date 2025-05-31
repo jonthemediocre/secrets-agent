@@ -1,207 +1,850 @@
-# 🔐 **Secrets Agent** – Smart Secret Management for Developers
+# VANTA Global Rule Library & Include-Directives System
 
-![Secrets Agent Interface](https://img.shields.io/badge/Status-Production%20Ready-green?style=for-the-badge)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+🌟 **A comprehensive implementation of global rule management, include directives, multi-format support, and tool integration for VANTA agentic standardization.**
 
-## 🧭 **Purpose**
+## 🚀 Overview
 
-The Secrets Agent App is designed to **intelligently detect, extract, manage, and inject secrets across software projects** — reducing developer friction, improving security, and maintaining clean, environment-specific vaults.
+The VANTA Global Rules system provides a sophisticated framework for:
 
-Rather than relying on manual tracking or static `.env` files scattered across environments, Secrets Agent **automates the discovery, tagging, and access of secrets** by analyzing your codebase, project assets, and planning artifacts. It ensures every project has a clean, traceable, and secure vault — always ready and always in sync.
+- **🔗 Include Directives**: Modular rule composition with `@include` syntax
+- **🌍 Global Rule Libraries**: Centralized rule management across projects
+- **🔧 Format Adapters**: Export rules to different tools (Cursor, Vale, ESLint, etc.)
+- **🤖 Standardization Agent**: Automated component discovery and compliance analysis
+- **📋 Multi-Source Configuration**: Rules from config files, CLI, and environment variables
 
-## 🚀 **Quick Start**
+## 📁 Project Structure
+
+```
+vanta-global-rules/
+├── src/                              # Core source code
+│   ├── vanta_global_rules.py         # Main global rules system
+│   ├── vanta_format_adapters.py      # Tool-specific format adapters
+│   └── vanta_standardization_agent.py # Automated standardization agent
+├── tests/                            # Test suite
+├── docs/                             # Documentation
+├── examples/                         # Usage examples
+├── .cursor/                          # Cursor IDE configuration
+│   ├── config.yaml                   # Rule roots configuration
+│   └── rules/                        # Local rule files
+├── .vanta/                           # VANTA system files
+│   └── global_rules/                 # Global rule libraries
+├── config/                           # Configuration templates
+│   └── templates/                    # Template files
+├── requirements.txt                  # Python dependencies
+└── README.md                         # This file
+```
+
+## 🛠️ Installation
+
+### Quick Setup
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Initialize the system
+python -m src.vanta_global_rules init
+
+# Check status
+python -m src.vanta_global_rules status
+```
+
+### Manual Setup
+
+1. **Clone or download** this project
+2. **Install dependencies**: `pip install -r requirements.txt`
+3. **Run initialization**: `python -m src.vanta_global_rules init`
+
+## 🎯 Features Implementation
+
+### FR1: Multi-Source Configuration ✅
+- `.cursor/config.yaml` configuration file support
+- CLI argument support
+- Environment variable support (`CURSOR_RULE_ROOTS`)
+- Priority system: CLI > ENV > Config > Default
+
+### FR2-3: Include Directives ✅
+- `@include path/to/file.ext` syntax for all rule roots
+- `@include %path/to/file.ext` syntax for global roots only
+- Recursive include resolution
+- Relative and absolute path support
+
+### FR4: Multi-Format Support ✅
+- `.md` (Markdown)
+- `.mdc` (Markdown Cursor)
+- `.yaml` / `.yml` (YAML)
+- `.json` (JSON)
+- `.txt` (Plain text)
+- Auto-format detection
+
+### FR5: Error Handling ✅
+- Clear error messages for missing includes
+- Line number reporting
+- Detailed resolution failure information
+
+### FR6-7: CLI Install/Update ✅
+- Install from Git repositories
+- Install from HTTP URLs
+- Install from local paths
+- Update all or specific libraries
+
+### FR8: Format Adapters ✅
+- **Cursor IDE**: Markdown format
+- **Vale**: Linter configuration
+- **ESLint**: JavaScript linting rules
+- **Prettier**: Code formatting rules
+- **Git Hooks**: Pre-commit/push scripts
+- **EditorConfig**: Editor configuration
+
+### FR9-10: User Experience ✅
+- Auto-generated `globalrules_synced.md` for IDE copy/paste
+- `.cursor/rules/999-global-rules-reminder.mdc` user prompt
+- Zero-configuration setup
+- Automatic sync between canonical and IDE-ready formats
+
+## 🚀 Quick Start
+
+### 1. Initialize the System
+
+```bash
+python -m src.vanta_global_rules init
+```
+
+This creates:
+- `.cursor/config.yaml` with rule roots
+- `globalrules_synced.md` for IDE activation
+- `.cursor/rules/999-global-rules-reminder.mdc` user reminder
+
+### 2. Activate in Cursor IDE
+
+1. Open `globalrules_synced.md`
+2. Copy the entire rules content
+3. Go to Cursor Settings → Rules → Global Rules
+4. Paste and save
+
+### 3. Install Global Rule Libraries
+
+```bash
+# From Git repository
+python -m src.vanta_global_rules install https://github.com/org/rules.git
+
+# From local directory
+python -m src.vanta_global_rules install /path/to/local/rules
+
+# From HTTP archive
+python -m src.vanta_global_rules install https://example.com/rules.zip
+```
+
+### 4. Create Rules with Includes
+
+Create a rule file `.cursor/rules/my-rule.mdc`:
+
+```markdown
+# RULE TYPE: Always
+# FILE PATTERNS: **/*.py
+
+## Python Development Standards
+
+@include common/quality-standards.md
+@include %global/python-specific.yaml
+
+### Project-specific additions
+- Follow PEP 8 formatting
+- Use type hints for all functions
+```
+
+## 🔧 CLI Commands
+
+### Core Commands
+
+```bash
+# Initialize system
+python -m src.vanta_global_rules init
+
+# Show system status
+python -m src.vanta_global_rules status
+
+# Validate all includes
+python -m src.vanta_global_rules validate
+
+# Sync global rules
+python -m src.vanta_global_rules sync
+```
+
+### Library Management
+
+```bash
+# Install rule library
+python -m src.vanta_global_rules install <source> [--to <destination>]
+
+# Update all libraries
+python -m src.vanta_global_rules update --all
+
+# Update specific library
+python -m src.vanta_global_rules update <library-name>
+```
+
+### Format Export
+
+```bash
+# Export to Cursor format
+python -m src.vanta_global_rules export cursor --output cursor_rules.md
+
+# Export to Vale format
+python -m src.vanta_global_rules export vale --output .vale/styles/VANTA.yaml
+
+# Export to ESLint format
+python -m src.vanta_global_rules export eslint --output .eslintrc.json
+```
+
+## 🤖 Standardization Agent
+
+Run automated component discovery and compliance analysis:
+
+```python
+from src.vanta_standardization_agent import VantaStandardizationAgent
+
+# Create and run agent
+agent = VantaStandardizationAgent()
+report = agent.scan_codebase()
+
+# Display results
+agent.display_report(report)
+
+# Export manifests
+agent.export_manifests(Path(".vanta/manifests"))
+```
+
+The agent discovers:
+- **Agents**: Classes/functions implementing agent patterns
+- **Rules**: MDC files and rule-based components
+- **Schedulers**: Cron jobs and scheduled tasks
+- **Workflows**: Process definitions and pipelines
+
+## 📊 Configuration Examples
+
+### .cursor/config.yaml
+```yaml
+rule_roots:
+  - "~/.vanta/global_rules"
+  - "./project_rules"
+  - "/shared/team_rules"
+```
+
+### Environment Variables
+```bash
+export CURSOR_RULE_ROOTS="~/.vanta/global_rules:/shared/team_rules"
+```
+
+### Include Directive Examples
+```markdown
+# All roots search
+@include common/base-rules.md
+@include shared/typescript.yaml
+
+# Global roots only (% prefix)
+@include %organization/security-rules.json
+@include %standards/api-guidelines.md
+```
+
+## 🎨 Format Adapter Examples
+
+### Cursor Export
+```bash
+python -m src.vanta_global_rules export cursor --output cursor_rules.md
+```
+
+### Vale Linter Export
+```bash
+python -m src.vanta_global_rules export vale --output .vale.ini
+```
+
+### ESLint Configuration Export
+```bash
+python -m src.vanta_global_rules export eslint --output .eslintrc.json
+```
+
+### Vale Adapter Output
+```yaml
+# Example: Vale adapter output
+StylesPath: .vale/styles
+MinAlertLevel: suggestion
+Packages:
+  - Google
+  - Microsoft
+Vocab:
+  - VANTA
+BasedOnStyles:
+  - Vale, Google, Microsoft
+VANTA/GlobalRules:
+  # ... (Generated rules)
+```
+
+## 🔍 System Validation
+
+The system includes comprehensive validation:
+
+```bash
+# Validate all include directives
+python -m src.vanta_global_rules validate
+
+# Check system status
+python -m src.vanta_global_rules status
+```
+
+Example validation output:
+```
+📊 Validation Results:
+   • Total files scanned: 128
+   • Files with includes: 23
+   • Total includes: 45
+   • Successful: 45
+   • Failed: 0
+```
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+1. **Include not found errors**
+   - Check file paths are relative to rule roots
+   - Verify `%` prefix usage for global-only includes
+   - Run `status` command to see active rule roots
+
+2. **Format export failures**
+   - Ensure target format is supported
+   - Check output directory permissions
+   - Verify rule files are valid
+
+3. **Configuration not loading**
+   - Check `.cursor/config.yaml` syntax
+   - Verify environment variable format
+   - Run `init` to recreate default config
+
+### Debug Commands
+
+```bash
+# Detailed status with validation
+python -m src.vanta_global_rules status
+
+# Validate specific includes
+python -m src.vanta_global_rules validate
+
+# Re-initialize system
+python -m src.vanta_global_rules init
+```
+
+## 🔐 VANTA Secrets Agent - Multi-Interface Access & Runtime Delivery
+
+The VANTA Secrets Agent is a core component providing secure secret management with a focus on agentic integration and cross-platform accessibility.
+
+**Key Features & Interfaces:**
+
+*   **Core Vault:** Secure, locally-hosted, SOPS-encrypted vault for secrets and configurations.
+*   **Web Interface:** Primary interface for managing the vault, projects, and secrets (existing).
+*   **Command-Line Interface (CLI):** A comprehensive CLI (`cli_enhanced.py`) for developers and automation, allowing for scanning, detection, export, rotation, and management of secrets. See [CLI Usage Guide](docs/CLI_USAGE_GUIDE.md).
+*   **VS Code Extension:** Full-featured extension integrated into Visual Studio Code, providing UI for project and secret management directly within the IDE. See [VS Code Extension README](extension_api/vscode/README.md).
+*   **Windows GUI:** A native Windows desktop application (`windows_gui_enhanced.py`) offering a graphical interface for managing secrets. See [Windows GUI README](windows_gui_README.md).
+
+**New: Phase 5 - Vault Access System**
+
+*   **Runtime Secret Delivery:** This system enables secure, API-based retrieval of secrets at runtime using short-lived, scoped JWT access tokens.
+*   **Components:** Includes `VaultAccessAgent` for SOPS decryption, `VaultTokenAgent` for token generation, `TokenValidator`, and API endpoints for `/tokens/generate` and `/vault/{env}/{key}`.
+*   **CLI Integration:** The `vanta-cli run-with-secrets` command leverages this system to inject secrets into application environments.
+*   **Detailed Documentation:** For more information, see the [VANTA Vault Access System README](docs/VAULT_ACCESS_SYSTEM_README.md).
+
+This multi-interface approach ensures that secrets are manageable and accessible in various development and operational contexts, with the Vault Access System providing a robust mechanism for secure runtime delivery.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Run the test suite
+6. Submit a pull request
+
+## 📝 License
+
+This project is part of the VANTA ecosystem and follows the same licensing terms.
+
+## 🌟 Advanced Features
+
+### Coalition of Experts (CoE) Integration
+
+The standardization agent can delegate complex cases to CoE:
+
+```python
+# Complex standardization cases are automatically flagged
+if len(component.standardization_recommendations) > 5:
+    coe_delegation_suggestions.append(f"Delegate {component.name} to CoE")
+```
+
+### Performance Optimization
+
+- **Caching**: Include resolution results are cached
+- **Lazy Loading**: Rules loaded only when needed
+- **Batch Processing**: Multiple operations in single pass
+
+### Integration Examples
+
+```python
+# Integrate with existing build systems
+from src.vanta_global_rules import VantaGlobalRules
+
+rules = VantaGlobalRules()
+validation_results = rules.validate_includes()
+
+if validation_results["failed_includes"] > 0:
+    raise BuildError("Rule validation failed")
+```
+
+---
+
+**🎉 Ready to standardize your development workflow with VANTA Global Rules!**
+
+For more information, see the `docs/` directory or run `python -m src.vanta_global_rules --help`.
+
+# 🔐 Secrets Management Agent
+
+A comprehensive, security-first secrets management system with CLI tools, web UI, and MCP (Model Context Protocol) bridge capabilities. Built with TypeScript and designed for enterprise-grade security and scalability.
+
+## 🛡️ Security Features
+
+### ✅ **Core Security Controls**
+- **Input Sanitization**: All user inputs are validated and sanitized against injection attacks
+- **Authentication & Authorization**: JWT-based authentication with role-based access control (RBAC)
+- **Rate Limiting**: Built-in rate limiting to prevent brute force and DoS attacks
+- **Path Traversal Protection**: Validates file paths against allowed directories
+- **Command Injection Prevention**: Secure command execution with input validation
+- **Sensitive Data Masking**: Automatic masking of secrets in logs and outputs
+- **Audit Logging**: Comprehensive audit trails for all security-critical operations
+
+### 🔒 **Authentication System**
+- JWT tokens with configurable expiration
+- Session management with automatic cleanup
+- Role-based permissions (Admin, Developer, Viewer, Scanner)
+- Rate-limited login attempts (5 attempts per 15 minutes)
+- Secure password handling (bcrypt hashing)
+
+### 📋 **Permission System**
+```typescript
+enum Permission {
+  // Secret management
+  SECRETS_READ = 'secrets:read',
+  SECRETS_WRITE = 'secrets:write',
+  SECRETS_DELETE = 'secrets:delete',
+  SECRETS_EXPORT = 'secrets:export',
+  SECRETS_IMPORT = 'secrets:import',
+  
+  // Project management
+  PROJECTS_READ = 'projects:read',
+  PROJECTS_WRITE = 'projects:write',
+  PROJECTS_DELETE = 'projects:delete',
+  PROJECTS_SCAN = 'projects:scan',
+  
+  // MCP operations
+  MCP_READ = 'mcp:read',
+  MCP_EXECUTE = 'mcp:execute',
+  MCP_CONFIGURE = 'mcp:configure',
+  
+  // System administration
+  SYSTEM_ADMIN = 'system:admin',
+  AUDIT_READ = 'audit:read',
+  CONFIG_WRITE = 'config:write'
+}
+```
+
+## 🏗️ Architecture
+
+### Core Components
+
+```
+┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   CLI Tool      │    │   Web UI/API    │    │  MCP Bridge     │
+│                 │    │                  │    │                 │
+│ • Secret Scan   │    │ • Authentication │    │ • OpenAI        │
+│ • Project Scan  │    │ • Role Management│    │ • Anthropic     │
+│ • Config Mgmt   │    │ • Audit Logs     │    │ • Custom Tools  │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+         │                       │                       │
+         └───────────────────────┼───────────────────────┘
+                                 │
+                    ┌──────────────────┐
+                    │   Core Services  │
+                    │                  │
+                    │ • SecurityValidator       │
+                    │ • AuthenticationService   │
+                    │ • MCPBridgeService       │
+                    │ • AgentBridgeService     │
+                    │ • Enhanced Logger        │
+                    └──────────────────┘
+```
+
+### Security Layers
+
+1. **Input Validation Layer**: Sanitizes and validates all inputs
+2. **Authentication Layer**: JWT-based auth with session management
+3. **Authorization Layer**: RBAC with granular permissions
+4. **Audit Layer**: Comprehensive logging and monitoring
+5. **Encryption Layer**: Secure storage and transmission of secrets
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Node.js 18+ 
+- npm 8+
+- TypeScript 5.3+
+
+### Installation
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd secrets-agent
+git clone https://github.com/secrets-agent/secrets-management.git
+cd secrets-management
 
 # Install dependencies
 npm install
-pip install -r requirements.txt
 
-# Start the development server
+# Build the project
+npm run build
+
+# Run tests
+npm test
+
+# Start development server
 npm run dev
-
-# Open browser to http://localhost:3000
 ```
 
-## 🔍 **Key Features**
+### Configuration
 
-### 🔎 **1. Secrets Discovery & Inference**
+Create a `.env` file:
 
-* **Code Scanner:** Recursively scans your project files (e.g. `.ts`, `.py`, `.json`, `.yml`, etc.) for likely secret references (`API_KEY`, `DB_PASSWORD`, etc.).
-* **ENV Extractor:** Parses `.env`, `.env.*`, and config files to auto-extract known secrets and store them in a unified vault.
-* **Doc Intelligence:** Uses AI to infer secret needs from **README**, `ThePlan.md`, `todo.md`, or any structured planning document — even predicting unconfigured APIs or tools.
+```env
+# Security Configuration
+JWT_SECRET=your-super-secure-jwt-secret-key-here
+SESSION_TIMEOUT=3600000
+BCRYPT_ROUNDS=12
 
-### 🧠 **2. Project-Aware Vaulting**
+# API Configuration
+PORT=3000
+NODE_ENV=production
+LOG_LEVEL=info
 
-* Each project gets a **dedicated secrets vault**, tied to the project's folder structure, git repo, or UUID.
-* Tracks `created`, `lastUsed`, and `lastUpdated` for each secret.
-* Tags secrets by **tool**, **use-case**, and **runtime environment** (e.g. dev/staging/prod).
+# MCP Bridge Configuration
+OPENAI_API_KEY=your-openai-api-key
+ANTHROPIC_API_KEY=your-anthropic-api-key
 
-### 🔁 **3. Smart Sync & Suggestions**
+# Database Configuration
+DATABASE_URL=sqlite:./secrets.db
 
-* Automatically prompts you when:
-  * A new secret is required based on API usage or planning content.
-  * A stored secret has not been used recently.
-  * A project references a key that hasn't been added to the vault yet.
-* Suggests **naming conventions**, expiration policies, and safe usage patterns.
-
-### 🔐 **4. Secure SOPS Integration**
-
-* Uses [SOPS](https://github.com/getsops/sops) for encryption with `age` keys.
-* Secrets are encrypted-at-rest and can be version-controlled safely (optional).
-* Built-in support for loading and saving `.vault.yaml` files.
-
-### 🧰 **5. Toolchain & API Integration**
-
-* Easily inject secrets into builds, CI/CD, or local dev environments.
-* Can export `.env` snapshots from the vault for tool-specific workflows (Docker, Vercel, Netlify, etc.).
-* Future support for secrets rotation, expiration alerts, and vault syncing across teams.
-
-## 📊 **Interface Features**
-
-- **📈 Dashboard:** Real-time overview of scanned projects and detected secrets
-- **🔍 Project Scanner:** Intelligent detection of secrets across your codebase
-- **📋 Vault Management:** Organized, encrypted storage with project-specific vaults
-- **🔄 Secret Rotation:** Automated rotation with configurable policies
-- **⚙️ Configuration:** Easy setup for SOPS, encryption keys, and integrations
-
-## 🧪 **Developer Experience (DX)**
-
-* **Auto-detects and sets up a vault per project** on first scan.
-* CLI and GUI interface options.
-* Works with version control, and integrates with modern editors (via plugin or CLI sync).
-* Built-in test coverage ensures every secret-handling feature is safe and reliable.
-
-## 📁 **Project Structure**
-
-```
-secrets-agent/
-├── app/                    # Next.js App Router pages
-│   ├── api/               # API routes for scanning, vault ops
-│   └── page.tsx           # Main dashboard interface
-├── components/            # React components
-├── scripts/              # Python automation scripts
-│   ├── scan-all-projects.ts
-│   ├── rotate-secrets.ts
-│   └── setup-vault.py
-├── vault/                # Vault management & types
-├── vanta_seed/           # Core agent system
-│   └── core/             # VANTA master orchestrator
-└── docs/                 # Documentation
+# Security Settings
+ALLOWED_DIRECTORIES=/projects,/workspaces
+MAX_CONCURRENT_JOBS=10
+ENABLE_AUDIT_LOGGING=true
 ```
 
-## 🔧 **Configuration**
+## 📖 Usage
 
-### Environment Setup
-
-Create a `.env.local` file:
+### CLI Commands
 
 ```bash
-# SOPS Configuration
-SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+# Scan project for secrets
+npm run cli:scan /path/to/project
 
-# Vault Settings
-VAULT_BASE_PATH=./vault
-DEFAULT_ENCRYPTION_METHOD=age
+# Manage secrets
+npm run cli:secrets list
+npm run cli:secrets add API_KEY "your-api-key"
+npm run cli:secrets delete API_KEY
 
-# API Settings
-OPENAI_API_KEY=your_openai_key_here  # For doc intelligence
+# Project operations
+npm run cli scan --project /path/to/project --type all
+npm run cli scan --project /path/to/project --type secrets
+npm run cli scan --project /path/to/project --type vulnerabilities
 ```
 
-### SOPS & Age Key Setup
+### API Endpoints
+
+#### Authentication
+```bash
+# Login
+POST /api/auth/login
+{
+  "username": "admin",
+  "password": "secure-password"
+}
+
+# Get user info
+GET /api/auth/me
+Authorization: Bearer <jwt-token>
+```
+
+#### Secrets Management
+```bash
+# List secrets (requires SECRETS_READ permission)
+GET /api/secrets
+Authorization: Bearer <jwt-token>
+
+# Add secret (requires SECRETS_WRITE permission)
+POST /api/secrets
+Authorization: Bearer <jwt-token>
+{
+  "key": "API_KEY",
+  "value": "secret-value",
+  "category": "api_credentials"
+}
+
+# Delete secret (requires SECRETS_DELETE permission)
+DELETE /api/secrets/{key}
+Authorization: Bearer <jwt-token>
+```
+
+#### Project Scanning
+```bash
+# Scan project (requires PROJECTS_SCAN permission)
+POST /api/projects/scan
+Authorization: Bearer <jwt-token>
+{
+  "projectPath": "/path/to/project",
+  "scanType": "all"
+}
+
+# Get scan results
+GET /api/projects/scan/{jobId}
+Authorization: Bearer <jwt-token>
+```
+
+## 🔧 Development
+
+### Running Tests
 
 ```bash
-# Install SOPS and age
-brew install sops age  # macOS
-# or
-choco install sops age  # Windows
+# Run all tests
+npm test
 
-# Generate age key
-age-keygen -o ~/.config/sops/age/keys.txt
+# Run tests with coverage
+npm run test:coverage
 
-# Configure SOPS
-export SOPS_AGE_KEY_FILE=~/.config/sops/age/keys.txt
+# Run security tests
+npm run test:security
+
+# Run tests in watch mode
+npm run test:watch
 ```
 
-## 🎯 **Usage Examples**
+### Security Testing
 
-### Scan Projects for Secrets
+The project includes comprehensive security tests:
+
+```typescript
+// Example security test
+describe('SecurityValidator', () => {
+  it('should reject command injection attempts', () => {
+    const maliciousInputs = [
+      '; rm -rf /',
+      '| cat /etc/passwd',
+      '&& malicious-command'
+    ];
+    
+    maliciousInputs.forEach(input => {
+      expect(() => SecurityValidator.sanitizeCommandInput(input))
+        .toThrow(SecurityError);
+    });
+  });
+});
+```
+
+### Code Quality
 
 ```bash
-# Via API
-curl http://localhost:3000/api/scan/projects
+# Lint code
+npm run lint
 
-# Via Python script
-python scripts/scan-all-projects.py --path /your/projects/directory
+# Fix linting issues
+npm run lint:fix
+
+# Format code
+npm run format
+
+# Type check
+npm run type-check
 ```
 
-### Export Environment Variables
+## 📊 Security Monitoring
+
+### Audit Logs
+
+All security-critical operations are logged with structured data:
+
+```typescript
+// Example audit log entry
+{
+  "timestamp": "2024-01-15T10:30:00.000Z",
+  "level": "audit",
+  "module": "AuthenticationService",
+  "message": "User authenticated successfully",
+  "userId": "user-123",
+  "sessionId": "session-456",
+  "action": "user_login",
+  "success": true,
+  "ip": "192.168.1.100",
+  "userAgent": "Mozilla/5.0...",
+  "severity": "low"
+}
+```
+
+### Security Alerts
+
+Query security alerts:
+
+```typescript
+// Get high/critical severity events
+const alerts = logger.getSecurityAlerts(50);
+
+// Get failed operations in last 24 hours
+const failures = logger.getFailedOperations(24, 100);
+
+// Query audit logs with filters
+const auditLogs = logger.queryAuditLogs({
+  userId: 'user-123',
+  action: 'secret_access',
+  success: false,
+  fromTime: new Date('2024-01-01'),
+  limit: 100
+});
+```
+
+## 🛠️ Configuration
+
+### Security Configuration
+
+```typescript
+interface SecurityConfig {
+  // Authentication
+  jwtSecret: string;
+  sessionTimeout: number;
+  maxLoginAttempts: number;
+  
+  // Rate limiting
+  rateLimitWindow: number;
+  rateLimitRequests: number;
+  
+  // File system
+  allowedDirectories: string[];
+  maxFileSize: number;
+  
+  // Command execution
+  commandTimeout: number;
+  maxConcurrentCommands: number;
+  
+  // Audit logging
+  auditEnabled: boolean;
+  logSensitiveData: boolean;
+  maxAuditEntries: number;
+}
+```
+
+### MCP Bridge Configuration
+
+```typescript
+interface MCPBridgeConfig {
+  endpoints: {
+    openai: {
+      apiKey: string;
+      model: string;
+      timeout: number;
+    };
+    anthropic: {
+      apiKey: string;
+      model: string;
+      timeout: number;
+    };
+  };
+  retryConfig: {
+    maxRetries: number;
+    backoffFactor: number;
+  };
+}
+```
+
+## 🔍 Security Best Practices
+
+### Input Validation
+- All user inputs are validated against strict patterns
+- Path traversal attempts are blocked
+- Command injection is prevented through input sanitization
+- XSS and SQL injection patterns are detected and blocked
+
+### Authentication & Authorization
+- JWT tokens with configurable expiration
+- Role-based access control (RBAC)
+- Rate limiting on authentication endpoints
+- Session management with automatic cleanup
+
+### Secrets Management
+- Secrets are encrypted at rest
+- Automatic masking in logs and outputs
+- Secure transmission using TLS
+- Audit trails for all secret operations
+
+### Error Handling
+- Sensitive information is never exposed in error messages
+- Errors are logged with appropriate severity levels
+- Stack traces are only included in development mode
+
+## 📈 Monitoring & Alerts
+
+### Health Checks
 
 ```bash
-# Export .env for specific project
-curl -X POST http://localhost:3000/api/env/export \
-  -H "Content-Type: application/json" \
-  -d '{"project_id": "my-project", "environment": "development"}'
+# Service health
+GET /api/health
+
+# Security status
+GET /api/security/status
+Authorization: Bearer <jwt-token>
+
+# Audit summary
+GET /api/audit/summary
+Authorization: Bearer <jwt-token>
 ```
 
-### Rotate Secrets
+### Metrics
 
-```bash
-# Rotate all expired secrets
-python scripts/rotate-secrets.py --auto
+- Authentication attempts (success/failure rates)
+- API endpoint usage and response times
+- Security events and threat detection
+- Resource utilization and performance metrics
 
-# Rotate specific secret
-python scripts/rotate-secrets.py --secret-id "api_key_123"
-```
-
-## 🎯 **Outcome**
-
-With Secrets Agent, your projects will:
-
-* Always have **accurate, ready-to-use secrets**.
-* Avoid security leaks from stale or hardcoded secrets.
-* Keep all sensitive values **centralized, encrypted, and organized**.
-* Gain **AI-assisted awareness** of secret dependencies before runtime errors or breaches occur.
-
-## 🛠️ **Technology Stack**
-
-- **Frontend:** Next.js 14, React, TypeScript, Tailwind CSS
-- **Backend:** Python, FastAPI, VANTA Agent Framework
-- **Database:** SOPS-encrypted YAML vaults
-- **Security:** Age encryption, SOPS integration
-- **AI:** OpenAI API for document intelligence
-- **Testing:** Jest, pytest, comprehensive test coverage
-
-## 📈 **Roadmap**
-
-- [ ] **Team Collaboration:** Share vaults across team members
-- [ ] **CI/CD Integration:** GitHub Actions, GitLab CI templates
-- [ ] **Cloud Sync:** Sync vaults across multiple machines
-- [ ] **Advanced Rotation:** Custom rotation strategies per secret type
-- [ ] **Audit Logging:** Complete audit trail for all secret operations
-- [ ] **Browser Extension:** One-click secret injection for web development
-
-## 🤝 **Contributing**
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-## 📄 **License**
+### Security Guidelines
+
+- All new features must include security tests
+- Input validation is required for all user-facing functions
+- Sensitive data must be properly masked in logs
+- Authentication/authorization must be implemented for new endpoints
+
+## 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔐 **Security**
+## 🆘 Support
 
-For security concerns or vulnerability reports, please email [security@your-domain.com] or open a confidential issue.
+- 📧 Email: security@secrets-agent.com
+- 🐛 Issues: [GitHub Issues](https://github.com/secrets-agent/secrets-management/issues)
+- 📚 Documentation: [Wiki](https://github.com/secrets-agent/secrets-management/wiki)
+
+## 🔒 Security Disclosure
+
+If you discover a security vulnerability, please email security@secrets-agent.com instead of opening a public issue. We take security seriously and will respond promptly to legitimate security concerns.
 
 ---
 
-**Built with ❤️ for developers who value security and automation**
+**Built with ❤️ and 🔒 by the Secrets Management Team**

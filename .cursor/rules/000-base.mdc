@@ -53,4 +53,17 @@ alwaysApply: true
 - Project-specific MDC rules are in `.cursor/rules/`
 - Open source reference MDC rules are in `.cursor/rules/opensource/`
 - See `.cursor/rules/700-opensource-mdc.mdc` for external rule index
-- Update open source MDC rules using `.cursor/scripts/update-mdc-rules.sh` 
+- Update open source MDC rules using `.cursor/scripts/update-mdc-rules.sh`
+
+# 000-Base-Project-Standards
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the foundational project standards that all projects within the VANTA ecosystem must adhere to. It serves as the baseline for project structure, essential practices, and quality.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here 

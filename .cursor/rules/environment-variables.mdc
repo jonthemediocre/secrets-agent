@@ -142,3 +142,16 @@ references:
   - apps/web/env.ts
   - apps/web/.env.example
   - turbo.json
+
+# Standard-Environment-Variable-Management
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the standard practices for managing environment variables across all projects. It covers naming conventions, secure handling of sensitive variables (in conjunction with the SECRETS_MANAGEMENT_PROTOCOL), usage of template files (e.g., `.env.template`), and ensuring consistency between development, staging, and production environments.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

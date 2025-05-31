@@ -1,0 +1,154 @@
+# MCP Bridge Configuration
+# Based on FamilyDocRepo documentation patterns
+
+# Core MCP Bridge Configuration
+mcp_bridge_core:
+  # MCP API endpoint configuration
+  mcp_api_url: "${MCP_API_URL:-https://mcp.example.com/api/control}"
+  mcp_api_key: "${MCP_API_KEY}"
+  
+  # HTTP client configuration
+  timeout: 30
+  max_retries: 5
+  backoff_factor: 0.7
+  
+  # Request configuration
+  headers:
+    User-Agent: "SecretsAgent-MCPBridge/1.0"
+    Content-Type: "application/json"
+  
+  # SSL/TLS configuration
+  verify_ssl: true
+  ssl_cert_path: null  # Optional: path to custom SSL certificate
+
+# MCP Bridge Agent Configuration
+mcp_bridge_agent:
+  # Agent identification
+  agent_id: "mcp_bridge_main"
+  
+  # Action mappings (external action -> MCP operation)
+  action_mappings:
+    discover_mcp_tools: "list_tools"
+    run_mcp_tool: "execute_tool"
+    check_mcp_job_status: "get_status"
+    list_available_tools: "list_tools"
+    execute_mcp_command: "execute_tool"
+    poll_job_status: "get_status"
+  
+  # Polling configuration for async operations
+  polling_interval: 2000  # milliseconds
+  max_poll_attempts: 30
+  
+  # Tool caching configuration
+  tools_cache_ttl: 300000  # 5 minutes in milliseconds
+
+# Environment-specific overrides
+environments:
+  development:
+    mcp_bridge_core:
+      mcp_api_url: "http://localhost:3001/mcp/api"
+      timeout: 10
+      verify_ssl: false
+    mcp_bridge_agent:
+      polling_interval: 1000  # Faster polling in dev
+      max_poll_attempts: 10
+  
+  production:
+    mcp_bridge_core:
+      timeout: 60
+      max_retries: 10
+    mcp_bridge_agent:
+      polling_interval: 5000  # Slower polling in prod
+      max_poll_attempts: 60
+      tools_cache_ttl: 600000  # 10 minutes cache in prod
+
+# Logging configuration
+logging:
+  level: "info"
+  mcp_requests: true
+  mcp_responses: true
+  performance_metrics: true
+
+# Security configuration
+security:
+  # API key validation
+  require_api_key: true
+  api_key_header: "Authorization"
+  api_key_prefix: "Bearer"
+  
+  # Rate limiting
+  rate_limit:
+    enabled: true
+    requests_per_minute: 60
+    burst_limit: 10
+  
+  # Request validation
+  validate_requests: true
+  max_request_size: "10MB"
+
+# Feature flags
+features:
+  async_job_support: true
+  tool_caching: true
+  retry_failed_requests: true
+  metrics_collection: true
+  health_checks: true
+
+# Health check configuration
+health_check:
+  enabled: true
+  endpoint: "/health"
+  interval: 30000  # 30 seconds
+  timeout: 5000    # 5 seconds
+  
+  # Health check tests
+  tests:
+    - name: "mcp_api_connectivity"
+      type: "http_get"
+      url: "${MCP_API_URL}/health"
+      expected_status: 200
+    
+    - name: "tool_discovery"
+      type: "mcp_operation"
+      operation: "list_tools"
+      max_response_time: 10000
+
+# Metrics and monitoring
+metrics:
+  enabled: true
+  collection_interval: 60000  # 1 minute
+  
+  # Metrics to collect
+  collect:
+    - request_count
+    - response_time
+    - error_rate
+    - tool_execution_count
+    - cache_hit_rate
+    - active_jobs
+  
+  # Export configuration
+  export:
+    format: "prometheus"
+    endpoint: "/metrics"
+
+# Error handling configuration
+error_handling:
+  # Retry configuration
+  retry_on_errors:
+    - "connection_timeout"
+    - "server_error_5xx"
+    - "rate_limit_exceeded"
+  
+  # Circuit breaker
+  circuit_breaker:
+    enabled: true
+    failure_threshold: 5
+    recovery_timeout: 30000
+    half_open_max_calls: 3
+  
+  # Error reporting
+  error_reporting:
+    enabled: true
+    include_stack_trace: false  # Set to true in development
+    max_error_details_length: 1000 

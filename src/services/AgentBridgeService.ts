@@ -1,634 +1,515 @@
-import { spawn, exec, spawnSync } from 'child_process';
-import { promisify } from 'util';
 import { createLogger } from '../utils/logger';
-import { join } from 'path';
+import { join, normalize } from 'path';
 import { promises as fs } from 'fs';
+import { MCPBridgeService } from './MCPBridgeService';
+import { MCPTool, MCPJobStatus } from './MCPBridgeCore';
+import { InitializationError, ErrorCategory, ErrorSeverity } from '../utils/error-types';
+import { SecurityValidator, SecureCommandExecutor, SecurityError } from '../utils/security';
+import {
+  MCPEndpointConfig,
+  MCPToolDefinition,
+  MCPOperationStatus,
+  MCPOperationState,
+  MCPServiceStatus,
+  MCPExecutionResult,
+  MCPTaskPayload,
+  MCPTaskResult,
+  MCPBridgeServiceConfig
+} from '../types/interfaces';
 
 const logger = createLogger('AgentBridgeService');
-const execAsync = promisify(exec);
 
-export interface SecretSuggestion {
-  key: string;
-  suggestedValue?: string;
-  source: 'env' | 'manual' | 'api' | 'sops' | 'vault' | 'scaffold' | 'cli_scan';
-  confidence: number; // 0-1
-  category?: string;
-  description?: string;
-  type?: string;
+export interface AgentConfig {
+  allowedDirectories: string[];
+  maxConcurrentJobs: number;
+  jobTimeout: number;
+  enableSecurityScanning: boolean;
+  rateLimitConfig: {
+    windowMs: number;
+    maxRequests: number;
+  };
 }
 
-export interface ProjectConfig {
-  name: string;
-  path: string;
-  environment: 'dev' | 'staging' | 'prod';
-  secrets: Record<string, string>;
-  tools: string[];
-}
+const DEFAULT_CONFIG: AgentConfig = {
+  allowedDirectories: [process.cwd()],
+  maxConcurrentJobs: 5,
+  jobTimeout: 300000, // 5 minutes
+  enableSecurityScanning: true,
+  rateLimitConfig: {
+    windowMs: 60000, // 1 minute
+    maxRequests: 10
+  }
+};
 
-export interface SyncResult {
-  success: boolean;
-  syncedItems: Array<{
-    source: string;
-    target: string;
-    status: 'success' | 'error' | 'skipped';
-    message?: string;
-  }>;
-  timestamp: string;
-  totalProcessed: number;
-  errors: string[];
-}
-
-export interface SharedResourceManifest {
-  version: string;
-  shared_resources: Array<{
-    type: 'symlink_file' | 'symlink_dir' | 'copy_file' | 'copy_dir';
-    source: string;
-    target: string;
-    description?: string;
-  }>;
-}
-
-export interface KEBEvent {  eventId: string;  source: string;  eventType: string;  timestamp: string;  payload: Record<string, any>;  metadata?: Record<string, any>;}
-
-/**
- * AgentBridgeService - Bridge between Python CLI and TypeScript agents
- * 
- * This service leverages the existing production-ready Python CLI infrastructure
- * (cli.py, secret_broker.py, env_scanner.py) and integrates it with the
- * TypeScript agent ecosystem using the Kernel Event Bus (KEB).
- * 
- * Enhanced Features:
- * - KEB event publishing for cross-agent communication
- * - Robust Python CLI integration with validation
- * - Enhanced error handling and retry logic
- * - Better project scanning and configuration binding
- */
 export class AgentBridgeService {
-  private pythonExecutable: string;
-  private cliPath: string;
-  private kebEnabled: boolean;
-  
-  constructor(
-    pythonExecutable = 'python3', 
-    cliPath = './cli.py',
-    kebEnabled = true
-  ) {
-    this.pythonExecutable = pythonExecutable;
-    this.cliPath = cliPath;
-    this.kebEnabled = kebEnabled;
+  private mcpBridgeService?: MCPBridgeService;
+  private initialized = false;
+  private activeJobs = new Map<string, MCPOperationStatus>();
+  private secureExecutor: SecureCommandExecutor;
+  private config: AgentConfig;
+
+  constructor(config: Partial<AgentConfig> = {}) {
+    this.config = { ...DEFAULT_CONFIG, ...config };
+    this.secureExecutor = new SecureCommandExecutor(
+      this.config.allowedDirectories,
+      this.config.rateLimitConfig
+    );
   }
 
-  /**
-   * Initialize the service and validate Python CLI availability
-   */
   async initialize(): Promise<void> {
-    logger.info('Initializing AgentBridgeService');
-    
-    const cliAvailable = await this.checkCliAvailability();
-    if (!cliAvailable) {
-      logger.warn('Python CLI not available - some features may not work');
-    }
-    
-    if (this.kebEnabled) {
-      await this.publishKEBEvent('agent_bridge_initialized', {
-        cliAvailable,
-        pythonExecutable: this.pythonExecutable,
-        cliPath: this.cliPath
+    try {
+      logger.info('Initializing AgentBridgeService');
+      
+      // Validate allowed directories
+      for (const dir of this.config.allowedDirectories) {
+        try {
+          const stats = await fs.stat(dir);
+          if (!stats.isDirectory()) {
+            throw new Error(`${dir} is not a directory`);
+          }
+        } catch (error) {
+          logger.warn('Allowed directory not accessible', { directory: dir, error });
+        }
+      }
+
+      this.mcpBridgeService = MCPBridgeService.getInstance({
+        environment: process.env.NODE_ENV || 'development',
+        autoStart: true
+      });
+      await this.mcpBridgeService.initialize();
+      this.initialized = true;
+      
+      logger.info('AgentBridgeService initialized successfully', {
+        allowedDirectories: this.config.allowedDirectories,
+        maxConcurrentJobs: this.config.maxConcurrentJobs
+      });
+    } catch (error) {
+      logger.error('Failed to initialize AgentBridgeService', { error });
+      throw new InitializationError('AgentBridgeService initialization failed', true, {
+        originalError: error instanceof Error ? error.message : String(error)
       });
     }
-    
-    logger.info('AgentBridgeService initialized successfully');
   }
 
-  /**
-   * Scan a project directory for secret requirements using the Python env_scanner
-   * 
-   * @param projectPath - Path to the project directory
-   * @returns Array of secret suggestions with confidence scores
-   */
-  async scanProjectSecrets(projectPath: string): Promise<SecretSuggestion[]> {
+  async shutdown(): Promise<void> {
+    logger.info('Shutting down AgentBridgeService');
+    
+    // Cancel all active jobs
+    for (const [jobId, job] of this.activeJobs.entries()) {
+      logger.info('Canceling active job', { jobId });
+      job.status = MCPOperationState.FAILED;
+      job.error = 'Service shutdown';
+      job.endTime = new Date();
+    }
+    
+    this.activeJobs.clear();
+    this.initialized = false;
+    logger.info('AgentBridgeService shutdown complete');
+  }
+
+  async executeMCPTool(
+    bridgeId: string, 
+    toolName: string, 
+    parameters: Record<string, any> = {},
+    userId?: string
+  ): Promise<MCPExecutionResult> {
+    const startTime = Date.now();
+    const jobId = this.generateJobId();
+    
     try {
-      logger.info('Scanning project for secret requirements', { projectPath });
-      
-      // Validate project path exists
-      try {
-        await fs.access(projectPath);
-      } catch (error) {
-        throw new Error(`Project path does not exist: ${projectPath}`);
+      if (!this.initialized) {
+        throw new Error('AgentBridgeService not initialized');
       }
+
+      // Rate limiting and validation
+      if (!this.mcpBridgeService) {
+        throw new Error('MCPBridgeService not available');
+      }
+
+      // Validate parameters
+      const validatedParams = SecurityValidator.validateApiParameters(
+        parameters,
+        this.getAllowedParameters(toolName)
+      );
+
+      // Security audit log
+      logger.audit('MCP Tool Execution Started', {
+        userId,
+        success: false, // Will be updated on completion
+        resource: `${bridgeId}/${toolName}`,
+        severity: 'medium',
+        data: { jobId, bridgeId, toolName }
+      });
+
+      // Check concurrent job limit
+      if (this.activeJobs.size >= this.config.maxConcurrentJobs) {
+        throw new SecurityError('Maximum concurrent jobs reached', {
+          activeJobs: this.activeJobs.size,
+          maxJobs: this.config.maxConcurrentJobs
+        });
+      }
+
+      // Create job tracking
+      const operation: MCPOperationStatus = {
+        operationId: jobId,
+        status: MCPOperationState.RUNNING,
+        startTime: new Date(),
+        bridgeId,
+        toolName,
+        progress: 0
+      };
       
-      let scanResult: Record<string, unknown>;
+      this.activeJobs.set(jobId, operation);
+
       try {
-        const scanCommand = `python "${this.cliPath}" scan --project "${projectPath}" --format json`;
-        logger.debug('Executing scan command', { command: scanCommand });
+        // Execute the tool through MCP bridge
+        const result = await this.mcpBridgeService.executeTool(bridgeId, toolName, validatedParams);
         
-        const result = spawnSync('python', [this.cliPath, 'scan', '--project', projectPath, '--format', 'json'], {
-          encoding: 'utf8',
-          timeout: 30000
+        operation.status = MCPOperationState.COMPLETED;
+        operation.endTime = new Date();
+        operation.result = result;
+        operation.progress = 100;
+
+        const executionTime = Date.now() - startTime;
+        
+        // Security audit log for success
+        logger.audit('MCP Tool Execution Completed', {
+          userId,
+          success: true,
+          resource: `${bridgeId}/${toolName}`,
+          severity: 'low',
+          duration: executionTime,
+          data: { jobId, bridgeId, toolName }
         });
 
-        if (result.status !== 0) {
-          throw new Error(`CLI scan failed: ${result.stderr}`);
-        }
+        return {
+          success: true,
+          executionTime,
+          bridgeId,
+          toolName,
+          timestamp: new Date().toISOString(),
+          status: 'success',
+          jobId,
+          data: result.data
+        };
 
-        scanResult = JSON.parse(result.stdout) as Record<string, unknown>;
-      } catch (error) {
-        logger.error('Project scanning failed', { projectPath, error: String(error) });
-        throw new Error(`Project scan failed: ${String(error)}`);
+      } catch (executionError) {
+        operation.status = MCPOperationState.FAILED;
+        operation.endTime = new Date();
+        operation.error = executionError instanceof Error ? executionError.message : String(executionError);
+        
+        throw executionError;
+      } finally {
+        // Clean up job tracking after a delay
+        setTimeout(() => {
+          this.activeJobs.delete(jobId);
+        }, 60000); // Keep for 1 minute for status queries
       }
 
-      // Process scan results to create SecretSuggestion array
-      const suggestions: SecretSuggestion[] = [];
-      
-      // Process suggestions from scan result
-      const rawSuggestions = scanResult.suggestions;
-      if (Array.isArray(rawSuggestions)) {
-        for (const suggestion of rawSuggestions) {
-          if (typeof suggestion === 'object' && suggestion !== null) {
-            const typedSuggestion = suggestion as Record<string, unknown>;
-            suggestions.push({
-              key: String(typedSuggestion.key || ''),
-              type: String(typedSuggestion.type || 'unknown'),
-              description: String(typedSuggestion.description || ''),
-              confidence: Number(typedSuggestion.confidence || 0),
-              source: 'cli_scan',
-              category: this.categorizeSecretKey(String(typedSuggestion.key || ''))
-            });
-          }
-        }
-      }
-      
-      // Process env_keys from scan result
-      const envKeys = scanResult.env_keys;
-      if (Array.isArray(envKeys)) {
-        for (const key of envKeys) {
-          if (typeof key === 'string') {
-            suggestions.push({
-              key,
-              source: 'env',
-              confidence: 0.9,
-              category: this.categorizeSecretKey(key),
-              description: 'Environment variable found in project files'
-            });
-          }
-        }
-      }
-      
-      // Process tools from scan result (tools might need API keys)
-      const tools = scanResult.tools;
-      if (Array.isArray(tools)) {
-        for (const tool of tools) {
-          if (typeof tool === 'string') {
-            const toolSecrets = this.getToolSecretRequirements(tool);
-            suggestions.push(...toolSecrets);
-          }
-        }
-      }
-      
-      // Publish KEB event for scan completion
-      if (this.kebEnabled) {
-        await this.publishKEBEvent('project_secrets_scanned', {
-          projectPath,
-          suggestionsCount: suggestions.length,
-          envKeysFound: Array.isArray(scanResult.env_keys) ? scanResult.env_keys.length : 0,
-          toolsFound: Array.isArray(scanResult.tools) ? scanResult.tools.length : 0
-        });
-      }
-      
-      logger.info('Secret scan completed', { 
-        projectPath, 
-        suggestionsCount: suggestions.length 
-      });
-      
-      return suggestions;
-      
     } catch (error) {
-      logger.error('Failed to scan project secrets', { 
-        projectPath, 
-        error: error instanceof Error ? error.message : String(error) 
-      });
+      const executionTime = Date.now() - startTime;
       
-      if (this.kebEnabled) {
-        await this.publishKEBEvent('project_scan_failed', {
-          projectPath,
+      // Security audit log for failure
+      logger.audit('MCP Tool Execution Failed', {
+        userId,
+        success: false,
+        resource: `${bridgeId}/${toolName}`,
+        severity: 'high',
+        duration: executionTime,
+        data: { 
+          jobId, 
+          bridgeId, 
+          toolName, 
           error: error instanceof Error ? error.message : String(error)
-        });
-      }
-      
-      throw new Error(`Secret scanning failed: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      });
+
+      logger.error('Failed to execute MCP tool', { 
+        error, 
+        bridgeId, 
+        toolName, 
+        jobId,
+        executionTime 
+      });
+
+      return {
+        success: false,
+        executionTime,
+        bridgeId,
+        toolName,
+        timestamp: new Date().toISOString(),
+        status: 'error',
+        jobId,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      };
     }
   }
 
-  /**
-   * Bind project configuration using Python CLI link functionality
-   * 
-   * @param projectName - Name of the project
-   * @param config - Project configuration including secrets and tools
-   * @returns Success status
-   */
-  async bindProjectConfiguration(projectName: string, config: ProjectConfig): Promise<void> {
-    try {
-      logger.info('Binding project configuration', { projectName, configPath: config.path });
-      
-      // Validate project configuration
-      await this.validateProjectConfig(config);
-      
-      // First, add secrets to the secure broker
-      const secretsAdded = [];
-      for (const [key, value] of Object.entries(config.secrets)) {
-        const success = await this.addSecretToBroker(key, value, true); // Use secure mode
-        if (success) {
-          secretsAdded.push(key);
-        } else {
-          logger.warn('Failed to add secret to broker', { key });
-        }
-      }
-      
-      // Then link the project using Python CLI
-      const linkCommand = `${this.pythonExecutable} ${this.cliPath} link "${config.path}" --secure`;
-      const { stdout, stderr } = await execAsync(linkCommand, { timeout: 60000 });
-      
-      if (stderr) {
-        logger.warn('Link command produced warnings', { stderr });
-      }
-      
-      // Publish KEB event for successful binding
-      if (this.kebEnabled) {
-        await this.publishKEBEvent('project_configuration_bound', {
-          projectName,
-          secretsCount: secretsAdded.length,
-          toolsCount: config.tools.length,
-          environment: config.environment
-        });
-      }
-      
-      logger.info('Project configuration bound successfully', { 
-        projectName, 
-        secretsCount: secretsAdded.length,
-        toolsCount: config.tools.length 
-      });
-      
-    } catch (error) {
-      logger.error('Failed to bind project configuration', { 
-        projectName, 
-        error: error instanceof Error ? error.message : String(error) 
-      });
-      
-      if (this.kebEnabled) {
-        await this.publishKEBEvent('project_binding_failed', {
-          projectName,
-          error: error instanceof Error ? error.message : String(error)
-        });
-      }
-      
-      throw new Error(`Project binding failed: ${error instanceof Error ? error.message : String(error)}`);
-    }
-  }
-
-  /**
-   * Synchronize shared resources using Python CLI sync functionality
-   * 
-   * @param manifest - Shared resource manifest
-   * @returns Sync result with detailed status
-   */
-  async syncSharedResources(manifest: SharedResourceManifest): Promise<SyncResult> {
+  async scanProject(
+    projectPath: string, 
+    scanType: 'secrets' | 'vulnerabilities' | 'all' = 'all',
+    userId?: string
+  ): Promise<any> {
     const startTime = Date.now();
     
     try {
-      logger.info('Syncing shared resources', { manifestVersion: manifest.version });
-      
-      // Validate manifest
-      await this.validateSharedResourceManifest(manifest);
-      
-      // Create temporary manifest file for Python CLI
-      const tempManifestPath = join(process.cwd(), `.temp_shared_resources_${Date.now()}.yaml`);
-      const yaml = require('js-yaml');
-      
-      await fs.writeFile(tempManifestPath, yaml.dump(manifest));
-      
-      try {
-        const syncCommand = `${this.pythonExecutable} ${this.cliPath} sync-shared-resources . "${tempManifestPath}"`;
-        const { stdout, stderr } = await execAsync(syncCommand, { timeout: 120000 });
-        
-        if (stderr) {
-          logger.warn('Sync command produced warnings', { stderr });
-        }
-        
-        // Parse sync result from CLI output
-        const syncResult: SyncResult = {
-          success: true,
-          syncedItems: [],
-          timestamp: new Date().toISOString(),
-          totalProcessed: 0,
-          errors: []
-        };
-        
-        // Extract sync status from stdout (Python CLI should output JSON)
-        try {
-          const jsonMatch = stdout.match(/\{[\s\S]*\}/);
-          if (jsonMatch) {
-            const cliResult = JSON.parse(jsonMatch[0]);
-            if (cliResult.synced_items) {
-              syncResult.syncedItems = cliResult.synced_items.map((item: any) => ({
-                source: item.source || '',
-                target: item.target || '',
-                status: item.status || 'unknown',
-                message: item.message
-              }));
-              syncResult.totalProcessed = cliResult.synced_items.length;
-            }
-          }
-        } catch (parseError) {
-          logger.warn('Could not parse CLI sync output as JSON', { stdout });
-          // Create sync result based on manifest items
-          syncResult.syncedItems = manifest.shared_resources.map(item => ({
-            source: item.source,
-            target: item.target,
-            status: 'success' as const,
-            message: `Processed ${item.type}`
-          }));
-          syncResult.totalProcessed = manifest.shared_resources.length;
-        }
-        
-        // Publish KEB event for successful sync
-        if (this.kebEnabled) {
-          await this.publishKEBEvent('shared_resources_synced', {
-            manifestVersion: manifest.version,
-            itemsCount: syncResult.syncedItems.length,
-            duration: Date.now() - startTime
-          });
-        }
-        
-        logger.info('Shared resources sync completed', { 
-          itemsCount: syncResult.syncedItems.length 
-        });
-        
-        return syncResult;
-        
-      } finally {
-        // Clean up temp file
-        try {
-          await fs.unlink(tempManifestPath);
-                } catch (cleanupError) {          logger.warn('Failed to cleanup temp manifest file', {             tempManifestPath,             error: cleanupError instanceof Error ? cleanupError.message : String(cleanupError)          });
-        }
-      }
-      
-    } catch (error) {
-      logger.error('Failed to sync shared resources', { 
-        error: error instanceof Error ? error.message : String(error) 
-      });
-      
-      if (this.kebEnabled) {
-        await this.publishKEBEvent('shared_resources_sync_failed', {
-          manifestVersion: manifest.version,
-          error: error instanceof Error ? error.message : String(error)
-        });
-      }
-      
-      return {
-        success: false,
-        syncedItems: [],
-        timestamp: new Date().toISOString(),
-        totalProcessed: 0,
-        errors: []
-      };
-    }
-  }
-
-  /**
-   * Add a secret to the Python SecretBroker in secure mode
-   * 
-   * @param key - Secret key
-   * @param value - Secret value
-   * @param secure - Use secure encryption
-   * @returns Success status
-   */
-  async addSecretToBroker(key: string, value: string, secure = true): Promise<boolean> {
-    try {
-      const secureFlag = secure ? '--secure' : '';
-      const command = `${this.pythonExecutable} ${this.cliPath} add-secret "${key}" "${value}" ${secureFlag}`;
-      
-      const { stdout, stderr } = await execAsync(command);
-      
-      if (stderr) {
-        logger.warn('Add secret command produced warnings', { stderr });
-      }
-      
-      logger.info('Secret added to broker', { key, secure });
-      return true;
-      
-    } catch (error) {
-      logger.error('Failed to add secret to broker', { 
-        key, 
-        error: error instanceof Error ? error.message : String(error) 
-      });
-      return false;
-    }
-  }
-
-  /**
-   * Bootstrap a project using Python CLI bootstrap functionality
-   * 
-   * @param projectPath - Path to the project
-   * @param secure - Use secure mode
-   * @returns Success status
-   */
-  async bootstrapProject(projectPath: string, secure = true): Promise<boolean> {
-    try {
-      logger.info('Bootstrapping project', { projectPath, secure });
-      
-      const secureFlag = secure ? '--secure' : '';
-      const command = `${this.pythonExecutable} ${this.cliPath} bootstrap "${projectPath}" ${secureFlag}`;
-      
-      const { stdout, stderr } = await execAsync(command);
-      
-      if (stderr) {
-        logger.warn('Bootstrap command produced warnings', { stderr });
-      }
-      
-      logger.info('Project bootstrapped successfully', { projectPath });
-      return true;
-      
-    } catch (error) {
-      logger.error('Failed to bootstrap project', { 
+      // Validate and sanitize project path
+      const validatedPath = SecurityValidator.validateProjectPath(
         projectPath, 
-        error: error instanceof Error ? error.message : String(error) 
+        this.config.allowedDirectories
+      );
+
+      logger.audit('Project Scan Started', {
+        userId,
+        success: false,
+        resource: validatedPath,
+        severity: 'medium',
+        data: { scanType }
       });
-      return false;
+
+      // Check if path exists and is accessible
+      const stats = await fs.stat(validatedPath);
+      if (!stats.isDirectory()) {
+        throw new SecurityError('Path is not a directory', { path: validatedPath });
+      }
+
+      let results: any = {};
+
+      if (scanType === 'secrets' || scanType === 'all') {
+        logger.info('Starting secrets scan', { path: validatedPath });
+        results.secrets = await this.scanForSecrets(validatedPath);
+      }
+
+      if (scanType === 'vulnerabilities' || scanType === 'all') {
+        logger.info('Starting vulnerability scan', { path: validatedPath });
+        results.vulnerabilities = await this.scanForVulnerabilities(validatedPath);
+      }
+
+      const executionTime = Date.now() - startTime;
+      
+      logger.audit('Project Scan Completed', {
+        userId,
+        success: true,
+        resource: validatedPath,
+        severity: 'low',
+        duration: executionTime,
+        data: { scanType, resultsCount: Object.keys(results).length }
+      });
+
+      return {
+        success: true,
+        path: validatedPath,
+        scanType,
+        results,
+        executionTime,
+        timestamp: new Date().toISOString()
+      };
+
+    } catch (error) {
+      const executionTime = Date.now() - startTime;
+      
+      logger.audit('Project Scan Failed', {
+        userId,
+        success: false,
+        resource: projectPath,
+        severity: 'high',
+        duration: executionTime,
+        data: { 
+          scanType, 
+          error: error instanceof Error ? error.message : String(error) 
+        }
+      });
+
+      logger.error('Project scan failed', { error, projectPath, scanType });
+      throw error;
     }
   }
 
-  /**
-   * Categorize a secret key based on common patterns
-   * 
-   * @param key - Secret key to categorize
-   * @returns Category string
-   */
-  private categorizeSecretKey(key: string): string {
-    const keyLower = key.toLowerCase();
-    
-    if (keyLower.includes('api') || keyLower.includes('token')) {
-      return 'api_credentials';
-    } else if (keyLower.includes('db') || keyLower.includes('database')) {
-      return 'database';
-    } else if (keyLower.includes('auth') || keyLower.includes('secret') || keyLower.includes('key')) {
-      return 'authentication';
-    } else if (keyLower.includes('url') || keyLower.includes('endpoint')) {
-      return 'endpoints';
-    } else if (keyLower.includes('email') || keyLower.includes('smtp')) {
-      return 'communication';
-    } else {
-      return 'general';
-    }
+  getJobStatus(jobId: string): MCPOperationStatus | undefined {
+    return this.activeJobs.get(jobId);
   }
 
-  /**
-   * Get secret requirements for a specific tool
-   * 
-   * @param tool - Tool name
-   * @returns Array of secret suggestions for the tool
-   */
-  private getToolSecretRequirements(tool: string): SecretSuggestion[] {
-    const suggestions: SecretSuggestion[] = [];
-    
-    // Common tool secret patterns
-    const toolSecrets: Record<string, string[]> = {
-      'docker': ['DOCKER_HUB_TOKEN', 'DOCKER_REGISTRY_URL'],
-      'github': ['GITHUB_TOKEN', 'GITHUB_API_KEY'],
-      'aws': ['AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY', 'AWS_REGION'],
-      'stripe': ['STRIPE_API_KEY', 'STRIPE_WEBHOOK_SECRET'],
-      'openai': ['OPENAI_API_KEY', 'OPENAI_ORG_ID'],
-      'anthropic': ['ANTHROPIC_API_KEY'],
-      'redis': ['REDIS_URL', 'REDIS_PASSWORD'],
-      'mongodb': ['MONGODB_URI', 'MONGODB_PASSWORD'],
-      'postgresql': ['DATABASE_URL', 'DB_PASSWORD'],
-      'sendgrid': ['SENDGRID_API_KEY'],
-      'slack': ['SLACK_BOT_TOKEN', 'SLACK_WEBHOOK_URL']
+  getActiveJobs(): MCPOperationStatus[] {
+    return Array.from(this.activeJobs.values());
+  }
+
+  getServiceStatus(): MCPServiceStatus {
+    const status = this.mcpBridgeService?.getStatus() || {
+      status: 'stopped' as const,
+      uptime: 0,
+      bridgeCount: 0,
+      toolCount: 0,
+      toolsCached: 0,
+      activeJobs: 0
     };
     
-    const toolLower = tool.toLowerCase();
-    for (const [toolPattern, secrets] of Object.entries(toolSecrets)) {
-      if (toolLower.includes(toolPattern)) {
-        for (const secret of secrets) {
-          suggestions.push({
-            key: secret,
-            source: 'scaffold',
-            confidence: 0.7,
-            category: 'api_credentials',
-            description: `${tool} integration secret`
-          });
-        }
-        break;
-      }
-    }
+    return {
+      status: this.initialized ? 'running' : 'stopped',
+      uptime: status.uptime,
+      bridgeCount: status.bridgeCount,
+      toolCount: status.toolCount,
+      toolsCached: status.toolsCached,
+      activeJobs: this.activeJobs.size
+    };
+  }
+
+  private async scanForSecrets(projectPath: string): Promise<any[]> {
+    // Implementation for secrets scanning using AI-driven pattern matching
+    logger.info('Scanning for secrets', { path: projectPath });
     
-    return suggestions;
-  }
-
-  /**
-   * Check if Python CLI is available and functional
-   * 
-   * @returns True if CLI is available
-   */
-  async checkCliAvailability(): Promise<boolean> {
     try {
-      const { stdout } = await execAsync(`${this.pythonExecutable} ${this.cliPath} list`);
-      return true;
-    } catch (error) {
-      logger.warn('Python CLI not available', { 
-        error: error instanceof Error ? error.message : String(error) 
-      });
-      return false;
-    }
-  }
+      // Use secure command executor for file operations
+      const result = await this.secureExecutor.executeCommand(
+        'find',
+        [projectPath, '-type', 'f', '-name', '*.js', '-o', '-name', '*.ts', '-o', '-name', '*.json', '-o', '-name', '*.env*', '-o', '-name', '*.yaml', '-o', '-name', '*.yml'],
+        { timeout: 30000 }
+      );
+      
+      // Process the files and scan for secrets
+      const files = result.stdout.trim().split('\n').filter(f => f.length > 0);
+      const secretsFound: any[] = [];
+      
+      // Production-grade secret detection patterns
+      const secretPatterns = [
+        { type: 'aws_access_key', pattern: /AKIA[0-9A-Z]{16}/, severity: 'high' },
+        { type: 'aws_secret', pattern: /[0-9a-zA-Z/+]{40}/, severity: 'high' },
+        { type: 'github_token', pattern: /ghp_[0-9a-zA-Z]{36}/, severity: 'high' },
+        { type: 'openai_key', pattern: /sk-[0-9a-zA-Z]{48}/, severity: 'high' },
+        { type: 'jwt_token', pattern: /eyJ[0-9a-zA-Z_-]+\.eyJ[0-9a-zA-Z_-]+\.[0-9a-zA-Z_-]+/, severity: 'medium' },
+        { type: 'api_key', pattern: /[aA][pP][iI][_-]?[kK][eE][yY]\s*[:=]\s*['"]?[0-9a-zA-Z]{32,}/, severity: 'medium' },
+        { type: 'password', pattern: /[pP][aA][sS][sS][wW][oO][rR][dD]\s*[:=]\s*['"][^'"]{8,}/, severity: 'medium' },
+        { type: 'database_url', pattern: /(mongodb|mysql|postgres):\/\/[^\s'"]+/, severity: 'high' },
+        { type: 'private_key', pattern: /-----BEGIN (RSA |EC |DSA )?PRIVATE KEY-----/, severity: 'critical' }
+      ];
 
-  /**
-   * Validate project configuration
-   */
-  private async validateProjectConfig(config: ProjectConfig): Promise<void> {
-    if (!config.name || !config.path) {
-      throw new Error('Project configuration must have name and path');
-    }
+      // Scan each file for secrets
+      for (const filePath of files.slice(0, 100)) { // Limit to prevent timeouts
+        try {
+          const content = await this.secureExecutor.executeCommand(
+            'cat',
+            [filePath],
+            { timeout: 5000 }
+          );
 
-    try {
-      await fs.access(config.path);
-    } catch (error) {
-      throw new Error(`Project path does not exist: ${config.path}`);
-    }
+          const fileContent = content.stdout;
+          const lines = fileContent.split('\n');
 
-    if (!['dev', 'staging', 'prod'].includes(config.environment)) {
-      throw new Error(`Invalid environment: ${config.environment}`);
-    }
-  }
+          lines.forEach((line, lineNumber) => {
+            secretPatterns.forEach(pattern => {
+              const match = line.match(pattern.pattern);
+              if (match) {
+                // Avoid false positives in test files and documentation
+                if (filePath.includes('/test/') || filePath.includes('.test.') || 
+                    filePath.includes('/docs/') || filePath.includes('README') ||
+                    line.includes('example') || line.includes('placeholder')) {
+                  return;
+                }
 
-  /**
-   * Validate shared resource manifest
-   */
-  private async validateSharedResourceManifest(manifest: SharedResourceManifest): Promise<void> {
-    if (!manifest.version) {
-      throw new Error('Shared resource manifest must have a version');
-    }
+                secretsFound.push({
+                  type: pattern.type,
+                  severity: pattern.severity,
+                  file: filePath,
+                  line: lineNumber + 1,
+                  match: match[0].substring(0, 20) + '...', // Truncate for security
+                  confidence: this.calculateConfidence(pattern.type, line, filePath),
+                  recommendation: this.getRecommendation(pattern.type)
+                });
+              }
+            });
+          });
 
-    if (!manifest.shared_resources || !Array.isArray(manifest.shared_resources)) {
-      throw new Error('Shared resource manifest must have shared_resources array');
-    }
-
-    for (const resource of manifest.shared_resources) {
-      if (!resource.type || !resource.source || !resource.target) {
-        throw new Error('Each shared resource must have type, source, and target');
-      }
-
-      const validTypes = ['symlink_file', 'symlink_dir', 'copy_file', 'copy_dir'];
-      if (!validTypes.includes(resource.type)) {
-        throw new Error(`Invalid resource type: ${resource.type}`);
-      }
-    }
-  }
-
-  /**
-   * Publish an event to the Kernel Event Bus (KEB)
-   */
-  private async publishKEBEvent(eventType: string, payload: Record<string, any>): Promise<void> {
-    if (!this.kebEnabled) {
-      return;
-    }
-
-    try {
-      const kebEvent: KEBEvent = {
-        eventId: this.generateEventId(),
-        source: 'AgentBridgeService',
-        eventType,
-        timestamp: new Date().toISOString(),
-        payload,
-        metadata: {
-          version: '1.0.0',
-          service: 'agent-bridge'
+        } catch (fileError) {
+          logger.warn('Could not scan file for secrets', { file: filePath, error: fileError });
         }
-      };
-
-      // In production, this would publish to actual KEB (Redis/EventBus)
-      // For now, just log the event
-      logger.info('KEB Event Published', {
-        eventId: kebEvent.eventId,
-        eventType: kebEvent.eventType,
-        payloadKeys: Object.keys(kebEvent.payload)
+      }
+      
+      logger.info('Secrets scan completed', { 
+        filesScanned: Math.min(files.length, 100), 
+        secretsFound: secretsFound.length,
+        criticalFindings: secretsFound.filter(s => s.severity === 'critical').length
       });
-
-      // Future implementation would include:
-      // await this.kebClient.publish('agent_bridge_events', kebEvent);
-
+      
+      return secretsFound;
     } catch (error) {
-      logger.error('Failed to publish KEB event', {
-        eventType,
-        error: error instanceof Error ? error.message : String(error)
-      });
+      logger.error('Secrets scan failed', { error, projectPath });
+      throw error;
     }
   }
 
-  /**
-   * Generate a unique event ID
-   */
-  private generateEventId(): string {
-    return `agent_bridge_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  private calculateConfidence(type: string, line: string, filePath: string): number {
+    let confidence = 0.7; // Base confidence
+
+    // Increase confidence for specific patterns
+    if (type === 'private_key' && line.includes('BEGIN')) confidence = 0.95;
+    if (type === 'aws_access_key' && line.includes('AKIA')) confidence = 0.9;
+    if (type === 'github_token' && line.includes('ghp_')) confidence = 0.9;
+
+    // Decrease confidence for potential false positives
+    if (filePath.includes('.example') || filePath.includes('template')) confidence *= 0.3;
+    if (line.toLowerCase().includes('fake') || line.toLowerCase().includes('dummy')) confidence *= 0.2;
+
+    return Math.min(confidence, 1.0);
+  }
+
+  private getRecommendation(type: string): string {
+    const recommendations: Record<string, string> = {
+      'aws_access_key': 'Move to AWS IAM roles or environment variables with proper rotation',
+      'aws_secret': 'Use AWS Secrets Manager or environment variables with encryption',
+      'github_token': 'Use GitHub Apps or fine-grained personal access tokens',
+      'openai_key': 'Store in secure environment variables or secrets management system',
+      'jwt_token': 'Ensure proper expiration and use secure storage for refresh tokens',
+      'api_key': 'Move to environment variables or secure secrets management',
+      'password': 'Use secure password hashing and environment variables',
+      'database_url': 'Use connection pooling with secure credential management',
+      'private_key': 'Store in secure key management system with proper access controls'
+    };
+
+    return recommendations[type] || 'Review and secure this credential using best practices';
+  }
+
+  private async scanForVulnerabilities(projectPath: string): Promise<any[]> {
+    // Implementation for vulnerability scanning
+    logger.info('Scanning for vulnerabilities', { path: projectPath });
+    
+    try {
+      // Check for package.json and run security audit
+      const packageJsonPath = join(projectPath, 'package.json');
+      
+      try {
+        await fs.access(packageJsonPath);
+        
+        // Use secure command executor for npm audit
+        const result = await this.secureExecutor.executeCommand(
+          'npm',
+          ['audit', '--json'],
+          { cwd: projectPath, timeout: 60000 }
+        );
+        
+        const auditData = JSON.parse(result.stdout);
+        return auditData.vulnerabilities || [];
+      } catch (auditError) {
+        logger.warn('npm audit failed', { error: auditError, projectPath });
+        return [];
+      }
+    } catch (error) {
+      logger.error('Vulnerability scan failed', { error, projectPath });
+      throw error;
+    }
+  }
+
+  private getAllowedParameters(toolName: string): string[] {
+    // Define allowed parameters per tool
+    const allowedParams: Record<string, string[]> = {
+      'default': ['input', 'options', 'config', 'parameters'],
+      'file_scanner': ['path', 'pattern', 'recursive', 'exclude'],
+      'secret_detector': ['content', 'pattern', 'confidence'],
+      'vulnerability_checker': ['package', 'version', 'severity']
+    };
+    
+    return allowedParams[toolName] || allowedParams['default'];
+  }
+
+  private generateJobId(): string {
+    return `job_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
   }
 } 

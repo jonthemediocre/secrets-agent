@@ -93,3 +93,16 @@ alwaysApply: false
 -   [ ] Have schema evolution and versioning been considered?
 ---
 This rule aims to promote consistency, clarity, and robustness in data modeling using Pydantic.
+
+# Data-Schema-Design-Best-Practices
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule establishes best practices for designing data schemas (with a potential emphasis on tools like Pydantic for Python environments). It covers principles of clarity, reusability, versioning, validation, and ensuring that schemas accurately represent data models and serve as reliable contracts for APIs and data exchange.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

@@ -71,3 +71,16 @@ Upon activation, the AI assistant should perform the following steps for the **c
 *   **VANTA Scheduler Standardization:** For VANTA projects, the exact paths and structure of scheduler configurations should eventually be standardized within the VANTA framework itself. This rule will adapt to those standards as they evolve.
 
 This protocol aims to make your process of copying the `.cursor` directory more powerful by ensuring that key project infrastructure, like a task scheduler, is consistently considered and set up.
+
+# 950-Project-Task-Scheduler-Bootstrap-Guidelines
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule provides guidelines for bootstrapping and configuring a project's task scheduler. It covers initial setup of the scheduling infrastructure, defining default configurations, registering core scheduled tasks, and ensuring the scheduler is operational and integrated with the project's logging and monitoring systems.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

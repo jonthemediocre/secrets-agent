@@ -1,0 +1,1614 @@
+generated_at: '2025-05-24T18:15:06.402533'
+rules:
+  .gitkeep:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: ''
+      file_size: 1
+      last_modified: '2025-05-15T19:39:12.793570'
+    path: .cursor\rules\common_mcp_rules\.gitkeep
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  000-base:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2070
+      last_modified: '2025-04-04T22:43:14.648242'
+    path: .cursor\rules\000-base.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  000-common-base:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 352
+      last_modified: '2025-05-20T11:39:40.021121'
+    path: .cursor\rules\common_mcp_rules\000-common-base.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  000-framework-index:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 5335
+      last_modified: '2025-04-25T23:47:01.357493'
+    path: .cursor\rules\000-framework-index.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  001-rule-index-watcher:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 3761
+      last_modified: '2025-05-09T22:23:27.888880'
+    path: .cursor\rules\001-rule-index-watcher.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  002-L1-L2-distinction-and-coevolution:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 7076
+      last_modified: '2025-05-14T11:40:49.994599'
+    path: .cursor\rules\002-L1-L2-distinction-and-coevolution.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  003-L1-enforces-L2-scaffolding:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 5571
+      last_modified: '2025-05-14T11:40:49.994599'
+    path: .cursor\rules\003-L1-enforces-L2-scaffolding.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  004-L1-L2-dependency-check:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4631
+      last_modified: '2025-05-14T11:40:49.996103'
+    path: .cursor\rules\004-L1-L2-dependency-check.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  005-L1-general-git-sync-guidelines:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3139
+      last_modified: '2025-05-14T11:40:49.994599'
+    path: .cursor\rules\005-L1-general-git-sync-guidelines.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  005-destructive-op-safety:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3020
+      last_modified: '2025-05-09T22:23:27.889879'
+    path: .cursor\rules\005-destructive-op-safety.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  006-system-incoherence-protocol:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 8653
+      last_modified: '2025-05-09T22:23:27.889879'
+    path: .cursor\rules\006-system-incoherence-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  007-desktop-commander-best-practices:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3414
+      last_modified: '2025-05-09T22:23:27.889879'
+    path: .cursor\rules\007-desktop-commander-best-practices.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  008-backup-and-commit-protocol:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2503
+      last_modified: '2025-05-09T22:23:27.889879'
+    path: .cursor\rules\008-backup-and-commit-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  008-relative-import-preflight:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4606
+      last_modified: '2025-05-09T00:39:15.413908'
+    path: .cursor\rules\008-relative-import-preflight.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  009-L2-framework-rule-index-awareness:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4464
+      last_modified: '2025-05-14T11:40:49.994599'
+    path: .cursor\rules\009-L2-framework-rule-index-awareness.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  011-mdc-hygiene-protocol:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4205
+      last_modified: '2025-05-09T08:47:54.321160'
+    path: .cursor\rules\011-mdc-hygiene-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  012-ai-mdc-authoring-formatting-standards:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4467
+      last_modified: '2025-05-09T08:56:21.308804'
+    path: .cursor\rules\012-ai-mdc-authoring-formatting-standards.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  013-L1-guides-L2-architecture:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 7049
+      last_modified: '2025-05-14T11:40:49.996103'
+    path: .cursor\rules\013-L1-guides-L2-architecture.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  020-compatibility-check:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3073
+      last_modified: '2025-05-09T00:39:14.259493'
+    path: .cursor\rules\020-compatibility-check.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  100-next-components:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 1225
+      last_modified: '2025-04-04T22:42:54.264816'
+    path: .cursor\rules\100-next-components.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  100-vanta-coder-overlay:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 1110
+      last_modified: '2025-05-09T22:23:27.889879'
+    path: .cursor\rules\100-vanta-coder-overlay.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1000-coding_agent-feedback_instrumentation:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 874
+      last_modified: '2025-05-09T22:23:27.890879'
+    path: .cursor\rules\1000-coding_agent-feedback_instrumentation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1001-coding_agent-scheduled_tasks:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 761
+      last_modified: '2025-05-09T22:23:27.890879'
+    path: .cursor\rules\1001-coding_agent-scheduled_tasks.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1002-coding_agent-subprocess_security:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1118
+      last_modified: '2025-05-09T22:23:27.890879'
+    path: .cursor\rules\1002-coding_agent-subprocess_security.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1003-coding_agent-external_api_resilience:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1492
+      last_modified: '2025-05-09T22:23:27.890879'
+    path: .cursor\rules\1003-coding_agent-external_api_resilience.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1004-coding_agent-hyperparam_tuning:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1307
+      last_modified: '2025-05-09T22:23:27.890879'
+    path: .cursor\rules\1004-coding_agent-hyperparam_tuning.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1005-coding_agent-ci_cd_integration:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1047
+      last_modified: '2025-05-09T22:23:27.891879'
+    path: .cursor\rules\1005-coding_agent-ci_cd_integration.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1006-coding_agent-cli_tooling:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1352
+      last_modified: '2025-05-09T22:23:27.891879'
+    path: .cursor\rules\1006-coding_agent-cli_tooling.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1007-coding_agent-admin_ui:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2078
+      last_modified: '2025-05-09T22:23:27.891879'
+    path: .cursor\rules\1007-coding_agent-admin_ui.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1008-coding_agent-plan_sync:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2051
+      last_modified: '2025-05-09T22:23:27.891879'
+    path: .cursor\rules\1008-coding_agent-plan_sync.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1009-coding_agent-env_template:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2574
+      last_modified: '2025-05-14T11:41:44.012572'
+    path: .cursor\rules\1009-coding_agent-env_template.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  101-event-governance:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6449
+      last_modified: '2025-05-18T14:02:43.124852'
+    path: .cursor\rules\101-event-governance.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  101-vanta-agent-contract:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3212
+      last_modified: '2025-05-09T22:23:27.892879'
+    path: .cursor\rules\101-vanta-agent-contract.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1010-coding_agent-test_coverage:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1129
+      last_modified: '2025-05-09T22:23:27.892879'
+    path: .cursor\rules\1010-coding_agent-test_coverage.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1011-coding_agent-framework:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2354
+      last_modified: '2025-05-09T22:23:27.892879'
+    path: .cursor\rules\1011-coding_agent-framework.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1012-coding_agent-ide_preprompt:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2196
+      last_modified: '2025-05-09T22:23:27.893880'
+    path: .cursor\rules\1012-coding_agent-ide_preprompt.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1013-coding_agent-moe_analysis:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1073
+      last_modified: '2025-05-09T22:23:27.893880'
+    path: .cursor\rules\1013-coding_agent-moe_analysis.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1014-coding_agent-best_of_n:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1155
+      last_modified: '2025-05-09T22:23:27.893880'
+    path: .cursor\rules\1014-coding_agent-best_of_n.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1015-coding_agent-coe_delegation:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1272
+      last_modified: '2025-05-09T22:23:27.893880'
+    path: .cursor\rules\1015-coding_agent-coe_delegation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1016-coding_agent-coe_invocation:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 709
+      last_modified: '2025-05-09T22:23:27.893880'
+    path: .cursor\rules\1016-coding_agent-coe_invocation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1017-coding_agent-config_convention:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1332
+      last_modified: '2025-05-09T22:23:27.894880'
+    path: .cursor\rules\1017-coding_agent-config_convention.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1018-coding_agent-task_schema:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1530
+      last_modified: '2025-05-09T22:23:27.894880'
+    path: .cursor\rules\1018-coding_agent-task_schema.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1019-fastapi-streaming:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6008
+      last_modified: '2025-05-09T22:23:27.894880'
+    path: .cursor\rules\1019-fastapi-streaming.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  110-env-config:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 53
+      last_modified: '2025-05-09T22:23:27.894880'
+    path: .cursor\rules\110-env-config.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  110-feature-parity:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2485
+      last_modified: '2025-04-21T12:49:51.610860'
+    path: .cursor\rules\110-feature-parity.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  1100-L1-LangChainIntegrationGuidance:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 4455
+      last_modified: '2025-05-14T11:40:49.994599'
+    path: .cursor\rules\1100-L1-LangChainIntegrationGuidance.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  200-icons:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2863
+      last_modified: '2025-04-04T22:42:40.080066'
+    path: .cursor\rules\200-icons.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  201-vanta-logging-core-requirements:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3744
+      last_modified: '2025-05-09T22:23:27.894880'
+    path: .cursor\rules\201-vanta-logging-core-requirements.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  300-error-handling:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2278
+      last_modified: '2025-05-09T22:23:27.895879'
+    path: .cursor\rules\300-error-handling.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  310-dependency-hygiene:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3386
+      last_modified: '2025-04-21T13:06:38.810872'
+    path: .cursor\rules\310-dependency-hygiene.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  311-cross-platform-deps:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3456
+      last_modified: '2025-05-09T22:23:27.895879'
+    path: .cursor\rules\311-cross-platform-deps.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  312-static-analysis-checks:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2846
+      last_modified: '2025-05-09T00:36:00.426525'
+    path: .cursor\rules\312-static-analysis-checks.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  320-dependency-conflict-resolution-strategy:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 4332
+      last_modified: '2025-05-09T00:37:44.784403'
+    path: .cursor\rules\320-dependency-conflict-resolution-strategy.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  400-adhd-patterns:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2369
+      last_modified: '2025-05-09T22:23:27.895879'
+    path: .cursor\rules\400-adhd-patterns.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  500-prisma:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3068
+      last_modified: '2025-05-09T22:23:27.895879'
+    path: .cursor\rules\500-prisma.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  501-vanta-memory-principles:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3377
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\501-vanta-memory-principles.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  505-pydantic-schema-design:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6020
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\505-pydantic-schema-design.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  600-ai-learnings:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3711
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\600-ai-learnings.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  620-ritualization-protocol:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2959
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\620-ritualization-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  700-opensource-mdc:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2400
+      last_modified: '2025-04-04T23:04:03.145048'
+    path: .cursor\rules\700-opensource-mdc.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  703-code-source-priority:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2761
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\703-code-source-priority.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  900-agent-config:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3698
+      last_modified: '2025-04-04T22:44:26.180022'
+    path: .cursor\rules\900-agent-config.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  901-mdc-agent:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4839
+      last_modified: '2025-04-28T13:50:32.220299'
+    path: .cursor\rules\901-mdc-agent.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  902-rl-agent:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 5568
+      last_modified: '2025-04-04T23:04:41.615045'
+    path: .cursor\rules\902-rl-agent.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  902-visual-asset-linking:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 1888
+      last_modified: '2025-05-12T18:36:49.979467'
+    path: .cursor\rules\902-visual-asset-linking.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  903-rl-suggestion:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 4964
+      last_modified: '2025-04-04T23:04:38.660678'
+    path: .cursor\rules\903-rl-suggestion.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  904-core-documentation:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1521
+      last_modified: '2025-04-26T10:53:18.950208'
+    path: .cursor\rules\904-core-documentation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  905-orchestrator-agent:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 10237
+      last_modified: '2025-04-05T00:05:40.772935'
+    path: .cursor\rules\905-orchestrator-agent.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  906-documentation-sync:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 7598
+      last_modified: '2025-04-26T09:31:52.205317'
+    path: .cursor\rules\906-documentation-sync.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  906-symbolic-definition-linking:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2459
+      last_modified: '2025-05-12T18:36:33.067948'
+    path: .cursor\rules\906-symbolic-definition-linking.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  907-plan-todo-sync:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2350
+      last_modified: '2025-05-12T18:36:22.912878'
+    path: .cursor\rules\907-plan-todo-sync.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  907-project-snapshot:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2623
+      last_modified: '2025-05-09T22:23:27.896879'
+    path: .cursor\rules\907-project-snapshot.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  908-agent-registry-hygiene:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 47
+      last_modified: '2025-05-14T20:20:58.320048'
+    path: .cursor\rules\908-agent-registry-hygiene.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  908-system-overview-documentation:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 53
+      last_modified: '2025-05-12T18:37:42.474374'
+    path: .cursor\rules\908-system-overview-documentation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  909-agent-manifest-sync:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 47
+      last_modified: '2025-05-14T20:21:11.367133'
+    path: .cursor\rules\909-agent-manifest-sync.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  909-mdc-rule-optimization-protocol:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 5150
+      last_modified: '2025-05-09T08:59:04.507919'
+    path: .cursor\rules\909-mdc-rule-optimization-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  910-assistant-autonomy:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2317
+      last_modified: '2025-05-09T22:23:27.897879'
+    path: .cursor\rules\910-assistant-autonomy.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  910-vanta-testing-protocol:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 823
+      last_modified: '2025-05-09T22:23:27.897879'
+    path: .cursor\rules\910-vanta-testing-protocol.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  911-ai-response-signature:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6175
+      last_modified: '2025-04-26T12:17:57.401783'
+    path: .cursor\rules\911-ai-response-signature.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  912-ai-prompt-assist:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 53
+      last_modified: '2025-05-09T22:23:27.897879'
+    path: .cursor\rules\912-ai-prompt-assist.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  912-rule-scope-distinction:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3889
+      last_modified: '2025-05-09T22:23:27.897879'
+    path: .cursor\rules\912-rule-scope-distinction.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  913-compliance-script-output:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3997
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\913-compliance-script-output.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  913-frontend-init:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2192
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\913-frontend-init.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  914-pytest-scenario-alternative:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3576
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\914-pytest-scenario-alternative.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  915-agent-state-lifecycle:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6520
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\915-agent-state-lifecycle.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  916-ai-codebase-interaction-model:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3170
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\916-ai-codebase-interaction-model.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  917-agent-base-contract:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 8625
+      last_modified: '2025-05-12T18:38:11.274229'
+    path: .cursor\rules\917-agent-base-contract.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  918-agent-gitops:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 8925
+      last_modified: '2025-05-12T18:38:00.010298'
+    path: .cursor\rules\918-agent-gitops.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  920-agent-resource-conventions:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3351
+      last_modified: '2025-05-09T22:23:27.898879'
+    path: .cursor\rules\920-agent-resource-conventions.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  920-mcp-tool-integration:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 4468
+      last_modified: '2025-05-09T22:23:27.899879'
+    path: .cursor\rules\920-mcp-tool-integration.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  921-mcp-server-integration:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 7671
+      last_modified: '2025-05-09T22:23:27.899879'
+    path: .cursor\rules\921-mcp-server-integration.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  921-vanta-mcp-signal-schema:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 5999
+      last_modified: '2025-05-09T22:23:27.899879'
+    path: .cursor\rules\921-vanta-mcp-signal-schema.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  922-agentic-replay-log-schema:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 7078
+      last_modified: '2025-05-09T19:15:40.303737'
+    path: .cursor\rules\922-agentic-replay-log-schema.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  923-agentic-build-validate:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2821
+      last_modified: '2025-05-09T00:15:16.519724'
+    path: .cursor\rules\923-agentic-build-validate.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  924-cascade-executor:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 4328
+      last_modified: '2025-05-09T00:15:11.372811'
+    path: .cursor\rules\924-cascade-executor.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  925-cascade-agent-swarm-activation:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3173
+      last_modified: '2025-05-09T00:15:08.873509'
+    path: .cursor\rules\925-cascade-agent-swarm-activation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  926-vanta-external-mcp-integration:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6725
+      last_modified: '2025-05-12T18:35:58.955156'
+    path: .cursor\rules\926-vanta-external-mcp-integration.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  930-layer3-cli-api-activation:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3476
+      last_modified: '2025-05-09T00:15:06.366641'
+    path: .cursor\rules\930-layer3-cli-api-activation.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  950-project-scheduler-bootstrap:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 5257
+      last_modified: '2025-05-09T19:15:40.306450'
+    path: .cursor\rules\950-project-scheduler-bootstrap.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  951-scheduled-rule-maintenance-ritual:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3974
+      last_modified: '2025-05-09T19:15:40.305898'
+    path: .cursor\rules\951-scheduled-rule-maintenance-ritual.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  960-automated-workflow-graph:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 6585
+      last_modified: '2025-05-09T19:15:40.306450'
+    path: .cursor\rules\960-automated-workflow-graph.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  960-vanta-task-scheduling:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 6882
+      last_modified: '2025-05-12T18:38:49.667106'
+    path: .cursor\rules\960-vanta-task-scheduling.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  adhd-energy-features:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 7032
+      last_modified: '2025-04-04T23:05:28.718961'
+    path: .cursor\rules\adhd-energy-features.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  agent_cascade_definitions:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 18828
+      last_modified: '2025-05-14T11:41:44.013572'
+    path: .cursor\rules\agent_cascade_definitions.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  agentic_replay_schema:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .json
+      file_size: 5397
+      last_modified: '2025-05-07T16:17:39.046034'
+    path: .cursor\rules\agentic_replay_schema.json
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  api-routes:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 5385
+      last_modified: '2025-05-09T22:23:27.899879'
+    path: .cursor\rules\api-routes.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  auto_attach_package_json:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 455
+      last_modified: '2025-05-09T00:36:45.001073'
+    path: .cursor\rules\auto_attach_package_json.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  chrono_orchestrator_agent:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 5265
+      last_modified: '2025-05-09T19:15:40.307552'
+    path: .cursor\agents\chrono_orchestrator_agent.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  cleaner:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 3009
+      last_modified: '2025-05-09T22:23:27.900879'
+    path: .cursor\rules\cleaner.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  code-audit-summary:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 8697
+      last_modified: '2025-05-23T17:55:02.878652'
+    path: .cursor\mdc\code-audit-summary.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  cursor:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1495
+      last_modified: '2025-05-09T00:54:22.025768'
+    path: .cursor\rules\cursor.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  cursor-rules:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3146
+      last_modified: '2025-05-09T00:54:22.025768'
+    path: .cursor\rules\cursor-rules.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  data-fetching:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2300
+      last_modified: '2025-05-09T22:23:27.900879'
+    path: .cursor\rules\data-fetching.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  environment-variables:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3845
+      last_modified: '2025-05-09T22:23:27.900879'
+    path: .cursor\rules\environment-variables.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  example:
+    graduation_candidate: false
+    issues:
+    - Missing RULE TYPE header
+    - Missing FILE PATTERNS header
+    mdc_compliant: false
+    metadata:
+      extension: .swrl
+      file_size: 141
+      last_modified: '2025-05-15T14:02:27.624995'
+    path: rules\example.swrl
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  example.rule:
+    graduation_candidate: false
+    issues:
+    - Missing RULE TYPE header
+    - Missing FILE PATTERNS header
+    mdc_compliant: false
+    metadata:
+      extension: .yaml
+      file_size: 200
+      last_modified: '2025-05-15T14:02:27.619123'
+    path: rules\example.rule.yaml
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  example_rule:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .yaml
+      file_size: 105
+      last_modified: '2025-05-15T14:02:27.617525'
+    path: rules\example_rule.yaml
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  form-handling:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3754
+      last_modified: '2025-05-09T22:23:27.900879'
+    path: .cursor\rules\form-handling.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  golden-ratio-visuals:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 4721
+      last_modified: '2025-04-12T19:10:48.118947'
+    path: .cursor\rules\golden-ratio-visuals.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  index:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 18065
+      last_modified: '2025-05-12T23:20:47.579428'
+    path: .cursor\rules\index.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  llm:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3831
+      last_modified: '2025-05-09T22:23:27.901879'
+    path: .cursor\rules\llm.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  llm-test:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2681
+      last_modified: '2025-05-09T22:23:27.901879'
+    path: .cursor\rules\llm-test.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  logging:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1500
+      last_modified: '2025-05-09T22:23:27.901879'
+    path: .cursor\rules\logging.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  monorepo-dependency-troubleshooting:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 2710
+      last_modified: '2025-05-09T22:23:27.902473'
+    path: .cursor\rules\monorepo-dependency-troubleshooting.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  page-structure:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1194
+      last_modified: '2025-05-09T22:23:27.902473'
+    path: .cursor\rules\page-structure.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  prisma:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2494
+      last_modified: '2025-05-09T22:23:27.902977'
+    path: .cursor\rules\prisma.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  project-structure:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2692
+      last_modified: '2025-05-09T22:23:27.902977'
+    path: .cursor\rules\project-structure.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  rule_checker_agent:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .py
+      file_size: 1520
+      last_modified: '2025-04-23T21:14:42.952332'
+    path: .cursor\agents\rule_checker_agent.py
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  rule_converter:
+    graduation_candidate: false
+    issues:
+    - Missing RULE TYPE header
+    - Missing FILE PATTERNS header
+    mdc_compliant: false
+    metadata:
+      extension: .py
+      file_size: 1721
+      last_modified: '2025-05-15T14:02:27.671615'
+    path: rule_converter.py
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  server-actions:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 2615
+      last_modified: '2025-05-09T22:23:27.902977'
+    path: .cursor\rules\server-actions.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  swarm-config:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3706
+      last_modified: '2025-05-09T22:23:27.902977'
+    path: .cursor\rules\swarm-config.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  testing:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 1872
+      last_modified: '2025-05-09T22:23:27.903980'
+    path: .cursor\rules\testing.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  ui-components:
+    graduation_candidate: false
+    issues:
+    - Not in MDC format
+    mdc_compliant: true
+    metadata:
+      extension: .mdc
+      file_size: 3887
+      last_modified: '2025-05-09T22:23:27.903980'
+    path: .cursor\rules\ui-components.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+  utilities:
+    graduation_candidate: true
+    issues:
+    - Not in MDC format
+    mdc_compliant: false
+    metadata:
+      extension: .mdc
+      file_size: 447
+      last_modified: '2025-04-04T22:59:27.684224'
+    path: .cursor\rules\utilities.mdc
+    status: "\U0001F9E9 Prototype"
+    type: rule
+version: 1.0.0

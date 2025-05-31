@@ -1,0 +1,28 @@
+.vscodeignore
+
+# Folders to ignore
+node_modules/
+.vscode/
+.vscode-test/
+out/test/
+src/
+
+# Files to ignore
+*.map
+*.ts
+tsconfig.json
+.eslintrc.json
+.prettierrc.json
+**/tsconfig.json
+**/.gitattributes
+**/.eslintrc.json
+**/.prettierrc
+
+# Specific files if any that are not part of the distributable
+coverage/
+assets/icon.psd # Example if you have source design files
+
+# Test files
+**/test/**
+**/*.test.ts
+**/*.spec.ts 

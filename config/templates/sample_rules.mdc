@@ -1,0 +1,124 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: **/*.py
+
+## Python Development Standards
+
+### Code Quality Requirements
+- Use meaningful variable and function names that clearly describe their purpose
+- Add type hints to all function parameters and return values
+- Include docstrings for all public functions, classes, and modules
+- Follow PEP 8 formatting guidelines with line length of 88 characters
+- Use f-strings for string formatting instead of .format() or % formatting
+
+### Import Organization
+- Group imports in the following order:
+  1. Standard library imports
+  2. Third-party library imports  
+  3. Local application imports
+- Use absolute imports instead of relative imports where possible
+- Avoid wildcard imports (`from module import *`)
+
+### Error Handling
+- Use specific exception types rather than bare `except:` clauses
+- Include meaningful error messages in custom exceptions
+- Use context managers (`with` statements) for resource management
+- Log exceptions with appropriate detail level
+
+### Testing Requirements
+- Write unit tests for all public functions and methods
+- Achieve minimum 80% code coverage
+- Use descriptive test names that explain what is being tested
+- Follow the Arrange-Act-Assert pattern in test methods
+
+### Security Considerations
+- Validate all user input before processing
+- Use parameterized queries for database operations
+- Never log sensitive information (passwords, tokens, etc.)
+- Use environment variables for configuration secrets
+
+### Performance Guidelines
+- Use list comprehensions instead of loops where appropriate
+- Profile code for performance bottlenecks in critical paths
+- Cache expensive computations when possible
+- Use generators for large data sets to reduce memory usage
+
+### Documentation
+- Maintain up-to-date README.md files
+- Document API endpoints with proper examples
+- Include inline comments for complex business logic
+- Update docstrings when function signatures change
+
+### Dependencies
+- Pin exact versions in requirements.txt for production
+- Regularly update dependencies to latest secure versions
+- Use virtual environments for project isolation
+- Document any platform-specific dependencies
+
+### Common Anti-patterns to Avoid
+❌ **Avoid:**
+```python
+# Bare except clause
+try:
+    risky_operation()
+except:
+    pass
+
+# Magic numbers
+if user.age > 18:
+    grant_access()
+
+# Mutable default arguments
+def append_item(item, target_list=[]):
+    target_list.append(item)
+    return target_list
+```
+
+✅ **Prefer:**
+```python
+# Specific exception handling
+try:
+    risky_operation()
+except SpecificException as e:
+    logger.error(f"Operation failed: {e}")
+
+# Named constants
+LEGAL_AGE = 18
+if user.age > LEGAL_AGE:
+    grant_access()
+
+# Immutable default arguments
+def append_item(item, target_list=None):
+    if target_list is None:
+        target_list = []
+    target_list.append(item)
+    return target_list
+```
+
+### File Structure Conventions
+```
+project/
+├── src/
+│   ├── main/
+│   │   ├── __init__.py
+│   │   ├── models/
+│   │   ├── services/
+│   │   └── utils/
+│   └── tests/
+│       ├── unit/
+│       └── integration/
+├── requirements.txt
+├── requirements-dev.txt
+├── setup.py
+└── README.md
+```
+
+### Environment Setup
+- Use `.env` files for environment-specific configuration
+- Provide `.env.example` template for required variables
+- Use `python-dotenv` to load environment variables
+- Never commit actual `.env` files to version control
