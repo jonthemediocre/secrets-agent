@@ -1,0 +1,17 @@
+{
+  "rule_id": "COM-001",
+  "category": "COM",
+  "severity": "MANDATORY",
+  "title": "Agent-to-Agent Communication Standard",
+  "description": "Implement standardized A2A communication protocol",
+  "implementation_requirements": [
+    "Implement handle_a2a_message() method",
+    "Support A2AMessage format",
+    "Handle correlation IDs for message tracking",
+    "Implement timeout and error handling"
+  ],
+  "validation_method": "check_a2a_implementation",
+  "sync_priority": 9,
+  "last_updated": "2025-06-07T12:15:43.882742",
+  "version": "2.0.0"
+}

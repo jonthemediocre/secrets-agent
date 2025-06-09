@@ -1,0 +1,17 @@
+{
+  "rule_id": "UAP-001",
+  "category": "UAP",
+  "severity": "CRITICAL",
+  "title": "UAPAgentBase Inheritance Requirement",
+  "description": "All Level 2 agents MUST inherit from UAPAgentBase class",
+  "implementation_requirements": [
+    "Import UAPAgentBase from vanta_seed.core.uap_agent_base",
+    "Define agent class inheriting from UAPAgentBase",
+    "Implement all required abstract methods",
+    "Call super().__init__() in constructor"
+  ],
+  "validation_method": "check_uap_base_inheritance",
+  "sync_priority": 10,
+  "last_updated": "2025-06-07T12:46:18.387768",
+  "version": "2.0.0"
+}

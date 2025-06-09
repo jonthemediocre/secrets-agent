@@ -1,0 +1,22 @@
+trinity_node_structure:
+  cube_planners:
+    capabilities:
+    - pattern_analysis
+    - strategy_formulation
+    - goal_setting
+    coordination_protocol: consensus_based
+    role: Strategic Planning and Analysis
+  dodecahedron_executors:
+    capabilities:
+    - task_execution
+    - resource_management
+    - real_time_adaptation
+    coordination_protocol: workflow_based
+    role: Action Implementation and Execution
+  star_tetrahedron_collapsers:
+    capabilities:
+    - synthesis
+    - conflict_resolution
+    - delta_collapse
+    coordination_protocol: synthesis_based
+    role: Integration and Collapse Management

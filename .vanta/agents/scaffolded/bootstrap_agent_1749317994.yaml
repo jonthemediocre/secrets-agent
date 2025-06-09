@@ -1,0 +1,8 @@
+agent_type: bootstrap_agent
+archetypal_alignment: athena
+capabilities: []
+creation_time: '2025-06-07T17:39:54.151671+00:00'
+delta_function: standard_evolution
+role: Scanner/Evaluator/Instantiator
+spawn_triggers: []
+trinity_affinity: cube

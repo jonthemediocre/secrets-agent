@@ -1,0 +1,86 @@
+{
+  "timestamp": "2025-06-07T11:35:29.244974",
+  "summary": {
+    "total_cli_functions": 8,
+    "total_web_components": 73,
+    "coverage_percentage": 0.0,
+    "cli_by_category": {
+      "scan": 1,
+      "admin": 3,
+      "utility": 1,
+      "mcp": 2,
+      "secrets": 1
+    },
+    "web_by_type": {
+      "button": 40,
+      "api_route": 33
+    }
+  },
+  "coverage_mapping": {
+    "scan": {
+      "category": "scan",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "link": {
+      "category": "admin",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "sync_shared_resources": {
+      "category": "admin",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "list": {
+      "category": "utility",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "list_tools": {
+      "category": "mcp",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "upgrade_tool": {
+      "category": "mcp",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "bootstrap": {
+      "category": "admin",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    },
+    "add_secret": {
+      "category": "secrets",
+      "is_represented": false,
+      "web_equivalent": null,
+      "representation_type": "none"
+    }
+  },
+  "recommendations": [
+    "Create 1 web interfaces for scan commands",
+    "Create 3 web interfaces for admin commands",
+    "Create 1 web interfaces for utility commands",
+    "Create 2 web interfaces for mcp commands",
+    "Create 1 web interfaces for secrets commands"
+  ],
+  "performance": {
+    "execution_time_seconds": 0.03,
+    "files_analyzed": 9,
+    "cache_hits": {
+      "hits": 0,
+      "misses": 83,
+      "maxsize": 128,
+      "currsize": 83
+    }
+  }
+}

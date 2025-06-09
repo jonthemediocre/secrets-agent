@@ -1,0 +1,17 @@
+{
+  "rule_id": "MON-001",
+  "category": "MON",
+  "severity": "MANDATORY",
+  "title": "Telemetry and Logging Requirements",
+  "description": "All agents MUST implement telemetry and logging",
+  "implementation_requirements": [
+    "Initialize logger in __init__",
+    "Implement health_check() method",
+    "Send heartbeat to component registry",
+    "Log significant events and errors"
+  ],
+  "validation_method": "check_telemetry_implementation",
+  "sync_priority": 8,
+  "last_updated": "2025-06-07T12:46:18.387791",
+  "version": "2.0.0"
+}

@@ -1,0 +1,120 @@
+{
+  "agent_registry": {
+    "version": "1.0.0",
+    "last_updated": "2025-06-06T22:29:03.229281+00:00",
+    "agents": {
+      "operator_omega_runtime": {
+        "name": "OperatorOmega Agent",
+        "class": "OperatorOmegaAgent",
+        "file": "OperatorOmegaAgent.py",
+        "level": 3,
+        "type": "runtime_orchestrator",
+        "description": "UAP Level 3 Runtime Orchestrator for multi-project ecosystem management",
+        "capabilities": [
+          "ecosystem_discovery",
+          "vanta_api_deployment",
+          "vault_cli_setup",
+          "secret_vacuum_distribution",
+          "agent_synchronization",
+          "cross_project_sync"
+        ],
+        "status": "active",
+        "restored": true,
+        "restored_from": "CODEBASE_AUDIT_REPORT_CORRECTED.md cleanup"
+      },
+      "agent_base": {
+        "name": "AgentBase",
+        "class": "AgentBase",
+        "file": "AgentBase.py",
+        "level": 1,
+        "type": "base_class",
+        "description": "Base class for all VANTA agents following 101-vanta-agent-contract.mdc",
+        "capabilities": [
+          "task_processing",
+          "status_reporting",
+          "configuration_management",
+          "structured_output"
+        ],
+        "status": "active",
+        "restored": true
+      },
+      "omega_executor": {
+        "name": "OperatorOmega Runtime Orchestrator",
+        "class": "omega_executor",
+        "file": "src/agents/OperatorOmegaAgent.py",
+        "level": 3,
+        "type": "runtime_orchestrator",
+        "status": "registered",
+        "uap_manifest": "UAP\\manifests\\omega_executor.uap.yaml",
+        "capabilities": [
+          "Universal Agent Memory with cross-project context",
+          "Code as tools, CLI access, async execution",
+          "Agent bus integration for real-time coordination",
+          "Level 1/Level 2 rules and agent synchronization",
+          "Cross-project secret and resource vacuum/distribution"
+        ],
+        "registered_at": "2025-06-06T22:29:03.235501+00:00"
+      },
+      "OperatorOmegaAgent": {
+        "name": "OperatorOmegaAgent",
+        "class": "OperatorOmegaAgent",
+        "file": "src\\agents\\OperatorOmegaAgent.py",
+        "level": 3,
+        "type": "runtime_orchestrator",
+        "status": "discovered",
+        "runtime_capabilities": [
+          "cross_project_coordination",
+          "agent_bus_integration",
+          "vault_integration"
+        ],
+        "ecosystem_scope": "multi_project",
+        "discovery_method": "runtime_orchestrator_scan",
+        "last_discovered": "2025-06-06T22:29:03.229278+00:00"
+      },
+      "VaultAccessAgent": {
+        "name": "VaultAccessAgent",
+        "class": "VaultAccessAgent",
+        "file": "agents\\VaultAccessAgent.py",
+        "level": 1,
+        "type": "traditional",
+        "status": "discovered",
+        "discovery_method": "traditional_scan",
+        "last_discovered": "2025-06-06T22:29:03.229265+00:00"
+      },
+      "VaultTokenAgent": {
+        "name": "VaultTokenAgent",
+        "class": "VaultTokenAgent",
+        "file": "agents\\VaultTokenAgent.py",
+        "level": 1,
+        "type": "traditional",
+        "status": "discovered",
+        "discovery_method": "traditional_scan",
+        "last_discovered": "2025-06-06T22:29:03.229267+00:00"
+      },
+      "UAPAgentBase": {
+        "name": "UAPAgentBase",
+        "class": "UAPAgentBase",
+        "file": "UAP\\runners\\UAPAgentBase.py",
+        "level": 1,
+        "type": "uap_level_2",
+        "status": "discovered",
+        "uap_manifest": true,
+        "capabilities": [],
+        "discovery_method": "uap_scan",
+        "last_discovered": "2025-06-06T22:29:03.229276+00:00"
+      }
+    },
+    "restoration_summary": {
+      "total_agents_restored": 3,
+      "restoration_date": "2025-06-06T22:00:00Z",
+      "restoration_reason": "CODEBASE_AUDIT_REPORT_CORRECTED.md mentioned removing omega_executor.py for duplicate code - brought back as Level 3 Runtime Orchestrator",
+      "test_status": "\u2705 PASSED - All agents functional"
+    },
+    "discovery_stats": {
+      "total_discovered": 0,
+      "total_registered": 0,
+      "discovery_time": "2025-06-06T22:28:55.400805+00:00",
+      "discovery_paths_scanned": 5
+    }
+  }
+}

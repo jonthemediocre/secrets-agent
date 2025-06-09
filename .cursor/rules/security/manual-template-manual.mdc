@@ -1,0 +1,170 @@
+---
+description: Template for manual review and consideration rules
+type: manual
+reviewType: consideration
+priority: medium
+created: '2025-06-07T14:31:54.652791'
+migrated: true
+migration_date: '2025-06-07T14:32:13.827914'
+---
+
+# Manual Review Rule Template
+
+## Description
+
+This is a template for creating rules that require manual review and consideration during development.
+
+## Manual Review Process
+
+This rule requires human judgment and should be considered during:
+
+- Code reviews
+- Refactoring sessions
+- Architecture decisions
+- Performance optimization
+- Security audits
+
+### Review Triggers
+
+Consider this rule when:
+- Writing new functionality
+- Modifying existing code
+- Planning architecture changes
+- Investigating performance issues
+- Conducting security reviews
+
+## Review Guidelines
+
+### What to Look For
+
+During manual review, examine:
+1. **Pattern Application**: Is the suggested pattern appropriate?
+2. **Context Sensitivity**: Does the context warrant special consideration?
+3. **Trade-offs**: What are the benefits and costs?
+4. **Alternatives**: Are there better approaches?
+
+### Decision Framework
+
+Use this framework for evaluation:
+
+```
+1. Assess Current Situation
+   ├── Identify applicable patterns
+   ├── Evaluate context factors
+   └── Consider constraints
+
+2. Evaluate Options
+   ├── List possible approaches
+   ├── Weigh pros and cons
+   └── Consider long-term impact
+
+3. Make Decision
+   ├── Choose best approach
+   ├── Document reasoning
+   └── Plan implementation
+```
+
+## Examples
+
+### Review Scenario
+
+```typescript
+// Scenario: Choosing between different API patterns
+
+// Option 1: RESTful approach
+class UserController {
+  async getUser(req: Request, res: Response) {
+    // Traditional REST implementation
+  }
+}
+
+// Option 2: GraphQL approach
+class UserResolver {
+  async user(args: UserArgs) {
+    // GraphQL implementation
+  }
+}
+
+// Manual consideration needed:
+// - Project requirements
+// - Team expertise
+// - Performance needs
+// - Client requirements
+```
+
+### Review Checklist
+
+When reviewing code against this rule:
+
+- [ ] Does the implementation follow established patterns?
+- [ ] Are there any obvious improvements?
+- [ ] Does it handle edge cases appropriately?
+- [ ] Is it maintainable and readable?
+- [ ] Are there performance considerations?
+- [ ] Does it follow security best practices?
+
+## Implementation Guidance
+
+### When to Apply
+
+Apply this rule during:
+- **Code Reviews**: As a checklist item
+- **Refactoring**: When considering improvements
+- **Planning**: During architecture discussions
+- **Debugging**: When investigating issues
+
+### Review Depth
+
+The level of review depends on:
+- **Criticality**: More critical code needs deeper review
+- **Complexity**: Complex changes need more analysis
+- **Risk**: High-risk areas need extra attention
+- **Impact**: Widespread changes need careful consideration
+
+## Documentation
+
+### Recording Decisions
+
+When applying this rule, document:
+- What was considered
+- Why decisions were made
+- What alternatives were rejected
+- Any future considerations
+
+### Example Decision Log
+
+```markdown
+## Decision: User Authentication Pattern
+
+### Context
+Need to implement user authentication for new feature.
+
+### Options Considered
+1. JWT tokens with local storage
+2. Session-based authentication
+3. OAuth integration
+
+### Decision
+Chose session-based authentication because:
+- Better security for our use case
+- Simpler implementation
+- Fits existing infrastructure
+
+### Future Considerations
+- Monitor performance impact
+- Consider OAuth for v2.0
+```
+
+## Rationale
+
+Manual review rules provide:
+- **Human Judgment**: Leverage developer expertise
+- **Context Sensitivity**: Consider unique situations
+- **Quality Assurance**: Catch issues automation might miss
+- **Knowledge Sharing**: Promote team learning
+
+## Related Rules
+
+- Always rules that take precedence
+- Auto rules that might inform the review
+- Other manual rules for comprehensive review

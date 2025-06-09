@@ -1,5 +1,5 @@
 // Предполагаемый путь: apps/api/agents/secrets/SecretRotatorAgent.ts
-import { VaultAgent } from '../../../../vault/VaultAgent';
+import { VaultAgent } from '../../../../src/vault/VaultAgent';
 import { 
     RotationPolicy, 
     RegenerationStrategy, // Assuming this is part of RotationPolicy model
@@ -8,7 +8,7 @@ import {
     HookTiming,
     RotationInterval // Import RotationInterval type
 } from './models/RotationPolicy';
-import { SecretEntry } from '../../../../vault/VaultTypes'; // Corrected path
+import { SecretEntry } from '../../../../src/vault/VaultTypes'; // Corrected path
 import { v4 as uuidv4 } from 'uuid';
 import { createLogger } from '../../../../src/utils/logger';
 

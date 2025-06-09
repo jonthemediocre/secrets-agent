@@ -2,9 +2,27 @@
 
 import React, { useState, useEffect } from 'react';
 
+interface Project {
+  name: string;
+  description: string;
+  secretCount: number;
+  type: string;
+}
+
+interface RotationStatus {
+  infrastructure?: {
+    vaultConnected: boolean;
+    totalPolicies: number;
+  };
+  dashboard?: {
+    healthStatus: string;
+    recentRotations: number;
+  };
+}
+
 export default function TestPage() {
-  const [projects, setProjects] = useState<any[]>([]);
-  const [rotationStatus, setRotationStatus] = useState<any>(null);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [rotationStatus, setRotationStatus] = useState<RotationStatus | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -13,12 +31,10 @@ export default function TestPage() {
         // Test projects API
         const projectsResponse = await fetch('/api/projects');
         const projectsData = await projectsResponse.json();
-        console.log('Projects API Response:', projectsData);
         
         // Test rotation API
         const rotationResponse = await fetch('/api/rotation/status');
         const rotationData = await rotationResponse.json();
-        console.log('Rotation API Response:', rotationData);
         
         setProjects(projectsData.projects || []);
         setRotationStatus(rotationData.status || null);

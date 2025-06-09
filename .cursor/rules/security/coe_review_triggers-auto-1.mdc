@@ -1,0 +1,412 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.667382'
+---
+
+# CoE Review Triggers for Autonomous Deployments
+
+## Rule ID: `coe_review_triggers`
+**Version:** 1.0  
+**Effective Date:** 2025-05-24  
+**Scope:** All autonomous agent operations  
+**Authority:** Cursor IDE integration for real-time governance
+
+---
+
+## **Core Principle**
+Autonomous agents MUST automatically trigger appropriate CoE review processes based on predefined criteria, ensuring no autonomous operation bypasses required governance oversight.
+
+---
+
+## **Automatic Trigger Conditions**
+
+### **Tier 2 Strategic Review Triggers**
+```yaml
+tier_2_triggers:
+  completion_status:
+    - "DOMINO_COMPLETE"
+    - "AUTONOMOUS_COMPLETION_ACHIEVED"
+    - "CRITICAL_SYSTEM_MODIFICATION"
+  
+  risk_indicators:
+    - "production_deployment_ready"
+    - "security_critical_changes"
+    - "autonomous_code_generation > 100_lines"
+    - "vault_operations_modified"
+    - "encryption_logic_changed"
+  
+  scope_indicators:
+    - "multi_component_changes"
+    - "api_endpoint_modifications"
+    - "database_schema_changes"
+    - "authentication_flow_updates"
+  
+  business_impact:
+    - "user_facing_functionality"
+    - "operational_workflow_changes"
+    - "compliance_requirements_affected"
+    - "revenue_generating_features"
+```
+
+### **Tier 1 Standard Review Triggers**
+```yaml
+tier_1_triggers:
+  code_changes:
+    - "autonomous_refactoring"
+    - "dependency_updates"
+    - "configuration_modifications"
+    - "test_suite_changes"
+  
+  functionality_updates:
+    - "ui_component_changes"
+    - "api_response_modifications"
+    - "logging_enhancements"
+    - "performance_optimizations"
+  
+  documentation_changes:
+    - "api_documentation_updates"
+    - "readme_modifications"
+    - "deployment_guide_changes"
+    - "security_documentation_updates"
+```
+
+### **Tier 0 Automated Review Triggers**
+```yaml
+tier_0_triggers:
+  low_impact_changes:
+    - "comment_additions"
+    - "variable_renaming"
+    - "code_formatting"
+    - "import_organization"
+  
+  documentation_only:
+    - "markdown_updates"
+    - "comment_improvements"
+    - "readme_typo_fixes"
+    - "changelog_updates"
+```
+
+---
+
+## **Trigger Detection Mechanisms**
+
+### **Code Analysis Triggers**
+```yaml
+code_analysis:
+  file_modification_patterns:
+    high_risk_files:
+      - "*/agents/*.py"
+      - "*/api/*/route.ts"
+      - "*/auth/*.ts"
+      - "*/vault/*.py"
+      - "*/encryption/*.py"
+    
+    medium_risk_files:
+      - "*/components/*.tsx"
+      - "*/utils/*.ts"
+      - "*/config/*.json"
+      - "*/middleware/*.ts"
+    
+    low_risk_files:
+      - "*.md"
+      - "*.txt"
+      - "*/docs/*"
+      - "*/tests/*"
+  
+  change_magnitude:
+    lines_added_thresholds:
+      tier_2: "> 100 lines"
+      tier_1: "50-100 lines"
+      tier_0: "< 50 lines"
+    
+    files_modified_thresholds:
+      tier_2: "> 10 files"
+      tier_1: "5-10 files"
+      tier_0: "< 5 files"
+```
+
+### **Semantic Analysis Triggers**
+```yaml
+semantic_analysis:
+  function_modifications:
+    critical_functions:
+      - "authentication"
+      - "authorization"
+      - "encryption"
+      - "decryption"
+      - "vault_operations"
+      - "secret_management"
+    
+    important_functions:
+      - "api_endpoints"
+      - "data_processing"
+      - "user_interface"
+      - "configuration_management"
+  
+  dependency_changes:
+    security_dependencies:
+      - "cryptography"
+      - "oauth"
+      - "jwt"
+      - "bcrypt"
+      - "sops"
+    
+    core_dependencies:
+      - "react"
+      - "nextjs"
+      - "fastapi"
+      - "redis"
+      - "postgresql"
+```
+
+---
+
+## **Automatic Review Initiation**
+
+### **Review Request Generation**
+```yaml
+review_request_automation:
+  trigger_detection:
+    monitoring: "CONTINUOUS"
+    analysis_depth: "SEMANTIC_AND_SYNTACTIC"
+    confidence_threshold: 0.85
+  
+  request_creation:
+    template_selection: "AUTOMATIC_BASED_ON_TIER"
+    evidence_collection: "AUTOMATED"
+    expert_assignment: "RULE_BASED"
+    timeline_calculation: "SLA_DRIVEN"
+  
+  notification_dispatch:
+    immediate_alerts: "TIER_2_TRIGGERS"
+    scheduled_notifications: "TIER_1_TRIGGERS"
+    batch_processing: "TIER_0_TRIGGERS"
+```
+
+### **Evidence Package Assembly**
+```yaml
+evidence_automation:
+  code_analysis:
+    diff_generation: "AUTOMATIC"
+    impact_assessment: "AI_ASSISTED"
+    security_scan: "AUTOMATED"
+    quality_metrics: "CALCULATED"
+  
+  documentation_collection:
+    change_summary: "GENERATED"
+    risk_assessment: "AUTOMATED"
+    test_results: "COLLECTED"
+    performance_impact: "MEASURED"
+  
+  artifact_preparation:
+    build_verification: "AUTOMATED"
+    deployment_readiness: "VALIDATED"
+    rollback_plan: "GENERATED"
+    monitoring_setup: "CONFIGURED"
+```
+
+---
+
+## **Expert Assignment Logic**
+
+### **Security Expert Assignment**
+```yaml
+security_expert_triggers:
+  mandatory_assignment:
+    - "encryption_modifications"
+    - "authentication_changes"
+    - "vault_operations_updates"
+    - "secret_handling_modifications"
+    - "access_control_changes"
+  
+  optional_assignment:
+    - "api_endpoint_additions"
+    - "input_validation_updates"
+    - "logging_security_enhancements"
+    - "configuration_security_improvements"
+```
+
+### **Architecture Expert Assignment**
+```yaml
+architecture_expert_triggers:
+  mandatory_assignment:
+    - "system_integration_changes"
+    - "database_schema_modifications"
+    - "api_design_changes"
+    - "component_architecture_updates"
+    - "scalability_modifications"
+  
+  optional_assignment:
+    - "performance_optimizations"
+    - "code_organization_improvements"
+    - "dependency_management_updates"
+    - "configuration_architecture_changes"
+```
+
+### **Human Oversight Assignment**
+```yaml
+human_oversight_triggers:
+  mandatory_assignment:
+    - "autonomous_completion_achieved"
+    - "production_deployment_ready"
+    - "business_critical_changes"
+    - "regulatory_compliance_impact"
+    - "strategic_decision_required"
+  
+  escalation_triggers:
+    - "expert_disagreement"
+    - "high_risk_uncertainty"
+    - "business_impact_unclear"
+    - "regulatory_implications"
+```
+
+---
+
+## **Review Timeline Management**
+
+### **SLA-Based Scheduling**
+```yaml
+review_scheduling:
+  tier_2_strategic:
+    target_completion: "48 hours"
+    escalation_threshold: "72 hours"
+    business_hours_only: false
+    weekend_coverage: "on_call_experts"
+  
+  tier_1_standard:
+    target_completion: "24 hours"
+    escalation_threshold: "36 hours"
+    business_hours_only: true
+    weekend_coverage: "automated_only"
+  
+  tier_0_automated:
+    target_completion: "4 hours"
+    escalation_threshold: "8 hours"
+    business_hours_only: false
+    weekend_coverage: "fully_automated"
+```
+
+### **Priority Escalation**
+```yaml
+escalation_logic:
+  time_based:
+    overdue_threshold: "SLA + 50%"
+    escalation_action: "NOTIFY_MANAGEMENT"
+    emergency_threshold: "SLA + 100%"
+    emergency_action: "ACTIVATE_EMERGENCY_REVIEW"
+  
+  risk_based:
+    high_risk_expedite: "REDUCE_SLA_BY_50%"
+    critical_system_priority: "IMMEDIATE_REVIEW"
+    security_incident_trigger: "EMERGENCY_PROTOCOL"
+    business_impact_escalation: "EXECUTIVE_NOTIFICATION"
+```
+
+---
+
+## **Integration Requirements**
+
+### **Cursor IDE Integration**
+```yaml
+cursor_integration:
+  real_time_monitoring:
+    file_change_detection: "IMMEDIATE"
+    semantic_analysis: "ON_SAVE"
+    trigger_evaluation: "CONTINUOUS"
+    notification_display: "IN_EDITOR"
+  
+  developer_feedback:
+    trigger_explanation: "CONTEXTUAL_POPUP"
+    review_status: "STATUS_BAR"
+    approval_tracking: "PROGRESS_INDICATOR"
+    action_required: "NOTIFICATION_BADGE"
+```
+
+### **CI/CD Pipeline Integration**
+```yaml
+pipeline_integration:
+  pre_commit_hooks:
+    trigger_evaluation: "MANDATORY"
+    review_requirement_check: "BLOCKING"
+    evidence_preparation: "AUTOMATED"
+    notification_dispatch: "IMMEDIATE"
+  
+  build_process:
+    review_status_validation: "REQUIRED"
+    deployment_gate: "COE_APPROVAL_REQUIRED"
+    artifact_tagging: "REVIEW_STATUS_INCLUDED"
+    monitoring_setup: "AUTOMATED"
+```
+
+---
+
+## **Monitoring & Metrics**
+
+### **Trigger Effectiveness**
+```yaml
+trigger_monitoring:
+  accuracy_metrics:
+    false_positive_rate: "< 10%"
+    false_negative_rate: "< 5%"
+    appropriate_tier_assignment: "> 90%"
+    expert_assignment_accuracy: "> 95%"
+  
+  performance_metrics:
+    trigger_detection_time: "< 30 seconds"
+    review_request_generation: "< 5 minutes"
+    expert_notification_time: "< 10 minutes"
+    evidence_package_assembly: "< 15 minutes"
+```
+
+### **Continuous Improvement**
+```yaml
+improvement_tracking:
+  feedback_collection:
+    expert_feedback: "POST_REVIEW_SURVEY"
+    developer_feedback: "TRIGGER_ACCURACY_RATING"
+    outcome_tracking: "DEPLOYMENT_SUCCESS_CORRELATION"
+    pattern_analysis: "QUARTERLY_REVIEW"
+  
+  rule_evolution:
+    trigger_refinement: "MONTHLY_ANALYSIS"
+    threshold_adjustment: "DATA_DRIVEN"
+    new_pattern_detection: "AI_ASSISTED"
+    framework_updates: "VERSION_CONTROLLED"
+```
+
+---
+
+## **Emergency Procedures**
+
+### **Emergency Review Activation**
+```yaml
+emergency_procedures:
+  activation_triggers:
+    - "security_vulnerability_detected"
+    - "production_system_failure"
+    - "data_breach_potential"
+    - "regulatory_violation_risk"
+  
+  emergency_response:
+    notification_time: "< 5 minutes"
+    expert_assembly: "< 30 minutes"
+    initial_assessment: "< 1 hour"
+    decision_timeline: "< 4 hours"
+  
+  escalation_chain:
+    level_1: "ON_CALL_EXPERTS"
+    level_2: "DEPARTMENT_HEADS"
+    level_3: "EXECUTIVE_TEAM"
+    level_4: "BOARD_NOTIFICATION"
+```
+
+---
+
+**Status:** ACTIVE  
+**Next Review:** 2025-08-24  
+**Integration:** Cursor IDE, CI/CD Pipelines  
+**Authority:** Autonomous Deployment Governance Framework

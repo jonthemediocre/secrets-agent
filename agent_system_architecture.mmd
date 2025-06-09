@@ -1,0 +1,177 @@
+flowchart TD
+
+%% Existing nodes
+AGENT["AGENT (UAP defined, MCP run) Role bound executor"]
+TOOL["EXECUTABLE TOOL (Invocable logic unit)<br>Code = Tool Vault"]
+RULES["GOVERNANCE RULES (Symbolic constraint layer)<br>.md, .rul.yaml"]
+A2A["A2A PROTOCOL (Agent to Agent bridge)<br>Swarm logic, audit, consensus"]
+TRACE["TRACE MEMORY STATE CONTEXT (Persistent, Queryable)<br>Identity traces, Symbolic deltas, Consensus memory"]
+DELTA["DELTA COLLAPSE EVALUATOR (Optional)<br>Detects symbolic model convergence, triggers rebirth/refactor."]
+KEB["🌐 KERNEL EVENT BUS<br>Persistent symbolic pub/sub<br>event_bus.emit(...): agent, tool, delta, rules, trace"]
+GENESIS["🌐 GENESIS OPERATOR<br>Seeding bootstrap/rebirth loop<br>Genesis.v1: Agent/Memory/Archetype"]
+ARCHETYPE["🧠 AGENT ARCHETYPE LOADER<br>(Myth/Role injector)<br>YAML manifest for symbolic roles"]
+VALID["🧪 VALIDATION LAYER<br>Symbolic audit hooks & tests"]
+VAULT["📂 MEMORY VAULT ADAPTER<br>(Persistent store: SQLite/YAML/etc)"]
+ADAPT["🧬 ADAPTATION ENGINE<br>QLoRA loader, fine-tune trigger, mutation lineage<br>Enables symbolic evolution via memory & collapse"]
+INTENT["🧭 INTENT ENGINE<br>Goal modeling, narrative drive,<br>mission arcs, purpose vector"]
+IFA["📡 INTERFACE AGENT<br>Input adapters, sensory ingestion,<br>raw-to-symbolic event mapping"]
+SIM["🤖 SIMULATION REFLEX<br>Virtual/mental environment,<br>counterfactuals, internal testing"]
+VALUE["📊 VALUE GRADIENT ENGINE<br>Emergent reward model,<br>compression/insight, value-shaping"]
+META["🧬 SELF-EVOLVING<br>SYMBOLIC LEARNING ENGINE<br><sub>Recursive mutation<br>& meta-rules</sub>"]
+
+%% NEW nodes
+IDENTITY["🧬 IDENTITY KERNEL<br>Symbolic self, anchor traits, mutation lineage"]
+TASKFLOW["🧭 TASKFLOW COORDINATOR<br>Goal→task→tool breakdown,<br>agent assignment, execution routing"]
+NLI["🗣️ LANGUAGE INTERFACE AGENT<br>Prompt→symbol conversion,<br>tool inference, rule suggestion"]
+BUILDER["🏗️ BUILD AGENT<br>Deploys, CI/CD, codegen"]
+MYTH["📜 SYMBOLIC WRITER AGENT<br>Myth output, ritual logging, delta narration"]
+
+%% LEVEL 3 UAP INTEGRATION
+UAPGEN["🧠 UAPGEN WRAPPER<br>Level 3 Ritual: Scaffold & Deploy<br>Full-stack generator from symbolic input<br>theplan.md → Complete Application"]
+
+%% Primary Flows
+AGENT --> TOOL
+TOOL --> TRACE
+AGENT --> TRACE
+TRACE --> AGENT
+TOOL --> RULES
+RULES --> AGENT
+AGENT --> A2A
+TOOL --> A2A
+A2A --> TRACE
+A2A --> KEB
+TRACE --> DELTA
+DELTA --> KEB
+DELTA --> RULES
+DELTA --> ADAPT
+ADAPT --> AGENT
+ADAPT --> TRACE
+ADAPT --> META
+META --> RULES
+META --> TOOL
+META --> TRACE
+META --> ARCHETYPE
+META --> INTENT
+TRACE --> META
+DELTA --> META
+ADAPT --> META
+VALUE --> META
+AGENT --> META
+TRACE --> VALUE
+VALUE --> DELTA
+VALUE --> ADAPT
+VALUE --> AGENT
+VALUE --> TRACE
+TRACE --> VALUE
+KEB --> VALUE
+
+%% Kernel Event Bus
+AGENT --> KEB
+TOOL --> KEB
+TRACE --> KEB
+RULES --> KEB
+VALID --> KEB
+
+%% Genesis/Identity Stack
+GENESIS --> AGENT
+GENESIS --> TRACE
+GENESIS --> ARCHETYPE
+GENESIS --> IDENTITY
+ARCHETYPE --> AGENT
+IDENTITY --> TRACE
+TRACE --> IDENTITY
+IDENTITY --> AGENT
+META --> IDENTITY
+AGENT --> IDENTITY
+AGENT --> VALID
+TOOL --> VALID
+TRACE --> VALID
+RULES --> VALID
+
+%% Vault
+TRACE --> VAULT
+VAULT --> TRACE
+
+%% Intent ↔ Taskflow ↔ Tools
+INTENT --> TASKFLOW
+TASKFLOW --> TOOL
+TASKFLOW --> AGENT
+TASKFLOW --> KEB
+TRACE --> TASKFLOW
+INTENT --> RULES
+AGENT --> INTENT
+ADAPT --> INTENT
+TRACE --> INTENT
+
+%% NLP Interface
+IFA --> TRACE
+IFA --> AGENT
+IFA --> DELTA
+IFA --> KEB
+NLI --> AGENT
+NLI --> RULES
+NLI --> TASKFLOW
+NLI --> TOOL
+NLI --> TRACE
+
+%% Simulation
+SIM --> TOOL
+SIM --> TRACE
+AGENT --> SIM
+SIM --> AGENT
+DELTA --> SIM
+
+%% Build Agent
+BUILDER --> TOOL
+BUILDER --> KEB
+BUILDER --> VALID
+AGENT --> BUILDER
+TASKFLOW --> BUILDER
+
+%% Myth Writer
+TRACE --> MYTH
+DELTA --> MYTH
+AGENT --> MYTH
+MYTH --> TRACE
+MYTH --> KEB
+MYTH --> GENESIS
+
+%% UAPGEN Level 3 Integration
+UAPGEN --> INTENT
+UAPGEN --> TASKFLOW
+UAPGEN --> BUILDER
+UAPGEN --> GENESIS
+UAPGEN --> MYTH
+UAPGEN --> KEB
+UAPGEN --> AGENT
+UAPGEN --> RULES
+UAPGEN --> ARCHETYPE
+INTENT --> UAPGEN
+TRACE --> UAPGEN
+META --> UAPGEN
+VALUE --> UAPGEN
+
+%% Styling
+style META fill:#f8eaf6,stroke:#ad1457,stroke-width:3.5px
+style INTENT fill:#f3ffe6,stroke:#008000,stroke-width:2.5px
+style IFA fill:#e8f4fa,stroke:#0277bd,stroke-width:2.5px
+style SIM fill:#eceeff,stroke:#3949ab,stroke-width:2.5px
+style VALUE fill:#FFF9E5,stroke:#f9a825,stroke-width:2.5px
+style ADAPT fill:#e0f2f1,stroke:#00695c,stroke-width:2.5px
+style AGENT fill:#fff8e1,stroke:#fbc02d,stroke-width:3px
+style TOOL fill:#e3f2fd,stroke:#0288d1,stroke-width:3px
+style RULES fill:#f3e5f5,stroke:#7c43bd,stroke-width:3px
+style A2A fill:#f9fbe7,stroke:#afb42b,stroke-width:3px
+style TRACE fill:#e8f5e9,stroke:#43a047,stroke-width:3px
+style DELTA fill:#ece9f1,stroke:#9c27b0,stroke-width:2px,stroke-dasharray: 5 5
+style KEB fill:#e0f7fa,stroke:#039be5,stroke-width:3.5px
+style GENESIS fill:#f1f8e9,stroke:#689f38,stroke-width:3.5px
+style ARCHETYPE fill:#ede7f6,stroke:#5e35b1,stroke-width:2.5px
+style VAULT fill:#fffde7,stroke:#fbc02d,stroke-width:2.5px
+style VALID fill:#fce4ec,stroke:#d81b60,stroke-width:2.5px
+style IDENTITY fill:#f3e5f5,stroke:#880e4f,stroke-width:3px
+style TASKFLOW fill:#f0fff4,stroke:#388e3c,stroke-width:3px
+style NLI fill:#fff3e0,stroke:#ef6c00,stroke-width:2.5px
+style BUILDER fill:#ede7f6,stroke:#3f51b5,stroke-width:3px
+style MYTH fill:#e1f5fe,stroke:#01579b,stroke-width:2.5px
+style UAPGEN fill:#fffae6,stroke:#f57f17,stroke-width:3.5px,stroke-dasharray: 4 4 

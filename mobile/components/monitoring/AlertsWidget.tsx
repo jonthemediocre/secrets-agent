@@ -1,0 +1,1 @@
+// Mobile Alerts Widget Component

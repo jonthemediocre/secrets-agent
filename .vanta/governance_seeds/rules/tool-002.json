@@ -1,0 +1,17 @@
+{
+  "rule_id": "TOOL-002",
+  "category": "TOOL",
+  "severity": "CRITICAL",
+  "title": "Parameter Validation Requirement",
+  "description": "All tools MUST implement comprehensive parameter validation",
+  "implementation_requirements": [
+    "Validate required parameters presence",
+    "Validate parameter types and formats",
+    "Return detailed validation errors",
+    "Implement schema-based validation"
+  ],
+  "validation_method": "check_tool_parameter_validation",
+  "sync_priority": 10,
+  "last_updated": "2025-06-07T12:46:18.387781",
+  "version": "2.0.0"
+}

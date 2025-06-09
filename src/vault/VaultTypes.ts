@@ -37,13 +37,26 @@ export interface VaultData {
 
 // APIHarvester Extensions
 
-export type AuthMethod = 'api-key' | 'oauth2' | 'bearer-token' | 'service-account' | 'token' | 'oauth' | 'ssh' | 'access-key' | 'iam-role' | 'session-token' | 'client-credentials' | 'bot-token' | 'webhook' | 'service-principal' | 'managed-identity' | 'azure-cli' | 'secret-key' | 'publishable-key' | 'app-password' | 'connection-string' | 'dsn' | 'auth-token' | 'license-key' | 'app-key' | 'password' | 'client-cert' | 'management-api' | 'server-token' | 'account-token' | 'access-token' | 'management-token';
+export type AuthMethod = 'api-key' | 'oauth2' | 'bearer-token' | 'service-account' | 'token' | 'oauth' | 'ssh' | 'access-key' | 'iam-role' | 'session-token' | 'client-credentials' | 'bot-token' | 'webhook' | 'service-principal' | 'managed-identity' | 'azure-cli' | 'secret-key' | 'publishable-key' | 'app-password' | 'connection-string' | 'dsn' | 'auth-token' | 'license-key' | 'app-key' | 'password' | 'client-cert' | 'management-api' | 'server-token' | 'account-token' | 'access-token' | 'management-token' | 'project-token' | 'api-token' | 'basic-auth';
 
-export type KeyFormat = string; // Simplified to allow regex patterns as strings
+export interface KeyFormatInfo {
+  pattern: string;
+  envVarName?: string;
+  type?: string;
+}
+
+export type KeyFormat = string | KeyFormatInfo; // Support both string patterns and structured format info
 
 export type APICategory = 'development-tools' | 'cloud-infrastructure' | 'ai-ml' | 'payment' | 'communication' | 'deployment-hosting' | 'database-storage' | 'analytics-monitoring' | 'email-marketing' | 'cdn-storage' | 'security-auth' | 'content-management';
 
-export type CLISupport = boolean;
+export interface CLISupportInfo {
+  available: boolean;
+  toolName?: string;
+  installCommand?: string;
+  authCommand?: string;
+  keyExtractionMethod?: 'config' | 'environment' | 'command';
+  configPath?: string;
+}
 
 export interface APIService {
   id: string;
@@ -53,7 +66,8 @@ export interface APIService {
   popularity: number;
   authMethods: AuthMethod[];
   keyFormats: KeyFormat[];
-  cliSupported: boolean;
+  cliSupported: boolean; // Keep for backward compatibility
+  cliSupport?: CLISupportInfo; // New structured CLI support info (optional for backward compatibility)
   cliTool?: string;
   cliInstallCmd?: string;
   cliLoginCmd?: string;

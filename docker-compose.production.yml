@@ -1,0 +1,95 @@
+# VANTA Framework Production Deployment - UAP Level 3
+# Standalone production runtime without development dependencies
+
+version: '3.8'
+
+services:
+  vanta-agent:
+    image: vanta-framework:latest
+    container_name: vanta-production
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - UAP_LEVEL=3
+      - MCP_SERVER_MODE=production
+      - PORT=3000
+      - VAULT_ENDPOINT=${VAULT_ENDPOINT}
+      - VAULT_TOKEN=${VAULT_TOKEN}
+      - LOG_LEVEL=info
+      - HEALTH_CHECK_INTERVAL=30000
+      - AUTO_RECOVERY=true
+      
+    ports:
+      - "${PORT:-3000}:3000"
+      
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/mcp/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+      
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '2'
+        reservations:
+          memory: 512M
+          cpus: '1'
+          
+    volumes:
+      - vanta-logs:/app/logs
+      - vanta-data:/app/data
+      
+    networks:
+      - vanta-network
+      
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vanta.rule=Host(`vanta.${DOMAIN:-localhost}`)"
+      - "traefik.http.services.vanta.loadbalancer.server.port=3000"
+
+  # Optional: Monitoring stack for production
+  vanta-monitoring:
+    image: prom/prometheus:latest
+    container_name: vanta-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    networks:
+      - vanta-network
+    profiles:
+      - monitoring
+
+  vanta-grafana:
+    image: grafana/grafana:latest
+    container_name: vanta-grafana
+    restart: unless-stopped
+    ports:
+      - "3001:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+    volumes:
+      - grafana-data:/var/lib/grafana
+    networks:
+      - vanta-network
+    profiles:
+      - monitoring
+
+volumes:
+  vanta-logs:
+    driver: local
+  vanta-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+networks:
+  vanta-network:
+    driver: bridge 

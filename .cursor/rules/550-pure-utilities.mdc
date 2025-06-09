@@ -1,0 +1,336 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: utils/*.ts, lib/utils/*.ts, utils/*.js, helpers/*.ts
+
+# Pure Utility Functions
+
+## Rule Purpose
+
+This rule ensures utility functions remain pure, reusable, and well-organized, preventing over-abstraction while promoting code reuse where it adds genuine value.
+
+## What Qualifies as a Pure Utility
+
+### ✅ Pure Utilities (Create These)
+- **Stateless functions** that always return the same output for the same input
+- **Data transformations** (formatting, parsing, validation)
+- **Mathematical calculations** and complex algorithms
+- **Platform abstractions** (date formatting, currency, etc.)
+- **Common operations** used across multiple components/pages
+
+### ❌ Not Pure Utilities (Put Elsewhere)
+- **Business logic** specific to your domain
+- **API calls** or database operations
+- **React hooks** or component-specific logic
+- **Server actions** or authentication logic
+- **State management** functions
+
+## When to Create Utilities
+
+### ✅ Create Utility When:
+- **Used in 3+ places** across the codebase
+- **Complex logic** that benefits from isolated testing
+- **Platform-specific** operations (browser API abstractions)
+- **Data transformations** that are reusable
+- **Validation logic** used across forms/components
+
+### ❌ Avoid Utilities For:
+- **One-time use** functions
+- **Simple one-liners** that are more readable inline
+- **Business rules** that might change independently
+- **Component-specific** helper functions
+- **Premature abstractions** "in case we need it later"
+
+## Organization & Structure
+
+### Folder Structure
+```
+utils/
+├── date.ts          # Date formatting, parsing, calculations
+├── string.ts        # String manipulation, validation
+├── number.ts        # Number formatting, calculations
+├── array.ts         # Array operations, filtering, sorting
+├── validation.ts    # Form validation, data validation
+├── format.ts        # Currency, phone, address formatting
+└── index.ts         # Re-exports for convenient importing
+```
+
+### File Organization Principles
+- **Group by data type** or functional area
+- **One concern per file** (don't mix string and date utils)
+- **Alphabetical ordering** within files
+- **Clear re-exports** in index.ts for discoverability
+
+## Implementation Standards
+
+### Naming Conventions
+```typescript
+// ✅ Descriptive, verb-based names
+export const formatCurrency = (amount: number, currency = 'USD') => { }
+export const validateEmail = (email: string): boolean => { }
+export const debounceSearch = (fn: Function, delay = 300) => { }
+
+// ❌ Vague or unclear names  
+export const format = (thing: any) => { } // What does this format?
+export const util = (data: any) => { }    // Too generic
+export const helper = (input: any) => { }  // Not descriptive
+```
+
+### Function Signatures
+```typescript
+// ✅ Strong typing with sensible defaults
+export const truncateText = (
+  text: string, 
+  maxLength: number = 100,
+  suffix: string = '...'
+): string => {
+  if (text.length <= maxLength) return text;
+  return text.slice(0, maxLength - suffix.length) + suffix;
+}
+
+// ✅ Optional parameters with defaults
+export const formatDate = (
+  date: Date | string,
+  format: 'short' | 'long' | 'iso' = 'short',
+  locale: string = 'en-US'
+): string => { }
+```
+
+### Documentation Standards
+```typescript
+/**
+ * Converts a phone number to a standardized format
+ * @param phone - Raw phone number string
+ * @param countryCode - ISO country code (default: 'US')
+ * @returns Formatted phone number or null if invalid
+ * @example
+ * formatPhoneNumber('1234567890') // Returns: '(123) 456-7890'
+ * formatPhoneNumber('invalid') // Returns: null
+ */
+export const formatPhoneNumber = (
+  phone: string, 
+  countryCode: string = 'US'
+): string | null => {
+  // Implementation...
+}
+```
+
+## Lodash Integration
+
+### Bundle Optimization
+```typescript
+// ✅ Import specific functions to minimize bundle size
+import groupBy from 'lodash/groupBy';
+import { debounce, throttle } from 'lodash';
+import isEqual from 'lodash/isEqual';
+
+// ❌ Don't import entire lodash library
+import _ from 'lodash'; // Bloats bundle unnecessarily
+```
+
+### When to Use Lodash vs Native
+```typescript
+// ✅ Use lodash for complex operations
+import groupBy from 'lodash/groupBy';
+import sortBy from 'lodash/sortBy';
+
+export const groupUsersByRole = (users: User[]) => 
+  groupBy(users, 'role');
+
+// ✅ Use native for simple operations
+export const getUniqueIds = (items: { id: string }[]) =>
+  [...new Set(items.map(item => item.id))];
+
+// ❌ Don't use lodash for simple native equivalents
+import map from 'lodash/map'; // Use Array.map() instead
+import filter from 'lodash/filter'; // Use Array.filter() instead
+```
+
+## Testing Requirements
+
+### All Utilities Must Be Tested
+```typescript
+// utils/string.test.ts
+import { truncateText, slugify } from './string';
+
+describe('String Utilities', () => {
+  describe('truncateText', () => {
+    it('should return original text if under limit', () => {
+      expect(truncateText('hello', 10)).toBe('hello');
+    });
+
+    it('should truncate with default suffix', () => {
+      expect(truncateText('hello world', 8)).toBe('hello...');
+    });
+
+    it('should use custom suffix', () => {
+      expect(truncateText('hello world', 8, ' more')).toBe('hel more');
+    });
+  });
+});
+```
+
+### Test Coverage Requirements
+- **100% coverage** for utilities (they're easy to test)
+- **Edge cases** covered (empty strings, null values, boundary conditions)
+- **Error handling** tested where applicable
+
+## Code Examples
+
+### ✅ Good Utility Examples
+
+```typescript
+// utils/validation.ts
+export const isValidEmail = (email: string): boolean => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email.trim().toLowerCase());
+};
+
+export const isStrongPassword = (password: string): boolean => {
+  return password.length >= 8 &&
+         /[A-Z]/.test(password) &&
+         /[a-z]/.test(password) &&
+         /\d/.test(password) &&
+         /[!@#$%^&*]/.test(password);
+};
+
+// utils/format.ts  
+export const formatFileSize = (bytes: number): string => {
+  const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+  let size = bytes;
+  let unitIndex = 0;
+  
+  while (size >= 1024 && unitIndex < units.length - 1) {
+    size /= 1024;
+    unitIndex++;
+  }
+  
+  return `${size.toFixed(1)} ${units[unitIndex]}`;
+};
+
+// utils/array.ts
+export const chunkArray = <T>(array: T[], size: number): T[][] => {
+  if (size <= 0) throw new Error('Chunk size must be positive');
+  
+  const chunks: T[][] = [];
+  for (let i = 0; i < array.length; i += size) {
+    chunks.push(array.slice(i, i + size));
+  }
+  return chunks;
+};
+```
+
+### ❌ Anti-Pattern Examples
+
+```typescript
+// ❌ Business logic masquerading as utility
+export const calculateUserSubscriptionPrice = (user: User) => {
+  // This belongs in business logic, not utilities
+};
+
+// ❌ Over-abstraction for simple operation
+export const addOne = (num: number) => num + 1; // Just use num + 1
+
+// ❌ Stateful "utility"
+let counter = 0;
+export const getNextId = () => ++counter; // Not pure, has side effects
+
+// ❌ API call disguised as utility
+export const fetchUserData = async (id: string) => {
+  // This belongs in API layer, not utilities
+};
+```
+
+## Import/Export Patterns
+
+### Individual Files
+```typescript
+// utils/date.ts
+export const formatDate = (date: Date) => { };
+export const isWeekend = (date: Date) => { };
+export const addDays = (date: Date, days: number) => { };
+```
+
+### Index File for Convenience
+```typescript
+// utils/index.ts
+export * from './date';
+export * from './string';
+export * from './validation';
+export * from './format';
+
+// Or selective re-exports
+export { 
+  formatDate, 
+  addDays 
+} from './date';
+export { 
+  truncateText, 
+  slugify 
+} from './string';
+```
+
+### Usage in Components
+```typescript
+// ✅ Import what you need
+import { formatDate, formatCurrency } from '@/utils';
+import { validateEmail } from '@/utils/validation';
+
+// ✅ Use in components
+const FormattedPrice = ({ amount }: { amount: number }) => (
+  <span>{formatCurrency(amount)}</span>
+);
+```
+
+## Performance Considerations
+
+### Memoization for Expensive Operations
+```typescript
+import memoize from 'lodash/memoize';
+
+// Expensive calculation that benefits from memoization
+export const calculateComplexScore = memoize((data: ComplexData): number => {
+  // Complex calculations...
+  return score;
+});
+```
+
+### Avoid Creating Functions in Render
+```typescript
+// ❌ Don't create utilities inline in components
+const MyComponent = ({ items }) => {
+  const sortedItems = items.sort((a, b) => a.name.localeCompare(b.name));
+  // Move this to utils if used elsewhere
+};
+
+// ✅ Use utilities for reusable logic
+import { sortByName } from '@/utils/array';
+
+const MyComponent = ({ items }) => {
+  const sortedItems = sortByName(items);
+};
+```
+
+## Rule Violations to Watch For
+
+### Common Mistakes
+- **God utilities** - Single files with too many unrelated functions
+- **Premature abstraction** - Creating utilities before knowing if they'll be reused
+- **Business logic creep** - Domain-specific logic in generic utilities
+- **Poor naming** - Vague function names that require reading implementation
+- **Missing tests** - Utilities without comprehensive test coverage
+
+### Code Review Checklist
+- [ ] Is this function pure (no side effects)?
+- [ ] Is it used in multiple places or likely to be?
+- [ ] Does the name clearly describe what it does?
+- [ ] Are the parameters well-typed with sensible defaults?
+- [ ] Is it placed in the appropriate utils file?
+- [ ] Does it have comprehensive tests?
+- [ ] Is it documented if the logic is non-obvious?
+
+Remember: **The best utility is one that solves a real problem simply.** Don't create abstractions until you have concrete evidence they're needed.
+

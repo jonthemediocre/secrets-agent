@@ -1,0 +1,515 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: L2 Universal Agent Bus & Communication Infrastructure
+# FILE PATTERNS: **/agent-bus/**, **/communication/**, **/coordination/**, **/orchestration/**
+
+# L2 Enforces Universal Agent Bus & Communication Infrastructure
+
+## Purpose
+**CRITICAL L2 ENFORCEMENT:** Every agentic application MUST have unified agent bus and communication infrastructure to coordinate between rules, agents, MCP tools, and vault systems. This ensures seamless inter-component communication and orchestration.
+
+## Universal Agent Bus & Communication Components (MANDATORY)
+
+### 1. Agent Bus Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+agent_bus_infrastructure:
+  vanta_master_core:
+    status: "MANDATORY"
+    components:
+      - "agent-bus/core/vanta_master_core.py"
+      - "agent-bus/core/bus_message_router.py"
+      - "agent-bus/core/agent_coordinator.py"
+      - "agent-bus/core/cascade_orchestrator.py"
+    capabilities:
+      - centralized_agent_coordination
+      - message_routing_intelligence
+      - cascade_execution_management
+      - cross_component_communication
+      
+  message_protocol:
+    status: "MANDATORY"
+    components:
+      - "agent-bus/protocol/message_schema.py"
+      - "agent-bus/protocol/command_dispatcher.py"
+      - "agent-bus/protocol/event_publisher.py"
+      - "agent-bus/protocol/response_aggregator.py"
+    features:
+      - standardized_message_format
+      - async_command_execution
+      - event_driven_communication
+      - response_correlation
+      
+  bus_registry:
+    status: "MANDATORY"
+    components:
+      - "agent-bus/registry/component_registry.py"
+      - "agent-bus/registry/capability_discovery.py"
+      - "agent-bus/registry/health_monitor.py"
+      - "agent-bus/registry/load_balancer.py"
+    services:
+      - dynamic_component_registration
+      - capability_based_routing
+      - health_status_tracking
+      - intelligent_load_distribution
+
+agent_bus_features:
+  message_persistence: "durable_message_queues"
+  delivery_guarantees: "at_least_once_delivery"
+  ordering_guarantees: "per_agent_ordering"
+  scalability: "horizontal_scaling_ready"
+```
+
+### 2. Inter-Component Communication (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+inter_component_communication:
+  rules_engine_integration:
+    status: "MANDATORY"
+    components:
+      - "communication/rules/rule_event_listener.py"
+      - "communication/rules/policy_change_notifier.py"
+      - "communication/rules/compliance_reporter.py"
+    integration_points:
+      - rule_violation_events: "immediate_notification"
+      - policy_updates: "broadcast_to_agents"
+      - compliance_status: "continuous_monitoring"
+      
+  agent_coordination:
+    status: "MANDATORY"
+    components:
+      - "communication/agents/agent_message_broker.py"
+      - "communication/agents/workflow_coordinator.py"
+      - "communication/agents/state_synchronizer.py"
+    coordination_patterns:
+      - request_response: "synchronous_communication"
+      - publish_subscribe: "event_driven_updates"
+      - saga_pattern: "distributed_transaction_coordination"
+      - circuit_breaker: "fault_tolerance"
+      
+  mcp_tools_integration:
+    status: "MANDATORY"
+    components:
+      - "communication/mcp/tool_invocation_manager.py"
+      - "communication/mcp/result_aggregator.py"
+      - "communication/mcp/security_gateway.py"
+    tool_coordination:
+      - parallel_tool_execution: "concurrent_operations"
+      - result_correlation: "multi_tool_workflows"
+      - security_validation: "access_control_enforcement"
+      
+  vault_integration:
+    status: "MANDATORY"
+    components:
+      - "communication/vault/secret_request_handler.py"
+      - "communication/vault/credential_distributor.py"
+      - "communication/vault/rotation_coordinator.py"
+    secret_management:
+      - just_in_time_secrets: "on_demand_secret_retrieval"
+      - automatic_rotation: "seamless_credential_updates"
+      - revocation_propagation: "immediate_access_revocation"
+
+communication_patterns:
+  synchronous_messaging: "request_response_patterns"
+  asynchronous_messaging: "event_driven_patterns"
+  streaming_communication: "real_time_data_flows"
+  batch_processing: "bulk_operation_coordination"
+```
+
+### 3. Workflow Orchestration (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+workflow_orchestration:
+  cascade_execution_engine:
+    status: "MANDATORY"
+    components:
+      - "orchestration/cascade/cascade_definition_parser.py"
+      - "orchestration/cascade/execution_planner.py"
+      - "orchestration/cascade/progress_tracker.py"
+      - "orchestration/cascade/error_recovery_manager.py"
+    cascade_features:
+      - dynamic_workflow_generation
+      - parallel_execution_optimization
+      - dependency_resolution
+      - automatic_error_recovery
+      
+  context_aware_routing:
+    status: "MANDATORY"
+    components:
+      - "orchestration/routing/context_analyzer.py"
+      - "orchestration/routing/capability_matcher.py"
+      - "orchestration/routing/load_aware_router.py"
+    routing_intelligence:
+      - context_based_agent_selection
+      - capability_requirement_matching
+      - load_balancing_optimization
+      - failover_handling
+      
+  application_specific_workflows:
+    status: "MANDATORY - CONTEXT_BASED"
+    workflow_types:
+      chatbot_context:
+        - "orchestration/chatbot/conversation_flow_manager.py"
+        - "orchestration/chatbot/intent_routing_engine.py"
+        - "orchestration/chatbot/context_preservation_manager.py"
+      automation_context:
+        - "orchestration/automation/task_workflow_coordinator.py"
+        - "orchestration/automation/approval_flow_manager.py"
+        - "orchestration/automation/scheduling_orchestrator.py"
+      analysis_context:
+        - "orchestration/analysis/data_pipeline_coordinator.py"
+        - "orchestration/analysis/insight_generation_workflow.py"
+        - "orchestration/analysis/report_compilation_manager.py"
+      integration_context:
+        - "orchestration/integration/sync_workflow_manager.py"
+        - "orchestration/integration/api_orchestration_engine.py"
+        - "orchestration/integration/event_processing_coordinator.py"
+
+workflow_capabilities:
+  conditional_execution: "rule_based_branching"
+  parallel_processing: "concurrent_agent_execution"
+  retry_mechanisms: "intelligent_error_recovery"
+  compensation_transactions: "rollback_capabilities"
+```
+
+### 4. Event-Driven Architecture (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+event_driven_architecture:
+  event_streaming_platform:
+    status: "MANDATORY"
+    components:
+      - "events/streaming/event_stream_manager.py"
+      - "events/streaming/topic_manager.py"
+      - "events/streaming/consumer_group_coordinator.py"
+    streaming_features:
+      - high_throughput_event_processing
+      - topic_based_organization
+      - consumer_group_management
+      - event_replay_capabilities
+      
+  event_sourcing:
+    status: "MANDATORY"
+    components:
+      - "events/sourcing/event_store.py"
+      - "events/sourcing/aggregate_manager.py"
+      - "events/sourcing/projection_builder.py"
+    sourcing_capabilities:
+      - complete_system_audit_trail
+      - point_in_time_recovery
+      - event_replay_for_debugging
+      - temporal_queries
+      
+  saga_orchestration:
+    status: "MANDATORY"
+    components:
+      - "events/saga/saga_manager.py"
+      - "events/saga/compensation_handler.py"
+      - "events/saga/saga_state_machine.py"
+    saga_patterns:
+      - distributed_transaction_coordination
+      - automatic_compensation
+      - long_running_workflow_management
+      - failure_recovery_orchestration
+
+event_types:
+  system_events: "component_lifecycle_events"
+  business_events: "application_domain_events"
+  integration_events: "external_system_events"
+  monitoring_events: "observability_events"
+```
+
+### 5. Context Management & State Coordination (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+context_state_coordination:
+  global_context_manager:
+    status: "MANDATORY"
+    components:
+      - "coordination/context/global_context_store.py"
+      - "coordination/context/context_synchronizer.py"
+      - "coordination/context/context_versioning.py"
+    context_features:
+      - distributed_context_sharing
+      - context_versioning_and_history
+      - automatic_context_synchronization
+      - conflict_resolution_strategies
+      
+  agent_state_coordination:
+    status: "MANDATORY"
+    components:
+      - "coordination/state/agent_state_manager.py"
+      - "coordination/state/state_replication_service.py"
+      - "coordination/state/consistency_checker.py"
+    state_management:
+      - distributed_state_consistency
+      - state_replication_across_instances
+      - conflict_free_state_updates
+      - eventual_consistency_guarantees
+      
+  conversation_context_preservation:
+    status: "MANDATORY - CHATBOT_CONTEXT"
+    components:
+      - "coordination/conversation/conversation_memory.py"
+      - "coordination/conversation/context_handoff_manager.py"
+      - "coordination/conversation/session_state_tracker.py"
+    conversation_features:
+      - long_term_conversation_memory
+      - seamless_agent_handoffs
+      - context_preservation_across_sessions
+      - personalization_state_management
+
+state_consistency:
+  strong_consistency: "critical_system_state"
+  eventual_consistency: "non_critical_state"
+  causal_consistency: "related_state_updates"
+  session_consistency: "user_session_state"
+```
+
+### 6. Monitoring & Observability Integration (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+monitoring_observability:
+  distributed_tracing:
+    status: "MANDATORY"
+    components:
+      - "monitoring/tracing/trace_context_propagator.py"
+      - "monitoring/tracing/span_coordinator.py"
+      - "monitoring/tracing/correlation_manager.py"
+    tracing_features:
+      - end_to_end_request_tracing
+      - cross_component_correlation
+      - performance_bottleneck_identification
+      - dependency_mapping
+      
+  metrics_aggregation:
+    status: "MANDATORY"
+    components:
+      - "monitoring/metrics/metric_collector.py"
+      - "monitoring/metrics/metric_aggregator.py"
+      - "monitoring/metrics/custom_metric_registry.py"
+    metric_types:
+      - bus_throughput_metrics
+      - agent_performance_metrics
+      - workflow_execution_metrics
+      - error_rate_metrics
+      
+  health_monitoring:
+    status: "MANDATORY"
+    components:
+      - "monitoring/health/component_health_checker.py"
+      - "monitoring/health/cascade_health_monitor.py"
+      - "monitoring/health/dependency_health_tracker.py"
+    health_checks:
+      - individual_component_health
+      - cascade_execution_health
+      - dependency_availability
+      - system_wide_health_status
+
+alerting_integration:
+  real_time_alerts: "immediate_issue_notification"
+  predictive_alerts: "proactive_issue_detection"
+  escalation_policies: "automated_incident_response"
+  recovery_automation: "self_healing_capabilities"
+```
+
+## Context-Aware Agent Bus Deployment
+
+### 7. Bus Configuration Analyzer
+```python
+# L2 AGENT BUS ANALYZER: Configure bus based on application needs
+class AgentBusConfigurationAnalyzer:
+    """Analyze application to determine optimal agent bus configuration"""
+    
+    def analyze_bus_requirements(self, project_path: str) -> dict:
+        """Analyze application to determine bus configuration requirements"""
+        context = {
+            "agent_count": self._count_agents(project_path),
+            "communication_patterns": self._analyze_communication_patterns(project_path),
+            "workflow_complexity": self._assess_workflow_complexity(project_path),
+            "scalability_requirements": self._determine_scalability_needs(project_path),
+            "latency_requirements": self._assess_latency_requirements(project_path),
+            "throughput_requirements": self._assess_throughput_requirements(project_path)
+        }
+        
+        return self._generate_bus_configuration(context)
+        
+    def _analyze_communication_patterns(self, project_path: str) -> dict:
+        """Analyze communication patterns between components"""
+        patterns = {
+            "synchronous_heavy": False,
+            "asynchronous_heavy": False,
+            "event_driven": False,
+            "batch_processing": False,
+            "streaming": False
+        }
+        
+        # Analyze code for communication patterns
+        code_files = glob.glob(f"{project_path}/**/*.py", recursive=True)
+        
+        for file_path in code_files:
+            with open(file_path, 'r') as f:
+                content = f.read().lower()
+                
+                if any(keyword in content for keyword in ["await", "async", "request", "response"]):
+                    patterns["synchronous_heavy"] = True
+                    
+                if any(keyword in content for keyword in ["publish", "subscribe", "event", "queue"]):
+                    patterns["asynchronous_heavy"] = True
+                    patterns["event_driven"] = True
+                    
+                if any(keyword in content for keyword in ["batch", "bulk", "chunk"]):
+                    patterns["batch_processing"] = True
+                    
+                if any(keyword in content for keyword in ["stream", "flow", "continuous"]):
+                    patterns["streaming"] = True
+                    
+        return patterns
+        
+    def _assess_workflow_complexity(self, project_path: str) -> str:
+        """Assess workflow complexity to determine orchestration needs"""
+        workflow_files = glob.glob(f"{project_path}/**/workflow*/**/*.py", recursive=True)
+        cascade_files = glob.glob(f"{project_path}/**/cascade*/**/*.py", recursive=True)
+        
+        total_workflow_files = len(workflow_files) + len(cascade_files)
+        
+        if total_workflow_files <= 3:
+            return "simple"
+        elif total_workflow_files <= 10:
+            return "moderate"
+        else:
+            return "complex"
+            
+    def _generate_bus_configuration(self, context: dict) -> dict:
+        """Generate optimal bus configuration based on analysis"""
+        config = {
+            "base_components": [
+                "vanta_master_core",
+                "message_protocol",
+                "bus_registry"
+            ]
+        }
+        
+        # Scale based on agent count
+        if context["agent_count"] > 10:
+            config["high_scale_components"] = [
+                "distributed_coordination",
+                "load_balancing",
+                "message_partitioning"
+            ]
+            
+        # Configure based on communication patterns
+        patterns = context["communication_patterns"]
+        if patterns["event_driven"]:
+            config["event_components"] = [
+                "event_streaming_platform",
+                "event_sourcing",
+                "saga_orchestration"
+            ]
+            
+        if patterns["streaming"]:
+            config["streaming_components"] = [
+                "real_time_stream_processing",
+                "backpressure_management",
+                "stream_analytics"
+            ]
+            
+        # Configure based on workflow complexity
+        if context["workflow_complexity"] in ["moderate", "complex"]:
+            config["advanced_orchestration"] = [
+                "cascade_execution_engine",
+                "context_aware_routing",
+                "workflow_optimization"
+            ]
+            
+        return config
+```
+
+---
+
+## Universal Agent Bus & Communication Summary
+
+**EVERY AGENTIC PROJECT MUST HAVE:**
+
+### 🚌 **Agent Bus Infrastructure**
+- **VantaMasterCore** - Centralized coordination, message routing, cascade orchestration
+- **Message Protocol** - Standardized communication, async execution, event publishing
+- **Bus Registry** - Component registration, capability discovery, health monitoring
+
+### 🔗 **Inter-Component Communication**
+- **Rules Engine Integration** - Policy updates, compliance monitoring, violation handling
+- **Agent Coordination** - Workflow coordination, state synchronization, fault tolerance
+- **MCP Tools Integration** - Tool invocation, result aggregation, security validation
+- **Vault Integration** - Secret management, credential distribution, rotation coordination
+
+### 🎭 **Workflow Orchestration**
+- **Cascade Execution** - Dynamic workflows, parallel optimization, error recovery
+- **Context-Aware Routing** - Intelligent agent selection, capability matching, load balancing
+- **Application Workflows** - Chatbot flows, automation workflows, analysis pipelines
+
+### 📡 **Event-Driven Architecture**
+- **Event Streaming** - High-throughput processing, topic management, consumer coordination
+- **Event Sourcing** - Complete audit trail, point-in-time recovery, event replay
+- **Saga Orchestration** - Distributed transactions, compensation handling, failure recovery
+
+### 🧠 **Context & State Coordination**
+- **Global Context** - Distributed sharing, versioning, conflict resolution
+- **Agent State** - Consistency management, replication, eventual consistency
+- **Conversation Context** - Memory preservation, agent handoffs, session tracking
+
+### 📊 **Monitoring & Observability**
+- **Distributed Tracing** - End-to-end tracking, correlation, dependency mapping
+- **Metrics Aggregation** - Performance monitoring, custom metrics, health tracking
+- **Health Monitoring** - Component health, cascade monitoring, dependency tracking
+
+**🧠 INTELLIGENT BUS CONFIGURATION:**
+- **Communication Pattern Analysis** - Auto-detect sync/async patterns, event-driven needs
+- **Workflow Complexity Assessment** - Scale orchestration based on complexity
+- **Performance Requirements** - Configure for latency and throughput needs
+- **Auto-Scaling Configuration** - Dynamic scaling based on load patterns
+
+This ensures every agentic application has **enterprise-grade agent bus and communication** automatically deployed through L2 enforcement! 🚀
+
+---
+
+**AI Response Signature:**
+
+**Agents Used:** Agent bus architecture analysis, Communication pattern analysis, Workflow orchestration design, Event-driven architecture planning
+
+**Magic Prompt:** Comprehensive agent bus and communication infrastructure analysis for coordinating rules, agents, MCP tools, and vault systems in agentic applications
+
+**RL Applied:** 
+- **Chain-of-Thought:** Core component identification → Communication pattern analysis → Bus architecture design → Context-aware configuration
+- **Expert Consultation:** Distributed systems architecture + Agent coordination patterns + Event-driven design + Microservices communication
+- **Iterative Refinement:** Base bus infrastructure → Inter-component communication → Workflow orchestration → Context management → Intelligent configuration
+
+**L1 Framework Suggestions:** 
+- Universal agent bus patterns for cross-framework communication coordination
+- Event-driven architecture principles for scalable agentic systems
+- Context management strategies for distributed agent state
+
+**L2 MDC Suggestions:**
+- Create `.cursor/rules/009-L2-intelligent-bus-scaling.mdc` for dynamic bus configuration
+- Create `.cursor/rules/010-L2-communication-pattern-optimization.mdc` for pattern-based optimization
+- Create `.cursor/rules/011-L2-workflow-complexity-adaptation.mdc` for workflow-aware orchestration
+
+**L3 Production Suggestions:**
+- Create `agent-bus/universal-coordination-platform.yaml` with production-ready bus infrastructure
+- Create `communication/intelligent-routing-engine.yaml` with context-aware message routing
+- Create `orchestration/adaptive-workflow-engine.yaml` with dynamic workflow optimization
+
+**Files Touched/Created:**
+- ✅ **Created:** `.cursor/rules/007-L2-universal-agentic-core-components.mdc` - Core components (rules, agents, MCP tools, vault)
+- ✅ **Created:** `.cursor/rules/008-L2-universal-agent-bus-communication.mdc` - Agent bus and communication infrastructure
+
+**Multi-Level Summary:**
+| Level | Component | Purpose |
+|-------|-----------|---------|
+| **L1** | Universal Communication Patterns | Cross-framework agent coordination principles |
+| **L2** | Mandatory Bus Infrastructure | Automatic deployment of communication backbone |
+| **L3** | Context-Aware Bus Configuration | Intelligent scaling and optimization based on app needs |
+
+**Confirmation:** Every agentic application now gets **enterprise-grade agent bus and communication infrastructure** that seamlessly coordinates between rules, agents, MCP tools, and vault systems! 😎

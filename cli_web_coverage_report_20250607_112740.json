@@ -1,0 +1,838 @@
+{
+  "summary": {
+    "total_cli_functions": 8,
+    "represented_functions": 1,
+    "missing_functions": 7,
+    "overall_coverage_percentage": 12.5,
+    "audit_timestamp": "2025-06-07T11:27:40.340608"
+  },
+  "by_category": {
+    "scan": {
+      "total": 1,
+      "represented": 1,
+      "functions": [
+        {
+          "name": "scan",
+          "module": "cli.py",
+          "description": "Command: scan",
+          "parameters": [],
+          "category": "scan",
+          "web_equivalent": "e",
+          "is_represented": true,
+          "representation_type": "button",
+          "notes": ""
+        }
+      ],
+      "coverage_percentage": 100.0
+    },
+    "admin": {
+      "total": 3,
+      "represented": 0,
+      "functions": [
+        {
+          "name": "link",
+          "module": "cli.py",
+          "description": "Command: link",
+          "parameters": [],
+          "category": "admin",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        },
+        {
+          "name": "sync_shared_resources",
+          "module": "cli.py",
+          "description": "Synchronizes shared resources to the project based on a manifest file.",
+          "parameters": [],
+          "category": "admin",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        },
+        {
+          "name": "bootstrap",
+          "module": "cli.py",
+          "description": "Command: bootstrap",
+          "parameters": [],
+          "category": "admin",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        }
+      ],
+      "coverage_percentage": 0.0
+    },
+    "utility": {
+      "total": 1,
+      "represented": 0,
+      "functions": [
+        {
+          "name": "list",
+          "module": "cli.py",
+          "description": "Command: list",
+          "parameters": [],
+          "category": "utility",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        }
+      ],
+      "coverage_percentage": 0.0
+    },
+    "mcp": {
+      "total": 2,
+      "represented": 0,
+      "functions": [
+        {
+          "name": "list_tools",
+          "module": "cli.py",
+          "description": "Command: list_tools",
+          "parameters": [],
+          "category": "mcp",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        },
+        {
+          "name": "upgrade_tool",
+          "module": "cli.py",
+          "description": "Command: upgrade_tool",
+          "parameters": [],
+          "category": "mcp",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        }
+      ],
+      "coverage_percentage": 0.0
+    },
+    "secrets": {
+      "total": 1,
+      "represented": 0,
+      "functions": [
+        {
+          "name": "add_secret",
+          "module": "cli.py",
+          "description": "Add or update a secret",
+          "parameters": [],
+          "category": "secrets",
+          "web_equivalent": null,
+          "is_represented": false,
+          "representation_type": "none",
+          "notes": ""
+        }
+      ],
+      "coverage_percentage": 0.0
+    }
+  },
+  "missing_functions": [
+    {
+      "name": "link",
+      "module": "cli.py",
+      "description": "Command: link",
+      "parameters": [],
+      "category": "admin",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "sync_shared_resources",
+      "module": "cli.py",
+      "description": "Synchronizes shared resources to the project based on a manifest file.",
+      "parameters": [],
+      "category": "admin",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "list",
+      "module": "cli.py",
+      "description": "Command: list",
+      "parameters": [],
+      "category": "utility",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "list_tools",
+      "module": "cli.py",
+      "description": "Command: list_tools",
+      "parameters": [],
+      "category": "mcp",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "upgrade_tool",
+      "module": "cli.py",
+      "description": "Command: upgrade_tool",
+      "parameters": [],
+      "category": "mcp",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "bootstrap",
+      "module": "cli.py",
+      "description": "Command: bootstrap",
+      "parameters": [],
+      "category": "admin",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    },
+    {
+      "name": "add_secret",
+      "module": "cli.py",
+      "description": "Add or update a secret",
+      "parameters": [],
+      "category": "secrets",
+      "web_equivalent": null,
+      "is_represented": false,
+      "representation_type": "none",
+      "notes": ""
+    }
+  ],
+  "web_components": [
+    {
+      "name": "d",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "🔄 Retry Connection",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "{tab.name}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "n",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "🔍 Deep Scan",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "s",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "v",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "🔄 Retry Connection",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "{tab.name}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "n",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "🔍 Deep Scan",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "s",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "v",
+      "file": "app\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "page",
+      "file": "app\\page.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: page",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "Retry",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "← Back",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "I",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "I",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "Retry",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "← Back",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "I",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "I",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\domino\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "page",
+      "file": "app\\domino\\page.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: page",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "Retry",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "← Back",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "o",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "📊 Domino Dashboard",
+      "cli_equivalent": null
+    },
+    {
+      "name": "v",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "p",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "p",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "Retry",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "← Back",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "o",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "📊 Domino Dashboard",
+      "cli_equivalent": null
+    },
+    {
+      "name": "v",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "a",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "t",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "p",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "p",
+      "file": "app\\vault\\page.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "page",
+      "file": "app\\vault\\page.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: page",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "{loading ? '🔄 Scanning...' : '🔍 Refresh Scan'}",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "s",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "📥 Import Selected ({selectedProjects.length})",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "🔍 Detailed Scan",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "l",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "×",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "{loading ? '🔄 Scanning...' : '🔍 Refresh Scan'}",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "s",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "📥 Import Selected ({selectedProjects.length})",
+      "cli_equivalent": null
+    },
+    {
+      "name": "e",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "🔍 Detailed Scan",
+      "cli_equivalent": "scan"
+    },
+    {
+      "name": "l",
+      "file": "app\\api\\scan\\projects\\page.tsx",
+      "type": "button",
+      "functionality": "×",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Executing...' : `Run ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Executing...' : `Execute ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Processing...' : `Complete ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Refreshing...' : `Refresh ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Executing...' : `Run ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Executing...' : `Execute ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Processing...' : `Complete ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\cli-interface-bridge.tsx",
+      "type": "button",
+      "functionality": "{isExecuting ? 'Refreshing...' : `Refresh ${command.name}`}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "Dashboard",
+      "file": "components\\Dashboard.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: Dashboard",
+      "cli_equivalent": null
+    },
+    {
+      "name": "y",
+      "file": "components\\ErrorBoundary.tsx",
+      "type": "button",
+      "functionality": "Try Again",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "components\\ErrorBoundary.tsx",
+      "type": "button",
+      "functionality": "Reload Page",
+      "cli_equivalent": null
+    },
+    {
+      "name": "y",
+      "file": "components\\ErrorBoundary.tsx",
+      "type": "button",
+      "functionality": "Try Again",
+      "cli_equivalent": null
+    },
+    {
+      "name": "d",
+      "file": "components\\ErrorBoundary.tsx",
+      "type": "button",
+      "functionality": "Reload Page",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\LoginScreen.tsx",
+      "type": "button",
+      "functionality": "{children}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\LoginScreen.tsx",
+      "type": "button",
+      "functionality": "{title}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\LoginScreen.tsx",
+      "type": "button",
+      "functionality": "{children}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\LoginScreen.tsx",
+      "type": "button",
+      "functionality": "{title}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "components\\ToastNotification.tsx",
+      "type": "button",
+      "functionality": "{toast.action.label}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\ToastNotification.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "k",
+      "file": "components\\ToastNotification.tsx",
+      "type": "button",
+      "functionality": "{toast.action.label}",
+      "cli_equivalent": null
+    },
+    {
+      "name": "s",
+      "file": "components\\ToastNotification.tsx",
+      "type": "button",
+      "functionality": "",
+      "cli_equivalent": null
+    },
+    {
+      "name": "CoherenceMonitor",
+      "file": "components\\agents\\CoherenceMonitor.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: CoherenceMonitor",
+      "cli_equivalent": null
+    },
+    {
+      "name": "PolicyGovernanceDashboard",
+      "file": "components\\governance\\PolicyGovernanceDashboard.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: PolicyGovernanceDashboard",
+      "cli_equivalent": null
+    },
+    {
+      "name": "SymbolicEvolutionDashboard",
+      "file": "components\\symbolic\\SymbolicEvolutionDashboard.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: SymbolicEvolutionDashboard",
+      "cli_equivalent": null
+    },
+    {
+      "name": "dashboard-card",
+      "file": "components\\ui\\dashboard-card.tsx",
+      "type": "dashboard",
+      "functionality": "Dashboard component: dashboard-card",
+      "cli_equivalent": null
+    }
+  ],
+  "recommendations": [
+    "Add admin interface components for: link, sync_shared_resources, bootstrap",
+    "Add utility interface components for: list",
+    "Add mcp interface components for: list_tools, upgrade_tool",
+    "Add secrets interface components for: add_secret",
+    "Add setup wizard and configuration management interface"
+  ]
+}

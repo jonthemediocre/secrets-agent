@@ -1,0 +1,46 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.511986'
+---
+
+# RULE TYPE: Best Practice
+# RULE ID: 907-plan-todo-sync
+# FILE PATTERNS: THEPLAN.md, TODO.md
+
+# 907: Plan ↔️ TODO Synchronization Guideline
+
+## 1. Purpose
+
+To ensure that the actionable tasks listed in `TODO.md` remain aligned with the strategic goals, architectural decisions, and implementation details documented in the primary planning document (`THEPLAN.md`).
+
+## 2. Trigger Conditions
+
+This rule should be considered or automatically suggested when:
+-   Significant structural changes or additions are made to `THEPLAN.md` (e.g., adding new major sections, defining new core components/agents, altering phase goals).
+-   A complex integration task involving multiple files (like the recent reference project audit) modifies `THEPLAN.md` substantially.
+-   Before starting a new major phase outlined in `THEPLAN.md`.
+
+## 3. Required Action
+
+After significant modifications to `THEPLAN.md`:
+1.  **Review `THEPLAN.md` Changes:** Identify new requirements, components, dependencies, or shifts in priority introduced by the changes.
+2.  **Review `TODO.md`:** Check if existing tasks still accurately reflect the updated plan.
+3.  **Add New Tasks:** Create new entries in `TODO.md` for any newly identified implementation steps, design decisions, or scaffolding tasks derived from the `THEPLAN.md` updates. Use clear, actionable language.
+4.  **Modify Existing Tasks:** Update descriptions, priorities, or dependencies of existing tasks in `TODO.md` if the plan changes affect them.
+5.  **Remove Obsolete Tasks:** Delete tasks from `TODO.md` that are no longer relevant due to changes in the plan.
+6.  **Consider Sequencing:** Use "Domino Mode" principles to ensure logical sequencing of new/updated tasks in `TODO.md`.
+
+## 4. Rationale
+
+Maintaining synchronization prevents:
+-   Working on tasks based on outdated plans.
+-   Missing critical implementation steps implied by new architectural decisions.
+-   Losing track of the actionable steps needed to realize the vision documented in `THEPLAN.md`.
+
+## 5. Example Scenario
+
+After integrating the symbolic layer definitions from `vanta_agi_definitions.md` into `THEPLAN.md`, this rule prompts a review of `TODO.md` to add tasks for scaffolding the newly defined symbolic agents (e.g., `DeltaModelerAgent`) and implementing related KEB events.

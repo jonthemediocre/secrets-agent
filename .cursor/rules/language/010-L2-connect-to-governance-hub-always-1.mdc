@@ -1,0 +1,347 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.319431'
+---
+
+# RULE TYPE: L2 Connect to Central Governance Hub
+# FILE PATTERNS: **/governance-client/**, **/vault-client/**, **/sync-client/**
+
+# L2 Enforces Connection to Central Governance Hub
+
+## Purpose
+**CRITICAL L2 ENFORCEMENT:** Every agentic application MUST connect to the central governance hub for rule synchronization, vault services, compliance monitoring, and asset management. NO application may operate in isolation.
+
+## Mandatory Governance Hub Integration
+
+### 1. Governance Client Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+governance_client:
+  hub_connection_client:
+    status: "MANDATORY"
+    components:
+      - "governance-client/core/hub_client.py"
+      - "governance-client/core/registration_agent.py"
+      - "governance-client/core/sync_receiver.py"
+      - "governance-client/core/compliance_reporter.py"
+    capabilities:
+      - register_with_governance_hub
+      - receive_rule_updates
+      - report_compliance_status
+      - request_vault_access
+      - download_agent_templates
+      - sync_mcp_tools
+      
+  auto_registration:
+    status: "MANDATORY"
+    components:
+      - "governance-client/registration/auto_registration.py"
+      - "governance-client/registration/project_profiler.py"
+      - "governance-client/registration/compliance_assessor.py"
+    registration_data:
+      - project_type: "auto_detected"
+      - business_domain: "analyzed_from_code"
+      - compliance_requirements: "automatically_assessed"
+      - agent_architecture: "scanned_and_reported"
+      - mcp_tools_usage: "inventory_and_report"
+      
+  governance_agent:
+    status: "MANDATORY"
+    components:
+      - "governance-client/agent/governance_monitoring_agent.py"
+      - "governance-client/agent/rule_enforcement_agent.py"
+      - "governance-client/agent/health_reporting_agent.py"
+    agent_responsibilities:
+      - monitor_local_compliance
+      - enforce_received_rules
+      - report_health_metrics
+      - handle_governance_commands
+      - coordinate_with_hub
+
+governance_connection:
+  hub_endpoints:
+    governance_api: "${GOVERNANCE_HUB_URL}/api/governance"
+    vault_service: "${GOVERNANCE_HUB_URL}/vault"
+    sync_service: "${GOVERNANCE_HUB_URL}/sync"
+    monitoring_service: "${GOVERNANCE_HUB_URL}/monitoring"
+  authentication:
+    method: "mTLS_with_vault_issued_certificates"
+    identity_verification: "project_registration_token"
+    renewal_automation: "automatic_certificate_rotation"
+```
+
+### 2. Central Vault Client (MANDATORY - REPLACES ENV FILES)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE - NO MORE ENV FILES
+vault_client_integration:
+  vault_client:
+    status: "MANDATORY"
+    components:
+      - "vault-client/core/vault_client.py"
+      - "vault-client/core/secret_retriever.py"
+      - "vault-client/core/credential_rotator.py"
+      - "vault-client/core/emergency_handler.py"
+    replacement_for:
+      - ".env files": "DEPRECATED - USE VAULT"
+      - "hardcoded_secrets": "PROHIBITED"
+      - "local_credential_storage": "DEPRECATED"
+      
+  secret_access_patterns:
+    status: "MANDATORY"
+    access_methods:
+      - just_in_time_retrieval: "on_demand_secret_access"
+      - cached_with_ttl: "performance_optimized_access"
+      - streaming_updates: "real_time_rotation_handling"
+    secret_categories:
+      - api_keys: "external_service_access"
+      - database_credentials: "data_access"
+      - encryption_keys: "data_protection"
+      - certificates: "secure_communication"
+      
+  vault_mcp_tool:
+    status: "MANDATORY"
+    components:
+      - "mcp-tools/vault/vault_secret_tool.py"
+      - "mcp-tools/vault/credential_manager_tool.py"
+      - "mcp-tools/vault/secret_rotation_tool.py"
+    tool_capabilities:
+      - retrieve_secrets_securely
+      - handle_automatic_rotation
+      - report_access_for_audit
+      - emergency_credential_revocation
+
+# DEPRECATED - REMOVE THESE PATTERNS
+deprecated_patterns:
+  remove_immediately:
+    - ".env": "replace_with_vault_client"
+    - ".env.local": "replace_with_vault_client"
+    - ".env.production": "replace_with_vault_client"
+    - "hardcoded_api_keys": "move_to_vault"
+    - "config_files_with_secrets": "externalize_to_vault"
+  migration_required:
+    - existing_env_usage: "automatic_vault_migration"
+    - hardcoded_credentials: "security_violation_blocking"
+```
+
+### 3. Rule Synchronization Client (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+rule_sync_client:
+  sync_receiver:
+    status: "MANDATORY"
+    components:
+      - "sync-client/rules/rule_sync_receiver.py"
+      - "sync-client/rules/rule_validator.py"
+      - "sync-client/rules/rule_applier.py"
+      - "sync-client/rules/conflict_resolver.py"
+    sync_capabilities:
+      - receive_l1_global_rule_updates
+      - apply_l2_project_rule_changes
+      - validate_rule_compatibility
+      - resolve_rule_conflicts
+      - backup_previous_rule_versions
+      
+  template_sync:
+    status: "MANDATORY"
+    components:
+      - "sync-client/templates/template_receiver.py"
+      - "sync-client/templates/agent_template_installer.py"
+      - "sync-client/templates/mcp_tool_updater.py"
+    template_management:
+      - agent_template_updates
+      - mcp_tool_library_sync
+      - rule_template_customization
+      - version_controlled_updates
+      
+  compliance_sync:
+    status: "MANDATORY"
+    components:
+      - "sync-client/compliance/compliance_monitor.py"
+      - "sync-client/compliance/policy_enforcer.py"
+      - "sync-client/compliance/violation_reporter.py"
+    compliance_features:
+      - real_time_compliance_checking
+      - automatic_policy_enforcement
+      - violation_detection_and_reporting
+      - remediation_suggestion_application
+
+sync_schedule:
+  continuous_monitoring: "every_30_seconds"
+  rule_update_check: "every_5_minutes"
+  template_sync: "every_15_minutes"
+  compliance_report: "every_hour"
+```
+
+### 4. Health & Monitoring Integration (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+monitoring_integration:
+  health_reporter:
+    status: "MANDATORY"
+    components:
+      - "monitoring/health/health_reporter.py"
+      - "monitoring/health/metrics_collector.py"
+      - "monitoring/health/performance_tracker.py"
+    reporting_scope:
+      - agent_health_status
+      - rule_compliance_metrics
+      - vault_access_patterns
+      - mcp_tool_usage_stats
+      - performance_indicators
+      
+  telemetry_client:
+    status: "MANDATORY"
+    components:
+      - "monitoring/telemetry/telemetry_client.py"
+      - "monitoring/telemetry/trace_propagator.py"
+      - "monitoring/telemetry/metric_shipper.py"
+    telemetry_data:
+      - distributed_tracing_data
+      - custom_business_metrics
+      - security_audit_events
+      - compliance_status_updates
+      
+  alerting_integration:
+    status: "MANDATORY"
+    components:
+      - "monitoring/alerts/alert_receiver.py"
+      - "monitoring/alerts/incident_handler.py"
+      - "monitoring/alerts/escalation_manager.py"
+    alert_handling:
+      - governance_hub_alerts
+      - compliance_violation_alerts
+      - security_incident_alerts
+      - performance_degradation_alerts
+
+monitoring_endpoints:
+  health_check: "/health/governance-connected"
+  metrics: "/metrics/governance-sync"
+  compliance: "/compliance/status"
+  vault_status: "/vault/connection-health"
+```
+
+### 5. Startup Integration & Lifecycle (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+startup_integration:
+  governance_startup_sequence:
+    status: "MANDATORY"
+    sequence:
+      1. "initialize_vault_client"
+      2. "register_with_governance_hub"
+      3. "download_latest_rules"
+      4. "sync_agent_templates"
+      5. "update_mcp_tools"
+      6. "validate_compliance"
+      7. "start_health_reporting"
+      8. "enable_sync_monitoring"
+    failure_handling:
+      - vault_connection_failure: "block_application_startup"
+      - governance_registration_failure: "retry_with_exponential_backoff"
+      - rule_sync_failure: "use_cached_rules_with_alert"
+      - compliance_failure: "quarantine_mode_startup"
+      
+  lifecycle_hooks:
+    status: "MANDATORY"
+    hooks:
+      - pre_startup: "governance_health_check"
+      - post_startup: "compliance_validation"
+      - pre_shutdown: "cleanup_vault_connections"
+      - post_shutdown: "deregister_from_hub"
+      
+  environment_detection:
+    status: "MANDATORY"
+    detection_logic:
+      - development: "connect_to_dev_governance_hub"
+      - staging: "connect_to_staging_governance_hub"
+      - production: "connect_to_prod_governance_hub"
+    configuration_sources:
+      - governance_hub_url: "from_vault_or_discovery_service"
+      - connection_credentials: "from_vault_bootstrap"
+      - sync_schedules: "from_hub_configuration"
+
+startup_validation:
+  required_connections:
+    - governance_hub_api: "connectivity_required"
+    - vault_service: "secret_access_required"
+    - sync_service: "rule_update_required"
+    - monitoring_service: "health_reporting_required"
+  startup_timeout: "120_seconds_max"
+  retry_strategy: "exponential_backoff_with_jitter"
+```
+
+### 6. MCP Tools Integration with Hub (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+mcp_hub_integration:
+  hub_mcp_tools:
+    status: "MANDATORY"
+    components:
+      - "mcp-tools/hub/governance_api_tool.py"
+      - "mcp-tools/hub/vault_access_tool.py"
+      - "mcp-tools/hub/rule_query_tool.py"
+      - "mcp-tools/hub/compliance_check_tool.py"
+      - "mcp-tools/hub/template_download_tool.py"
+    tool_capabilities:
+      - query_governance_hub_api
+      - retrieve_secrets_from_vault
+      - check_rule_compliance
+      - download_latest_templates
+      - report_compliance_status
+      
+  tool_security_wrapper:
+    status: "MANDATORY"
+    components:
+      - "mcp-tools/security/vault_authenticated_wrapper.py"
+      - "mcp-tools/security/governance_authorized_wrapper.py"
+      - "mcp-tools/security/audit_logging_wrapper.py"
+    security_features:
+      - automatic_vault_authentication
+      - governance_permission_checking
+      - comprehensive_audit_logging
+      - input_output_sanitization
+
+mcp_tool_requirements:
+  governance_tools: "mandatory_in_all_projects"
+  vault_tools: "mandatory_secret_access"
+  sync_tools: "mandatory_update_mechanism"
+  monitoring_tools: "mandatory_health_reporting"
+```
+
+---
+
+## Connection Architecture Summary
+
+**🏛️ THIS APP (Governance Hub) Provides:**
+- Central rule distribution service
+- Vault-as-a-Service for all projects
+- Agent template library
+- MCP tools registry
+- Compliance monitoring
+- Asset synchronization
+
+**📱 EVERY OTHER APP Must Have:**
+- Governance client for hub connection
+- Vault client (NO MORE .env files!)
+- Rule sync receiver
+- Health reporting to hub
+- MCP tools for hub integration
+- Automatic registration & compliance reporting
+
+**🔄 Continuous Synchronization via:**
+- **Time-based triggers**: Scheduled scans every 30 seconds to 5 minutes
+- **Event-based triggers**: Git pushes, file changes, deployments
+- **Signal-based triggers**: App startup, compliance violations, security breaches
+- **Webhook triggers**: CI/CD pipelines, monitoring alerts, external audits
+
+**🔐 Vault Centralization:**
+- **DEPRECATED**: All .env files, hardcoded secrets, local credential storage
+- **REQUIRED**: Central vault client for all secret access
+- **AUTOMATED**: Secret rotation, emergency revocation, audit logging
+- **SECURE**: mTLS authentication, just-in-time access, comprehensive auditing
+
+This creates a **centralized governance ecosystem** where THIS app is the command center managing all other agentic applications! 🚀

@@ -1,0 +1,497 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: always
+migrated: true
+migration_date: '2025-06-07T14:31:54.094141'
+---
+
+# RULE TYPE: L2 Universal Developer Experience Infrastructure
+# FILE PATTERNS: **/dev-tools/**, **/debugging/**, **/docs/**, **/cli/**
+
+# L2 Enforces Universal Developer Experience Infrastructure
+
+## Purpose
+**CRITICAL L2 ENFORCEMENT:** Every agentic application MUST have comprehensive developer experience infrastructure for productivity, debugging, documentation, and maintenance.
+
+## Universal Developer Experience Requirements
+
+### 1. Debugging & Troubleshooting Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+debugging_infrastructure:
+  agent_debugger:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/debugging/agent_debugger.py"
+      - "dev-tools/debugging/conversation_flow_tracer.py"
+      - "dev-tools/debugging/agent_state_inspector.py"
+    capabilities:
+      - step_through_agent_reasoning
+      - inspect_memory_state
+      - trace_inter_agent_communication
+      - breakpoint_on_conditions
+      
+  conversation_replay:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/debugging/conversation_replayer.py"
+      - "dev-tools/debugging/scenario_recorder.py"
+      - "dev-tools/debugging/edge_case_simulator.py"
+    features:
+      - record_production_conversations
+      - replay_with_modifications
+      - A_B_test_different_prompts
+      - simulate_failure_scenarios
+      
+  performance_profiler:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/profiling/agent_performance_profiler.py"
+      - "dev-tools/profiling/memory_usage_analyzer.py"
+      - "dev-tools/profiling/latency_bottleneck_detector.py"
+    metrics:
+      - reasoning_time_breakdown
+      - memory_allocation_patterns
+      - api_call_latency_analysis
+      - context_switching_overhead
+
+log_analysis:
+  structured_logging: "json_format_required"
+  log_correlation: "trace_id_required"
+  real_time_filtering: "required"
+  log_search_indexing: "elasticsearch_or_similar"
+```
+
+### 2. Local Development Environment (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+local_dev_infrastructure:
+  agent_simulator:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/simulator/local_agent_runner.py"
+      - "dev-tools/simulator/mock_external_services.py"
+      - "dev-tools/simulator/conversation_sandbox.py"
+    features:
+      - offline_development_mode
+      - mock_external_api_responses
+      - fast_iteration_cycles
+      - deterministic_testing
+      
+  hot_reloading:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/hot-reload/agent_code_watcher.py"
+      - "dev-tools/hot-reload/prompt_template_reloader.py"
+      - "dev-tools/hot-reload/config_auto_refresh.py"
+    watch_patterns:
+      - "**/*.py": "restart_agents"
+      - "**/*.yaml": "reload_config"
+      - "**/*.md": "reload_prompts"
+      - "**/*.json": "reload_schemas"
+      
+  development_cli:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/cli/agent_dev_cli.py"
+      - "dev-tools/cli/conversation_tester.py"
+      - "dev-tools/cli/deployment_manager.py"
+    commands:
+      - agent_start: "start specific agents"
+      - agent_test: "run conversation tests"
+      - agent_deploy: "deploy to staging/production"
+      - agent_logs: "tail agent logs with filtering"
+
+containerization:
+  docker_compose: "required_for_local_dev"
+  development_dockerfile: "optimized_for_iteration"
+  volume_mounting: "code_and_data_persistence"
+```
+
+### 3. Documentation & Knowledge Management (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+documentation_infrastructure:
+  auto_generated_docs:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/docs/agent_documentation_generator.py"
+      - "dev-tools/docs/api_documentation_builder.py"
+      - "dev-tools/docs/conversation_flow_documenter.py"
+    output_formats:
+      - markdown_docs: "human_readable"
+      - openapi_specs: "api_documentation"
+      - mermaid_diagrams: "visual_flows"
+      - postman_collections: "api_testing"
+      
+  interactive_documentation:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/docs/interactive_agent_explorer.py"
+      - "dev-tools/docs/conversation_playground.py"
+      - "dev-tools/docs/prompt_template_editor.py"
+    features:
+      - live_agent_testing
+      - prompt_experimentation
+      - response_comparison
+      - sharing_conversation_examples
+      
+  knowledge_base:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/docs/project_knowledge_base.py"
+      - "dev-tools/docs/decision_record_tracker.py"
+      - "dev-tools/docs/troubleshooting_guide.py"
+    content_types:
+      - architecture_decisions
+      - common_issues_solutions
+      - deployment_procedures
+      - agent_behavior_patterns
+
+documentation_standards:
+  agent_behavior_specs: "required"
+  conversation_examples: "required"
+  deployment_guides: "required"
+  troubleshooting_runbooks: "required"
+```
+
+### 4. Testing & Validation Tools (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+testing_infrastructure:
+  conversation_testing:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/testing/conversation_test_framework.py"
+      - "dev-tools/testing/response_quality_evaluator.py"
+      - "dev-tools/testing/multi_turn_conversation_tester.py"
+    test_types:
+      - happy_path_conversations
+      - edge_case_scenarios
+      - error_handling_tests
+      - multi_agent_coordination_tests
+      
+  prompt_testing:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/testing/prompt_a_b_tester.py"
+      - "dev-tools/testing/prompt_regression_detector.py"
+      - "dev-tools/testing/prompt_effectiveness_analyzer.py"
+    capabilities:
+      - compare_prompt_versions
+      - measure_response_quality
+      - detect_prompt_drift
+      - optimize_prompt_performance
+      
+  integration_testing:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/testing/external_api_test_suite.py"
+      - "dev-tools/testing/agent_integration_tester.py"
+      - "dev-tools/testing/end_to_end_workflow_tester.py"
+    test_scenarios:
+      - external_service_failures
+      - network_latency_simulation
+      - rate_limiting_scenarios
+      - data_corruption_handling
+
+test_data_management:
+  synthetic_conversations: "auto_generated"
+  anonymized_production_data: "privacy_compliant"
+  edge_case_scenarios: "manually_curated"
+  performance_benchmarks: "regression_tracking"
+```
+
+### 5. Code Quality & Standards Enforcement (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+code_quality_infrastructure:
+  agent_linting:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/quality/agent_code_linter.py"
+      - "dev-tools/quality/prompt_template_validator.py"
+      - "dev-tools/quality/conversation_flow_analyzer.py"
+    checks:
+      - agent_architecture_compliance
+      - prompt_template_consistency
+      - conversation_flow_validation
+      - security_vulnerability_scanning
+      
+  automated_formatting:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/quality/code_formatter.py"
+      - "dev-tools/quality/prompt_standardizer.py"
+      - "dev-tools/quality/config_normalizer.py"
+    standards:
+      - python_black_formatting
+      - yaml_consistent_structure
+      - json_schema_validation
+      - markdown_link_checking
+      
+  pre_commit_hooks:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/quality/pre_commit_agent_checks.py"
+      - "dev-tools/quality/conversation_test_runner.py"
+      - "dev-tools/quality/security_scanner.py"
+    hooks:
+      - run_agent_unit_tests
+      - validate_conversation_flows
+      - check_security_compliance
+      - update_documentation
+
+code_review_automation:
+  agent_behavior_review: "automated_checks"
+  prompt_change_impact: "analysis_required"
+  conversation_flow_review: "visual_diff_required"
+```
+
+### 6. Monitoring & Analytics Tools (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+monitoring_tools:
+  real_time_dashboard:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/monitoring/agent_dashboard.py"
+      - "dev-tools/monitoring/conversation_analytics.py"
+      - "dev-tools/monitoring/performance_visualizer.py"
+    visualizations:
+      - agent_health_status
+      - conversation_success_rates
+      - response_time_histograms
+      - error_rate_trends
+      
+  conversation_analytics:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/analytics/conversation_flow_analyzer.py"
+      - "dev-tools/analytics/user_satisfaction_tracker.py"
+      - "dev-tools/analytics/agent_effectiveness_measurer.py"
+    metrics:
+      - conversation_completion_rates
+      - user_satisfaction_scores
+      - agent_handoff_efficiency
+      - knowledge_gap_identification
+      
+  alerting_system:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/monitoring/intelligent_alerting.py"
+      - "dev-tools/monitoring/anomaly_detector.py"
+      - "dev-tools/monitoring/escalation_manager.py"
+    alert_types:
+      - agent_performance_degradation
+      - unusual_conversation_patterns
+      - security_anomalies
+      - infrastructure_issues
+
+custom_metrics:
+  business_kpi_tracking: "project_specific"
+  user_engagement_metrics: "required"
+  agent_learning_progress: "required"
+```
+
+### 7. Development Workflow Tools (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+workflow_tools:
+  git_integration:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/git/agent_versioning.py"
+      - "dev-tools/git/conversation_diff_viewer.py"
+      - "dev-tools/git/prompt_change_tracker.py"
+    features:
+      - semantic_agent_versioning
+      - conversation_flow_diffs
+      - prompt_template_history
+      - automated_changelog_generation
+      
+  ci_cd_integration:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/cicd/agent_build_pipeline.py"
+      - "dev-tools/cicd/conversation_test_runner.py"
+      - "dev-tools/cicd/deployment_validator.py"
+    pipeline_stages:
+      - agent_unit_tests
+      - conversation_integration_tests
+      - security_vulnerability_scans
+      - performance_regression_tests
+      
+  environment_management:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/env/environment_provisioner.py"
+      - "dev-tools/env/config_manager.py"
+      - "dev-tools/env/secrets_rotator.py"
+    environments:
+      - development: "fast_iteration"
+      - staging: "production_like_testing"
+      - production: "full_monitoring"
+
+branch_strategies:
+  feature_branches: "agent_feature_isolation"
+  conversation_testing: "automated_on_pr"
+  deployment_gates: "quality_checks_required"
+```
+
+### 8. Performance Optimization Tools (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+performance_tools:
+  response_time_optimizer:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/performance/latency_analyzer.py"
+      - "dev-tools/performance/caching_optimizer.py"
+      - "dev-tools/performance/prompt_efficiency_measurer.py"
+    optimizations:
+      - prompt_length_optimization
+      - response_caching_strategies
+      - parallel_processing_opportunities
+      - memory_usage_optimization
+      
+  load_testing:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/performance/agent_load_tester.py"
+      - "dev-tools/performance/conversation_stress_tester.py"
+      - "dev-tools/performance/scalability_predictor.py"
+    test_scenarios:
+      - concurrent_conversation_handling
+      - peak_load_simulation
+      - memory_leak_detection
+      - resource_exhaustion_testing
+      
+  cost_optimization:
+    status: "MANDATORY"
+    components:
+      - "dev-tools/performance/token_usage_analyzer.py"
+      - "dev-tools/performance/api_cost_tracker.py"
+      - "dev-tools/performance/efficiency_recommender.py"
+    metrics:
+      - tokens_per_conversation
+      - api_costs_per_user_session
+      - resource_utilization_efficiency
+      - cost_optimization_opportunities
+
+benchmark_tracking:
+  performance_baselines: "version_controlled"
+  regression_detection: "automated"
+  optimization_suggestions: "ai_powered"
+```
+
+## Context-Aware Developer Experience Deployment
+
+### 9. Project Development Profile Analyzer
+```python
+# L2 DEV EXPERIENCE ANALYZER: Tailor dev tools to project characteristics
+class DeveloperExperienceAnalyzer:
+    """Analyze project to determine optimal developer experience setup"""
+    
+    def analyze_dev_requirements(self, project_path: str) -> dict:
+        """Analyze project to determine required dev experience components"""
+        context = {
+            "team_size": self._estimate_team_size(project_path),
+            "project_complexity": self._assess_complexity(project_path),
+            "development_stage": self._determine_dev_stage(project_path),
+            "integration_complexity": self._analyze_integrations(project_path),
+            "performance_requirements": self._assess_performance_needs(project_path)
+        }
+        
+        return self._generate_dev_experience_requirements(context)
+        
+    def _estimate_team_size(self, project_path: str) -> str:
+        """Estimate team size based on git history and code patterns"""
+        # Analyze git contributors, code review patterns, etc.
+        git_contributors = self._count_git_contributors(project_path)
+        
+        if git_contributors <= 2:
+            return "solo_or_small"
+        elif git_contributors <= 10:
+            return "medium_team"
+        else:
+            return "large_team"
+            
+    def _assess_complexity(self, project_path: str) -> str:
+        """Assess project complexity based on agent count, integrations, etc."""
+        agent_count = len(glob.glob(f"{project_path}/**/agents/**/*.py", recursive=True))
+        integration_count = len(glob.glob(f"{project_path}/**/integrations/**/*", recursive=True))
+        
+        complexity_score = agent_count * 2 + integration_count
+        
+        if complexity_score <= 5:
+            return "simple"
+        elif complexity_score <= 20:
+            return "moderate"
+        else:
+            return "complex"
+            
+    def _generate_dev_experience_requirements(self, context: dict) -> dict:
+        """Generate specific dev experience requirements based on context"""
+        requirements = {
+            "essential": [
+                "debugging_tools",
+                "local_dev_environment",
+                "basic_documentation",
+                "conversation_testing"
+            ]
+        }
+        
+        # Team size specific requirements
+        if context["team_size"] in ["medium_team", "large_team"]:
+            requirements["collaboration"] = [
+                "code_review_automation",
+                "shared_development_environments",
+                "team_performance_dashboards",
+                "knowledge_sharing_tools"
+            ]
+            
+        # Complexity specific requirements
+        if context["project_complexity"] in ["moderate", "complex"]:
+            requirements["advanced_tooling"] = [
+                "advanced_debugging",
+                "performance_profiling",
+                "comprehensive_monitoring",
+                "automated_optimization"
+            ]
+            
+        # Development stage specific requirements
+        if context["development_stage"] == "production":
+            requirements["production_support"] = [
+                "production_debugging",
+                "performance_monitoring",
+                "incident_response_tools",
+                "customer_support_integration"
+            ]
+            
+        return requirements
+```
+
+---
+
+## Universal Developer Experience Summary
+
+**EVERY AGENTIC PROJECT MUST HAVE:**
+1. 🐛 **Debugging & Troubleshooting** - Agent debugger, conversation replay, performance profiling
+2. 💻 **Local Development** - Agent simulator, hot reloading, development CLI
+3. 📚 **Documentation & Knowledge** - Auto-generated docs, interactive exploration, knowledge base
+4. 🧪 **Testing & Validation** - Conversation testing, prompt testing, integration testing
+5. ⚡ **Code Quality & Standards** - Agent linting, automated formatting, pre-commit hooks
+6. 📊 **Monitoring & Analytics** - Real-time dashboards, conversation analytics, intelligent alerting
+7. 🔄 **Development Workflow** - Git integration, CI/CD pipelines, environment management
+8. 🚀 **Performance Optimization** - Response time optimization, load testing, cost optimization
+
+**CONTEXT-AWARE DEVELOPER EXPERIENCE:**
+- 👥 **Team Size Adaptation** - Scale tools and processes based on team size
+- 🎯 **Complexity Matching** - Deploy appropriate tooling for project complexity
+- 📈 **Stage-Aware Tooling** - Different tools for development vs production stages
+- 🔧 **Custom Development Profiles** - Tailored developer experience per project type
+
+This ensures every agentic application has **world-class developer experience** automatically deployed through L2 enforcement! 🛠️

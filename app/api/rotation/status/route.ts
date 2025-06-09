@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { VaultAgent } from '../../../../vault/VaultAgent';
+import { VaultAgent } from '../../../../src/vault/VaultAgent';
 import { SecretRotatorAgent } from '../../../../apps/api/agents/secrets/SecretRotatorAgent';
 import { RotationSchedulerService } from '../../../../apps/api/agents/secrets/services/RotationSchedulerService';
 import { createLogger } from '../../../../src/utils/logger';

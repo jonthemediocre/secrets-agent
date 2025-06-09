@@ -1,0 +1,61 @@
+---
+description: Example always rule for development workflow and process rules
+type: always
+created: '2025-06-07T14:31:54.658849'
+example: true
+category: workflow
+alwaysApply: true
+priority: high
+migrated: true
+migration_date: '2025-06-07T14:32:13.987751'
+---
+
+# Workflow Always Rule Example
+
+## Description
+
+This is an example always rule for development workflow and process rules. It demonstrates the proper structure and content for rules in the workflow category.
+
+## Rule Implementation
+
+This rule is automatically enforced and cannot be bypassed. It applies to all relevant code without exception.
+
+## Examples
+
+### Good Pattern
+
+```javascript
+// Example of following this rule
+const examplePattern = {
+  // Implementation that follows best practices
+  property: 'value'
+};
+```
+
+### Poor Pattern
+
+```javascript
+// Example of violating this rule
+var badPattern = {
+  // Implementation that violates the rule
+  prop: 'val'
+};
+```
+
+## Rationale
+
+This rule exists to:
+- Promote best practices in development workflow and process rules
+- Ensure consistency across the codebase
+- Prevent common mistakes and issues
+- Support maintainable code patterns
+
+## Related Rules
+
+- See other rules in the workflow/ folder
+- Consider complementary rules in related folders
+- Review always rules that may take precedence
+
+## Notes
+
+This is an example rule for demonstration purposes. Modify it according to your specific needs and requirements.

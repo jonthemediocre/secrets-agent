@@ -1,0 +1,74 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.212290'
+---
+
+# RULE TYPE: Always (Core AI Operational Principle)
+# FILE PATTERNS: N/A (Universal Architectural Guideline)
+
+# 002: Level 1 / Level 2 AI Interaction & Co-evolution Protocol
+
+## Purpose
+This rule defines the distinction between "Level 1" (L1) and "Level 2" (L2) operational contexts for AI-assisted development, establishing clear boundaries and co-evolutionary relationships between AI governance and project-specific implementation.
+
+## Definitions
+
+### Level 1 (L1): AI Assistant Governance Layer
+- **Scope:** Governs the Cursor AI assistant's behavior and its interaction with any project
+- **Primary Guidance:** `.cursor/rules/*.mdc` files that dictate response patterns, tool usage, coding standards application, and general operational logic
+- **Nature:** Project-agnostic principles and IDE-level integration rules
+- **Examples:** `000-base.mdc`, `005-destructive-op-safety.mdc`, technology-specific rules like `100-nextjs-specific.mdc`
+
+### Level 2 (L2): Project-Specific Implementation Layer
+- **Scope:** Governs the internal architecture, logic, protocols, and standards of a specific project being developed
+- **Primary Guidance:** Project-internal rule directories, design documents (`THEPLAN.md`, `blueprint.yaml`), and the project's own codebase
+- **Nature:** Project-specific design decisions, internal APIs, agent contracts, domain logic, and operational protocols
+- **Examples:** Framework rules, agent cascade definitions, Python code defining project agents and core logic
+
+## Interaction Model
+
+### L1 Governs AI Interaction with L2
+- The Cursor AI assistant operates based on L1 rules that dictate how it should approach tasks related to L2 projects
+- L1 rules specify how the AI should propose changes, what questions to ask before refactoring, and how to use tools to interact with L2's environment
+
+### L1 AI Interacts with L2 via Defined Interfaces
+The L1 AI assistant interacts with L2 project components through established interfaces:
+- **Code Modification Tools:** `edit_file`, `mcp_desktop-commander_edit_block`
+- **File System Tools:** `read_file`, `list_dir`, `mcp_desktop-commander_read_file`
+- **Execution Tools:** `run_terminal_cmd`, `mcp_desktop-commander_execute_command`
+- **Project-Specific APIs/CLIs:** When L2 projects expose their own APIs or CLIs
+
+**Important:** The L1 AI does not make direct, unmediated internal calls to L2 functions or classes. It helps build and manage L2, not execute within L2's runtime.
+
+## Co-evolutionary Relationship
+
+### L2 Informs L1
+- Challenges, successes, and evolving needs of L2 projects provide critical feedback for refining L1 rules
+- Recurring patterns of AI interaction inefficiency should trigger creation of new L1 rules
+- Example: If AI frequently struggles with a project's state management patterns, create an L1 rule to guide better state querying
+
+### L1 Guides L2 Development
+- L1 rules actively guide scaffolding, development, and adherence to standards within L2 projects
+- The AI acts as a "guardian" for L2's structure and quality
+- Detailed in `003-L1-enforces-L2-scaffolding.mdc`
+
+## Separation of Concerns
+
+### Clear Boundaries
+- **L1 rules do not dictate runtime behavior of L2 agents**
+- **L2 agents do not depend on L1 rules or Cursor-specific functionalities**
+- **L2 components are designed to be self-contained and portable**
+
+### Tooling Bridge
+- L1 (Cursor AI) may use tools to interact with running L2 instances for testing or operational tasks
+- This represents external interaction, not internal dependency of L2 on L1
+
+## Goal: Synergistic Development
+The ultimate goal is a synergistic relationship where the L1 AI assistant becomes increasingly effective at developing and maintaining complex L2 projects through:
+- Continuously improving L1 rules based on L2 development experiences
+- Using L1 rules to ensure L2 development aligns with best practices and architectural goals
+- Enabling recursive, agentic intelligence capable of sophisticated project development

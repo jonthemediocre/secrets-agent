@@ -1,5 +1,5 @@
 ---
-description: "*.Patch_Proposal*.md"             - "docs/rituals/*.md"             - "vanta_seed/core/ritual*"
+description: *Patch_Proposal*.md, docs/rituals/*.md, vanta_seed/core/ritual*
 globs: 
 alwaysApply: false
 ---

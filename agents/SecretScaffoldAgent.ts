@@ -1,8 +1,8 @@
 import { createLogger } from '../src/utils/logger';
-import { VaultAgent } from '../vault/VaultAgent';
-import { AgentBridgeService, SecretSuggestion } from '../src/services/AgentBridgeService';
+import { VaultAgent } from '../src/vault/VaultAgent';
+import { AgentBridgeService } from '../src/services/AgentBridgeService';
 import { parseEnvFile } from '../src/utils/EnvFileParser';
-import { SecretEntry } from '../vault/VaultTypes';
+import { SecretEntry } from '../src/vault/VaultTypes';
 import { readFileSync, existsSync } from 'fs';
 import { join, basename } from 'path';
 
@@ -40,6 +40,16 @@ export interface SecretTemplate {
   required: boolean;
   category: string;
   sources: string[];
+}
+
+// Type definitions for missing interfaces
+export interface SecretSuggestion {
+  key: string;
+  suggestedValue?: string;
+  source: 'env' | 'cli_scan' | 'scaffold';
+  confidence: number;
+  category?: string;
+  description?: string;
 }
 
 /**

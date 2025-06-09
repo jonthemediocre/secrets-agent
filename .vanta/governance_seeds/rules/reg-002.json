@@ -1,0 +1,17 @@
+{
+  "rule_id": "REG-002",
+  "category": "REG",
+  "severity": "REQUIRED",
+  "title": "Dynamic Capability Discovery",
+  "description": "Agents MUST support dynamic capability discovery",
+  "implementation_requirements": [
+    "Implement get_capabilities() method",
+    "Implement get_supported_protocols() method",
+    "Support health_check() for discovery",
+    "Update registry on capability changes"
+  ],
+  "validation_method": "check_capability_discovery",
+  "sync_priority": 7,
+  "last_updated": "2025-06-07T12:46:18.387785",
+  "version": "2.0.0"
+}

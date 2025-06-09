@@ -1,0 +1,1 @@
+// Vault Indicator Component

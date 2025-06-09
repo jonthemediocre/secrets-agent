@@ -1,0 +1,136 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 003-L2: Cascade Profile Compliance & Auto-Scaffolding
+
+## Purpose
+Ensures every project implements required cascade profiles for L3 production agent deployment, failure recovery, and auto-scaffolding of missing L3 structures.
+
+## Required Cascade Profiles
+
+### 1. L3 Production Agent Deployment Cascade (MANDATORY)
+```yaml
+# Required in .cursor/rules/agent_cascade_definitions.mdc
+mandatory_cascade_profiles:
+  - profile_id: "l3_production_agent_deployment_cascade"
+    file_location: ".cursor/rules/agent_cascade_definitions.mdc"
+    required_sections:
+      - uap_mdc_compliance_required: true
+      - trigger_conditions_with_agent_context: true
+      - signature_validation_steps: true
+      - competitive_benchmarking_step: true
+    validation_method: "yaml_structure_check"
+```
+
+### 2. L3 Production Failure Recovery Cascade (MANDATORY)
+```yaml
+  - profile_id: "l3_production_failure_recovery_cascade"
+    required_sections:
+      - production_context_preservation: true
+      - uap_signature_validation_recovery: true
+      - vault_security_incident_handling: true
+```
+
+### 3. Auto-Scaffolding System (MANDATORY)
+```python
+class L2AutoScaffoldL3Structures:
+    """Automatically scaffold required L3 structures in projects"""
+    
+    def scaffold_missing_l3_components(self, project_path: str):
+        """Generate missing L3 UAP-MDC structures"""
+        scaffolding_tasks = [
+            self._scaffold_uap_mdc_production_rule,
+            self._scaffold_competitive_benchmarking_config,
+            self._scaffold_agent_bus_integration,
+            self._scaffold_cascade_profiles,
+            self._scaffold_production_validators
+        ]
+        
+        for task in scaffolding_tasks:
+            try:
+                task(project_path)
+            except Exception as e:
+                self.logger.error(f"L2 Scaffolding failed for {task.__name__}: {e}")
+                raise RuntimeError(f"L2 ENFORCEMENT: Cannot scaffold required L3 structure: {task.__name__}")
+    
+    def _scaffold_uap_mdc_production_rule(self, project_path: str):
+        """Create rules/uap-mdc-l3-production.rule if missing"""
+        target_file = f"{project_path}/rules/uap-mdc-l3-production.rule"
+        if not os.path.exists(target_file):
+            self._copy_template("uap-mdc-l3-production.rule.template", target_file)
+            
+    def _scaffold_competitive_benchmarking_config(self, project_path: str):
+        """Create config/competitive-pattern-detection-benchmarking.yaml if missing"""
+        target_file = f"{project_path}/config/competitive-pattern-detection-benchmarking.yaml"
+        if not os.path.exists(target_file):
+            self._copy_template("competitive-benchmarking.yaml.template", target_file)
+            
+    def _scaffold_agent_bus_integration(self, project_path: str):
+        """Ensure agent bus has UAP-MDC integration"""
+        core_files = [
+            f"{project_path}/vanta_seed/core/vanta_master_core.py",
+            f"{project_path}/vanta_seed/core/cascade_executor.py", 
+            f"{project_path}/vanta_seed/core/base_agent.py"
+        ]
+        
+        for file_path in core_files:
+            if os.path.exists(file_path):
+                self._inject_uap_mdc_integration(file_path)
+```
+
+## Enforcement Triggers
+```yaml
+enforcement_triggers:
+  - on_agent_creation: "validate_cascade_profile_exists"
+  - on_production_deployment: "validate_all_l3_profiles_implemented"
+  - on_vault_operation: "validate_security_cascade_exists"
+```
+
+## Development Blocking Validation
+```python
+class L2DevelopmentBlocker:
+    """Block development operations until L3 UAP-MDC compliance achieved"""
+    
+    def validate_before_agent_operation(self, operation_type: str, agent_context: dict):
+        """Validate L3 compliance before any agent operation"""
+        if self._is_l3_production_operation(operation_type, agent_context):
+            compliance_check = self._validate_l3_compliance()
+            
+            if not compliance_check.get('compliant', False):
+                missing_components = compliance_check.get('missing_components', [])
+                raise BlockingValidationError(
+                    f"L2 ENFORCEMENT: Cannot perform L3 operation '{operation_type}' "
+                    f"without required UAP-MDC compliance. Missing: {missing_components}"
+                )
+```
+
+## Cross-Project Sync Enforcement
+```python
+class L2CrossProjectL3Enforcement:
+    """Ensure all projects have consistent L3 UAP-MDC implementation"""
+    
+    def validate_cross_project_compliance(self, projects: list) -> dict:
+        """Validate that all projects implement L3 structures consistently"""
+        compliance_report = {}
+        
+        for project in projects:
+            project_compliance = self._validate_single_project_l3_compliance(project)
+            compliance_report[project] = project_compliance
+            
+            if not project_compliance.get('compliant', False):
+                # Trigger automatic remediation
+                self._trigger_l3_compliance_remediation(project)
+                
+        return compliance_report
+```
+
+## Implementation Requirements Summary
+**EVERY PROJECT MUST HAVE:**
+1. ✅ L3 production cascade profiles
+2. ✅ Failure recovery cascade profiles  
+3. ✅ Auto-scaffolding system for missing L3 structures
+4. ✅ Development blocking until compliance achieved
+5. ✅ Cross-project sync validation and remediation
+

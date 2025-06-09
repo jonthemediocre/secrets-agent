@@ -1,0 +1,26 @@
+a2a_communication_protocol:
+  message_format: yaml
+  routing_method: capability_based
+  version: '1.0'
+message_structure:
+  optional_fields:
+  - priority
+  - symbolic_trigger
+  - trinity_context
+  - response_required
+  required_fields:
+  - sender_id
+  - recipient_id
+  - message_type
+  - timestamp
+  - payload
+message_types:
+  capability_request:
+    description: Request for specific capability assistance
+    routing: capability_registry_lookup
+  genesis_notification:
+    description: Notification of new agent creation
+    routing: broadcast_to_coordinators
+  symbolic_emergence:
+    description: New symbolic pattern detected
+    routing: symbolic_consciousness_agents

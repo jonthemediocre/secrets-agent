@@ -1,0 +1,23 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Install PostgreSQL client and Redis tools
+RUN apk add --no-cache postgresql-client redis
+
+# Copy package files
+COPY package*.json ./
+RUN npm ci --only=production
+
+# Copy migration scripts and SQL files
+COPY migrations/ ./migrations/
+COPY scripts/ ./scripts/
+COPY lib/ ./lib/
+
+# Make scripts executable
+RUN chmod +x scripts/*.sh
+
+# Install migration dependencies
+RUN npm install --save pg redis @types/pg
+
+ENTRYPOINT ["node", "scripts/run-migrations.js"] 

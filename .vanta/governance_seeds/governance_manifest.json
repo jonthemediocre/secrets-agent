@@ -1,0 +1,72 @@
+{
+  "governance_version": "2.0.0",
+  "manifest_timestamp": "2025-06-07T12:46:18.392937",
+  "total_rules": 15,
+  "rules_by_category": {
+    "UAP": [
+      "UAP-001",
+      "UAP-002"
+    ],
+    "COM": [
+      "COM-001",
+      "COM-002",
+      "COM-003"
+    ],
+    "TOOL": [
+      "TOOL-001",
+      "TOOL-002",
+      "TOOL-003"
+    ],
+    "REG": [
+      "REG-001",
+      "REG-002"
+    ],
+    "CASCADE": [
+      "CASCADE-001"
+    ],
+    "SEC": [
+      "SEC-001",
+      "SEC-002"
+    ],
+    "MON": [
+      "MON-001",
+      "MON-002"
+    ]
+  },
+  "rules_by_severity": {
+    "CRITICAL": [
+      "UAP-001",
+      "UAP-002",
+      "TOOL-002",
+      "REG-001",
+      "SEC-001"
+    ],
+    "MANDATORY": [
+      "COM-001",
+      "COM-002",
+      "TOOL-001",
+      "TOOL-003",
+      "CASCADE-001",
+      "MON-001"
+    ],
+    "REQUIRED": [
+      "COM-003",
+      "REG-002",
+      "SEC-002",
+      "MON-002"
+    ]
+  },
+  "sync_requirements": {
+    "minimum_compliance_score": 0.9,
+    "critical_rules_required": true,
+    "mandatory_rules_required": true,
+    "framework_dependencies": [
+      "vanta_seed.core.uap_agent_base",
+      "vanta_seed.core.component_registry",
+      "vanta_seed.protocols.message_types",
+      "vanta_seed.core.protocol_handlers",
+      "vanta_seed.core.compliance_validator"
+    ]
+  },
+  "checksum": "e3c59c8f3f33e39c07070937c0faa1c9ea42749fb0f8137983650583f7be4c4f"
+}

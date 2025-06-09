@@ -1,0 +1,16 @@
+{
+  "rule_id": "TOOL-003",
+  "category": "TOOL",
+  "severity": "MANDATORY",
+  "title": "Standard Response Format",
+  "description": "All tool responses MUST follow MCPResponse format",
+  "implementation_requirements": [
+    "Return MCPResponse objects from execute_mcp_tool",
+    "Include success status and error details",
+    "Provide execution metadata and timing"
+  ],
+  "validation_method": "check_tool_response_format",
+  "sync_priority": 8,
+  "last_updated": "2025-06-07T12:46:18.387782",
+  "version": "2.0.0"
+}

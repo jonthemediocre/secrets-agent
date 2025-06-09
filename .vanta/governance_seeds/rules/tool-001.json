@@ -1,0 +1,16 @@
+{
+  "rule_id": "TOOL-001",
+  "category": "TOOL",
+  "severity": "MANDATORY",
+  "title": "Capability-Tool Mapping Requirement",
+  "description": "All agent capabilities MUST be exposed as callable tools",
+  "implementation_requirements": [
+    "Map each capability to at least one tool",
+    "Provide comprehensive tool descriptions",
+    "Include parameter schemas for all tools"
+  ],
+  "validation_method": "check_tool_capability_mapping",
+  "sync_priority": 8,
+  "last_updated": "2025-06-07T12:46:18.387780",
+  "version": "2.0.0"
+}

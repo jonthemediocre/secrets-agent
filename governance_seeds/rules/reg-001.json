@@ -1,0 +1,17 @@
+{
+  "rule_id": "REG-001",
+  "category": "REG",
+  "severity": "CRITICAL",
+  "title": "Component Registry Registration",
+  "description": "All agents MUST register with component registry on startup",
+  "implementation_requirements": [
+    "Call COMPONENT_REGISTRY.register_agent() in startup()",
+    "Provide complete capability list",
+    "Include tool definitions and metadata",
+    "Handle registration failures gracefully"
+  ],
+  "validation_method": "check_registry_registration",
+  "sync_priority": 10,
+  "last_updated": "2025-06-07T12:15:43.882751",
+  "version": "2.0.0"
+}

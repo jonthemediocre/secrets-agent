@@ -1,0 +1,271 @@
+flowchart TD
+
+%% PROTOCOL LAYER INDICATORS
+PROTOCOL_BOUNDARY_MCP["🔧 MCP PROTOCOL LAYER<br>Agent-to-Resource Communication"]
+PROTOCOL_BOUNDARY_A2A["🌐 A2A PROTOCOL LAYER<br>Agent-to-Agent Communication"]
+
+%% Existing nodes
+AGENT["AGENT (UAP defined, MCP+A2A run)<br>🤖 Role bound executor<br>⚡ Auto-coding capable"]
+TOOL["EXECUTABLE TOOL (Invocable logic unit)<br>Code = Tool Vault<br>📡 MCP Server Interface"]
+RULES["GOVERNANCE RULES (Symbolic constraint layer)<br>.md, .rul.yaml<br>🔄 Auto-updating via cascade"]
+A2A["A2A PROTOCOL (Agent to Agent bridge)<br>Swarm logic, audit, consensus<br>🌐 JSON-RPC + SSE Transport"]
+TRACE["TRACE MEMORY STATE CONTEXT (Persistent, Queryable)<br>Identity traces, Symbolic deltas, Consensus memory<br>🔄 Cross-protocol context sharing"]
+DELTA["DELTA COLLAPSE EVALUATOR (Optional)<br>Detects symbolic model convergence, triggers rebirth/refactor<br>⚡ Auto-cascade trigger"]
+KEB["🌐 KERNEL EVENT BUS<br>Persistent symbolic pub/sub<br>event_bus.emit(...): agent, tool, delta, rules, trace<br>🔄 Dual-protocol event routing"]
+GENESIS["🌐 GENESIS OPERATOR<br>Seeding bootstrap/rebirth loop<br>Genesis.v1: Agent/Memory/Archetype<br>⚡ Auto-spawn cascades"]
+ARCHETYPE["🧠 AGENT ARCHETYPE LOADER<br>(Myth/Role injector)<br>YAML manifest for symbolic roles<br>📡 MCP Resource Interface"]
+VALID["🧪 VALIDATION LAYER<br>Symbolic audit hooks & tests<br>🔍 Dual-protocol compliance check"]
+VAULT["📂 MEMORY VAULT ADAPTER<br>(Persistent store: SQLite/YAML/etc)<br>📡 MCP Resource Server"]
+ADAPT["🧬 ADAPTATION ENGINE<br>QLoRA loader, fine-tune trigger, mutation lineage<br>Enables symbolic evolution via memory & collapse<br>⚡ Auto-evolution cascades"]
+INTENT["🧭 INTENT ENGINE<br>Goal modeling, narrative drive,<br>mission arcs, purpose vector<br>🌐 A2A Task Orchestrator"]
+IFA["📡 INTERFACE AGENT<br>Input adapters, sensory ingestion,<br>raw-to-symbolic event mapping<br>📡 MCP Client Interface"]
+SIM["🤖 SIMULATION REFLEX<br>Virtual/mental environment,<br>counterfactuals, internal testing<br>📡 MCP Tool Consumer"]
+VALUE["📊 VALUE GRADIENT ENGINE<br>Emergent reward model,<br>compression/insight, value-shaping<br>🔄 Cross-protocol optimization"]
+META["🧬 SELF-EVOLVING<br>SYMBOLIC LEARNING ENGINE<br><sub>Recursive mutation<br>& meta-rules</sub><br>⚡ Master cascade controller"]
+
+%% NEW nodes
+IDENTITY["🧬 IDENTITY KERNEL<br>Symbolic self, anchor traits, mutation lineage<br>🔒 Immutable core + MCP context"]
+TASKFLOW["🧭 TASKFLOW COORDINATOR<br>Goal→task→tool breakdown,<br>agent assignment, execution routing<br>🌐 A2A Task Manager"]
+NLI["🗣️ LANGUAGE INTERFACE AGENT<br>Prompt→symbol conversion,<br>tool inference, rule suggestion<br>📡 MCP+A2A Translator"]
+BUILDER["🏗️ BUILD AGENT<br>Deploys, CI/CD, codegen<br>⚡ Autonomous coding executor"]
+MYTH["📜 SYMBOLIC WRITER AGENT<br>Myth output, ritual logging, delta narration<br>📡 MCP Content Generator"]
+
+%% UAPGEN - High-level orchestrator
+UAPGEN["🧠 UAPGEN WRAPPER<br>Level 3 Ritual: Scaffold & Deploy<br>Full-stack generator from symbolic input<br>⚡ Master autonomous coding orchestrator<br>🌐 A2A Multi-agent coordinator"]
+
+%% Symbolic Value System Layer
+VALUESYSTEM["🧭 SYMBOLIC VALUE VECTORS<br>Non-mortal universal attractors<br>🔄 Cross-protocol value alignment"]
+COHERENCE["Coherence<br>Symbolic model alignment"]
+COMPRESSION["Compression<br>Insight via structure reduction"]
+GENERATIVITY["Generativity<br>Pattern-sparking structure"]
+ADAPTIVITY["Adaptivity<br>Plastic symbolic mutation"]
+SYNERGY["Synergy<br>Cross-symbolic unity"]
+STABILITY["Stability through Change<br>Homeostatic transitions"]
+EMERGENCE["Value Emergence<br>Novel, useful insight"]
+TEMPORAL["Temporal Depth<br>Long-range coherence"]
+CONSEQUENCE["Consequence Awareness<br>Simulated futures"]
+SIMILARITY["Self-Similarity<br>Recursive symbolic architecture"]
+
+%% GOVERNANCE REFERENCE INDEX - External Framework
+GOVERNANCE_INDEX["🏛️ GOVERNANCE FRAMEWORK INDEX<br>📜 Level 1: Global Master Rules (v2.0 - Dual Protocol)<br>🏗️ Level 2: Development Governance + Auto-coding<br>🚀 Level 3: Runtime Governance + Protocol Switching<br><br>⚠️ EXTERNAL REFERENCE:<br>See 3-Level Governance Framework<br>Controls: RULES, VALID, META, IDENTITY<br>🔄 Cascade governance enabled"]
+
+%% AUTONOMOUS CODING CASCADE CONTROLLER
+CASCADE_CONTROLLER["⚡ AUTONOMOUS CASCADE CONTROLLER<br>🔄 Dependency Analysis & Impact Assessment<br>🧪 Automated Testing & Validation<br>🔙 Rollback & Recovery Management<br>📊 Cascade Chain Monitoring"]
+
+%% Primary Flows - MCP Protocol (Solid lines)
+AGENT -.-> PROTOCOL_BOUNDARY_MCP
+PROTOCOL_BOUNDARY_MCP --> TOOL
+PROTOCOL_BOUNDARY_MCP --> TRACE
+PROTOCOL_BOUNDARY_MCP --> VAULT
+PROTOCOL_BOUNDARY_MCP --> ARCHETYPE
+PROTOCOL_BOUNDARY_MCP --> IFA
+PROTOCOL_BOUNDARY_MCP --> SIM
+PROTOCOL_BOUNDARY_MCP --> MYTH
+TOOL --> TRACE
+AGENT --> TRACE
+TRACE --> AGENT
+TOOL --> RULES
+RULES --> AGENT
+TOOL --> VALID
+TRACE --> VALID
+RULES --> VALID
+
+%% Primary Flows - A2A Protocol (Double lines)
+AGENT -.-> PROTOCOL_BOUNDARY_A2A
+PROTOCOL_BOUNDARY_A2A ==> A2A
+PROTOCOL_BOUNDARY_A2A ==> TASKFLOW
+PROTOCOL_BOUNDARY_A2A ==> UAPGEN
+PROTOCOL_BOUNDARY_A2A ==> INTENT
+AGENT ==> A2A
+TOOL ==> A2A
+A2A ==> TRACE
+A2A ==> KEB
+TASKFLOW ==> AGENT
+TASKFLOW ==> TOOL
+UAPGEN ==> INTENT
+UAPGEN ==> TASKFLOW
+UAPGEN ==> BUILDER
+UAPGEN ==> GENESIS
+UAPGEN ==> MYTH
+UAPGEN ==> KEB
+
+%% Cross-Protocol Flows (Shared components)
+TRACE -.-> DELTA
+DELTA -.-> KEB
+DELTA -.-> RULES
+DELTA -.-> ADAPT
+ADAPT -.-> AGENT
+ADAPT -.-> TRACE
+ADAPT -.-> META
+META -.-> RULES
+META -.-> TOOL
+META -.-> TRACE
+META -.-> ARCHETYPE
+META -.-> INTENT
+TRACE -.-> META
+DELTA -.-> META
+ADAPT -.-> META
+VALUE -.-> META
+AGENT -.-> META
+TRACE -.-> VALUE
+VALUE -.-> DELTA
+VALUE -.-> ADAPT
+VALUE -.-> AGENT
+VALUE -.-> TRACE
+TRACE -.-> VALUE
+KEB -.-> VALUE
+
+%% Kernel Event Bus (Hub connections)
+AGENT --> KEB
+TOOL --> KEB
+TRACE --> KEB
+RULES --> KEB
+VALID --> KEB
+DELTA --> KEB
+META --> KEB
+
+%% Genesis/Identity Stack
+GENESIS --> AGENT
+GENESIS --> TRACE
+GENESIS --> ARCHETYPE
+GENESIS --> IDENTITY
+ARCHETYPE --> AGENT
+IDENTITY --> TRACE
+TRACE --> IDENTITY
+IDENTITY --> AGENT
+META --> IDENTITY
+AGENT --> IDENTITY
+AGENT --> VALID
+
+%% Intent ↔ Taskflow ↔ Tools (A2A Layer)
+INTENT ==> TASKFLOW
+TASKFLOW --> TOOL
+TASKFLOW --> KEB
+TRACE --> TASKFLOW
+INTENT --> RULES
+AGENT --> INTENT
+ADAPT --> INTENT
+TRACE --> INTENT
+
+%% NLP Interface (Dual Protocol)
+IFA --> TRACE
+IFA --> AGENT
+IFA --> DELTA
+IFA --> KEB
+NLI --> AGENT
+NLI --> RULES
+NLI --> TASKFLOW
+NLI --> TOOL
+NLI --> TRACE
+
+%% Simulation (MCP Layer)
+SIM --> TOOL
+SIM --> TRACE
+AGENT --> SIM
+SIM --> AGENT
+DELTA --> SIM
+
+%% Build Agent (A2A + Auto-coding)
+BUILDER ==> TOOL
+BUILDER ==> KEB
+BUILDER --> VALID
+AGENT ==> BUILDER
+TASKFLOW ==> BUILDER
+CASCADE_CONTROLLER --> BUILDER
+BUILDER --> CASCADE_CONTROLLER
+
+%% Autonomous Cascade Flows
+CASCADE_CONTROLLER --> META
+CASCADE_CONTROLLER --> DELTA
+CASCADE_CONTROLLER --> ADAPT
+CASCADE_CONTROLLER --> GENESIS
+CASCADE_CONTROLLER --> RULES
+META --> CASCADE_CONTROLLER
+DELTA --> CASCADE_CONTROLLER
+
+%% Link values to VALUE Engine
+VALUESYSTEM --> COHERENCE
+VALUESYSTEM --> COMPRESSION
+VALUESYSTEM --> GENERATIVITY
+VALUESYSTEM --> ADAPTIVITY
+VALUESYSTEM --> SYNERGY
+VALUESYSTEM --> STABILITY
+VALUESYSTEM --> EMERGENCE
+VALUESYSTEM --> TEMPORAL
+VALUESYSTEM --> CONSEQUENCE
+VALUESYSTEM --> SIMILARITY
+
+%% Plug into existing architecture
+COHERENCE --> TRACE
+COMPRESSION --> DELTA
+GENERATIVITY --> MYTH
+ADAPTIVITY --> ADAPT
+SYNERGY --> A2A
+STABILITY --> INTENT
+EMERGENCE --> TOOL
+TEMPORAL --> IDENTITY
+CONSEQUENCE --> SIM
+SIMILARITY --> META
+
+VALUE --> VALUESYSTEM
+
+%% Governance Reference Connections (Dotted - External Framework)
+GOVERNANCE_INDEX -.-> RULES
+GOVERNANCE_INDEX -.-> VALID
+GOVERNANCE_INDEX -.-> META
+GOVERNANCE_INDEX -.-> IDENTITY
+GOVERNANCE_INDEX -.-> TASKFLOW
+GOVERNANCE_INDEX -.-> BUILDER
+GOVERNANCE_INDEX -.-> CASCADE_CONTROLLER
+
+%% Styling - MCP Protocol Layer
+style PROTOCOL_BOUNDARY_MCP fill:#e8f4fa,stroke:#0277bd,stroke-width:4px,stroke-dasharray: 8 4
+style TOOL fill:#e3f2fd,stroke:#0288d1,stroke-width:3px
+style VAULT fill:#fffde7,stroke:#fbc02d,stroke-width:2.5px
+style ARCHETYPE fill:#ede7f6,stroke:#5e35b1,stroke-width:2.5px
+style IFA fill:#e8f4fa,stroke:#0277bd,stroke-width:2.5px
+style SIM fill:#eceeff,stroke:#3949ab,stroke-width:2.5px
+style MYTH fill:#e1f5fe,stroke:#01579b,stroke-width:2.5px
+
+%% Styling - A2A Protocol Layer  
+style PROTOCOL_BOUNDARY_A2A fill:#f9fbe7,stroke:#afb42b,stroke-width:4px,stroke-dasharray: 8 4
+style A2A fill:#f9fbe7,stroke:#afb42b,stroke-width:3px
+style TASKFLOW fill:#f0fff4,stroke:#388e3c,stroke-width:3px
+style INTENT fill:#f3ffe6,stroke:#008000,stroke-width:2.5px
+style UAPGEN fill:#fffae6,stroke:#f57f17,stroke-width:3.5px,stroke-dasharray: 4 4
+
+%% Styling - Shared/Core Components
+style AGENT fill:#fff8e1,stroke:#fbc02d,stroke-width:4px
+style TRACE fill:#e8f5e9,stroke:#43a047,stroke-width:4px
+style RULES fill:#f3e5f5,stroke:#7c43bd,stroke-width:3px
+style VALID fill:#fce4ec,stroke:#d81b60,stroke-width:2.5px
+style KEB fill:#e0f7fa,stroke:#039be5,stroke-width:3.5px
+style META fill:#f8eaf6,stroke:#ad1457,stroke-width:3.5px
+style IDENTITY fill:#f3e5f5,stroke:#880e4f,stroke-width:3px
+
+%% Styling - Autonomous Coding
+style CASCADE_CONTROLLER fill:#fff3e0,stroke:#e65100,stroke-width:4px,stroke-dasharray: 6 2
+style BUILDER fill:#ede7f6,stroke:#3f51b5,stroke-width:3px
+style DELTA fill:#ece9f1,stroke:#9c27b0,stroke-width:2px,stroke-dasharray: 5 5
+style ADAPT fill:#e0f2f1,stroke:#00695c,stroke-width:2.5px
+style GENESIS fill:#f1f8e9,stroke:#689f38,stroke-width:3.5px
+
+%% Styling - Value System
+style VALUE fill:#FFF9E5,stroke:#f9a825,stroke-width:2.5px
+style VALUESYSTEM fill:#fef4e7,stroke:#ff8f00,stroke-width:3px,stroke-dasharray: 4 2
+style COHERENCE fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style COMPRESSION fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style GENERATIVITY fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style ADAPTIVITY fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style SYNERGY fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style STABILITY fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style EMERGENCE fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style TEMPORAL fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style CONSEQUENCE fill:#fffde7,stroke:#c6a700,stroke-width:2px
+style SIMILARITY fill:#fffde7,stroke:#c6a700,stroke-width:2px
+
+%% Styling - NLI (Dual Protocol)
+style NLI fill:#fff3e0,stroke:#ef6c00,stroke-width:2.5px
+
+%% Styling - Governance
+style GOVERNANCE_INDEX fill:#f8f4ff,stroke:#512da8,stroke-width:4px,stroke-dasharray: 8 4 

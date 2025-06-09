@@ -1,0 +1,60 @@
+---
+description: Example manual rule for testing patterns and best practices
+type: manual
+created: '2025-06-07T14:31:54.657623'
+example: true
+category: testing
+reviewType: consideration
+migrated: true
+migration_date: '2025-06-07T14:32:13.884702'
+---
+
+# Testing Manual Rule Example
+
+## Description
+
+This is an example manual rule for testing patterns and best practices. It demonstrates the proper structure and content for rules in the testing category.
+
+## Rule Implementation
+
+This rule requires manual review and consideration. Apply it during code reviews and planning sessions.
+
+## Examples
+
+### Good Pattern
+
+```javascript
+// Example of following this rule
+const examplePattern = {
+  // Implementation that follows best practices
+  property: 'value'
+};
+```
+
+### Poor Pattern
+
+```javascript
+// Example of violating this rule
+var badPattern = {
+  // Implementation that violates the rule
+  prop: 'val'
+};
+```
+
+## Rationale
+
+This rule exists to:
+- Promote best practices in testing patterns and best practices
+- Ensure consistency across the codebase
+- Prevent common mistakes and issues
+- Support maintainable code patterns
+
+## Related Rules
+
+- See other rules in the testing/ folder
+- Consider complementary rules in related folders
+- Review always rules that may take precedence
+
+## Notes
+
+This is an example rule for demonstration purposes. Modify it according to your specific needs and requirements.

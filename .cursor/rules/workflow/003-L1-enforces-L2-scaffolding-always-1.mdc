@@ -1,0 +1,89 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.215039'
+---
+
+# RULE TYPE: Always (Core AI Operational Principle)
+# FILE PATTERNS: N/A (Universal AI-Assisted Development Guideline)
+
+# 003: L1 Rule Enforcement for L2 Project Scaffolding & Standards
+
+## 1. Purpose
+This rule outlines how Level 1 (L1) `.cursor/rules/*.mdc` files should be actively utilized by the Cursor AI assistant to guide, enforce, and maintain the structural integrity, coding standards, and developmental processes of Level 2 (L2) projects, such as VANTA. It operationalizes the co-evolutionary principle described in `002-L1-L2-distinction-and-coevolution.mdc`.
+
+## 2. Principle: L1 as a Guardian and Guide for L2
+The Cursor AI, governed by its L1 rules, acts as an intelligent assistant that not only writes code but also helps ensure the L2 project adheres to its own defined architecture, standards, and plans.
+
+## 3. Mechanisms for L1 Enforcement of L2 Standards
+
+### 3.1. Scaffolding New L2 Components
+    - **L1 Rule Example Trigger:** User requests to create a new VANTA agent (L2 component).
+    - **L1 Rule Action (AI Behavior):**
+        - Consult relevant L2 rules (e.g., `framework rules/001-vanta-agent-contract.md`) to understand the required structure for a new VANTA agent.
+        - Check `THEPLAN.md` or `blueprint.yaml` (L2 documents) for naming conventions or registration requirements.
+        - Propose a code structure for the new agent that adheres to these L2 standards (e.g., inherits from `BaseAgent`, includes standard methods like `startup`, `perform_task`, `shutdown`).
+        - Suggest updating L2 registration files (e.g., `blueprint.yaml` or an agent registry if one exists in L2).
+        - Remind the user to create corresponding L2 documentation or tests as per L2 standards.
+
+### 3.2. Maintaining L2 Architectural Integrity
+    - **L1 Rule Example Trigger:** User proposes a change that seems to deviate from VANTA's (L2) established architectural patterns (e.g., bypassing the orchestrator for inter-agent communication).
+    - **L1 Rule Action (AI Behavior):**
+        - Query the user about the deviation, referencing the relevant L2 architectural rule or document (e.g., "I notice this change doesn't seem to use the `VantaMasterCore` for routing. VANTA's architecture (`framework rules/000-core-orchestration.md`) typically requires this. Is this an intentional exception?").
+        - If the L2 project has a formal way to document architectural decisions or exceptions, suggest using it.
+
+### 3.3. Enforcing L2 Coding Standards & Best Practices
+    - **L1 Rule Example Trigger:** AI is asked to write or refactor Python code for VANTA (L2).
+    - **L1 Rule Action (AI Behavior):**
+        - Apply general Python best practices (as defined in relevant L1 `.cursor/rules/`).
+        - *Additionally*, if L2 (`framework rules/`) defines specific coding standards for VANTA (e.g., logging format, error handling conventions), apply those as well.
+        - If there's a conflict, prioritize the L2-specific standard and note the application.
+
+### 3.4. Synchronizing L2 Planning and Documentation
+    - **L1 Rule Example Trigger:** A significant new feature is implemented in VANTA (L2).
+    - **L1 Rule Action (AI Behavior):**
+        - Prompt the user to update `THEPLAN.md` or relevant L2 design documents to reflect the new feature.
+        - Suggest adding to L2's changelog if one exists.
+        - Offer to help draft these documentation updates based on the code changes.
+
+### 3.5. Guiding L2 Tooling and Protocol Development
+    - **L1 Rule Example Trigger:** User wants to create a new McP tool for VANTA (L2) or a new inter-agent communication protocol within L2.
+    - **L1 Rule Action (AI Behavior):**
+        - Reference L2 standards for tool definition or protocol design (e.g., from `framework rules/921-vanta-mcp-signal-schema.md` if it were an L2 rule, or a similar L2 document).
+        - Suggest required documentation, testing, and registration steps for the new L2 tool/protocol.
+
+## 4. Iterative Refinement
+    - The effectiveness of L1 rules in guiding L2 development is an ongoing process.
+    - If the AI consistently fails to enforce an L2 standard correctly, or if L2's needs change, both L1 and L2 rules may need to be updated.
+    - The AI should be receptive to feedback on how well it's applying L1 rules to guide L2 development.
+
+## 5. Goal: Principled and Consistent L2 Development
+By using L1 rules to actively enforce L2's own defined structures and standards, the AI assistant becomes a proactive partner in building a robust, maintainable, and internally consistent L2 project. This elevates the AI from a simple code generator to a co-architect and guardian of the project's integrity.
+
+## Core Principle
+
+Level 1 (L1) rules, which govern the Cursor AI assistant, play a crucial role in enforcing and guiding the initial scaffolding and ongoing development of Level 2 (L2) VANTA project components. This ensures that L2's internal architecture, agent contracts, data schemas, and protocols align with VANTA's overarching design principles from the outset.
+
+L1 rules should guide the AI to generate L2 components that are **self-contained and operate based on L2 rules and configurations**, not based on L1 rules or Cursor-specific features.
+
+## Mechanisms of Enforcement & Guidance
+
+4.  **Independence by Design:** L1 rules will steer the AI to generate L2 code that is portable and does not have runtime dependencies on Cursor AI or L1-specific constructs. The goal is for L2 VANTA to be capable of standalone operation.
+
+## Examples
+
+# 003-Conceptual-Layer-Enforces-Scaffolding
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines how the conceptual or planning layer (L1) of a project dictates and enforces the initial scaffolding and structure of the implementation layer (L2). It ensures that technical setup aligns with the project's high-level design and objectives from the outset.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

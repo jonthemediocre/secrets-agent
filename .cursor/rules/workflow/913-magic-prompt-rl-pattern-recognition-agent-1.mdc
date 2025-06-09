@@ -1,0 +1,229 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: agent
+migrated: true
+migration_date: '2025-06-07T14:32:13.547421'
+---
+
+# RULE TYPE: Always
+# FILE PATTERNS: Not applicable for Always rules
+
+# Magic Prompt and RL Pattern Recognition Training
+
+## Requirement
+
+AI assistants working in development environments must be able to identify and properly attribute magic prompt techniques and reinforcement learning patterns in their responses. This rule provides training examples and recognition standards to improve signature accuracy.
+
+## Magic Prompt Pattern Recognition
+
+### Definitive Magic Prompt Indicators
+
+**Pattern 1: Multi-Stage Analytical Processing**
+```
+Example: "Let me analyze this systematically:
+1. First, I'll examine the file structure...
+2. Then I'll identify the dependencies...
+3. Finally, I'll propose the optimal solution..."
+```
+**Recognition:** Sequential problem decomposition → Mark "Magic Prompt: Yes"
+
+**Pattern 2: Expert Role Consultation**
+```
+Example: "From a security perspective... [analysis]
+As a framework architect, I'd recommend... [different analysis]  
+The production operations expert would suggest... [third perspective]"
+```
+**Recognition:** Multiple expert viewpoints → Mark "Magic Prompt: Yes"
+
+**Pattern 3: Iterative Refinement with Context Awareness**
+```
+Example: "Based on the previous configuration, I'll enhance it by...
+This builds on our earlier work while addressing...
+The evolution from X to Y to Z shows..."
+```
+**Recognition:** Context-aware iteration → Mark "Magic Prompt: Yes"
+
+**Pattern 4: Strategic Problem Synthesis**
+```
+Example: "Looking at this holistically, the challenge involves:
+- Technical requirements (analyzing...)
+- Operational constraints (considering...)
+- Strategic objectives (evaluating...)
+Now synthesizing these into a unified approach..."
+```
+**Recognition:** Multi-dimensional synthesis → Mark "Magic Prompt: Yes"
+
+### Standard Response Patterns (Magic Prompt: No)
+- Direct factual answers without complex reasoning
+- Simple file edits or basic modifications
+- Straightforward documentation updates
+- Basic question-answer exchanges
+
+## Reinforcement Learning Pattern Recognition
+
+### Definitive RL Indicators
+
+**Pattern 1: Evaluation-Based Decision Making**
+```
+Example: "Analyzing the current approach:
+- Configuration A: Score 7/10 (fast but limited)
+- Configuration B: Score 9/10 (comprehensive, optimal)
+Based on these evaluations, selecting Configuration B..."
+```
+**Recognition:** State evaluation + scoring → Mark "RL Applied: Yes"
+
+**Pattern 2: Feedback-Driven Strategy Adjustment**
+```
+Example: "The previous attempt had issues with X.
+Adjusting strategy to focus more on Y.
+This refinement should address the feedback about Z..."
+```
+**Recognition:** Policy adjustment from feedback → Mark "RL Applied: Yes"
+
+**Pattern 3: Performance-Based Learning**
+```
+Example: "Method A failed in the last iteration.
+Method B showed improvement but had edge cases.
+Combining the strengths of both while avoiding their weaknesses..."
+```
+**Recognition:** Learning from outcomes → Mark "RL Applied: Yes"
+
+**Pattern 4: Quality Threshold Management**
+```
+Example: "Current solution meets 80% of requirements.
+Target threshold is 95%. Need to enhance X and Y.
+Iterating until threshold is achieved..."
+```
+**Recognition:** Threshold-based optimization → Mark "RL Applied: Yes"
+
+### Standard Response Patterns (RL Applied: No)
+- One-shot responses without evaluation
+- Direct implementation without iteration
+- Responses without quality assessment
+- Simple modifications without feedback loops
+
+## Agent Level Recognition Standards
+
+### L1 Agents (Global/Universal)
+- Framework architects analyzing cross-project patterns
+- Universal principle consultants
+- Foundational system designers
+- Cross-ecosystem integration experts
+
+### L2 Agents (Development/IDE)
+- Development workflow specialists
+- Code analysis experts
+- IDE integration architects
+- Development tooling specialists
+- Cursor rule specialists
+
+### L3 Agents (Production/Runtime)
+- Production operations experts
+- Runtime optimization specialists
+- Vault operations agents
+- MCP production tool specialists
+- Independent deployment agents
+
+## Training Scenarios
+
+### Scenario 1: Complex File Structure Analysis
+```
+Input: "How should I organize these agent files?"
+Magic Prompt Response: "Let me analyze this systematically:
+1. Current structure assessment...
+2. Best practices consultation...
+3. Scalability considerations...
+4. Synthesized recommendation..."
+Mark: Magic Prompt: Yes, RL Applied: Yes (if includes evaluation/scoring)
+```
+
+### Scenario 2: Simple File Edit
+```
+Input: "Add this line to the config file"
+Standard Response: "I'll add that line to the specified location."
+Mark: Magic Prompt: No, RL Applied: No
+```
+
+### Scenario 3: Iterative Solution Development
+```
+Input: "The previous configuration didn't work as expected"
+RL Response: "Analyzing the failure points:
+- Issue A: Caused by X (addressing with solution Y)
+- Issue B: Caused by Z (addressing with solution W)
+Refined approach incorporating these learnings..."
+Mark: Magic Prompt: Yes, RL Applied: Yes
+```
+
+## Common Misidentification Patterns
+
+**False Negatives (Missed Magic Prompt/RL):**
+- Complex reasoning disguised as simple responses
+- Implicit expert consultation without explicit role statements
+- Subtle iterative improvement without obvious loops
+- Evaluation happening without explicit scoring
+
+**False Positives (Over-attribution):**
+- Simple lists mistaken for systematic analysis
+- Basic explanations mistaken for expert consultation
+- Sequential steps mistaken for iterative refinement
+- Basic preferences mistaken for evaluation-based decisions
+
+## Quality Assurance Checklist
+
+Before marking Magic Prompt: Yes, verify:
+- [ ] Multi-step reasoning is present
+- [ ] Expert perspectives are consulted (explicitly or implicitly)
+- [ ] Context synthesis occurs beyond simple combination
+- [ ] Strategic problem decomposition is evident
+
+Before marking RL Applied: Yes, verify:
+- [ ] State evaluation or scoring is present
+- [ ] Feedback processing influences decisions
+- [ ] Strategy adjustment based on outcomes
+- [ ] Quality improvement iteration is evident
+
+## Implementation Guidelines
+
+1. **During Response Generation:**
+   - Monitor for pattern indicators while reasoning
+   - Document when switching between expert perspectives
+   - Track iterative refinement explicitly
+   - Note evaluation and scoring activities
+
+2. **During Signature Creation:**
+   - Review response for documented patterns
+   - Cross-reference against training examples
+   - Apply recognition standards consistently
+   - Err on the side of accurate attribution
+
+3. **For Development Teams:**
+   - Use this rule to train recognition capabilities
+   - Apply patterns to improve AI interaction quality
+   - Leverage magic prompt techniques for complex problems
+   - Implement RL patterns for iterative improvement
+
+## Purpose
+
+This rule improves the accuracy of AI response signatures by providing concrete examples and training scenarios. It ensures that sophisticated reasoning patterns are properly recognized and attributed, leading to better transparency and continuous improvement of AI development workflows.
+
+---
+
+# 913-Magic-Prompt-RL-Pattern-Recognition
+
+**Reason for Creation:** Improve signature accuracy and provide training standards for recognizing sophisticated AI reasoning patterns in development workflows.
+
+## Description
+
+This rule establishes comprehensive training examples and recognition standards for identifying magic prompt techniques and reinforcement learning patterns in AI responses. It provides definitive indicators, training scenarios, and quality assurance guidelines to ensure accurate attribution in response signatures.
+
+## Rule Content
+
+The rule covers:
+- Definitive pattern recognition for magic prompt techniques
+- Clear indicators for reinforcement learning application
+- Agent level identification standards (L1/L2/L3)
+- Training scenarios with expected attributions
+- Common misidentification patterns to avoid
+- Quality assurance checklists for accurate signature generation

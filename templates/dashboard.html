@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VANTA Secrets Agent Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f1419; color: #e6e6e6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .header { background: linear-gradient(135deg, #1e3a8a, #3730a3); padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+        .header h1 { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 10px; }
+        .header p { color: #94a3b8; font-size: 1.1rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; }
+        .stat-card h3 { color: #60a5fa; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; color: white; margin-bottom: 5px; }
+        .stat-card .label { color: #94a3b8; font-size: 0.9rem; }
+        .status-healthy { color: #10b981; }
+        .status-warning { color: #f59e0b; }
+        .status-error { color: #ef4444; }
+        .api-section { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 25px; margin-bottom: 20px; }
+        .api-section h2 { color: #60a5fa; margin-bottom: 15px; font-size: 1.3rem; }
+        .endpoint { background: #0f172a; border: 1px solid #1e293b; border-radius: 6px; padding: 15px; margin-bottom: 10px; }
+        .endpoint .method { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; margin-right: 10px; }
+        .method.GET { background: #059669; color: white; }
+        .method.POST { background: #dc2626; color: white; }
+        .endpoint .path { color: #e2e8f0; font-family: 'Monaco', monospace; }
+        .refresh-btn { background: #3730a3; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; margin-top: 20px; }
+        .refresh-btn:hover { background: #312e81; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛡️ VANTA Secrets Agent</h1>
+            <p>Production-ready secrets management with enterprise-grade security</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Server Status</h3>
+                <div class="value status-{{ status_class }}">{{ health_status }}</div>
+                <div class="label">Last checked: {{ last_health_check }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Uptime</h3>
+                <div class="value">{{ uptime }}</div>
+                <div class="label">Since {{ start_time }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Requests</h3>
+                <div class="value">{{ request_count }}</div>
+                <div class="label">Active connections: {{ active_connections }}</div>
+            </div>
+            <div class="stat-card">
+                <h3>System Resources</h3>
+                <div class="value">{{ cpu_percent }}%</div>
+                <div class="label">CPU • {{ memory_mb }} MB RAM</div>
+            </div>
+        </div>
+        
+        <div class="api-section">
+            <h2>🔌 API Endpoints</h2>
+            <div class="endpoint">
+                <span class="method GET">GET</span>
+                <span class="path">/health</span>
+                <p style="color: #94a3b8; margin-top: 8px;">System health and status information</p>
+            </div>
+            <div class="endpoint">
+                <span class="method GET">GET</span>
+                <span class="path">/dashboard</span>
+                <p style="color: #94a3b8; margin-top: 8px;">This web dashboard interface</p>
+            </div>
+            <div class="endpoint">
+                <span class="method GET">GET</span>
+                <span class="path">/api/v1/vault/{environment}/{key}</span>
+                <p style="color: #94a3b8; margin-top: 8px;">Retrieve encrypted secrets with JWT authentication</p>
+            </div>
+            <div class="endpoint">
+                <span class="method POST">POST</span>
+                <span class="path">/api/v1/vault/tokens/generate</span>
+                <p style="color: #94a3b8; margin-top: 8px;">Generate secure access tokens for vault operations</p>
+            </div>
+            <div class="endpoint">
+                <span class="method GET">GET</span>
+                <span class="path">/docs</span>
+                <p style="color: #94a3b8; margin-top: 8px;">Interactive API documentation (dev mode)</p>
+            </div>
+        </div>
+        
+        <button class="refresh-btn" onclick="window.location.reload()">🔄 Refresh Dashboard</button>
+    </div>
+    
+    <script>
+        // Auto-refresh every 30 seconds
+        setTimeout(function() {
+            window.location.reload();
+        }, 30000);
+    </script>
+</body>
+</html>

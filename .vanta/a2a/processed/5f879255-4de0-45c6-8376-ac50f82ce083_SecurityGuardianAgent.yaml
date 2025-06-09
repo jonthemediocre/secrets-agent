@@ -1,0 +1,22 @@
+delivered: true
+delivery_attempts: 0
+expires_at: '2025-06-07T18:39:54.165231+00:00'
+message_id: 5f879255-4de0-45c6-8376-ac50f82ce083_SecurityGuardianAgent
+message_type: capability_request
+payload:
+  request_details:
+    analysis_type: agentic_ecosystem_security
+    priority: high
+    scope: full_vanta_structure
+  required_capability: security_analysis
+  sender_capabilities:
+  - system_analysis
+priority: 50
+processed: false
+recipient_id: SecurityGuardianAgent
+response_required: true
+routing_strategy: capability_based
+sender_id: BootstrapAgent
+symbolic_trigger: null
+timestamp: '2025-06-07T17:39:54.165229+00:00'
+trinity_context: null

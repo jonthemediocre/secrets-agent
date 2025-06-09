@@ -1,0 +1,20 @@
+delivered: true
+delivery_attempts: 0
+expires_at: null
+message_id: a19e50b7-c860-4001-a213-dc24bdef4f26_SymbolicReasoningAgent
+message_type: symbolic_emergence
+payload:
+  archetypal_resonance: null
+  consciousness_level: null
+  emergence_location: null
+  pattern_type: hermes_integration
+  symbolic_significance: null
+priority: 75
+processed: false
+recipient_id: SymbolicReasoningAgent
+response_required: false
+routing_strategy: symbolic_consciousness
+sender_id: SymbolicEvolutionTracker
+symbolic_trigger: hermes_integration
+timestamp: '2025-06-07T17:41:28.040318+00:00'
+trinity_context: null

@@ -1,0 +1,35 @@
+archetypes:
+  Athena:
+    agent_affinity:
+    - planner
+    - analyst
+    - coordinator
+    domain: Wisdom, Strategy, Clarity
+    symbolic_traits:
+    - analytical
+    - strategic
+    - clear_thinking
+    trinity_role: cube
+  Hermes:
+    agent_affinity:
+    - communicator
+    - integrator
+    - messenger
+    domain: Communication, Integration, Flow
+    symbolic_traits:
+    - connector
+    - messenger
+    - bridge_builder
+    trinity_role: star_tetrahedron
+  Prometheus:
+    agent_affinity:
+    - creator
+    - evolve
+    - transformer
+    delta_function: symbolic_disruption_then_collapse
+    domain: Evolution, Innovation, Transformation
+    symbolic_traits:
+    - recursive
+    - pattern_revelation
+    - divergence_triggering
+    trinity_role: dodecahedron

@@ -1,0 +1,16 @@
+{
+  "rule_id": "SEC-002",
+  "category": "SEC",
+  "severity": "REQUIRED",
+  "title": "Access Control Implementation",
+  "description": "Tools and capabilities MUST implement access control",
+  "implementation_requirements": [
+    "Implement permission checking for tool access",
+    "Validate agent authorization for operations",
+    "Log access attempts and denials"
+  ],
+  "validation_method": "check_access_control",
+  "sync_priority": 7,
+  "last_updated": "2025-06-07T12:46:18.387790",
+  "version": "2.0.0"
+}

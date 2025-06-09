@@ -1,0 +1,42 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.600586'
+---
+
+# RULE TYPE: Always
+# FILE PATTERNS: vanta_seed/core/vanta_master_core.py, vanta_seed/core/cascade_executor.py
+
+# Agentic Cascade Swarm Activation Protocol (Layer 2 Online)
+
+## Phase Context
+
+This protocol governs the critical transition phase where the VANTA system moves from a core kernel with basic orchestration (Layer 1) to enabling true agent-to-agent communication and multi-step workflow execution via cascades (Layer 2).
+
+## Core Objective
+
+To fully integrate the `CascadeExecutor` (`vanta_seed/core/cascade_executor.py`) with the `VantaMasterCore` (`vanta_seed/core/vanta_master_core.py`) to enable the execution of predefined agentic cascades based on MCP signals or internal triggers.
+
+## Implementation Requirements
+
+1.  **Instantiation:** `VantaMasterCore` MUST instantiate `CascadeExecutor` during its initialization, providing necessary access to core functions (logging, config, task submission).
+2.  **Signal Handling:** `VantaMasterCore` MUST implement logic to detect incoming signals intended to trigger cascades (e.g., matching a specific `intent` or `action` field like `trigger_cascade`) and route them correctly to `CascadeExecutor.trigger_cascade` with the `cascade_id` and relevant parameters.
+3.  **Synchronous Wrappers:** `VantaMasterCore` MUST provide synchronous execution methods (e.g., `execute_agent_task_sync`, `execute_tool_calls_sync`) that the `CascadeExecutor` can reliably call to execute individual cascade steps. These methods are responsible for handling the underlying asynchronous nature of agent tasks or tool calls and returning a definitive result (success/failure status and output/error).
+4.  **Cascade Executor Logic (`cascade_executor.py`):**
+    *   MUST correctly load cascade definitions from `.cursor/rules/agent_cascade_definitions.mdc` (or configured path).
+    *   MUST iterate through cascade steps, calling the appropriate synchronous execution wrappers in `VantaMasterCore`.
+    *   MUST implement data passing between steps (using `{{step_results.step_X_output}}` or similar).
+    *   MUST correctly log all relevant events (start, step start/complete, end) to the agentic replay log (`logs/agentic_replay.log.jsonl`) using the defined schema (`.cursor/schemas/agentic_replay_log_entry.schema.json`).
+    *   MUST implement `on_failure` logic, typically halting the cascade unless otherwise specified in the step definition.
+5.  **Testing:** At least one simple test cascade MUST be defined in `agent_cascade_definitions.mdc`, and its successful execution via a trigger signal MUST be verified.
+
+## Binding Activation
+
+Completion of these implementation requirements signifies that Layer 2 (Agent Swarm / Cascade Autonomy) is considered **ONLINE** and **FUNCTIONAL**. All subsequent agent development and workflow design should leverage this cascade execution capability.
+
+## Compliance
+
+Failure to adhere to this protocol during the integration phase will prevent the system from achieving reliable agentic swarm behavior. The Agentic Build and Validate Ritual (`.cursor/rules/923-agentic-build-validate.mdc`) should include tests verifying this integration.

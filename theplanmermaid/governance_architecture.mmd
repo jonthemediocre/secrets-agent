@@ -1,0 +1,150 @@
+flowchart TD
+    %% 3-LEVEL GOVERNANCE ARCHITECTURE
+    
+    %% LEVEL 1: GLOBAL MASTER RULES (Immutable Foundation)
+    L1_MASTER["📜 LEVEL 1: GLOBAL MASTER RULES<br>Universal Laws • Immutable • ALL Applications"]
+    MASTER_ENGINE["🔒 MASTER RULE ENGINE<br>Validation • Enforcement • Blocking"]
+    GLOBAL_COMPLIANCE["📊 GLOBAL COMPLIANCE DASHBOARD<br>Monitor • Report • Track"]
+    
+    %% Level 1 Core Principles
+    IDENTITY_PRES["🧬 Identity Preservation<br>Core identity through mutations"]
+    MCP_COMPLIANCE["🔗 MCP Protocol Compliance<br>Agent communication standard"]
+    COE_DELEGATION["👥 CoE Delegation<br>Complex decision escalation"]
+    MEMORY_PERSIST["💾 Memory Persistence<br>Learning capabilities required"]
+    AUDIT_TRAIL["📝 Audit Trail<br>Traceable actions"]
+    
+    %% LEVEL 2: DEVELOPMENT GOVERNANCE (Adaptive Control)
+    L2_DEV["🏗️ LEVEL 2: DEVELOPMENT GOVERNANCE<br>Build Rules • Evolution • Quality Gates"]
+    DEV_ENGINE["⚙️ DEVELOPMENT GOVERNANCE ENGINE<br>Lifecycle control • Pattern validation"]
+    MUTATION_CTRL["🧬 MUTATION CONTROLLER<br>Evolution safety • Identity protection"]
+    QUALITY_GATES["🎯 QUALITY GATE SYSTEM<br>Architecture • Code • Integration • Deploy"]
+    DEV_METRICS["📈 DEVELOPMENT METRICS<br>Velocity • Quality • Evolution success"]
+    
+    %% Quality Gates Detail
+    ARCH_REVIEW["🏛️ Architecture Review<br>Pattern compliance • Security design"]
+    CODE_QUALITY["💻 Code Quality<br>Static analysis • Coverage • Security"]
+    INTEGRATION["🔗 Integration Readiness<br>API contracts • MCP compliance"]
+    DEPLOY_READY["🚀 Deployment Readiness<br>Performance • Security • DR"]
+    
+    %% LEVEL 3: RUNTIME GOVERNANCE (Autonomous Intelligence)
+    L3_RUNTIME["🚀 LEVEL 3: RUNTIME GOVERNANCE<br>Autonomous Decisions • Real-time • Self-Mod"]
+    RUNTIME_ENGINE["⚡ RUNTIME GOVERNANCE ENGINE<br>Real-time decisions • Context analysis"]
+    AUTONOMOUS_DECISION["🧠 AUTONOMOUS DECISION MAKER<br>Value-guided • Pattern-based • Learning"]
+    SELF_MOD_CTRL["🔄 SELF-MODIFICATION CONTROLLER<br>Identity-safe • Runtime adaptation"]
+    REALTIME_MONITOR["📡 REAL-TIME MONITOR<br>Performance • Health • Behavior • Emergence"]
+    
+    %% Runtime Components Detail
+    SYMBOLIC_REASONER["🔮 SYMBOLIC REASONING ENGINE<br>Context understanding • Situation analysis"]
+    IDENTITY_GUARDIAN["🛡️ IDENTITY GUARDIAN<br>Identity preservation validation"]
+    SAFETY_VALIDATOR["🧪 RUNTIME SAFETY VALIDATOR<br>Modification safety checks"]
+    LEARNING_ENGINE["📚 RUNTIME LEARNING ENGINE<br>Decision learning • Pattern refinement"]
+    
+    %% INTEGRATION LAYER
+    INTEGRATED_GOV["🌐 INTEGRATED GOVERNANCE SYSTEM<br>Unified decisions across all levels"]
+    
+    %% EXTERNAL CONNECTIONS (to main architecture)
+    EXT_RULES["🔗 RULES Component<br>(Main Architecture)"]
+    EXT_VALID["🔗 VALID Component<br>(Main Architecture)"]
+    EXT_META["🔗 META Component<br>(Main Architecture)"]
+    EXT_IDENTITY["🔗 IDENTITY Component<br>(Main Architecture)"]
+    EXT_TASKFLOW["🔗 TASKFLOW Component<br>(Main Architecture)"]
+    EXT_BUILDER["🔗 BUILDER Component<br>(Main Architecture)"]
+    
+    %% LEVEL 1 CONNECTIONS
+    L1_MASTER --> MASTER_ENGINE
+    MASTER_ENGINE --> IDENTITY_PRES
+    MASTER_ENGINE --> MCP_COMPLIANCE
+    MASTER_ENGINE --> COE_DELEGATION
+    MASTER_ENGINE --> MEMORY_PERSIST
+    MASTER_ENGINE --> AUDIT_TRAIL
+    MASTER_ENGINE --> GLOBAL_COMPLIANCE
+    
+    %% LEVEL 2 CONNECTIONS
+    L2_DEV --> DEV_ENGINE
+    DEV_ENGINE --> MUTATION_CTRL
+    DEV_ENGINE --> QUALITY_GATES
+    DEV_ENGINE --> DEV_METRICS
+    QUALITY_GATES --> ARCH_REVIEW
+    QUALITY_GATES --> CODE_QUALITY
+    QUALITY_GATES --> INTEGRATION
+    QUALITY_GATES --> DEPLOY_READY
+    
+    %% LEVEL 3 CONNECTIONS
+    L3_RUNTIME --> RUNTIME_ENGINE
+    RUNTIME_ENGINE --> AUTONOMOUS_DECISION
+    RUNTIME_ENGINE --> SELF_MOD_CTRL
+    RUNTIME_ENGINE --> REALTIME_MONITOR
+    RUNTIME_ENGINE --> SYMBOLIC_REASONER
+    AUTONOMOUS_DECISION --> LEARNING_ENGINE
+    SELF_MOD_CTRL --> IDENTITY_GUARDIAN
+    SELF_MOD_CTRL --> SAFETY_VALIDATOR
+    
+    %% INTEGRATION FLOWS
+    INTEGRATED_GOV --> L1_MASTER
+    INTEGRATED_GOV --> L2_DEV
+    INTEGRATED_GOV --> L3_RUNTIME
+    
+    %% EXTERNAL INTEGRATION (Main Architecture)
+    MASTER_ENGINE -.-> EXT_RULES
+    QUALITY_GATES -.-> EXT_VALID
+    SELF_MOD_CTRL -.-> EXT_META
+    IDENTITY_GUARDIAN -.-> EXT_IDENTITY
+    DEV_ENGINE -.-> EXT_TASKFLOW
+    DEPLOY_READY -.-> EXT_BUILDER
+    
+    %% CROSS-LEVEL DEPENDENCIES
+    L1_MASTER --> L2_DEV
+    L1_MASTER --> L3_RUNTIME
+    L2_DEV --> L3_RUNTIME
+    MUTATION_CTRL --> SELF_MOD_CTRL
+    IDENTITY_PRES --> IDENTITY_GUARDIAN
+    
+    %% FEEDBACK LOOPS
+    REALTIME_MONITOR -.-> DEV_METRICS
+    LEARNING_ENGINE -.-> MUTATION_CTRL
+    GLOBAL_COMPLIANCE -.-> QUALITY_GATES
+    
+    %% STYLING
+    
+    %% Level 1 (Immutable - Purple/Blue)
+    style L1_MASTER fill:#e8eaf6,stroke:#3f51b5,stroke-width:4px
+    style MASTER_ENGINE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+    style GLOBAL_COMPLIANCE fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style IDENTITY_PRES fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style MCP_COMPLIANCE fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style COE_DELEGATION fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style MEMORY_PERSIST fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    style AUDIT_TRAIL fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    
+    %% Level 2 (Adaptive - Green)
+    style L2_DEV fill:#e8f5e8,stroke:#388e3c,stroke-width:4px
+    style DEV_ENGINE fill:#f1f8e9,stroke:#558b2f,stroke-width:3px
+    style MUTATION_CTRL fill:#f9fbe7,stroke:#689f38,stroke-width:3px
+    style QUALITY_GATES fill:#f1f8e9,stroke:#558b2f,stroke-width:3px
+    style DEV_METRICS fill:#f1f8e9,stroke:#558b2f,stroke-width:2px
+    style ARCH_REVIEW fill:#f9fbe7,stroke:#689f38,stroke-width:2px
+    style CODE_QUALITY fill:#f9fbe7,stroke:#689f38,stroke-width:2px
+    style INTEGRATION fill:#f9fbe7,stroke:#689f38,stroke-width:2px
+    style DEPLOY_READY fill:#f9fbe7,stroke:#689f38,stroke-width:2px
+    
+    %% Level 3 (Autonomous - Orange/Red)
+    style L3_RUNTIME fill:#fff3e0,stroke:#f57c00,stroke-width:4px
+    style RUNTIME_ENGINE fill:#ffe8cc,stroke:#e65100,stroke-width:3px
+    style AUTONOMOUS_DECISION fill:#ffecb3,stroke:#ff8f00,stroke-width:3px
+    style SELF_MOD_CTRL fill:#ffe8cc,stroke:#e65100,stroke-width:3px
+    style REALTIME_MONITOR fill:#ffe8cc,stroke:#e65100,stroke-width:3px
+    style SYMBOLIC_REASONER fill:#fff8e1,stroke:#ff9800,stroke-width:2px
+    style IDENTITY_GUARDIAN fill:#fff8e1,stroke:#ff9800,stroke-width:2px
+    style SAFETY_VALIDATOR fill:#fff8e1,stroke:#ff9800,stroke-width:2px
+    style LEARNING_ENGINE fill:#fff8e1,stroke:#ff9800,stroke-width:2px
+    
+    %% Integration (Unified - Teal)
+    style INTEGRATED_GOV fill:#e0f2f1,stroke:#00695c,stroke-width:4px
+    
+    %% External References (Dotted - Gray)
+    style EXT_RULES fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5
+    style EXT_VALID fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5
+    style EXT_META fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5
+    style EXT_IDENTITY fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5
+    style EXT_TASKFLOW fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5
+    style EXT_BUILDER fill:#f5f5f5,stroke:#757575,stroke-width:2px,stroke-dasharray: 5 5 

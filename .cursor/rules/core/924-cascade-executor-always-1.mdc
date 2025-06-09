@@ -1,0 +1,76 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.598293'
+---
+
+# RULE TYPE: Always
+# FILE PATTERNS: vanta_seed/core/cascade_executor.py, vanta_seed/core/vanta_master_core.py, .cursor/rules/agent_cascade_definitions.mdc
+
+# Cascade Executor Standard
+
+## Purpose
+Defines the standard implementation and usage patterns for the `CascadeExecutor` within the VANTA framework. This component is responsible for executing multi-step agentic workflows (cascades) defined in `agent_cascade_definitions.mdc`.
+
+## Core Responsibilities (`cascade_executor.py`)
+
+1.  **Initialization:** Must accept an instance of `VantaMasterCore` during initialization to access core functionalities like task submission, logging, and configuration.
+2.  **Definition Loading:** Must load and parse cascade definitions from the path specified in the core configuration (typically `.cursor/rules/agent_cascade_definitions.mdc`). It should handle potential YAML parsing errors and invalid file formats gracefully.
+3.  **Cascade Triggering:** Must provide a primary method (e.g., `trigger_cascade`) that accepts a `cascade_id` and optional `initial_data`.
+4.  **Step Execution:**
+    *   Iterate through the steps defined for the triggered cascade.
+    *   For each step, determine the action type (agent task, tool call, MCP signal, sub-cascade trigger).
+    *   Delegate the execution of the action to the appropriate `VantaMasterCore` method (e.g., `execute_agent_task_sync`, `execute_tool_calls_sync`, `emit_mcp_signal`) or recursively call `trigger_cascade`.
+    *   Handle potential failures at each step, including executing `on_failure` logic if defined.
+    *   Support basic data passing between steps (e.g., injecting results from previous steps into the `task_data` of subsequent steps).
+5.  **Logging:** Must log key events (cascade start, step start, step completion, cascade completion, failures) to the agentic replay log via `VantaMasterCore.log_agentic_event`, providing context like `cascade_id`, `step_number`, `step_name`, `success` status, and results (where appropriate).
+6.  **Result Handling:** Must return a status indicating the overall success or failure of the cascade execution.
+
+## Integration with `VantaMasterCore` (`vanta_master_core.py`)
+
+1.  **Instantiation:** `VantaMasterCore` should instantiate `CascadeExecutor`, passing itself (`self`) during its own initialization.
+2.  **Signal Handling:** `VantaMasterCore` should route incoming MCP signals intended to trigger cascades (e.g., signals with `action: "trigger_cascade"`) to the `CascadeExecutor.trigger_cascade` method.
+3.  **Agent Task Execution:** `VantaMasterCore` needs methods (potentially synchronous wrappers like `execute_agent_task_sync` or async handling) that `CascadeExecutor` can call to run agent tasks and retrieve their results.
+4.  **Tool Execution:** `VantaMasterCore` needs methods (e.g., `execute_tool_calls_sync`) that `CascadeExecutor` can call to execute tool calls via the appropriate MCP client and return results.
+
+## Cascade Definition Format (`agent_cascade_definitions.mdc`)
+
+-   Must be valid YAML, typically under a top-level `cascades:` key.
+-   Each cascade is identified by a unique ID (key).
+-   Each cascade contains a list of `steps`.
+-   Each step is a dictionary defining:
+    *   `name` (required, string)
+    *   `description` (optional, string)
+    *   One action type:
+        *   `agent` (string, target agent ID) and optional `task_data` (dict)
+        *   `tool_calls` (list of dicts, matching tool call schema)
+        *   `mcp_signal` (dict, signal payload to emit)
+        *   `trigger_cascade` (string, ID of sub-cascade to trigger)
+    *   `on_failure` (optional, dict defining action on step failure)
+    *   (Future) `condition`, `loop`, `parallel` attributes.
+-   Steps can reference outputs from previous steps in their `task_data` using a defined syntax (e.g., `{{step_results.step_1_output}}`).
+
+## Best Practices
+
+-   Keep cascades focused on a specific workflow.
+-   Break down complex workflows into smaller, potentially nested, cascades.
+-   Use descriptive names for cascades and steps.
+-   Define clear `on_failure` handling for critical steps.
+-   Ensure agents called within cascades are designed to handle the provided `task_data` and return meaningful results.
+-   Log comprehensively for traceability and debugging.
+
+# Sequential-Task-Execution-Engine
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the principles and expected behavior of a sequential task execution engine (e.g., "Cascade Executor"). It covers how tasks are defined, ordered, executed, and how dependencies and outputs are managed in a step-by-step workflow, particularly for complex, multi-stage operations.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

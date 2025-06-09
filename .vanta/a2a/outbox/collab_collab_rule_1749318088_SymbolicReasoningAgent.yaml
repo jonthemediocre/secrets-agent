@@ -1,0 +1,8 @@
+message_type: collaboration_request
+payload:
+  description: Integrate symbolic reasoning with security protocols
+  proposal_id: collab_rule_1749318088
+  rule_type: symbolic_security_integration
+recipient_id: SymbolicReasoningAgent
+sender_id: SecurityGuardianAgent
+timestamp: '2025-06-07T17:41:28.032344+00:00'

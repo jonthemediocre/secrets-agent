@@ -58,7 +58,7 @@ export interface UniversalState {
 export class PlatformOrchestrator extends EventEmitter {
   private state: UniversalState;
   private apiBaseUrl: string;
-  private syncInterval: NodeJS.Timeout | null = null;
+  private syncInterval: ReturnType<typeof setInterval> | null = null;
   private platform: Platform;
 
   constructor(platform: Platform, apiBaseUrl = 'http://localhost:3002/api') {

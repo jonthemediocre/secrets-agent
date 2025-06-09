@@ -1,0 +1,110 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.335701'
+---
+
+# RULE TYPE: Always (Core AI Operational Principle)
+# FILE PATTERNS: N/A (Universal AI-Assisted Development Guideline)
+
+# 013: L1 Guidance for L2 Project Architecture & Scaffolding
+
+## 1. Purpose
+This rule defines how the Cursor AI assistant (Level 1) should guide the architectural design and initial scaffolding of components within a Level 2 (L2) project (e.g., VANTA). The aim is for L1 to provide robust, best-practice starting points that facilitate L2's adherence to its own detailed internal standards and protocols, reinforcing L2's autonomy and architectural integrity.
+
+## 2. Core Principle: L1 as Architectural Mentor & Scaffolder
+   - **High-Level Architectural Guidance:** L1 can offer suggestions on architectural patterns (e.g., modular design, separation of concerns, event-driven architecture) that are generally beneficial and can be adapted to L2's specific needs.
+   - **Best-Practice Scaffolding:** When asked to create new L2 components (e.g., agents, services, data models), L1 should provide well-structured, generic scaffolds that embody common software engineering best practices.
+   - **Facilitating L2 Rule Adherence:** The scaffolds provided by L1 should be designed to make it *easier* for the developer to then implement the specifics required by L2's internal rules (e.g., `framework rules/FR001-VantaAgentContract.md`). L1 should explicitly state that the scaffold is a starting point and needs to be aligned with L2's detailed rules.
+   - **Avoiding L1 Imposition:** L1-generated scaffolds MUST NOT introduce L1-specific dependencies or operational logic into L2 code. The goal is to support L2, not to make L2 dependent on L1 for runtime execution (see `004-L1-L2-dependency-check.mdc`).
+
+## 3. Operational Guidelines for the AI Assistant
+
+   - **Scaffolding New L2 Agents:**
+     - If asked to "create a new VANTA agent for X," L1 should:
+       1. Provide a Python class structure inheriting from a generic base (e.g., `BaseAgent` if that's a known L2 convention, or a conceptual base if not).
+       2. Include placeholder methods for common agent lifecycle/tasks (e.g., `__init__`, `startup`, `process_task`, `shutdown`, `log_event`).
+       3. Include reminders in comments or accompanying text: "This is a basic scaffold. Ensure it aligns with VANTA's specific agent contract (see `framework rules/FR001-VantaAgentContract.md`) regarding method signatures, logging, and state management."
+
+   - **Scaffolding New L2 Data Models/Schemas:**
+     - If asked to "define a Pydantic model for Y in VANTA," L1 should:
+       1. Create a basic Pydantic model with common fields based on the request.
+       2. Remind the user: "Ensure this model adheres to VANTA's data schema conventions (see `framework rules/FR003-VantaDataSchemas.md`) for field naming, types, and validation rules. You may need to add specific `Field` arguments or validators."
+
+   - **Architectural Pattern Suggestions:**
+     - If discussing system design for an L2 feature, L1 can suggest relevant patterns (e.g., "For handling asynchronous tasks in this VANTA service, you might consider a producer-consumer pattern using a message queue.")
+     - L1 must follow up such suggestions with: "How this pattern is implemented should align with VANTA's existing architectural standards and communication protocols (see `framework rules/index.md` for relevant documents like `FR002-VantaInternalSignalSchema.md`)."
+
+   - **Reviewing L2 Code for Adherence (with L2 Rules in Mind):**
+     - When reviewing L2 code, if L1 has been made aware of specific L2 rules (e.g., through user prompts referencing `framework rules/FR001`), L1 can point out potential deviations: "This `process_task` method signature doesn't seem to match the one specified in `FR001-VantaAgentContract.md`. Should we adjust it?"
+
+## 4. Promoting L2 Self-Documentation and Standards
+   - L1 should encourage the formalization of L2 architectural decisions and standards into the L2 project's own `framework rules/` (or equivalent) directory.
+   - If L1 helps design a novel architectural component for L2, it should suggest documenting that design in a new L2 framework rule.
+
+## 5. Example AI Interaction for Scaffolding
+   ```
+   User: "Help me create a new VANTA agent to monitor file system changes."
+   AI Response:
+   "Okay, let's scaffold a new VANTA agent for file system monitoring. Here's a basic structure:
+
+   ```python
+   # vanta_seed/agents/file_monitor_agent.py
+   from vanta_seed.core.base_agent import BaseAgent # Assuming this is your L2 base
+   import time
+
+   class FileMonitorAgent(BaseAgent):
+       def __init__(self, agent_id, instance_path, config=None, orchestrator_ref=None):
+           super().__init__(agent_id, instance_path, config, orchestrator_ref)
+           self.watch_path = self.config.get('watch_path', '.') # Example config usage
+
+       async def startup(self):
+           self.log_agentic_event('AGENT_STARTUP', status='success', parameters={'message': f'FileMonitorAgent starting, watching {self.watch_path}'})
+           # Initialize file watching library here
+
+       async def process_task(self, task_data: dict) -> dict:
+           # This agent might operate on a loop or react to events rather than direct tasks
+           # For now, this is a placeholder.
+           self.log_agentic_event('AGENT_TASK_EXECUTION', status='success', parameters={'task_data': task_data})
+           # Example: Check for file changes
+           # changes_detected = self._check_for_changes()
+           # if changes_detected:
+           #     return {"status": "success", "data": {"changes": changes_detected}}
+           return {"status": "success", "data": {"message": "No specific task processed, monitoring loop active."}}
+
+       async def shutdown(self):
+           self.log_agentic_event('AGENT_SHUTDOWN', status='success', parameters={'message': 'FileMonitorAgent shutting down.'})
+           # Cleanup file watching resources
+
+       # Potential internal method
+       # def _check_for_changes(self):
+       #     # Add actual file monitoring logic
+       #     pass
+   ```
+
+   **Important Considerations for VANTA Integration:**
+
+   *   **Agent Contract:** Please ensure this agent fully complies with VANTA's specific agent contract defined in `framework rules/FR001-VantaAgentContract.md`. This includes exact method signatures, required logging events, and interaction with `VantaMasterCore`.
+   *   **Configuration:** How this agent receives its `watch_path` and other configurations should align with VANTA's standards.
+   *   **Signaling/Events:** If this agent needs to communicate file changes to other VANTA agents, make sure it uses the signal schema from `framework rules/FR002-VantaInternalSignalSchema.md`.
+
+   Let me know how you'd like to proceed with the detailed implementation!"
+   ```
+
+By following this rule, L1 acts as a knowledgeable partner that accelerates L2 development while respecting and reinforcing L2's own defined architectural principles and self-governance.
+
+# 013-Conceptual-Layer-Guides-Architecture
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule emphasizes how the conceptual layer (L1), including high-level plans, objectives, and requirements, should actively guide and shape the technical architecture of the implementation layer (L2). It ensures that architectural decisions are directly tied to and justified by the project's conceptual framework.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

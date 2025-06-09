@@ -1,0 +1,83 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.144550'
+---
+
+# RULE TYPE: AgentRequested
+# FILE PATTERNS: "**/*.mdc", "**/rules/**/*.mdc"
+# INTENDED AUDIENCE: AI Assistant
+
+# AI MDC Authoring & Formatting Standards
+
+## 1. Purpose
+
+This rule provides specific guidelines FOR THE AI ASSISTANT on how to structure and format `.mdc` rule files, particularly those defining `profiles` or `cascades`. Adherence ensures consistency, machine-readability, and compatibility with validation/processing scripts.
+
+## 2. General File Structure
+
+An `.mdc` file containing structured rule definitions (like profiles or cascades) MUST consist of two main parts:
+
+1.  **YAML Frontmatter**: Contains metadata about the rule.
+2.  **YAML Body**: Contains the rule definitions (e.g., `profiles:` or `cascades:`).
+
+## 3. YAML Frontmatter Requirements
+
+*   **Delimiters**: The frontmatter block MUST start with `---` on its own line and end with `---` on its own line.
+*   **Required Keys**: The frontmatter dictionary MUST include the following keys:
+    *   `description`: (string) A human-readable summary of the rule's purpose and content.
+    *   `rule_type`: (string) Specifies how the rule is triggered or used (e.g., `AgentRequested`, `alwaysApply`, `autoAttached`). Note: This key is for the AI's understanding of the *overall .mdc file's nature*, distinct from `trigger_type` within a profile definition.
+    *   `globs` or `file_patterns`: (list of strings) File patterns that determine when this rule is relevant or should be auto-attached. Use quoted strings for patterns starting with `*` or containing special YAML characters (e.g., `"**/*.mdc"`).
+*   **Optional Keys**: Other keys like `profile_id` (if the *file itself* represents a single profile, though more common within the body) or custom metadata can be included.
+
+## 4. YAML Body Requirements
+
+*   **Top-Level Key**: Immediately following the closing `---` of the frontmatter, the body MUST begin with a top-level YAML key, typically `profiles:` or `cascades:`, at column 0 (no preceding spaces).
+*   **No Intermediate Delimiters**: There MUST NOT be any additional `---` lines within the YAML body after the frontmatter.
+
+## 5. Structure for `profiles:`
+
+If the top-level key is `profiles:`, it must be a list of profile objects. Each profile object MUST contain at least:
+
+*   `profile_id`: (string) A unique identifier for the profile.
+*   `description`: (string) A human-readable description of the profile's purpose.
+*   `trigger_type`: (string) How the profile is activated (e.g., `AGENT_INITIATED`, `AUTO_ON_CONDITION`, `USER_CONFIRMED_WHISPER`).
+*   `steps`: (list) A list of step objects.
+    *   Each step object MUST contain at least:
+        *   `name`: (string) A descriptive name for the step.
+        *   `agent`: (string) The ID of the agent to execute this step.
+        *   `task_data`: (object) The data/parameters to be passed to the agent for this step.
+
+**Example `profiles` Structure (Illustrative Snippet):**
+
+```yaml
+profiles:
+  - profile_id: "example_validation_profile"
+    description: "Validates user input for a specific form."
+    trigger_type: "AGENT_INITIATED"
+    steps:
+      - name: "CheckRequiredFields"
+        agent: "form_validator_agent"
+        task_data:
+          form_id: "user_registration"
+          required_fields: ["username", "password", "email"]
+      # ... other steps
+```
+
+## 6. Structure for `cascades:`
+
+If the top-level key is `cascades:`, it follows a similar structure to `profiles:`, typically defining a list of cascade definition objects. The specific required keys within a cascade definition would be determined by the system interpreting these cascades (refer to `agent_cascade_definitions.mdc` for its schema if defining cascades for that system).
+
+## 7. Glob Pattern Quoting
+
+Within the `globs` or `file_patterns` list in the frontmatter, YAML syntax requires that strings starting with `*` or containing other special characters (like `[`, `]`, `{`, `}` if not part of a flow sequence/mapping) should be enclosed in quotes to be interpreted correctly as strings.
+
+*   **Correct:** `globs: ["**/*.py", "*.md"]`
+*   **Incorrect (potentially):** `globs: [**/*.py, *.md]` (depends on YAML parser, but quoting is safer)
+
+## 8. Adherence by AI
+
+When the AI Assistant is tasked with creating, modifying, or validating `.mdc` rule files that are intended to define structured profiles or cascades, it MUST strictly adhere to these formatting and structural guidelines.

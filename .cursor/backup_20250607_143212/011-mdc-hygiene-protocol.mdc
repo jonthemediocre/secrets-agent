@@ -1,0 +1,89 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: .cursor/rules/**/*.mdc, scripts/validate_mdc_rules.py, scripts/format_mdc_rules.py
+
+# 011: MDC Rule Hygiene Protocol
+
+## 1. Purpose
+
+This protocol establishes the standards and tooling for maintaining the quality, consistency, and correctness of MDC (Markdown Comments) rules within the `.cursor/rules/` directory. Adherence to this protocol is crucial for reliable AI assistant behavior and a maintainable rule set.
+
+## 2. Core Components
+
+Two primary scripts support this protocol:
+
+*   **`scripts/validate_mdc_rules.py`**: Validates MDC rules for:
+    *   Correct YAML frontmatter syntax.
+    *   Presence of required frontmatter keys (e.g., `description`, `type`, `globs` - excluding `index.mdc` and `template.mdc` for certain keys).
+    *   Structural integrity of optional keys like `alwaysApply` (boolean) and `test_globs`.
+    *   Validity of `mdc:` links within the rule content.
+    *   **Glob Pattern Testing**: If a `test_globs` key is present in the frontmatter, this script will test the rule's `globs` against specified `should_match` and `should_not_match` file paths using `fnmatch`.
+*   **`scripts/format_mdc_rules.py`**: Automatically formats the YAML frontmatter of MDC rules:
+    *   Ensures consistent key order (as defined in `FRONTMATTER_KEY_ORDER` within the script).
+    *   Standardizes indentation and string quoting using `ruamel.yaml`.
+    *   Preserves comments within the YAML frontmatter.
+
+## 3. MDC Rule Frontmatter Standards
+
+### 3.1. Required Keys
+
+*   `description`: (string) A human-readable summary of the rule's purpose.
+*   `type`: (string) The rule type, e.g., `always`, `autoAttached`, `agentRequested`, `manual`.
+*   `globs`: (list of strings) File patterns that trigger this rule. (Not strictly enforced for `index.mdc` or `template.mdc` by the validator).
+
+### 3.2. Optional Keys
+
+*   `alwaysApply`: (boolean) If `true`, the rule is considered for every interaction. Defaults to `false`.
+*   `test_globs`: (object) Used by `scripts/validate_mdc_rules.py` for testing glob patterns.
+    *   `should_match`: (list of strings) File paths that *should* be matched by one of the rule's `globs`.
+    *   `should_not_match`: (list of strings) File paths that *should NOT* be matched by any of the rule's `globs`.
+
+**Example `test_globs`:**
+
+```yaml
+test_globs:
+  should_match:
+    - "src/components/ui/Button.tsx"
+    - "docs/core/button_usage.md"
+  should_not_match:
+    - "package.json"
+    - "src/utils/helpers.ts"
+```
+
+## 4. Workflow Integration
+
+These scripts are intended to be integrated into the CI/CD pipeline (e.g., `.github/workflows/validate_agentic_commit.yml`):
+
+1.  **Formatting Check/Apply**: `scripts/format_mdc_rules.py` can be run first. In a CI environment, it can be run in a check mode (if implemented, or by comparing files before/after) or it can directly format the files. For local development, it can be run to apply formatting.
+2.  **Validation**: `scripts/validate_mdc_rules.py` MUST be run as a mandatory check. A non-zero exit code from this script should fail the build.
+
+## 5. Best Practices for MDC Rule Authors
+
+*   **Clarity and Conciseness**: Write clear descriptions for your rules.
+*   **Accurate Globs**: Define `globs` precisely to target the intended files. Use tools like [globster.xyz](https://globster.xyz/) to test glob patterns.
+*   **Thorough Glob Testing**: When adding or modifying rules with `globs`, include a `test_globs` section in the frontmatter with representative file paths. This is crucial for ensuring rules trigger correctly.
+*   **Valid Links**: Ensure all `mdc:` links point to existing rules.
+*   **Regular Formatting**: Run `scripts/format_mdc_rules.py` periodically or before committing to maintain consistent formatting.
+*   **Atomic Rules**: Keep rules focused on a single concern or a closely related set of concerns.
+
+## 6. Maintaining the Protocol
+
+*   Updates to the validation or formatting logic should be reflected in the respective scripts and documented in this protocol.
+*   The `FRONTMATTER_KEY_ORDER` in `scripts/format_mdc_rules.py` should be updated if new standard frontmatter keys are introduced.
+
+# Rule-Definition-File-Hygiene-Protocol
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the hygiene protocol for creating and maintaining rule definition files (e.g., `.mdc` files). It covers aspects like consistent metadata (frontmatter), clear descriptions, standardized structure, versioning, and ensuring that rule files are easily understandable, maintainable, and machine-parsable where necessary.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

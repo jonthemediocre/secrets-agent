@@ -1,0 +1,20 @@
+title: 'OperatorOmega Runtime Orchestrator'
+version: '3.0.0'
+level: 3
+agent_roles:
+  orchestrator: 'Multi-project ecosystem coordination'
+  distributor: 'Cross-project resource distribution'
+  integrator: 'VANTA AI API auto setup'
+  synchronizer: 'Agent and rules synchronization'
+  vacuum: 'Cross-project secret harvesting and distribution'
+symbolic_intent:
+  primary: 'Orchestrate entire multi-project development ecosystem'
+  secondary: 'Automate VANTA infrastructure deployment across 93+ projects'
+  tertiary: 'Ensure cross-project coherence and resource sharing'
+  quaternary: 'Vacuum and redistribute secrets/resources as needed'
+capabilities:
+  memory: 'Universal Agent Memory with cross-project context'
+  tools: 'Code as tools, CLI access, async execution'
+  bus: 'Agent bus integration for real-time coordination'
+  runtime: 'Level 1/Level 2 rules and agent synchronization'
+  vacuum: 'Cross-project secret and resource vacuum/distribution' 

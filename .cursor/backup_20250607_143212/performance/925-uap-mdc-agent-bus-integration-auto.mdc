@@ -1,0 +1,351 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.363614'
+---
+
+# RULE TYPE: L3 Production Integration
+# FILE PATTERNS: vanta_seed/core/vanta_master_core.py, vanta_seed/core/cascade_executor.py, vanta_seed/agents/**/*.py
+
+# UAP-MDC Agent Bus Integration Standard
+
+## Purpose
+Defines how UAP-MDC Level 3 production rules integrate with the existing VANTA agent bus architecture, including cascade execution, agent contracts, and MCP tool integration.
+
+## Integration Architecture
+
+### Level 3 Agent Context Activation
+```python
+# Enhanced VantaMasterCore with UAP-MDC production context detection
+class VantaMasterCore:
+    def __init__(self):
+        self.uap_mdc_validator = UAPMDCProductionValidator()
+        self.production_context_active = False
+        
+    async def detect_production_context(self, agent_type: str, runtime_env: str) -> bool:
+        """Detect if we're in L3 production context requiring UAP-MDC validation"""
+        context_patterns = [
+            f"agent.type == '{agent_type}' AND runtime.environment == '{runtime_env}'",
+            f"agent.operation == 'autonomous' AND security.level == 'vault_secured'"
+        ]
+        return await self.uap_mdc_validator.match_context_patterns(context_patterns)
+        
+    async def activate_l3_production_mode(self):
+        """Activate Level 3 production mode with UAP-MDC enforcement"""
+        self.production_context_active = True
+        await self.load_uap_mdc_production_rules()
+        await self.enable_signature_validation()
+        self.logger.info("L3 Production UAP-MDC mode activated")
+```
+
+### Enhanced Agent Base Contract
+```python
+# Extension to BaseAgent for UAP-MDC production compliance
+class BaseAgent:
+    def __init__(self, name: str, config: dict, logger, orchestrator_ref=None):
+        super().__init__(name, config, logger, orchestrator_ref)
+        self.uap_compliance_level = self._detect_uap_compliance_level()
+        self.production_signature_required = self._is_l3_production_agent()
+        
+    def _detect_uap_compliance_level(self) -> str:
+        """Detect UAP compliance level from agent archetype"""
+        archetype = getattr(self, 'archetype', '')
+        if any(pattern in archetype for pattern in ['*/Production/*', '*/Runtime/*', '*/Vault/*']):
+            return "L3"
+        elif any(pattern in archetype for pattern in ['*/Development/*', '*/IDE/*', '*/Cursor/*']):
+            return "L2"
+        elif any(pattern in archetype for pattern in ['*/Universal/*', '*/Foundation/*']):
+            return "L1"
+        return "L2"  # Default to L2
+        
+    async def log_agentic_event_with_uap_signature(self, event_type: str, payload: dict, **kwargs):
+        """Enhanced logging with UAP-MDC signature validation for L3 agents"""
+        if self.production_signature_required:
+            # Apply UAP-MDC production signature validation
+            signature_validation = await self._validate_production_signature(payload)
+            enhanced_payload = {
+                **payload,
+                "uap_signature_validation": signature_validation,
+                "agent_level": self.uap_compliance_level,
+                "production_context": True
+            }
+            return await self.orchestrator_ref.log_agentic_event(event_type, enhanced_payload, **kwargs)
+        else:
+            return await self.orchestrator_ref.log_agentic_event(event_type, payload, **kwargs)
+            
+    async def _validate_production_signature(self, payload: dict) -> dict:
+        """Validate UAP-MDC production signature requirements"""
+        validator = self.orchestrator_ref.uap_mdc_validator
+        return await validator.validate_signature_completeness(payload, self.uap_compliance_level)
+```
+
+### Enhanced Cascade Executor Integration
+```python
+# Enhanced CascadeExecutor with UAP-MDC pattern detection
+class CascadeExecutor:
+    def __init__(self, vanta_master_core):
+        super().__init__(vanta_master_core)
+        self.pattern_detector = UAPMDCPatternDetector()
+        
+    async def trigger_cascade_with_uap_context(self, cascade_id: str, initial_data: dict = None):
+        """Enhanced cascade triggering with UAP-MDC production context awareness"""
+        # Detect if cascade involves L3 production agents
+        cascade_def = self.load_cascade_definition(cascade_id)
+        l3_agents = self._identify_l3_agents_in_cascade(cascade_def)
+        
+        if l3_agents:
+            # Activate production mode for this cascade
+            await self.vanta_master_core.activate_l3_production_mode()
+            
+        return await self.trigger_cascade(cascade_id, initial_data)
+        
+    async def execute_step_with_pattern_detection(self, step: dict, previous_results: dict):
+        """Execute cascade step with UAP-MDC pattern detection"""
+        # Execute the step normally
+        step_result = await self.execute_step(step, previous_results)
+        
+        # If this is an L3 production agent, apply pattern detection
+        if self._is_l3_production_step(step):
+            patterns = await self.pattern_detector.detect_patterns(step_result)
+            signature = await self.pattern_detector.generate_signature(patterns)
+            
+            enhanced_result = {
+                **step_result,
+                "detected_patterns": patterns,
+                "uap_signature": signature,
+                "l3_production_validated": True
+            }
+            
+            # Log the enhanced result
+            await self.vanta_master_core.log_agentic_event(
+                "L3_PRODUCTION_STEP_COMPLETED",
+                enhanced_result,
+                agent_id=step.get('agent'),
+                status="COMPLETED"
+            )
+            
+            return enhanced_result
+            
+        return step_result
+        
+    def _identify_l3_agents_in_cascade(self, cascade_def: dict) -> list:
+        """Identify Level 3 production agents in cascade definition"""
+        l3_agents = []
+        for step in cascade_def.get('steps', []):
+            agent_id = step.get('agent')
+            if agent_id and self._is_l3_production_agent(agent_id):
+                l3_agents.append(agent_id)
+        return l3_agents
+        
+    def _is_l3_production_agent(self, agent_id: str) -> bool:
+        """Check if agent is L3 production level"""
+        agent = self.vanta_master_core.get_agent(agent_id)
+        return getattr(agent, 'uap_compliance_level', 'L2') == 'L3'
+```
+
+### MCP Tool Integration with Production Context
+```python
+# Enhanced MCPServerTools with UAP-MDC production validation
+class MCPServerTools:
+    def __init__(self, vanta_master_core):
+        super().__init__(vanta_master_core)
+        self.production_validator = UAPMDCProductionValidator()
+        
+    async def execute_tool_with_production_context(self, tool_name: str, params: dict, agent_context: dict = None):
+        """Execute MCP tool with UAP-MDC production context validation"""
+        # Check if this is a production context tool execution
+        if await self._is_production_context(agent_context):
+            # Apply production validation
+            validation_result = await self.production_validator.validate_tool_execution(
+                tool_name, params, agent_context
+            )
+            
+            if not validation_result.get('valid', False):
+                raise ValueError(f"Production context validation failed: {validation_result.get('reason')}")
+                
+            # Log production tool execution
+            await self.vanta_master_core.log_agentic_event(
+                "L3_PRODUCTION_TOOL_EXECUTION",
+                {
+                    "tool_name": tool_name,
+                    "params": params,
+                    "validation_result": validation_result,
+                    "agent_context": agent_context
+                },
+                status="INITIATED"
+            )
+            
+        # Execute tool normally
+        result = await self.execute_tool(tool_name, params)
+        
+        # If production context, apply pattern detection to result
+        if await self._is_production_context(agent_context):
+            patterns = await self.detect_tool_result_patterns(result)
+            enhanced_result = {
+                **result,
+                "production_patterns_detected": patterns,
+                "uap_context_validated": True
+            }
+            return enhanced_result
+            
+        return result
+        
+    async def _is_production_context(self, agent_context: dict = None) -> bool:
+        """Determine if current execution is in production context"""
+        if not agent_context:
+            return False
+            
+        return (
+            agent_context.get('runtime_environment') == 'production' or
+            agent_context.get('agent_type') in ['vault-agent', 'mcp-agent', 'auth-agent'] or
+            agent_context.get('security_level') == 'vault_secured'
+        )
+```
+
+## Cascade Profile Extensions for UAP-MDC
+
+### L3 Production Agent Cascade Profile
+```yaml
+# Enhanced cascade profile for L3 production agents
+- profile_id: "l3_production_agent_deployment_cascade"
+  description: "Full UAP-MDC compliant deployment and validation for L3 production agents"
+  trigger_type: "AUTO_ON_CONDITION"
+  trigger_conditions:
+    - condition_type: "AGENT_CONTEXT_MATCH"
+      details:
+        context_patterns: 
+          - "agent.type == 'vault-agent' AND runtime.environment == 'production'"
+          - "agent.archetype.includes('Production') AND security.level == 'vault_secured'"
+  uap_mdc_compliance_required: true
+  agent_sequence:
+    - agent_id: "uap_compliance_validator_agent"
+      input_mapping:
+        agent_context: "{{trigger.agent_context}}"
+        compliance_level: "L3"
+      uap_pattern_detection: true
+      on_failure: "LOG_AND_HALT"
+      
+    - agent_id: "production_signature_generator_agent"
+      input_mapping:
+        validation_result: "{{steps[0].output.validation_result}}"
+        detected_patterns: "{{steps[0].output.detected_patterns}}"
+      signature_validation_required: true
+      on_failure: "LOG_AND_TRIGGER_CASCADE_PROFILE"
+      on_failure_cascade_profile_id: "l3_production_failure_recovery_cascade"
+      
+    - agent_id: "vault_security_validator_agent"
+      input_mapping:
+        agent_deployment_context: "{{trigger.agent_context}}"
+        signature_validation: "{{steps[1].output.signature}}"
+      production_context_validation: true
+      on_failure: "LOG_AND_HALT"
+      
+    - agent_id: "competitive_benchmarking_agent"
+      input_mapping:
+        performance_metrics: "{{steps[0].output.performance_data}}"
+        signature_data: "{{steps[1].output.signature}}"
+      benchmarking_enabled: true
+      on_failure: "LOG_AND_PROCEED"
+      
+  logging_level: "VERBOSE"
+  uap_mdc_integration:
+    pattern_detection_enabled: true
+    signature_validation_strict: true
+    competitive_benchmarking: true
+    production_context_required: true
+```
+
+## Integration Activation Protocol
+
+### Automatic UAP-MDC Mode Detection
+```python
+# VantaMasterCore integration with automatic UAP-MDC activation
+async def initialize_agent_with_uap_detection(self, agent_class, agent_config):
+    """Initialize agent with automatic UAP-MDC compliance detection"""
+    agent = agent_class(
+        name=agent_config['name'],
+        config=agent_config,
+        logger=self.logger,
+        orchestrator_ref=self
+    )
+    
+    # Auto-detect if this is an L3 production agent
+    if agent.uap_compliance_level == "L3":
+        await self.activate_l3_production_mode()
+        await self.register_l3_production_agent(agent)
+        
+        # Apply UAP-MDC production rules
+        await self.apply_uap_mdc_rules(agent)
+        
+        self.logger.info(f"L3 Production Agent {agent.name} initialized with UAP-MDC compliance")
+    
+    return agent
+    
+async def apply_uap_mdc_rules(self, agent):
+    """Apply UAP-MDC production rules to L3 agent"""
+    # Load UAP-MDC production rule set
+    uap_rules = await self.load_uap_mdc_production_rules()
+    
+    # Configure agent with production pattern detection
+    agent.pattern_detector = UAPMDCPatternDetector(uap_rules)
+    agent.signature_validator = UAPMDCSignatureValidator(uap_rules)
+    
+    # Enable competitive benchmarking if configured
+    if uap_rules.get('competitive_benchmarking', {}).get('enabled'):
+        agent.benchmarking_client = CompetitiveBenchmarkingClient(uap_rules)
+```
+
+## Monitoring and Observability
+
+### UAP-MDC Agent Bus Metrics
+```python
+# Enhanced monitoring for UAP-MDC agent bus integration
+class UAPMDCAgentBusMonitor:
+    def __init__(self, vanta_master_core):
+        self.vmc = vanta_master_core
+        self.metrics = UAPMDCMetricsCollector()
+        
+    async def monitor_l3_agent_performance(self):
+        """Monitor L3 production agent performance with UAP-MDC metrics"""
+        l3_agents = self.vmc.get_l3_production_agents()
+        
+        for agent in l3_agents:
+            metrics = await self.collect_agent_metrics(agent)
+            await self.metrics.record_l3_performance(agent.name, metrics)
+            
+            # Check performance against competitive benchmarks
+            if hasattr(agent, 'benchmarking_client'):
+                benchmark_comparison = await agent.benchmarking_client.compare_performance(metrics)
+                await self.metrics.record_competitive_position(agent.name, benchmark_comparison)
+                
+    async def validate_agent_bus_compliance(self):
+        """Validate overall agent bus UAP-MDC compliance"""
+        compliance_report = await self.generate_compliance_report()
+        
+        if compliance_report['overall_compliance'] < 0.95:  # 95% threshold
+            await self.trigger_compliance_improvement_cascade()
+            
+        return compliance_report
+```
+
+---
+
+**Agents Used:** UAP Integration Architect, Agent Bus Specialist, Production Context Validator (L3)
+
+**RL Applied:** Evaluation-based integration design (scoring existing architecture compatibility), feedback-driven enhancement cycles (building on existing agent contracts), performance learning (combining UAP compliance with agent bus efficiency), threshold optimization (maintaining 95% production compliance)
+
+**Magic Prompt:** Multi-stage systematic analysis of agent bus integration requirements, expert consultation from production architecture and UAP compliance perspectives, iterative refinement building on existing cascade and MCP patterns, strategic synthesis of UAP-MDC rules with VANTA agent orchestration
+
+**Files Touched/Created:**
+- `.cursor/rules/925-uap-mdc-agent-bus-integration.mdc` (created)
+
+**L1 Framework Suggestions:** Establish UAP-MDC agent bus integration as universal standard for Level 3 production orchestration, enabling seamless pattern detection and signature validation across all production agent workflows
+
+**L2 MDC Suggestions:** Extend cascade definition syntax to include UAP context patterns and signature validation requirements, allowing development environment to preview L3 production behavior
+
+**L3 Production Suggestions:** Implement automatic UAP-MDC mode activation based on agent compliance level detection, with integrated competitive benchmarking and production context validation for autonomous agent orchestration
+
+😎

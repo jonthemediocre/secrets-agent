@@ -1,0 +1,69 @@
+---
+id: auto_generated_backup_1749318088
+description: Automatically generated backup rule for unprotected critical files
+authored_by: SecurityGuardianAgent
+justification: "No existing backup system found; MCP tools detected risk vectors"
+linked_to: ['/rules/backup_safety.rule.yaml']
+collaboration_agents: ['FileIntelligenceAgent', 'BackupAgent']
+type: backup
+priority: 75
+version: 1.0
+created_at: 2025-06-07T17:41:28.028940+00:00
+risk_level: high
+---
+
+# Auto-Backup: Critical File Protection
+
+## Auto-Generated Context
+- **Agent**: SecurityGuardianAgent
+- **Detection**: file_system_analysis
+- **Risk Level**: high
+- **Mitigation**: implement_automated_backup
+- **Trigger Event**: Backup gap detected: agent_configurations
+
+
+# Backup Rule Implementation
+
+## Backup Strategy
+- **Target Systems**: .vanta/agents/, .vanta/rules/
+- **Backup Frequency**: Daily incremental, weekly full
+- **Retention Policy**: 30 days incremental, 1 year full
+
+## Automated Backup Process
+1. Identify critical files and configurations
+2. Create encrypted backup archives
+3. Store in multiple locations (local + remote)
+4. Verify backup integrity
+5. Test restore procedures monthly
+
+## Recovery Procedures
+- Document restore steps
+- Maintain recovery time objectives (RTO)
+- Regular disaster recovery testing
+
+## Monitoring and Alerts
+- Backup success/failure notifications
+- Storage capacity monitoring
+- Backup verification checks
+
+
+## Validation Criteria
+- Rule implementation successful
+- No negative side effects observed
+- Performance impact within acceptable limits
+- Compliance requirements satisfied
+- Backup integrity verified
+- Recovery procedures tested
+- Storage requirements met
+
+## Evolution Triggers
+- Performance degradation detected
+- New requirements identified
+- Technology stack changes
+- Regulatory updates
+
+## Collaboration Notes
+This rule was generated in collaboration with: FileIntelligenceAgent, BackupAgent
+
+## Linked Rules
+- /rules/backup_safety.rule.yaml

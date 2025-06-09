@@ -1,0 +1,16 @@
+genesis_triggers:
+  performance_degradation:
+    mutation_factors:
+    - efficiency
+    - accuracy
+    - speed
+    spawn_strategy: mutation_based
+    threshold: 0.3
+  symbolic_emergence:
+    archetypal_matching: true
+    spawn_strategy: archetypal_emergence
+    threshold: 0.8
+  unmet_capability_detected:
+    parent_selection: highest_coherence
+    spawn_strategy: template_based
+    threshold: 0.7

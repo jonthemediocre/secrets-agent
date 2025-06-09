@@ -1,0 +1,81 @@
+agent_id: HermesIntegrator
+coherence_metrics:
+- category: architectural_fit
+  confidence: 0.85
+  contributing_factors:
+  - 'capability_match: 1.00'
+  - 'integration_score: 0.50'
+  - 'pattern_adherence: 0.70'
+  measurement_time: '2025-06-07T17:41:30.087788+00:00'
+  trend_direction: stable
+  value: 0.76
+- category: symbolic_alignment
+  confidence: 0.75
+  contributing_factors:
+  - 'archetype_consistency: 0.70'
+  - 'symbolic_patterns: 0.00'
+  - 'narrative_contribution: 0.60'
+  measurement_time: '2025-06-07T17:41:30.087815+00:00'
+  trend_direction: declining
+  value: 0.45999999999999996
+- category: performance_efficiency
+  confidence: 0.9
+  contributing_factors:
+  - 'completion_rate: 0.85'
+  - 'resource_efficiency: 0.90'
+  - 'response_performance: 1.00'
+  measurement_time: '2025-06-07T17:41:30.087839+00:00'
+  trend_direction: improving
+  value: 0.9107500000000001
+- category: trinity_role_harmony
+  confidence: 0.8
+  contributing_factors:
+  - 'role_fulfillment: 0.70'
+  - 'trinity_collaboration: 0.60'
+  - 'consensus_participation: 0.80'
+  measurement_time: '2025-06-07T17:41:30.087853+00:00'
+  trend_direction: stable
+  value: 0.6900000000000001
+- category: narrative_consistency
+  confidence: 0.7
+  contributing_factors:
+  - 'story_coherence: 0.70'
+  - 'identity_consistency: 0.80'
+  - 'behavior_predictability: 0.60'
+  measurement_time: '2025-06-07T17:41:30.087866+00:00'
+  trend_direction: stable
+  value: 0.71
+coherence_score: 0.7193651877133106
+collapse_metrics:
+- factor: utility_decline
+  indicators: []
+  intervention_suggestions: []
+  measurement_time: '2025-06-07T17:41:30.087868+00:00'
+  risk_level: 0.0
+  urgency: 0.0
+- factor: resource_waste
+  indicators: []
+  intervention_suggestions: []
+  measurement_time: '2025-06-07T17:41:30.087870+00:00'
+  risk_level: 0.0
+  urgency: 0.0
+- factor: conflict_generation
+  indicators: []
+  intervention_suggestions: []
+  measurement_time: '2025-06-07T17:41:30.087871+00:00'
+  risk_level: 0.0
+  urgency: 0.0
+- factor: obsolescence_indicators
+  indicators: []
+  intervention_suggestions: []
+  measurement_time: '2025-06-07T17:41:30.087872+00:00'
+  risk_level: 0.0
+  urgency: 0.0
+- factor: coherence_loss
+  indicators: []
+  intervention_suggestions: []
+  measurement_time: '2025-06-07T17:41:30.087874+00:00'
+  risk_level: 0.0
+  urgency: 0.0
+collapse_score: 0.0
+last_updated: '2025-06-07T17:41:30.087879+00:00'

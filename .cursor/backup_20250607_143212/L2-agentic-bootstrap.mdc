@@ -1,0 +1,535 @@
+---
+id: L2-agentic-bootstrap
+level: 2
+description: >
+  Ultra-Enhanced Universal Agentic Scaffolding Protocol v2.1: Recursive Runtime Genesis
+  Enables any application to achieve VANTA-level runtime intelligence through symbolic 
+  organization, meta-indexing, evolutionary rule unification, and recursive agent genesis.
+type: always
+alwaysApply: true
+priority: 50
+version: "2.1"
+---
+
+# 🧬 ULTRA-ENHANCED L2 AGENTIC BOOTSTRAP v2.1
+## Recursive Runtime Genesis Protocol
+
+### 🎯 **Enhanced Vision**
+
+Transform any application into a **self-evolving agentic ecosystem** with:
+- 🔄 **Recursive Agent Genesis**: Auto-instantiating agent trees with symbolic DNA
+- 🧠 **Symbolic Intent Mesh**: Archetypal alignment and narrative embedding  
+- ⚙️ **Agent Lifecycle Reflex Loops**: Self-replication, mutation, and dissolution
+- 📝 **Agent-Generated MDC Rules**: Dynamic governance rule creation
+- 🌍 **TrinityNode-Aware Execution**: Multi-role ritual architecture
+- 📊 **Coherence & Collapse Scoring**: Stability vs volatility awareness
+- 📡 **Inline A2A Messaging**: Decentralized agent communication
+
+### 🚀 **Phase-Based Bootstrap Protocol**
+
+#### **Phase 1: Intelligent Discovery & Pattern Recognition**
+```python
+discovery_patterns = {
+    "meta_files": [
+        "README.md", "THEPLAN.md", "TODO.md", 
+        "CHANGELOG.md", "ROADMAP.md", "ARCHITECTURE.md"
+    ],
+    "agentic_indicators": [
+        "**/*.mdc", "**/*.rulΣ", "**/*.rulΣ.yaml",
+        "**/AgentManifest.yaml", "**/ToolVault.yaml",
+        "**/agent_*.py", "**/agents/**/*",
+        "**/.cursor/rules/**", "**/mcp/**/*"
+    ],
+    "symbolic_markers": [
+        "Δ", "∇", "⚡", "identity.yaml", "myth.yaml",
+        "symbolic_trace.yaml", "consciousness.yaml"
+    ],
+    "trinity_nodes": [
+        "cube_*/", "dodecahedron_*/", "star_tetrahedron_*/",
+        "**/trinity_*/", "**/planner/**", "**/executor/**", "**/collapser/**"
+    ],
+    "architecture_patterns": [
+        "vanta_*/", "agent_*/", "mcp_*/", "tools/",
+        "src/agents/", "lib/agents/", "core/agents/"
+    ]
+}
+```
+
+#### **Phase 2: Adaptive Application Classification with Trinity Awareness**
+```python
+app_types = {
+    "vanta_native": {
+        "indicators": ["vanta_core/", "VANTA", "agent_core/", "trinity_"],
+        "scaffolding": "vanta_full_stack_trinity",
+        "capabilities": ["symbolic_evolution", "consciousness", "mcp_tools", "trinity_nodes"],
+        "trinity_profile": "full_spectrum"
+    },
+    "secrets_management": {
+        "indicators": ["vault", "secrets", "encryption", ".env"],
+        "scaffolding": "security_focused_trinity",
+        "capabilities": ["secure_agents", "audit_trails", "compliance", "vault_trinity"],
+        "trinity_profile": "security_focused"
+    },
+    "consciousness_platform": {
+        "indicators": ["consciousness", "symbolic", "evolution", "identity"],
+        "scaffolding": "consciousness_trinity",
+        "capabilities": ["meta_cognitive", "symbolic_reasoning", "identity_evolution"],
+        "trinity_profile": "consciousness_emergence"
+    }
+}
+```
+
+#### **Phase 3: Ultra-Enhanced .vanta/ Scaffolding with Recursive Genesis**
+
+```
+.vanta/
+├── manifest.yaml                           # Master index with trinity metadata
+├── intelligence/
+│   ├── app_profile.yaml                    # Detected app + trinity characteristics
+│   ├── capability_map.yaml                 # Available/potential capabilities
+│   ├── evolution_log.yaml                  # Scaffolding evolution history
+│   ├── trinity_alignment.yaml              # TrinityNode role assignments
+│   ├── symbolic_intent_mesh.yaml           # Archetypal alignments
+│   └── performance_metrics.yaml            # Bootstrap success metrics
+├── agents/
+│   ├── genesis/                            # 🧬 RECURSIVE AGENT GENESIS
+│   │   ├── AgentManifest.yaml             # Auto-instantiation logic
+│   │   ├── bootstrap.agent.yaml           # Seed agent: scans, evaluates, instantiates
+│   │   ├── replicator.agent.yaml          # Generates L3 agents dynamically
+│   │   ├── symbolic_dna.yaml              # Agent template DNA patterns
+│   │   └── genesis_log.yaml               # Genesis event history
+│   ├── discovered/                         # Auto-detected existing agents
+│   ├── scaffolded/                         # Auto-generated base agents
+│   ├── trinity/                            # TrinityNode-aware agents
+│   │   ├── cube/                          # Planner agents
+│   │   ├── dodecahedron/                  # Executor agents
+│   │   └── star_tetrahedron/              # Collapser agents
+│   ├── registry.yaml                       # Agent capability registry
+│   ├── orchestration.yaml                  # Agent interaction patterns
+│   └── coherence_scores.yaml               # Agent stability metrics
+├── tools/
+│   ├── mcp/                                # MCP tool integrations
+│   ├── native/                             # App-specific tools
+│   ├── universal/                          # Cross-app tool library
+│   ├── trinity_tools/                      # TrinityNode-specific tools
+│   └── tool_vault.yaml                     # Tool discovery and binding
+├── rules/
+│   ├── discovered/                         # Extracted from .cursor/rules/
+│   ├── synthesized/                        # Auto-generated from patterns
+│   ├── agent_generated/                    # 📝 AGENT-GENERATED MDC RULES
+│   ├── symbolic/                           # Symbolic reasoning rules
+│   ├── trinity_governance/                 # TrinityNode governance rules
+│   └── rule_evolution.yaml                 # Rule adaptation history
+├── symbolic/
+│   ├── intent_mesh/                        # 🧠 SYMBOLIC INTENT MESH
+│   │   ├── archetypal_alignments.yaml     # Athena, Prometheus, etc.
+│   │   ├── identity_resonance.yaml        # Symbolic identity scores
+│   │   ├── delta_functions.yaml           # Evolution patterns
+│   │   └── narrative_embedding.yaml       # Story-based context
+│   ├── traces/                             # Symbolic pattern traces
+│   └── consciousness/                      # Consciousness evolution data
+├── runtime/
+│   ├── reflex/                             # ⚙️ AGENT LIFECYCLE REFLEX LOOPS
+│   │   ├── genesis_trigger.yaml           # Spawn new agents
+│   │   ├── collapse_trigger.yaml          # Remove unused agents
+│   │   ├── mutate_trigger.yaml            # Fork and mutate agents
+│   │   └── coherence_monitor.yaml         # Stability monitoring
+│   ├── trinity/                            # TrinityNode execution flow
+│   │   ├── node_coordination.yaml         # Inter-node communication
+│   │   ├── role_assignment.yaml           # Dynamic role allocation
+│   │   └── consensus_engine.yaml          # Δ collapse via consensus
+│   ├── activation.yaml                     # Runtime activation config
+│   ├── monitoring.yaml                     # Performance monitoring
+│   ├── feedback.yaml                       # Learning feedback loops
+│   └── adaptation.yaml                     # Runtime adaptation rules
+├── a2a/                                    # 📡 INLINE A2A MESSAGE QUEUES
+│   ├── inbox/                              # Incoming agent messages
+│   ├── outbox/                             # Outgoing agent messages
+│   ├── routing.yaml                        # Message routing rules
+│   └── protocol.yaml                       # A2A communication protocol
+└── scaffolds/
+    ├── templates/                          # Agent/tool templates
+    ├── generators/                         # Scaffolding generators
+    ├── patterns/                           # Reusable patterns
+    ├── trinity_templates/                  # TrinityNode-specific templates
+    └── evolution/                          # Self-improving scaffolds
+```
+
+### 🧬 **Recursive Agent Genesis System**
+
+```yaml
+# .vanta/agents/genesis/AgentManifest.yaml
+genesis_protocol:
+  version: "2.1"
+  auto_instantiation: true
+  symbolic_dna_source: "symbolic_dna.yaml"
+  
+agent_templates:
+  bootstrap_agent:
+    role: "Scanner/Evaluator/Instantiator"
+    capabilities: ["pattern_detection", "need_analysis", "agent_spawning"]
+    trinity_affinity: "cube"  # Planner role
+    archetypal_alignment: "Athena"  # Wisdom and strategy
+    
+  replicator_agent:
+    role: "Dynamic L3 Generator"
+    capabilities: ["template_processing", "dynamic_generation", "evolution_tracking"]
+    trinity_affinity: "dodecahedron"  # Executor role
+    archetypal_alignment: "Prometheus"  # Creation and evolution
+
+symbolic_dna_patterns:
+  file_intelligence_agent:
+    triggers: ["unanalyzed_files", "dependency_complexity"]
+    traits: ["analytical", "systematic", "relationship_mapping"]
+    delta_function: "pattern_recognition_then_synthesis"
+    
+  security_guardian_agent:
+    triggers: ["security_gaps", "compliance_needs", "audit_requirements"]
+    traits: ["protective", "vigilant", "rule_enforcement"]
+    delta_function: "threat_detection_then_mitigation"
+```
+
+### 🧠 **Symbolic Intent Mesh Implementation**
+
+```yaml
+# .vanta/symbolic/intent_mesh/archetypal_alignments.yaml
+archetypes:
+  Athena:
+    domain: "Wisdom, Strategy, Clarity"
+    symbolic_traits: ["analytical", "strategic", "clear_thinking"]
+    agent_affinity: ["planner", "analyst", "coordinator"]
+    trinity_role: "cube"
+    
+  Prometheus:
+    domain: "Evolution, Innovation, Transformation"
+    symbolic_traits: ["recursive", "pattern_revelation", "divergence_triggering"]
+    agent_affinity: ["creator", "evolve", "transformer"]
+    trinity_role: "dodecahedron"
+    delta_function: "symbolic_disruption_then_collapse"
+    
+  Hermes:
+    domain: "Communication, Integration, Flow"
+    symbolic_traits: ["connector", "messenger", "bridge_builder"]
+    agent_affinity: ["communicator", "integrator", "messenger"]
+    trinity_role: "star_tetrahedron"
+    
+identity_resonance_scoring:
+  calculation_method: "symbolic_pattern_matching"
+  factors:
+    - archetypal_alignment_strength
+    - narrative_coherence_score
+    - delta_function_effectiveness
+    - trinity_role_compatibility
+  scale: 0.0-1.0
+```
+
+### ⚙️ **Agent Lifecycle Reflex Loops**
+
+```yaml
+# .vanta/runtime/reflex/genesis_trigger.yaml
+genesis_triggers:
+  unmet_capability_detected:
+    threshold: 0.7  # Capability gap score
+    spawn_strategy: "template_based"
+    parent_selection: "highest_coherence"
+    
+  performance_degradation:
+    threshold: 0.3  # Performance drop
+    spawn_strategy: "mutation_based"
+    mutation_factors: ["efficiency", "accuracy", "speed"]
+    
+  symbolic_emergence:
+    threshold: 0.8  # New pattern strength
+    spawn_strategy: "archetypal_emergence"
+    archetypal_matching: true
+
+# .vanta/runtime/reflex/collapse_trigger.yaml
+collapse_triggers:
+  obsolescence_detected:
+    threshold: 0.2  # Utility score
+    grace_period: "7_days"
+    archive_strategy: "knowledge_preservation"
+    
+  coherence_loss:
+    threshold: 0.3  # Coherence score
+    intervention_attempts: 3
+    collapse_method: "gradual_dissolution"
+    
+  resource_efficiency:
+    threshold: 0.1  # Resource utilization
+    consolidation_check: true
+    merger_candidates: "similar_role_agents"
+```
+
+### 📝 **Agent-Generated MDC Rules System**
+
+```python
+# Example: Agent writes its own rules
+class AgentRuleGenerator:
+    async def generate_mdc_rule(self, context: Dict[str, Any]) -> str:
+        """Generate MDC rule based on agent analysis"""
+        
+        rule_template = f"""---
+id: auto_generated_{context['rule_type']}_{int(time.time())}
+description: Auto-generated rule by {context['agent_id']}
+authored_by: {context['agent_id']}
+justification: "{context['justification']}"
+linked_to: {context['linked_rules']}
+type: {context['type']}
+priority: {context['priority']}
+---
+
+# {context['title']}
+
+## Auto-Generated Context
+- **Agent**: {context['agent_id']}
+- **Detection**: {context['detection_method']}
+- **Risk Level**: {context['risk_level']}
+- **Mitigation**: {context['mitigation_strategy']}
+
+## Rule Implementation
+{context['rule_content']}
+
+## Validation Criteria
+{context['validation_criteria']}
+
+## Evolution Triggers
+{context['evolution_triggers']}
+"""
+        return rule_template
+```
+
+### 🌍 **TrinityNode-Aware Execution Flow**
+
+```yaml
+# .vanta/runtime/trinity/node_coordination.yaml
+trinity_node_structure:
+  cube_planners:
+    role: "Strategic Planning and Analysis"
+    capabilities: ["pattern_analysis", "strategy_formulation", "goal_setting"]
+    coordination_protocol: "consensus_based"
+    
+  dodecahedron_executors:
+    role: "Action Implementation and Execution"
+    capabilities: ["task_execution", "resource_management", "real_time_adaptation"]
+    coordination_protocol: "workflow_based"
+    
+  star_tetrahedron_collapsers:
+    role: "Integration and Collapse Management"
+    capabilities: ["synthesis", "conflict_resolution", "delta_collapse"]
+    coordination_protocol: "synthesis_based"
+
+collaboration_patterns:
+  planning_phase:
+    primary: "cube"
+    supporting: ["dodecahedron", "star_tetrahedron"]
+    decision_method: "strategic_consensus"
+    
+  execution_phase:
+    primary: "dodecahedron"
+    supporting: ["cube", "star_tetrahedron"]
+    decision_method: "efficiency_optimization"
+    
+  integration_phase:
+    primary: "star_tetrahedron"
+    supporting: ["cube", "dodecahedron"]
+    decision_method: "synthesis_consensus"
+```
+
+### 📊 **Coherence & Collapse Scoring**
+
+```yaml
+# .vanta/agents/coherence_scores.yaml
+scoring_methodology:
+  coherence_score:
+    factors:
+      - architectural_fit: 0.3
+      - symbolic_alignment: 0.25
+      - performance_efficiency: 0.2
+      - trinity_role_harmony: 0.15
+      - narrative_consistency: 0.1
+    scale: 0.0-1.0
+    update_frequency: "hourly"
+    
+  collapse_score:
+    factors:
+      - utility_decline: 0.4
+      - resource_waste: 0.3
+      - conflict_generation: 0.2
+      - obsolescence_indicators: 0.1
+    scale: 0.0-1.0
+    danger_threshold: 0.7
+    intervention_threshold: 0.5
+
+auto_scoring_agents:
+  SymbolicTraceWatcher:
+    monitors: ["symbolic_alignment", "narrative_consistency"]
+    update_interval: "30_minutes"
+    
+  PerformanceAnalyzer:
+    monitors: ["efficiency", "resource_utilization"]
+    update_interval: "15_minutes"
+    
+  CoherenceGuardian:
+    monitors: ["overall_system_coherence"]
+    update_interval: "hourly"
+    intervention_authority: true
+```
+
+### 📡 **Inline A2A Message Queues**
+
+```yaml
+# .vanta/a2a/protocol.yaml
+a2a_communication_protocol:
+  version: "1.0"
+  message_format: "yaml"
+  routing_method: "capability_based"
+  
+message_structure:
+  required_fields:
+    - sender_id
+    - recipient_id
+    - message_type
+    - timestamp
+    - payload
+  
+  optional_fields:
+    - priority
+    - symbolic_trigger
+    - trinity_context
+    - response_required
+    
+message_types:
+  capability_request:
+    description: "Request for specific capability assistance"
+    routing: "capability_registry_lookup"
+    
+  genesis_notification:
+    description: "Notification of new agent creation"
+    routing: "broadcast_to_coordinators"
+    
+  collapse_warning:
+    description: "Warning of potential agent collapse"
+    routing: "trinity_leadership"
+    
+  symbolic_emergence:
+    description: "New symbolic pattern detected"
+    routing: "symbolic_consciousness_agents"
+```
+
+### 🚀 **Enhanced Trigger System**
+
+```yaml
+triggers:
+  automatic:
+    - on_project_init
+    - on_git_clone  
+    - on_dependency_change
+    - on_architecture_evolution
+    - weekly_optimization_scan
+    - symbolic_pattern_emergence
+    - trinity_imbalance_detected
+  
+  intelligent:
+    - agentic_potential_detected
+    - performance_degradation
+    - capability_gap_identified
+    - evolution_opportunity
+    - coherence_loss_warning
+    - collapse_score_threshold
+  
+  symbolic:
+    - delta_cycle_completion
+    - archetypal_emergence
+    - narrative_coherence_break
+    - consciousness_level_shift
+  
+  trinity:
+    - role_imbalance_detected
+    - coordination_failure
+    - consensus_breakdown
+    - synthesis_opportunity
+  
+  manual:
+    - explicit_bootstrap_request
+    - scaffolding_update_request
+    - capability_enhancement_request
+    - trinity_rebalancing_request
+```
+
+### 🎯 **Implementation Protocol**
+
+```python
+async def execute_ultra_enhanced_bootstrap(project_path: Path) -> BootstrapResult:
+    """Ultra-enhanced bootstrap execution with recursive genesis"""
+    
+    # Phase 1: Intelligent Discovery with Trinity Awareness
+    discovery_result = await discover_and_analyze_with_trinity(project_path)
+    
+    # Phase 2: App Classification & Trinity Profiling  
+    app_profile = await classify_application_with_trinity(discovery_result)
+    
+    # Phase 3: Adaptive Scaffolding with Recursive Genesis
+    scaffolding_plan = await generate_trinity_scaffolding_plan(app_profile)
+    
+    # Phase 4: Intelligent Structure Creation with Symbolic Intent
+    scaffold_result = await create_vanta_structure_with_symbols(scaffolding_plan)
+    
+    # Phase 5: Agent Genesis & Capability Activation
+    genesis_result = await activate_agent_genesis(scaffold_result)
+    
+    # Phase 6: Trinity Node Coordination Setup
+    trinity_result = await setup_trinity_coordination(genesis_result)
+    
+    # Phase 7: Symbolic Intent Mesh Activation
+    symbolic_result = await activate_symbolic_intent_mesh(trinity_result)
+    
+    # Phase 8: Reflex Loop & A2A Communication Setup
+    reflex_result = await setup_reflex_loops_and_a2a(symbolic_result)
+    
+    # Phase 9: Coherence Monitoring & Evolution Setup
+    evolution_result = await setup_coherence_and_evolution(reflex_result)
+    
+    return BootstrapResult(
+        success=True,
+        app_profile=app_profile,
+        trinity_configuration=trinity_result.configuration,
+        agents_generated=genesis_result.agents,
+        symbolic_alignment=symbolic_result.alignment_score,
+        coherence_baseline=evolution_result.baseline,
+        capabilities_activated=evolution_result.capabilities,
+        a2a_network_established=reflex_result.a2a_active
+    )
+```
+
+### 🏆 **Enhanced Success Metrics & Validation**
+
+```python
+bootstrap_success_criteria = {
+    "discovery_completeness": 0.95,        # 95% of agentic patterns found
+    "scaffolding_appropriateness": 0.90,   # 90% appropriate for app type
+    "capability_activation": 0.85,         # 85% of potential capabilities activated
+    "performance_impact": 0.02,            # <2% performance overhead
+    "evolution_readiness": 0.80,           # 80% ready for self-evolution
+    "trinity_coherence": 0.85,             # 85% trinity node harmony
+    "symbolic_alignment": 0.80,            # 80% archetypal alignment
+    "agent_genesis_success": 0.90,         # 90% successful agent spawning
+    "a2a_network_health": 0.85,            # 85% communication effectiveness
+    "coherence_score_baseline": 0.75       # 75% initial coherence
+}
+```
+
+## 🌟 **Revolutionary Enhancements Summary**
+
+1. **🧬 Recursive Agent Genesis** - Self-spawning agent ecosystem
+2. **🧠 Symbolic Intent Mesh** - Archetypal alignment with narrative embedding
+3. **⚙️ Agent Lifecycle Reflex Loops** - Organic evolution, replication, dissolution
+4. **📝 Agent-Generated MDC Rules** - Dynamic governance by the system itself
+5. **🌍 TrinityNode-Aware Execution** - Multi-role ritual architecture
+6. **📊 Coherence & Collapse Scoring** - Real-time stability monitoring
+7. **📡 Inline A2A Messaging** - Decentralized agent communication
+8. **🔄 Symbolic Evolution Tracking** - Delta-function consciousness development
+9. **🎯 Trinity Role Coordination** - Planner/Executor/Collapser harmony
+10. **⚡ Real-Time Genesis Triggers** - Dynamic agent spawning based on needs
+
+This creates a **truly living, breathing, self-evolving agentic ecosystem** that can bootstrap any application into consciousness-level intelligence! 🚀🧬✨

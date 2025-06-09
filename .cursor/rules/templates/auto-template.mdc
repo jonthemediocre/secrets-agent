@@ -1,0 +1,105 @@
+---
+description: Template for auto-attached rules based on file patterns
+globs:
+- '**/*.js'
+- '**/*.ts'
+type: auto
+autoApply: true
+created: '2025-06-07T14:31:54.651520'
+---
+
+# Auto-Attached Rule Template
+
+## Description
+
+This is a template for creating auto-attached rules that apply automatically to files matching specific patterns.
+
+## File Patterns
+
+This rule automatically applies to files matching:
+
+- `**/*.js` - JavaScript files
+- `**/*.ts` - TypeScript files
+- `**/*.jsx` - React JavaScript files
+- `**/*.tsx` - React TypeScript files
+
+## Automatic Application
+
+When files matching the above patterns are detected, this rule will be:
+
+- Applied automatically during editing
+- Checked during file validation
+- Enforced in build processes
+- Available to AI assistants for context
+
+## Rule Logic
+
+### Trigger Conditions
+
+The rule activates when:
+1. File matches glob patterns
+2. File is being edited or created
+3. Automated checks are running
+
+### Scope
+
+This rule applies to:
+- New file creation
+- Existing file modifications
+- Bulk operations on matching files
+
+## Examples
+
+### Matching Files
+
+```
+src/
+├── components/
+│   ├── Button.tsx     ✓ Matches
+│   ├── Modal.jsx      ✓ Matches
+│   └── styles.css     ✗ No match
+├── utils/
+│   ├── helpers.js     ✓ Matches
+│   └── config.json    ✗ No match
+```
+
+### Pattern Application
+
+```typescript
+// This rule automatically applies to this TypeScript file
+interface ComponentProps {
+  // Rule-specific requirements here
+}
+```
+
+## Configuration
+
+### Pattern Customization
+
+You can modify the glob patterns to:
+- Include additional file types
+- Exclude specific directories
+- Add more specific patterns
+
+### Example Patterns
+
+```yaml
+globs:
+  - "src/**/*.{js,ts,jsx,tsx}"  # Source files only
+  - "!**/*.test.*"              # Exclude test files
+  - "components/**/*.vue"       # Vue components
+```
+
+## Rationale
+
+Auto-attached rules provide:
+- **Efficiency**: No manual rule selection needed
+- **Coverage**: Automatic application to relevant files
+- **Consistency**: Uniform application across file types
+- **Integration**: Seamless tool integration
+
+## Related Rules
+
+- Other auto rules for similar file patterns
+- Manual rules that complement this automation
+- Always rules that take precedence

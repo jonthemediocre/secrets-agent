@@ -1,0 +1,63 @@
+---
+description: Example agent rule for development workflow and process rules
+type: agent
+created: '2025-06-07T14:31:54.659113'
+example: true
+category: workflow
+agents:
+- cursor
+- ai-assistant
+complexity: medium
+migrated: true
+migration_date: '2025-06-07T14:32:14.000908'
+---
+
+# Workflow Agent Rule Example
+
+## Description
+
+This is an example agent rule for development workflow and process rules. It demonstrates the proper structure and content for rules in the workflow category.
+
+## Rule Implementation
+
+This rule provides guidance to AI assistants and code completion tools. It influences suggestions and automated assistance.
+
+## Examples
+
+### Good Pattern
+
+```javascript
+// Example of following this rule
+const examplePattern = {
+  // Implementation that follows best practices
+  property: 'value'
+};
+```
+
+### Poor Pattern
+
+```javascript
+// Example of violating this rule
+var badPattern = {
+  // Implementation that violates the rule
+  prop: 'val'
+};
+```
+
+## Rationale
+
+This rule exists to:
+- Promote best practices in development workflow and process rules
+- Ensure consistency across the codebase
+- Prevent common mistakes and issues
+- Support maintainable code patterns
+
+## Related Rules
+
+- See other rules in the workflow/ folder
+- Consider complementary rules in related folders
+- Review always rules that may take precedence
+
+## Notes
+
+This is an example rule for demonstration purposes. Modify it according to your specific needs and requirements.

@@ -1,0 +1,16 @@
+{
+  "rule_id": "UAP-002",
+  "category": "UAP",
+  "severity": "CRITICAL",
+  "title": "Multi-Protocol Support Declaration",
+  "description": "All agents MUST declare and support minimum protocol set: MCP, A2A, Cross-Protocol",
+  "implementation_requirements": [
+    "Set protocol_support list with ProtocolType.MCP, A2A, CROSS_PROTOCOL",
+    "Implement protocol-specific message handlers",
+    "Register protocol capabilities with component registry"
+  ],
+  "validation_method": "check_protocol_support",
+  "sync_priority": 10,
+  "last_updated": "2025-06-07T12:46:18.387773",
+  "version": "2.0.0"
+}

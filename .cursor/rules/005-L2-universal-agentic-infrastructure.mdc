@@ -1,0 +1,541 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: L2 Universal Agentic Infrastructure Enforcement
+# FILE PATTERNS: **/infrastructure/**, **/monitoring/**, **/security/**, **/communication/**
+
+# L2 Enforces Universal Agentic Application Infrastructure
+
+## Purpose
+**CRITICAL L2 ENFORCEMENT:** Every agentic application MUST have essential production infrastructure components. This rule enforces deployment of universal agentic infrastructure based on project context and needs.
+
+## Universal Agentic Infrastructure Requirements
+
+### 1. Security & Authentication Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+security_infrastructure:
+  vault_integration:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/vault/agent_secrets_manager.py"
+      - "infrastructure/vault/api_key_rotation.py" 
+      - "infrastructure/vault/inter_agent_auth.py"
+    context_triggers:
+      - has_external_apis: true
+      - has_production_agents: true
+      - agent_count: "> 1"
+    
+  agent_authentication:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/auth/agent_identity_provider.py"
+      - "infrastructure/auth/role_based_access_control.py"
+      - "infrastructure/auth/jwt_token_manager.py"
+    context_triggers:
+      - multi_agent_system: true
+      - external_access_required: true
+      
+  secure_communication:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/security/encrypted_channels.py"
+      - "infrastructure/security/message_signing.py"
+      - "infrastructure/security/audit_logger.py"
+    context_triggers:
+      - inter_agent_communication: true
+      - sensitive_data_processing: true
+
+audit_compliance:
+  gdpr_compliance: "required_if_eu_users"
+  hipaa_compliance: "required_if_healthcare_data"
+  sox_compliance: "required_if_financial_data"
+  agent_action_logging: "always_required"
+```
+
+### 2. Monitoring & Observability Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+monitoring_infrastructure:
+  agent_health_monitoring:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/monitoring/agent_health_checker.py"
+      - "infrastructure/monitoring/performance_metrics_collector.py"
+      - "infrastructure/monitoring/resource_usage_monitor.py"
+    metrics:
+      - agent_response_time
+      - agent_success_rate
+      - agent_memory_usage
+      - agent_cpu_utilization
+      
+  distributed_tracing:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/observability/trace_context_manager.py"
+      - "infrastructure/observability/span_correlation.py"
+      - "infrastructure/observability/cross_agent_tracing.py"
+    context_triggers:
+      - multi_agent_workflows: true
+      - cascade_execution: true
+      
+  alerting_system:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/alerting/alert_manager.py"
+      - "infrastructure/alerting/escalation_policies.py"
+      - "infrastructure/alerting/incident_response.py"
+    alert_types:
+      - agent_failure
+      - performance_degradation
+      - security_breach
+      - resource_exhaustion
+
+error_tracking:
+  exception_aggregation: "required"
+  error_rate_monitoring: "required"
+  root_cause_analysis: "required_for_production"
+```
+
+### 3. Data Management & Persistence Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+data_infrastructure:
+  agent_memory_persistence:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/data/agent_memory_store.py"
+      - "infrastructure/data/conversation_history.py"
+      - "infrastructure/data/agent_state_manager.py"
+    storage_types:
+      - short_term_memory: "redis_required"
+      - long_term_memory: "postgres_required"
+      - vector_embeddings: "pinecone_or_weaviate_required"
+      
+  inter_agent_data_sharing:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/data/shared_context_store.py"
+      - "infrastructure/data/agent_data_exchange.py"
+      - "infrastructure/data/data_validation_schemas.py"
+    context_triggers:
+      - collaborative_agents: true
+      - shared_knowledge_base: true
+      
+  backup_recovery:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/backup/automated_backup.py"
+      - "infrastructure/backup/point_in_time_recovery.py"
+      - "infrastructure/backup/disaster_recovery.py"
+    backup_frequency: "hourly_for_production"
+    retention_policy: "30_days_minimum"
+
+data_governance:
+  data_encryption: "at_rest_and_in_transit"
+  data_classification: "automatic_pii_detection"
+  data_retention: "policy_based_cleanup"
+```
+
+### 4. Communication & Event Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+communication_infrastructure:
+  message_queue_system:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/messaging/async_message_broker.py"
+      - "infrastructure/messaging/priority_queue_manager.py"
+      - "infrastructure/messaging/message_retry_handler.py"
+    queue_types:
+      - high_priority: "immediate_processing"
+      - normal_priority: "batched_processing"
+      - low_priority: "background_processing"
+    context_triggers:
+      - async_agent_communication: true
+      - high_throughput_required: true
+      
+  event_bus:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/events/event_dispatcher.py"
+      - "infrastructure/events/event_subscription_manager.py"
+      - "infrastructure/events/event_replay_system.py"
+    event_types:
+      - agent_lifecycle_events
+      - task_completion_events
+      - error_events
+      - performance_events
+      
+  api_gateway:
+    status: "REQUIRED_IF_EXTERNAL_ACCESS"
+    components:
+      - "infrastructure/api/gateway_router.py"
+      - "infrastructure/api/rate_limiter.py"
+      - "infrastructure/api/request_validator.py"
+    features:
+      - authentication_enforcement
+      - rate_limiting
+      - request_transformation
+      - response_caching
+
+load_balancing:
+  agent_load_balancer: "required_for_scaling"
+  health_check_integration: "required"
+  circuit_breaker_pattern: "required"
+```
+
+### 5. Resilience & Error Handling Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+resilience_infrastructure:
+  circuit_breaker_system:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/resilience/circuit_breaker.py"
+      - "infrastructure/resilience/fallback_strategies.py"
+      - "infrastructure/resilience/health_check_aggregator.py"
+    patterns:
+      - external_api_circuit_breakers
+      - agent_communication_circuit_breakers
+      - database_connection_circuit_breakers
+      
+  retry_mechanisms:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/resilience/exponential_backoff.py"
+      - "infrastructure/resilience/jitter_retry.py"
+      - "infrastructure/resilience/dead_letter_queue.py"
+    strategies:
+      - immediate_retry: "for_transient_errors"
+      - exponential_backoff: "for_rate_limiting"
+      - circuit_breaker_retry: "for_service_failures"
+      
+  graceful_degradation:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/resilience/feature_flags.py"
+      - "infrastructure/resilience/service_mesh.py"
+      - "infrastructure/resilience/chaos_engineering.py"
+    degradation_modes:
+      - reduced_functionality
+      - cached_responses
+      - simplified_workflows
+
+disaster_recovery:
+  automated_failover: "required_for_production"
+  data_replication: "cross_region_required"
+  recovery_time_objective: "< 15_minutes"
+```
+
+### 6. Agent Lifecycle Management Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+lifecycle_infrastructure:
+  agent_registry:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/registry/agent_discovery_service.py"
+      - "infrastructure/registry/capability_registry.py"
+      - "infrastructure/registry/agent_metadata_store.py"
+    features:
+      - dynamic_agent_registration
+      - capability_based_routing
+      - health_status_tracking
+      
+  dynamic_scaling:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/scaling/auto_scaler.py"
+      - "infrastructure/scaling/load_predictor.py"
+      - "infrastructure/scaling/resource_allocator.py"
+    scaling_metrics:
+      - queue_depth
+      - response_time
+      - cpu_utilization
+      - memory_usage
+      
+  version_management:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/versioning/agent_version_controller.py"
+      - "infrastructure/versioning/rolling_deployment.py"
+      - "infrastructure/versioning/canary_deployment.py"
+    strategies:
+      - blue_green_deployment
+      - canary_releases
+      - feature_flag_rollouts
+
+deployment_orchestration:
+  container_orchestration: "kubernetes_or_docker_compose"
+  service_mesh: "istio_or_consul_connect"
+  configuration_management: "gitops_based"
+```
+
+### 7. Testing & Quality Assurance Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+testing_infrastructure:
+  automated_testing:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/testing/agent_unit_tests.py"
+      - "infrastructure/testing/integration_test_suite.py"
+      - "infrastructure/testing/end_to_end_tests.py"
+    test_types:
+      - unit_tests: "per_agent_functionality"
+      - integration_tests: "inter_agent_communication"
+      - performance_tests: "load_and_stress"
+      - chaos_tests: "failure_resilience"
+      
+  test_data_management:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/testing/test_data_factory.py"
+      - "infrastructure/testing/synthetic_data_generator.py"
+      - "infrastructure/testing/data_anonymization.py"
+    data_types:
+      - synthetic_conversation_data
+      - anonymized_production_data
+      - edge_case_scenarios
+      
+  quality_gates:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/quality/code_coverage_enforcer.py"
+      - "infrastructure/quality/performance_benchmarks.py"
+      - "infrastructure/quality/security_scanner.py"
+    requirements:
+      - code_coverage: "> 80%"
+      - performance_regression: "< 5%"
+      - security_vulnerabilities: "zero_high_severity"
+
+chaos_engineering:
+  failure_injection: "required_for_production"
+  resilience_testing: "automated_weekly"
+  recovery_validation: "required"
+```
+
+### 8. Configuration & Environment Management (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+configuration_infrastructure:
+  environment_management:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/config/environment_manager.py"
+      - "infrastructure/config/feature_flag_manager.py"
+      - "infrastructure/config/runtime_config_updater.py"
+    environments:
+      - development: "local_simulation"
+      - staging: "production_like_testing"
+      - production: "full_monitoring_enabled"
+      
+  secrets_management:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/config/vault_secret_provider.py"
+      - "infrastructure/config/secret_rotation_scheduler.py"
+      - "infrastructure/config/secret_access_auditor.py"
+    secret_types:
+      - api_keys: "external_service_access"
+      - certificates: "tls_communication"
+      - database_credentials: "data_access"
+      
+  configuration_validation:
+    status: "MANDATORY"
+    components:
+      - "infrastructure/config/config_schema_validator.py"
+      - "infrastructure/config/config_drift_detector.py"
+      - "infrastructure/config/config_rollback_manager.py"
+    validation_rules:
+      - schema_compliance
+      - dependency_consistency
+      - security_policy_adherence
+
+gitops_integration:
+  config_as_code: "version_controlled"
+  automated_deployment: "pull_request_based"
+  rollback_capability: "one_click_revert"
+```
+
+## Context-Aware Infrastructure Deployment
+
+### 9. Project Context Analysis Engine
+```python
+# L2 INFRASTRUCTURE ANALYZER: Determine what each project needs
+class ProjectContextAnalyzer:
+    """Analyze project characteristics to determine required infrastructure"""
+    
+    def analyze_project_requirements(self, project_path: str) -> dict:
+        """Analyze project to determine required infrastructure components"""
+        context = {
+            "project_type": self._detect_project_type(project_path),
+            "agent_count": self._count_agents(project_path),
+            "external_integrations": self._detect_external_integrations(project_path),
+            "data_sensitivity": self._analyze_data_sensitivity(project_path),
+            "scalability_requirements": self._analyze_scalability_needs(project_path),
+            "compliance_requirements": self._detect_compliance_needs(project_path)
+        }
+        
+        return self._generate_infrastructure_requirements(context)
+        
+    def _detect_project_type(self, project_path: str) -> str:
+        """Detect if project is chatbot, automation, analysis, etc."""
+        # Analyze agent types and configurations
+        agent_files = glob.glob(f"{project_path}/**/agents/**/*.py", recursive=True)
+        
+        patterns = {
+            "chatbot": ["conversation", "chat", "dialogue", "response"],
+            "automation": ["workflow", "task", "schedule", "trigger"],
+            "analysis": ["analyze", "process", "insight", "report"],
+            "integration": ["api", "webhook", "sync", "bridge"],
+            "monitoring": ["alert", "monitor", "track", "observe"]
+        }
+        
+        detected_types = []
+        for agent_file in agent_files:
+            with open(agent_file, 'r') as f:
+                content = f.read().lower()
+                for project_type, keywords in patterns.items():
+                    if any(keyword in content for keyword in keywords):
+                        detected_types.append(project_type)
+                        
+        return max(set(detected_types), key=detected_types.count) if detected_types else "general"
+        
+    def _generate_infrastructure_requirements(self, context: dict) -> dict:
+        """Generate specific infrastructure requirements based on context"""
+        requirements = {
+            "mandatory_always": [
+                "security_authentication",
+                "monitoring_observability", 
+                "data_persistence",
+                "error_handling",
+                "agent_lifecycle"
+            ]
+        }
+        
+        # Context-specific requirements
+        if context["agent_count"] > 1:
+            requirements["multi_agent"] = [
+                "communication_infrastructure",
+                "distributed_tracing",
+                "agent_coordination"
+            ]
+            
+        if context["external_integrations"]:
+            requirements["external_integration"] = [
+                "api_gateway",
+                "rate_limiting",
+                "circuit_breakers",
+                "webhook_handlers"
+            ]
+            
+        if context["data_sensitivity"] == "high":
+            requirements["high_security"] = [
+                "encryption_at_rest",
+                "pii_detection",
+                "audit_compliance",
+                "data_anonymization"
+            ]
+            
+        if context["scalability_requirements"] == "high":
+            requirements["high_scalability"] = [
+                "auto_scaling",
+                "load_balancing", 
+                "caching_layer",
+                "database_sharding"
+            ]
+            
+        return requirements
+```
+
+### 10. Intelligent Infrastructure Provisioning
+```python
+# L2 INFRASTRUCTURE PROVISIONER: Deploy required components intelligently
+class IntelligentInfrastructureProvisioner:
+    """Provision infrastructure components based on project analysis"""
+    
+    def provision_project_infrastructure(self, project_path: str):
+        """Provision all required infrastructure for project"""
+        # Analyze project requirements
+        analyzer = ProjectContextAnalyzer()
+        requirements = analyzer.analyze_project_requirements(project_path)
+        
+        # Provision components based on requirements
+        provisioning_plan = self._create_provisioning_plan(requirements, project_path)
+        
+        for component_group in provisioning_plan:
+            self._provision_component_group(component_group, project_path)
+            
+    def _create_provisioning_plan(self, requirements: dict, project_path: str) -> list:
+        """Create ordered provisioning plan"""
+        plan = [
+            # Foundation layer (always first)
+            {
+                "group": "foundation",
+                "components": ["security", "monitoring", "data_persistence"],
+                "priority": 1
+            },
+            # Communication layer
+            {
+                "group": "communication", 
+                "components": ["messaging", "events", "api_gateway"],
+                "priority": 2,
+                "condition": lambda req: "multi_agent" in req or "external_integration" in req
+            },
+            # Resilience layer
+            {
+                "group": "resilience",
+                "components": ["circuit_breakers", "retry_mechanisms", "graceful_degradation"],
+                "priority": 3
+            },
+            # Scaling layer
+            {
+                "group": "scaling",
+                "components": ["auto_scaling", "load_balancing", "caching"],
+                "priority": 4,
+                "condition": lambda req: "high_scalability" in req
+            },
+            # Compliance layer
+            {
+                "group": "compliance",
+                "components": ["audit_logging", "data_governance", "encryption"],
+                "priority": 5,
+                "condition": lambda req: "high_security" in req
+            }
+        ]
+        
+        # Filter plan based on requirements
+        filtered_plan = []
+        for group in plan:
+            if "condition" not in group or group["condition"](requirements):
+                filtered_plan.append(group)
+                
+        return sorted(filtered_plan, key=lambda x: x["priority"])
+```
+
+---
+
+## Universal Infrastructure Requirements Summary
+
+**EVERY AGENTIC PROJECT MUST HAVE:**
+1. ✅ **Security & Authentication** - Vault integration, agent auth, secure communication
+2. ✅ **Monitoring & Observability** - Health monitoring, distributed tracing, alerting
+3. ✅ **Data Management** - Agent memory, inter-agent sharing, backup/recovery
+4. ✅ **Communication Infrastructure** - Message queues, event bus, API gateway
+5. ✅ **Resilience & Error Handling** - Circuit breakers, retry mechanisms, graceful degradation
+6. ✅ **Agent Lifecycle Management** - Registry, dynamic scaling, version management
+7. ✅ **Testing & QA** - Automated testing, chaos engineering, quality gates
+8. ✅ **Configuration Management** - Environment management, secrets, GitOps
+
+**CONTEXT-AWARE DEPLOYMENT:**
+- 🧠 **Project Analysis** - Automatically detect project type and requirements
+- 🎯 **Intelligent Provisioning** - Deploy only needed components based on context
+- 📊 **Scalability Assessment** - Right-size infrastructure for expected load
+- 🔒 **Security Classification** - Apply appropriate security controls based on data sensitivity
+- 🔧 **Compliance Detection** - Automatically apply required regulatory controls
+
+This ensures every agentic application gets **production-ready infrastructure** automatically deployed through L2 enforcement! 🚀

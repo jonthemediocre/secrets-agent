@@ -1,0 +1,507 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: L2 Universal Agentic Core Components Enforcement
+# FILE PATTERNS: **/rules/**, **/agents/**, **/mcp-tools/**, **/vault/**
+
+# L2 Enforces Universal Agentic Application Core Components
+
+## Purpose
+**CRITICAL L2 ENFORCEMENT:** Every agentic application MUST have the four fundamental core components: Rules System, Agents, MCP Tools, and Vault Setup. This rule enforces deployment of these essential building blocks contextualized to the specific application.
+
+## Universal Agentic Core Components (MANDATORY)
+
+### 1. Rules System Infrastructure (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+rules_system:
+  l3_production_rules:
+    status: "MANDATORY"
+    components:
+      - "rules/app-specific-governance.yaml"
+      - "rules/agent-behavior-rules.yaml"
+      - "rules/interaction-policies.yaml"
+      - "rules/security-policies.yaml"
+      - "rules/escalation-rules.yaml"
+    context_adaptation:
+      - chatbot_apps: "conversation_flow_rules"
+      - automation_apps: "workflow_execution_rules"
+      - analysis_apps: "data_processing_rules"
+      - integration_apps: "api_interaction_rules"
+      
+  uap_mdc_compliance:
+    status: "MANDATORY"
+    components:
+      - "rules/uap-mdc-l3-production.rule"
+      - "rules/context-pattern-detection.rule"
+      - "rules/agent-level-classification.rule"
+    features:
+      - context_headers: "app_specific_context"
+      - pattern_detection: "magic_prompt_and_rl"
+      - performance_monitoring: "competitive_benchmarking"
+      
+  rule_enforcement_engine:
+    status: "MANDATORY"
+    components:
+      - "rules/engine/rule_validator.py"
+      - "rules/engine/policy_enforcer.py"
+      - "rules/engine/compliance_monitor.py"
+    capabilities:
+      - real_time_rule_validation
+      - policy_violation_detection
+      - automatic_compliance_reporting
+      - rule_conflict_resolution
+
+context_specific_rules:
+  business_domain_rules: "auto_generated_from_context"
+  regulatory_compliance: "detected_from_data_types"
+  performance_requirements: "based_on_sla_needs"
+  security_classification: "based_on_data_sensitivity"
+```
+
+### 2. Agent Architecture (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+agent_architecture:
+  base_agent_framework:
+    status: "MANDATORY"
+    components:
+      - "agents/base/base_agent.py"
+      - "agents/base/agent_interface.py"
+      - "agents/base/agent_lifecycle_manager.py"
+      - "agents/base/agent_communication_protocol.py"
+    capabilities:
+      - uap_v3_1_compliance
+      - standardized_agent_interface
+      - lifecycle_management
+      - inter_agent_communication
+      
+  agent_registry_system:
+    status: "MANDATORY"
+    components:
+      - "agents/registry/agent_discovery_service.py"
+      - "agents/registry/capability_matcher.py"
+      - "agents/registry/agent_health_tracker.py"
+    features:
+      - dynamic_agent_registration
+      - capability_based_routing
+      - health_status_monitoring
+      - load_balancing_integration
+      
+  application_specific_agents:
+    status: "MANDATORY - CONTEXT_BASED"
+    components:
+      chatbot_context:
+        - "agents/conversation/conversation_manager.py"
+        - "agents/conversation/intent_classifier.py"
+        - "agents/conversation/response_generator.py"
+        - "agents/conversation/context_maintainer.py"
+      automation_context:
+        - "agents/workflow/task_orchestrator.py"
+        - "agents/workflow/process_executor.py"
+        - "agents/workflow/decision_engine.py"
+        - "agents/workflow/error_handler.py"
+      analysis_context:
+        - "agents/analysis/data_processor.py"
+        - "agents/analysis/insight_generator.py"
+        - "agents/analysis/report_builder.py"
+        - "agents/analysis/anomaly_detector.py"
+      integration_context:
+        - "agents/integration/api_connector.py"
+        - "agents/integration/data_transformer.py"
+        - "agents/integration/sync_coordinator.py"
+        - "agents/integration/webhook_handler.py"
+
+agent_cascade_system:
+  cascade_definitions: "context_specific_workflows"
+  cascade_executor: "vanta_master_core_integration"
+  cascade_monitoring: "real_time_flow_tracking"
+```
+
+### 3. MCP Tools Integration (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+mcp_tools_integration:
+  universal_mcp_tools:
+    status: "MANDATORY"
+    components:
+      - "mcp-tools/core/mcp_client.py"
+      - "mcp-tools/core/tool_registry.py"
+      - "mcp-tools/core/tool_executor.py"
+      - "mcp-tools/core/tool_security_wrapper.py"
+    base_tools:
+      - file_operations: "read_write_manage_files"
+      - web_scraping: "firecrawl_integration"
+      - search_capabilities: "duckduckgo_web_search"
+      - terminal_operations: "secure_command_execution"
+      - memory_management: "persistent_agent_memory"
+      
+  application_context_tools:
+    status: "MANDATORY - CONTEXT_BASED"
+    components:
+      chatbot_context:
+        - "mcp-tools/chatbot/conversation_tools.py"
+        - "mcp-tools/chatbot/knowledge_base_tools.py"
+        - "mcp-tools/chatbot/sentiment_analysis_tools.py"
+        - "mcp-tools/chatbot/language_translation_tools.py"
+      automation_context:
+        - "mcp-tools/automation/workflow_tools.py"
+        - "mcp-tools/automation/scheduling_tools.py"
+        - "mcp-tools/automation/notification_tools.py"
+        - "mcp-tools/automation/integration_tools.py"
+      analysis_context:
+        - "mcp-tools/analysis/data_analysis_tools.py"
+        - "mcp-tools/analysis/visualization_tools.py"
+        - "mcp-tools/analysis/statistical_tools.py"
+        - "mcp-tools/analysis/ml_model_tools.py"
+      integration_context:
+        - "mcp-tools/integration/api_client_tools.py"
+        - "mcp-tools/integration/data_mapping_tools.py"
+        - "mcp-tools/integration/sync_tools.py"
+        - "mcp-tools/integration/webhook_tools.py"
+        
+  custom_domain_tools:
+    status: "MANDATORY - DOMAIN_SPECIFIC"
+    components:
+      healthcare_domain:
+        - "mcp-tools/healthcare/patient_data_tools.py"
+        - "mcp-tools/healthcare/medical_coding_tools.py"
+        - "mcp-tools/healthcare/compliance_tools.py"
+      finance_domain:
+        - "mcp-tools/finance/transaction_tools.py"
+        - "mcp-tools/finance/risk_analysis_tools.py"
+        - "mcp-tools/finance/compliance_tools.py"
+      ecommerce_domain:
+        - "mcp-tools/ecommerce/product_tools.py"
+        - "mcp-tools/ecommerce/inventory_tools.py"
+        - "mcp-tools/ecommerce/order_management_tools.py"
+
+mcp_security_framework:
+  tool_access_control: "role_based_permissions"
+  input_validation: "schema_based_validation"
+  output_sanitization: "automatic_pii_removal"
+  audit_logging: "all_tool_usage_tracked"
+```
+
+### 4. Vault Integration & Secrets Management (MANDATORY)
+```yaml
+# EVERY AGENTIC PROJECT MUST HAVE
+vault_integration:
+  hashicorp_vault_setup:
+    status: "MANDATORY"
+    components:
+      - "vault/config/vault_client.py"
+      - "vault/config/authentication_manager.py"
+      - "vault/config/secret_rotator.py"
+      - "vault/config/policy_manager.py"
+    vault_engines:
+      - kv_secrets: "application_secrets"
+      - database_secrets: "dynamic_db_credentials"
+      - pki_secrets: "certificate_management"
+      - transit_secrets: "encryption_as_service"
+      
+  agent_secret_management:
+    status: "MANDATORY"
+    components:
+      - "vault/agents/agent_identity_provider.py"
+      - "vault/agents/secret_injector.py"
+      - "vault/agents/credential_rotator.py"
+    secret_types:
+      - api_keys: "external_service_access"
+      - database_credentials: "data_access"
+      - encryption_keys: "data_protection"
+      - signing_certificates: "message_authentication"
+      
+  application_specific_secrets:
+    status: "MANDATORY - CONTEXT_BASED"
+    secret_categories:
+      chatbot_context:
+        - llm_api_keys: "openai_anthropic_etc"
+        - knowledge_base_credentials: "vector_db_access"
+        - integration_tokens: "third_party_services"
+      automation_context:
+        - workflow_api_keys: "external_automation_tools"
+        - notification_credentials: "email_sms_slack"
+        - monitoring_tokens: "observability_platforms"
+      analysis_context:
+        - data_source_credentials: "database_api_access"
+        - ml_platform_keys: "model_training_inference"
+        - visualization_tokens: "dashboard_platforms"
+      integration_context:
+        - partner_api_keys: "third_party_integrations"
+        - webhook_secrets: "secure_callback_urls"
+        - sync_credentials: "data_synchronization"
+
+vault_security_policies:
+  least_privilege_access: "agent_specific_permissions"
+  secret_rotation: "automated_periodic_rotation"
+  audit_logging: "all_secret_access_logged"
+  emergency_revocation: "immediate_secret_invalidation"
+```
+
+## Context-Aware Core Component Deployment
+
+### 5. Application Context Analyzer
+```python
+# L2 CORE COMPONENT ANALYZER: Determine what each app specifically needs
+class ApplicationCoreAnalyzer:
+    """Analyze application to determine required core components"""
+    
+    def analyze_application_context(self, project_path: str) -> dict:
+        """Analyze application to determine core component requirements"""
+        context = {
+            "application_type": self._detect_application_type(project_path),
+            "business_domain": self._detect_business_domain(project_path),
+            "integration_requirements": self._analyze_integrations(project_path),
+            "data_types": self._analyze_data_types(project_path),
+            "user_interaction_patterns": self._analyze_interaction_patterns(project_path),
+            "compliance_requirements": self._detect_compliance_needs(project_path)
+        }
+        
+        return self._generate_core_requirements(context)
+        
+    def _detect_application_type(self, project_path: str) -> str:
+        """Detect primary application type"""
+        indicators = {
+            "chatbot": ["conversation", "chat", "dialogue", "nlp", "response"],
+            "automation": ["workflow", "task", "schedule", "trigger", "process"],
+            "analysis": ["analyze", "insight", "report", "dashboard", "metrics"],
+            "integration": ["api", "webhook", "sync", "connector", "bridge"],
+            "monitoring": ["alert", "monitor", "observe", "track", "incident"],
+            "ecommerce": ["product", "order", "cart", "payment", "inventory"],
+            "healthcare": ["patient", "medical", "health", "treatment", "diagnosis"],
+            "finance": ["transaction", "payment", "risk", "compliance", "trading"]
+        }
+        
+        file_contents = self._scan_project_files(project_path)
+        scores = {}
+        
+        for app_type, keywords in indicators.items():
+            score = sum(1 for keyword in keywords if keyword in file_contents.lower())
+            scores[app_type] = score
+            
+        return max(scores, key=scores.get) if scores else "general"
+        
+    def _detect_business_domain(self, project_path: str) -> str:
+        """Detect specific business domain for compliance and tool selection"""
+        domain_indicators = {
+            "healthcare": ["hipaa", "patient", "medical", "health", "fhir"],
+            "finance": ["payment", "bank", "trading", "sox", "pci"],
+            "ecommerce": ["product", "order", "cart", "payment", "shipping"],
+            "education": ["student", "course", "learning", "ferpa"],
+            "government": ["citizen", "public", "compliance", "security"],
+            "general": []
+        }
+        
+        file_contents = self._scan_project_files(project_path)
+        
+        for domain, keywords in domain_indicators.items():
+            if domain == "general":
+                continue
+            if any(keyword in file_contents.lower() for keyword in keywords):
+                return domain
+                
+        return "general"
+        
+    def _generate_core_requirements(self, context: dict) -> dict:
+        """Generate specific core component requirements"""
+        requirements = {
+            "base_components": [
+                "base_agent_framework",
+                "rule_system",
+                "mcp_core_tools",
+                "vault_integration"
+            ]
+        }
+        
+        # Application type specific requirements
+        app_type = context["application_type"]
+        requirements[f"{app_type}_agents"] = self._get_agent_requirements(app_type)
+        requirements[f"{app_type}_mcp_tools"] = self._get_mcp_tool_requirements(app_type)
+        requirements[f"{app_type}_rules"] = self._get_rule_requirements(app_type)
+        
+        # Business domain specific requirements
+        domain = context["business_domain"]
+        if domain != "general":
+            requirements[f"{domain}_compliance"] = self._get_compliance_requirements(domain)
+            requirements[f"{domain}_vault_policies"] = self._get_vault_policies(domain)
+            requirements[f"{domain}_specialized_tools"] = self._get_domain_tools(domain)
+            
+        return requirements
+        
+    def _get_agent_requirements(self, app_type: str) -> list:
+        """Get agent requirements based on application type"""
+        agent_map = {
+            "chatbot": [
+                "conversation_manager",
+                "intent_classifier", 
+                "response_generator",
+                "context_maintainer"
+            ],
+            "automation": [
+                "task_orchestrator",
+                "process_executor",
+                "decision_engine",
+                "error_handler"
+            ],
+            "analysis": [
+                "data_processor",
+                "insight_generator",
+                "report_builder",
+                "anomaly_detector"
+            ],
+            "integration": [
+                "api_connector",
+                "data_transformer",
+                "sync_coordinator",
+                "webhook_handler"
+            ]
+        }
+        return agent_map.get(app_type, ["general_purpose_agent"])
+        
+    def _get_mcp_tool_requirements(self, app_type: str) -> list:
+        """Get MCP tool requirements based on application type"""
+        tool_map = {
+            "chatbot": [
+                "conversation_tools",
+                "knowledge_base_tools",
+                "sentiment_analysis_tools",
+                "language_translation_tools"
+            ],
+            "automation": [
+                "workflow_tools",
+                "scheduling_tools", 
+                "notification_tools",
+                "integration_tools"
+            ],
+            "analysis": [
+                "data_analysis_tools",
+                "visualization_tools",
+                "statistical_tools",
+                "ml_model_tools"
+            ],
+            "integration": [
+                "api_client_tools",
+                "data_mapping_tools",
+                "sync_tools",
+                "webhook_tools"
+            ]
+        }
+        return tool_map.get(app_type, ["basic_tools"])
+```
+
+### 6. Core Component Provisioner
+```python
+# L2 CORE PROVISIONER: Deploy essential components for each app
+class CoreComponentProvisioner:
+    """Provision core agentic components based on application analysis"""
+    
+    def provision_core_components(self, project_path: str):
+        """Provision all required core components for application"""
+        # Analyze application requirements
+        analyzer = ApplicationCoreAnalyzer()
+        requirements = analyzer.analyze_application_context(project_path)
+        
+        # Create provisioning plan
+        provisioning_plan = self._create_core_provisioning_plan(requirements)
+        
+        # Execute provisioning in correct order
+        for phase in provisioning_plan:
+            self._provision_phase(phase, project_path, requirements)
+            
+    def _create_core_provisioning_plan(self, requirements: dict) -> list:
+        """Create ordered provisioning plan for core components"""
+        plan = [
+            {
+                "phase": "foundation",
+                "components": ["vault_setup", "rule_system"],
+                "priority": 1,
+                "description": "Security and governance foundation"
+            },
+            {
+                "phase": "agent_framework", 
+                "components": ["base_agents", "agent_registry"],
+                "priority": 2,
+                "description": "Core agent architecture"
+            },
+            {
+                "phase": "mcp_integration",
+                "components": ["mcp_core_tools", "application_tools"],
+                "priority": 3,
+                "description": "Tool integration layer"
+            },
+            {
+                "phase": "application_specific",
+                "components": ["domain_agents", "domain_tools", "domain_rules"],
+                "priority": 4,
+                "description": "Application-specific components"
+            },
+            {
+                "phase": "compliance_layer",
+                "components": ["compliance_rules", "audit_systems", "security_policies"],
+                "priority": 5,
+                "description": "Compliance and security overlay"
+            }
+        ]
+        
+        return sorted(plan, key=lambda x: x["priority"])
+        
+    def _provision_phase(self, phase: dict, project_path: str, requirements: dict):
+        """Provision components for a specific phase"""
+        for component in phase["components"]:
+            if self._is_component_required(component, requirements):
+                self._deploy_component(component, project_path, requirements)
+                
+    def _deploy_component(self, component: str, project_path: str, requirements: dict):
+        """Deploy a specific core component"""
+        deployment_strategies = {
+            "vault_setup": self._deploy_vault_setup,
+            "rule_system": self._deploy_rule_system,
+            "base_agents": self._deploy_base_agents,
+            "agent_registry": self._deploy_agent_registry,
+            "mcp_core_tools": self._deploy_mcp_core_tools,
+            "application_tools": self._deploy_application_tools,
+            "domain_agents": self._deploy_domain_agents,
+            "domain_tools": self._deploy_domain_tools,
+            "compliance_rules": self._deploy_compliance_rules
+        }
+        
+        if component in deployment_strategies:
+            deployment_strategies[component](project_path, requirements)
+```
+
+---
+
+## Universal Core Components Summary
+
+**EVERY AGENTIC PROJECT MUST HAVE:**
+
+### 🎯 **Rules System (Context-Specific)**
+- **L3 Production Rules** - App-specific governance, behavior rules, interaction policies
+- **UAP-MDC Compliance** - Context headers, pattern detection, performance monitoring  
+- **Rule Enforcement Engine** - Real-time validation, policy enforcement, compliance monitoring
+
+### 🤖 **Agent Architecture (Application-Tailored)**
+- **Base Agent Framework** - UAP v3.1 compliant, standardized interface, lifecycle management
+- **Agent Registry System** - Dynamic registration, capability matching, health tracking
+- **Application-Specific Agents** - Context-based: chatbot, automation, analysis, integration agents
+
+### 🛠️ **MCP Tools Integration (Domain-Optimized)**
+- **Universal MCP Tools** - File ops, web scraping, search, terminal, memory management
+- **Application Context Tools** - Specialized tools for chatbot, automation, analysis, integration
+- **Custom Domain Tools** - Healthcare, finance, ecommerce specific tool sets
+
+### 🔐 **Vault Integration (Security-First)**
+- **HashiCorp Vault Setup** - Secret engines, authentication, rotation, policy management
+- **Agent Secret Management** - Identity provider, secret injection, credential rotation
+- **Application-Specific Secrets** - Context-based secret categories with proper isolation
+
+**🧠 INTELLIGENT DEPLOYMENT:**
+- **Application Context Analysis** - Auto-detect app type, business domain, compliance needs
+- **Smart Component Provisioning** - Deploy only required components based on context
+- **Compliance-Aware Setup** - Automatic regulatory compliance (HIPAA, SOX, PCI, etc.)
+- **Domain-Specific Optimization** - Healthcare, finance, ecommerce specialized configurations
+
+This ensures every agentic application gets the **exact core components it needs** automatically deployed through L2 enforcement! 🚀

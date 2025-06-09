@@ -1,0 +1,92 @@
+---
+description: 'RULE TYPE: Agent Requested / Auto Attached (on file save/test intent)'
+created: '2025-06-07T14:31:54.128686'
+migrated: true
+original_file: 008-relative-import-preflight.mdc
+type: agent
+---
+
+---
+description: This rule should be conceptually triggered when: - A Python file (`*.py`) is saved. - A Python file is identified as a target for execution (e.g., a test file in a `pytest` command, a script to be run).
+globs: 
+alwaysApply: false
+---
+# RULE TYPE: Agent Requested / Auto Attached (on file save/test intent)
+# FILE PATTERNS: **/*.py
+# DESCRIPTION: Pre-flight check for relative imports. Warns or suggests stubs for missing target modules.
+
+# Relative Import Pre-flight Check
+
+## 1. Purpose
+
+This rule defines a proactive check to identify and mitigate potential `ModuleNotFoundError` exceptions caused by broken or missing relative imports *before* code execution or testing. It aims to improve development velocity by catching such errors early.
+
+## 2. Trigger
+
+This rule should be conceptually triggered when:
+- A Python file (`*.py`) is saved.
+- A Python file is identified as a target for execution (e.g., a test file in a `pytest` command, a script to be run).
+- An AI assistant is asked to analyze or work with a Python file containing relative imports.
+
+## 3. Behavior & Logic
+
+When triggered for a given Python file (the "source file"):
+
+### 3.1. Parse for Relative Imports
+- The system (AI assistant or integrated tool) should parse the source file to identify all relative import statements.
+  - Examples: `from .module_name import ClassName`, `from ..package_name import function_name`, `import .module_name`
+
+### 3.2. Resolve and Verify Target Path
+- For each relative import identified:
+    1. Resolve the expected absolute path of the imported module/package based on the source file's location and the relative path indicated (e.g., `.` for same directory, `..` for parent directory).
+    2. Check the filesystem to verify if the target module file (e.g., `module_name.py`) or package directory (containing an `__init__.py`) exists at the resolved path.
+
+### 3.3. Handle Missing Targets
+
+- If a target module/package file **does not exist**:
+    1.  **Issue a Warning:**
+        -   Inform the user clearly.
+        -   **Format:** "WARNING: Relative import `{{original_import_statement}}` in `{{source_file_path}}` targets a missing module/package at expected path `{{resolved_target_path}}`."
+    2.  **Suggest Stub Creation:**
+        -   Offer to create a placeholder (stub) for the missing module/package.
+        -   **Format:** "Would you like to create a stub file for `{{resolved_target_path}}`?"
+    3.  **Generate Stub (If User Confirms):**
+        -   If the user agrees to create a stub:
+            -   **For a module (e.g., `from .foo import Bar`):** Create `foo.py` in the correct location. If `Bar` is a known type (e.g., class, function based on usage), create a minimal stub:
+                ```python
+                # {{resolved_target_path}} (stub)
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.info("Stub module {{module_name}} created.")
+
+                # Minimal stub for Bar, if identifiable as a class from usage
+                # class Bar:
+                #     def __init__(self, *args, **kwargs):
+                #         logger.info("Stub class Bar initialized.")
+                #     # Add stub methods if usage is known
+                ```
+            -   **For a package (e.g., `from ..bar import Baz` where `bar` is a directory):** Ensure the `bar/` directory exists and contains an `__init__.py`. If `__init__.py` is missing, create it:
+                ```python
+                # {{resolved_target_path}}/__init__.py (stub)
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.info("Stub package {{package_name}} initialized.")
+                ```
+        -   The AI should use its file creation/editing tools to implement this.
+
+## 4. Benefits
+- Proactively catches common `ModuleNotFoundError`s during development.
+- Reduces the "run-fail-fix" cycle for import errors.
+- Encourages the creation of necessary module/package files alongside their first reference.
+- Streamlines the process of stubbing out new components of the system.
+
+## 5. Implementation Notes (for AI/Tool Developer)
+- This rule requires the AI/tool to have capabilities for:
+    - Parsing Python import statements.
+    - Resolving relative paths.
+    - Checking file/directory existence.
+    - Creating/editing files to generate stubs.
+- The stub generation can be made more sophisticated by attempting to infer the type of the imported name (class, function, variable) and creating a more contextually relevant stub.
+
+---
+**End of Rule Content**

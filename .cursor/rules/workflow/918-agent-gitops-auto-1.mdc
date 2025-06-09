@@ -1,0 +1,170 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.574181'
+---
+
+# Automated-GitOps-for-Agents
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule outlines principles and practices for applying GitOps methodologies to the deployment and management of agents. It covers versioning agent configurations and code in Git, automating deployment pipelines based on Git events, and ensuring that the agent's state in production reflects the desired state defined in the repository.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
+# 918-agent-gitops.mdc
+# GitOpsAgent class for automating Git workflows within the VANTA framework.
+# This rule defines the GitOpsAgent's functionality, including its Git operation tools and how it interacts with the VantaMasterCore.
+
+description: |
+  The `GitOpsAgent` is responsible for automating Git operations such as staging, committing, and pushing changes to a Git repository. It exposes these operations as McP tools, making them available for integration with other agents or systems. Additionally, it utilizes the VantaMasterCore's logging and orchestration mechanisms to track and log these Git operations consistently.
+
+dependencies:
+  - .cursor/rules/917-agent-base-contract.mdc # Inherits from BaseAgent
+  - VantaMasterCore # Conceptual dependency for orchestration_ref
+  - .cursor/rules/921-vanta-mcp-signal-schema.mdc # If it emits or receives MCP signals directly
+  - .cursor/rules/922-agentic-replay-log-schema.mdc # For log_agentic_event alignment
+
+globs:
+  - "**/vanta_seed/agents/gitops_agent.py" # Attach when viewing this agent
+
+agent_attributes:
+  orchestrator_ref:
+    type: reference
+    description: |
+      A reference to the orchestrator or VantaMasterCore instance. This allows the agent to log events, access configurations, and utilize core services like scheduling and cascading. This is typically passed during `__init__`.
+  instance_path: # Assuming this is inherited or set by BaseAgent as per 917-agent-base-contract.mdc
+    type: string
+    description: |
+      The path to the agent's instance directory, which for GitOpsAgent, should be the root of the Git repository it manages.
+  repo_path:
+    type: string
+    description: |
+      The local file system path to the root of the Git repository that the agent will interact with. Typically derived from `instance_path`.
+  git_user_name:
+    type: string
+    description: |
+      The name to be used for commit author identification in Git operations. Should be configurable.
+  git_user_email:
+    type: string
+    description: |
+      The email address to be used for commit author identification in Git operations. Should be configurable.
+
+methods:
+  __init__:
+    description: |
+      The `__init__` method for the `GitOpsAgent` class. It initializes the agent with its configuration, including the repository path (derived from instance_path), Git user details, and an orchestrator reference.
+    signature: |
+      def __init__(self, agent_id: str, instance_path: str, name: Optional[str] = None, config: Optional[dict] = None, orchestrator_ref: Optional[object] = None):
+    attributes:
+      - `agent_id`: Unique identifier for the agent instance (can be same as name).
+      - `instance_path`: Path to the agent's working directory, which is the Git repository root.
+      - `name`: (Optional) Human-readable name for the agent.
+      - `config`: (Optional) Dictionary containing agent-specific configurations, like `git_user_name`, `git_user_email`.
+      - `orchestrator_ref`: A reference to the orchestrator (e.g., `VantaMasterCore`) for logging and orchestration.
+    notes: |
+      This method initializes the GitOpsAgent, ensuring that it has all the necessary information to interact with the Git repository and log its actions. It calls `super().__init__(...)` to initialize `BaseAgent` attributes.
+
+  log_agentic_event: # Inherited from BaseAgent as per 917-agent-base-contract.mdc
+    description: |
+      The `log_agentic_event` method is used to log events related to the Git operations. It logs actions such as staging, committing, and pushing, following the standardized logging format defined in 922-agentic-replay-log-schema.mdc.
+    signature: |
+      def log_agentic_event(self, action_type: str, status: str, parameters: Optional[dict] = None, result: Optional[dict] = None, duration_ms: Optional[int] = None):
+    attributes:
+      - `action_type`: The type of Git operation (e.g., "GIT_ADD", "GIT_COMMIT", "GIT_PUSH").
+      - `status`: The status of the operation (e.g., "STARTED", "COMPLETED", "FAILED").
+      - `parameters`: A dictionary containing additional context for the event (e.g., operation details, commit message).
+      - `result`: (Optional) A dictionary containing results or error details.
+      - `duration_ms`: (Optional) Duration of the operation in milliseconds.
+    notes: |
+      This method logs Git operations using the orchestrator's logging method via `self.orchestrator_ref.log_agentic_event(...)`.
+
+  _run_git_command:
+    description: |
+      The `_run_git_command` method executes Git commands in the specified repository directory using subprocess. It ensures that Git operations are performed correctly and returns the success status, stdout, and stderr for further processing.
+    signature: |
+      def _run_git_command(self, command: list[str], cwd: Optional[str] = None) -> tuple[bool, str, str]:
+    attributes:
+      - `command`: A list of strings representing the Git command to be executed (e.g., ["git", "commit", "-m", "message"]).
+      - `cwd`: (Optional) The current working directory. Defaults to `self.instance_path`.
+    return_type: |
+      tuple[bool, str, str]: Returns a tuple with the success status, stdout, and stderr.
+    notes: |
+      This helper method is used by the agent's core Git operations (e.g., `stage_all_changes`, `commit_changes`, `push_changes`) to execute Git commands in the repository directory.
+
+  stage_all_changes:
+    description: |
+      Stages all changes in the repository using `git add .`. This prepares the repository for committing changes.
+    signature: |
+      def stage_all_changes(self) -> bool:
+    return_type: |
+      bool: Returns `True` if the operation succeeded, `False` if it failed.
+    notes: |
+      This method uses `_run_git_command` to stage all changes in the repository. It logs the operation using `log_agentic_event`.
+
+  commit_changes:
+    description: |
+      Commits all staged changes to the repository with a provided commit message.
+    signature: |
+      def commit_changes(self, message: str) -> bool:
+    attributes:
+      - `message`: The commit message for the Git commit.
+    return_type: |
+      bool: Returns `True` if the commit was successful, `False` if it failed.
+    notes: |
+      This method uses `_run_git_command` to commit staged changes to the repository. It logs the operation using `log_agentic_event`.
+
+  push_changes:
+    description: |
+      Pushes committed changes to the remote repository.
+    signature: |
+      def push_changes(self, set_upstream: bool = False, remote_name: str = "origin", branch_name: Optional[str] = None) -> bool:
+    attributes:
+      - `set_upstream`: Whether to set the upstream branch for the push.
+      - `remote_name`: The name of the remote repository (default is "origin").
+      - `branch_name`: The name of the branch to push to. If not provided, the current branch will be used.
+    return_type: |
+      bool: Returns `True` if the push was successful, `False` if it failed.
+    notes: |
+      This method uses `_run_git_command` to push changes to the remote repository. If `set_upstream` is `True`, it ensures that the upstream branch is set. It logs the operation using `log_agentic_event`.
+
+  tool_force_git_sync:
+    description: |
+      A McP tool method for forcing a complete Git sync, which includes staging, committing, and pushing changes to the remote repository. This method can be exposed for other agents or systems to call.
+    signature: |
+      def tool_force_git_sync(self, commit_message: str, push_to_remote: bool = True, set_upstream: bool = False, remote_name: str = "origin", branch_name: Optional[str] = None) -> dict:
+    attributes:
+      - `commit_message`: The commit message for the sync operation.
+      - `push_to_remote`: Whether to push changes to the remote repository after committing.
+      - `set_upstream`: Whether to set the upstream branch for the push.
+      - `remote_name`: Name of the remote (default 'origin').
+      - `branch_name`: The name of the branch to push to.
+    return_type: |
+      dict: Returns a dictionary with overall status and messages from each step (e.g., {"status": "success/failure", "stage_log": "...", "commit_log": "...", "push_log": "..."}).
+    notes: |
+      This method performs a full Git sync by first staging changes, committing them, and then pushing them to the remote repository. It should log each sub-operation.
+
+examples:
+  - action_type: "GIT_OPERATION"
+    status: "COMPLETED"
+    parameters:
+      operation: "git commit -m '''Automated commit'''" # Example of how a command might be logged
+      message: "Automated commit"
+    result:
+      stdout: "On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean"
+  - action_type: "GIT_OPERATION"
+    status: "STARTED"
+    parameters:
+      operation: "git add ."
+      message: "Staging all changes"

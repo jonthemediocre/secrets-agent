@@ -1,0 +1,333 @@
+{
+  "level2_foundation": {
+    "uap_rules": {
+      "UAP-001": {
+        "rule_id": "UAP-001",
+        "title": "UAPAgentBase Inheritance Requirement",
+        "description": "All Level 2 agents MUST inherit from UAPAgentBase class",
+        "severity": "CRITICAL",
+        "implementation_requirements": [
+          "Import UAPAgentBase from vanta_seed.core.uap_agent_base",
+          "Define agent class inheriting from UAPAgentBase",
+          "Implement all required abstract methods",
+          "Call super().__init__() in constructor"
+        ],
+        "validation_method": "check_uap_base_inheritance",
+        "sync_priority": 10,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": true
+        }
+      },
+      "UAP-002": {
+        "rule_id": "UAP-002",
+        "title": "Multi-Protocol Support Declaration",
+        "description": "All agents MUST declare and support minimum protocol set: MCP, A2A, Cross-Protocol",
+        "severity": "CRITICAL",
+        "implementation_requirements": [
+          "Set protocol_support list with ProtocolType.MCP, A2A, CROSS_PROTOCOL",
+          "Implement protocol-specific message handlers",
+          "Register protocol capabilities with component registry"
+        ],
+        "validation_method": "check_protocol_support",
+        "sync_priority": 10,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": true
+        }
+      }
+    },
+    "communication_protocols": {
+      "COM-001": {
+        "rule_id": "COM-001",
+        "title": "Agent-to-Agent Communication Standard",
+        "description": "Implement standardized A2A communication protocol",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Implement handle_a2a_message() method",
+          "Support A2AMessage format",
+          "Handle correlation IDs for message tracking",
+          "Implement timeout and error handling"
+        ],
+        "validation_method": "check_a2a_implementation",
+        "sync_priority": 9,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      },
+      "COM-002": {
+        "rule_id": "COM-002",
+        "title": "Model Control Protocol Integration",
+        "description": "Full MCP tool registration and execution support",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Implement get_mcp_tools() method",
+          "Implement execute_mcp_tool() method",
+          "Return MCPToolDefinition objects",
+          "Support MCPResponse format"
+        ],
+        "validation_method": "check_mcp_implementation",
+        "sync_priority": 9,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      },
+      "COM-003": {
+        "rule_id": "COM-003",
+        "title": "Cross-Protocol Orchestration",
+        "description": "Support mixed protocol workflows and optimal protocol selection",
+        "severity": "REQUIRED",
+        "implementation_requirements": [
+          "Implement handle_cross_protocol_request() method",
+          "Support CrossProtocolRequest handling",
+          "Implement protocol optimization logic"
+        ],
+        "validation_method": "check_cross_protocol_support",
+        "sync_priority": 8,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": false,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    },
+    "tool_management": {
+      "TOOL-001": {
+        "rule_id": "TOOL-001",
+        "title": "Capability-Tool Mapping Requirement",
+        "description": "All agent capabilities MUST be exposed as callable tools",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Map each capability to at least one tool",
+          "Provide comprehensive tool descriptions",
+          "Include parameter schemas for all tools"
+        ],
+        "validation_method": "check_tool_capability_mapping",
+        "sync_priority": 8,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      },
+      "TOOL-002": {
+        "rule_id": "TOOL-002",
+        "title": "Parameter Validation Requirement",
+        "description": "All tools MUST implement comprehensive parameter validation",
+        "severity": "CRITICAL",
+        "implementation_requirements": [
+          "Validate required parameters presence",
+          "Validate parameter types and formats",
+          "Return detailed validation errors",
+          "Implement schema-based validation"
+        ],
+        "validation_method": "check_tool_parameter_validation",
+        "sync_priority": 10,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": true
+        }
+      },
+      "TOOL-003": {
+        "rule_id": "TOOL-003",
+        "title": "Standard Response Format",
+        "description": "All tool responses MUST follow MCPResponse format",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Return MCPResponse objects from execute_mcp_tool",
+          "Include success status and error details",
+          "Provide execution metadata and timing"
+        ],
+        "validation_method": "check_tool_response_format",
+        "sync_priority": 8,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    },
+    "registry_discovery": {
+      "REG-001": {
+        "rule_id": "REG-001",
+        "title": "Component Registry Registration",
+        "description": "All agents MUST register with component registry on startup",
+        "severity": "CRITICAL",
+        "implementation_requirements": [
+          "Call COMPONENT_REGISTRY.register_agent() in startup()",
+          "Provide complete capability list",
+          "Include tool definitions and metadata",
+          "Handle registration failures gracefully"
+        ],
+        "validation_method": "check_registry_registration",
+        "sync_priority": 10,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": true
+        }
+      },
+      "REG-002": {
+        "rule_id": "REG-002",
+        "title": "Dynamic Capability Discovery",
+        "description": "Agents MUST support dynamic capability discovery",
+        "severity": "REQUIRED",
+        "implementation_requirements": [
+          "Implement get_capabilities() method",
+          "Implement get_supported_protocols() method",
+          "Support health_check() for discovery",
+          "Update registry on capability changes"
+        ],
+        "validation_method": "check_capability_discovery",
+        "sync_priority": 7,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": false,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    },
+    "cascade_workflows": {
+      "CASCADE-001": {
+        "rule_id": "CASCADE-001",
+        "title": "Cascade Execution Compatibility",
+        "description": "All agents MUST be cascade-execution compatible",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Implement execute_in_cascade() method",
+          "Support CascadeContext handling",
+          "Return CascadeResult format",
+          "Handle rollback scenarios"
+        ],
+        "validation_method": "check_cascade_compatibility",
+        "sync_priority": 8,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    },
+    "security_requirements": {
+      "SEC-001": {
+        "rule_id": "SEC-001",
+        "title": "Authentication Requirements",
+        "description": "All inter-agent communication MUST be authenticated",
+        "severity": "CRITICAL",
+        "implementation_requirements": [
+          "Implement authentication validation in message handlers",
+          "Verify agent identity and permissions",
+          "Handle authentication failures securely"
+        ],
+        "validation_method": "check_authentication_requirements",
+        "sync_priority": 10,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": true
+        }
+      },
+      "SEC-002": {
+        "rule_id": "SEC-002",
+        "title": "Access Control Implementation",
+        "description": "Tools and capabilities MUST implement access control",
+        "severity": "REQUIRED",
+        "implementation_requirements": [
+          "Implement permission checking for tool access",
+          "Validate agent authorization for operations",
+          "Log access attempts and denials"
+        ],
+        "validation_method": "check_access_control",
+        "sync_priority": 7,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": false,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    },
+    "monitoring_telemetry": {
+      "MON-001": {
+        "rule_id": "MON-001",
+        "title": "Telemetry and Logging Requirements",
+        "description": "All agents MUST implement telemetry and logging",
+        "severity": "MANDATORY",
+        "implementation_requirements": [
+          "Initialize logger in __init__",
+          "Implement health_check() method",
+          "Send heartbeat to component registry",
+          "Log significant events and errors"
+        ],
+        "validation_method": "check_telemetry_implementation",
+        "sync_priority": 8,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": true,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      },
+      "MON-002": {
+        "rule_id": "MON-002",
+        "title": "Performance Monitoring",
+        "description": "Agents MUST track and report performance metrics",
+        "severity": "REQUIRED",
+        "implementation_requirements": [
+          "Implement get_performance_metrics() method",
+          "Track request counts and response times",
+          "Report resource utilization metrics",
+          "Monitor error rates and success rates"
+        ],
+        "validation_method": "check_performance_monitoring",
+        "sync_priority": 6,
+        "version": "2.0.0",
+        "vanta_integration": {
+          "trinity_applicable": true,
+          "coe_delegatable": false,
+          "symbolic_trackable": true,
+          "level3_prerequisite": false
+        }
+      }
+    }
+  },
+  "vanta_extensions": {
+    "trinity_integration": {},
+    "symbolic_evolution": {},
+    "coe_delegation": {},
+    "level3_progression": {}
+  }
+}

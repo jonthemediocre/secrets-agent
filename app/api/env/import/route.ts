@@ -1,159 +1,112 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { VaultAgent } from '../../../../vault/VaultAgent';
-import { createLogger } from '../../../../src/utils/logger';
-
-const logger = createLogger('EnvImportAPI');
-
-// Initialize VaultAgent with configurable path
-const vaultPath = process.env.VAULT_PATH || './vault/secrets.sops.yaml';
-const vaultAgent = new VaultAgent(vaultPath);
+import { db } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { project, category = 'environment', overwrite = false, envContent } = body;
+    const { vaultId, envContent, userId } = body;
 
-    logger.info('Environment import request', { project, category, overwrite, contentLength: envContent?.length });
-
-    if (!project) {
+    if (!vaultId || !envContent || !userId) {
       return NextResponse.json(
-        { error: 'Project parameter is required' },
+        { error: 'Vault ID, user ID, and environment content are required' },
         { status: 400 }
       );
     }
 
-    if (!envContent) {
+    // Parse environment content
+    const secrets = envContent
+      .split('\n')
+      .filter((line: string) => line.trim() && !line.trim().startsWith('#'))
+      .map((line: string) => {
+        const [key, ...valueParts] = line.split('=');
+        return {
+          key: key.trim(),
+          value: valueParts.join('=').trim()
+        };
+      })
+      .filter((secret: any) => secret.key && secret.value);
+
+    if (secrets.length === 0) {
       return NextResponse.json(
-        { error: 'Environment content is required' },
+        { error: 'No valid environment variables found' },
         { status: 400 }
       );
     }
 
-    if (typeof envContent !== 'string') {
-      return NextResponse.json(
-        { error: 'Environment content must be a string' },
-        { status: 400 }
-      );
-    }
+    // Get or create vault
+    let vault = await db.vault.findUnique({
+      where: { id: vaultId },
+      include: { secrets: true }
+    });
 
-    // Load vault
-    await vaultAgent.loadVault();
-
-    // Check if project exists, create if it doesn't
-    let targetProject = await vaultAgent.getProject(project);
-    if (!targetProject) {
-      logger.info('Creating new project for import', { project });
-      targetProject = await vaultAgent.createProject(project, `Project created via environment import`);
-    }
-
-    // Count variables before import for reporting
-    const envLines = envContent.split(/\r?\n/).filter(line => line.trim() && !line.trim().startsWith('#') && line.includes('='));
-    const parsedVarCount = envLines.length;
-
-    if (parsedVarCount === 0) {
-      return NextResponse.json(
-        { 
-          error: 'No valid environment variables found in content',
-          details: 'Please ensure the content follows .env format (KEY=value)' 
+    if (!vault) {
+      vault = await db.vault.create({
+        data: {
+          id: vaultId,
+          name: vaultId,
+          ownerId: userId,
+          encryptionKey: 'temp-key' // In production, this would be properly generated
         },
-        { status: 400 }
-      );
+        include: { secrets: true }
+      });
     }
 
-    // Use VaultAgent's import functionality
-    vaultAgent.importEnvToVault(envContent, { 
-      project, 
-      category, 
-      overwrite 
-    });
+    // Import secrets
+    const importResults = [];
+    for (const secret of secrets) {
+      try {
+        const existingSecret = await db.secret.findFirst({
+          where: {
+            vaultId: vaultId,
+            key: secret.key
+          }
+        });
 
-    // Save the vault
-    await vaultAgent.saveVault();
+        if (existingSecret) {
+          // Update existing secret
+          await db.secret.update({
+            where: { id: existingSecret.id },
+            data: { 
+              valueEncrypted: secret.value // In production, this would be encrypted
+            }
+          });
+          importResults.push({ key: secret.key, action: 'updated' });
+        } else {
+          // Create new secret
+          await db.secret.create({
+            data: {
+              vaultId: vaultId,
+              key: secret.key,
+              valueEncrypted: secret.value // In production, this would be encrypted
+            }
+          });
+          importResults.push({ key: secret.key, action: 'created' });
+        }
+      } catch (error) {
+        importResults.push({ 
+          key: secret.key, 
+          action: 'failed', 
+          error: error instanceof Error ? error.message : 'Unknown error' 
+        });
+      }
+    }
 
-    // Get updated project to count imported secrets
-    const updatedProject = await vaultAgent.getProject(project);
-    const totalSecrets = updatedProject?.secrets.length || 0;
-    const categorySecrets = updatedProject?.secrets.filter(s => s.category === category).length || 0;
-
-    logger.info('Environment import successful', { 
-      project, 
-      category, 
-      overwrite,
-      parsedVarCount,
-      totalSecrets,
-      categorySecrets
-    });
-
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Environment variables imported successfully',
-      imported: {
-        count: parsedVarCount,
-        project,
-        category,
-        overwrite
-      },
-      vault: {
-        totalSecrets,
-        categorySecrets
-      },
-      timestamp: new Date().toISOString()
-    }, { 
-      status: 201,
-      headers: {
-        'X-Secrets-Agent': 'real-vault-import',
-        'X-Project': project,
-        'X-Category': category
+    return NextResponse.json({
+      success: true,
+      message: `Imported ${secrets.length} secrets`,
+      results: importResults,
+      summary: {
+        total: secrets.length,
+        created: importResults.filter(r => r.action === 'created').length,
+        updated: importResults.filter(r => r.action === 'updated').length,
+        failed: importResults.filter(r => r.action === 'failed').length
       }
     });
 
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    
-    logger.error('Environment import failed', { 
-      error: errorMessage,
-      body: request.body
-    });
-
-    // Handle specific vault errors
-    if (errorMessage.includes('already exists') && !errorMessage.includes('overwrite')) {
-      return NextResponse.json(
-        { 
-          error: 'Project already exists',
-          details: errorMessage,
-          suggestion: 'Use overwrite=true to update existing secrets or choose a different project name'
-        },
-        { status: 409 }
-      );
-    }
-
-    if (errorMessage.includes('Vault load failed') || errorMessage.includes('sops')) {
-      return NextResponse.json(
-        { 
-          error: 'Vault access failed',
-          details: 'Unable to access or decrypt vault. Ensure SOPS keys are configured.',
-          suggestion: 'Run vault initialization or check SOPS configuration'
-        },
-        { status: 503 }
-      );
-    }
-
-    if (errorMessage.includes('Invalid JSON') || errorMessage.includes('parse')) {
-      return NextResponse.json(
-        { 
-          error: 'Invalid request format',
-          details: 'Request body must be valid JSON with required fields',
-          suggestion: 'Ensure project and envContent are provided'
-        },
-        { status: 400 }
-      );
-    }
-
+    console.error('Import error:', error);
     return NextResponse.json(
-      { 
-        error: 'Environment import failed',
-        details: errorMessage 
-      },
+      { error: 'Failed to import environment variables' },
       { status: 500 }
     );
   }

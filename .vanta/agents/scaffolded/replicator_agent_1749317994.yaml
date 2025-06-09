@@ -1,0 +1,8 @@
+agent_type: replicator_agent
+archetypal_alignment: prometheus
+capabilities: []
+creation_time: '2025-06-07T17:39:54.152227+00:00'
+delta_function: standard_evolution
+role: Dynamic L3 Generator
+spawn_triggers: []
+trinity_affinity: dodecahedron

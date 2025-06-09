@@ -1,7 +1,7 @@
 ---
-description: 
+description: AI learning 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 ---
 description: AI learning documentation and insights

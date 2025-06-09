@@ -1,7 +1,7 @@
 ---
-description:
-globs:
-alwaysApply: false
+description: 
+globs: 
+alwaysApply: true
 ---
 # Framework Rules Index and Trigger System
 # FILE PATTERNS: **/*

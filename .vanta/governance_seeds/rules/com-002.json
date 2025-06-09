@@ -1,0 +1,17 @@
+{
+  "rule_id": "COM-002",
+  "category": "COM",
+  "severity": "MANDATORY",
+  "title": "Model Control Protocol Integration",
+  "description": "Full MCP tool registration and execution support",
+  "implementation_requirements": [
+    "Implement get_mcp_tools() method",
+    "Implement execute_mcp_tool() method",
+    "Return MCPToolDefinition objects",
+    "Support MCPResponse format"
+  ],
+  "validation_method": "check_mcp_implementation",
+  "sync_priority": 9,
+  "last_updated": "2025-06-07T12:46:18.387777",
+  "version": "2.0.0"
+}

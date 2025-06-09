@@ -1,0 +1,167 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.381902'
+---
+
+# Cleanup Automation Protocol
+
+## Pre-Deployment Cleanup Validation
+
+### Critical Safety Checks
+```bash
+# Validate no active processes before cleanup
+ps aux | grep -E "(vault_api_server|next|python)" || echo "Safe to proceed"
+
+# Backup critical configs before cleanup
+cp .env .env.backup.$(date +%Y%m%d_%H%M%S)
+cp package.json package.json.backup.$(date +%Y%m%d_%H%M%S)
+```
+
+### Automated Cleanup Targets
+
+#### 1. Build Artifacts (SAFE DELETE)
+- `.next/` - Next.js build cache
+- `node_modules/` (can be regenerated)
+- `*.tsbuildinfo` - TypeScript build info
+- `__pycache__/` - Python cache directories
+- `*.pyc` - Python compiled files
+
+#### 2. Archive Management (REVIEW REQUIRED)
+- `archive/broken-typescript/` - Legacy TypeScript implementation
+- `archive/deprecated/` - Old deprecated code
+- `archive/legacy-html/` - Legacy HTML artifacts
+
+#### 3. Log & Temporary Files (SAFE DELETE)
+- `logs/*.log` - Application logs (keep governance_hub.log)
+- `*.log` in root - Scattered log files
+- `startup_log_*.json` - Startup logs
+- `env-backups/` - Old environment backups
+
+#### 4. Duplicate Configuration Consolidation
+- Multiple `docker-compose*.yml` files → consolidate to docker-compose.yml + docker-compose.prod.yml
+- Duplicate vault configs across 4 directories
+- Multiple requirements*.txt files
+
+### Cleanup Execution Order
+
+1. **Stage 1: Safe Deletions**
+   ```bash
+   rm -rf .next/
+   rm -rf __pycache__/
+   find . -name "*.pyc" -delete
+   find . -name "*.tsbuildinfo" -delete
+   ```
+
+2. **Stage 2: Archive to __graveyard__**
+   ```bash
+   mkdir -p __graveyard__/$(date +%Y%m%d)
+   mv archive/broken-typescript/ __graveyard__/$(date +%Y%m%d)/
+   mv archive/deprecated/ __graveyard__/$(date +%Y%m%d)/
+   ```
+
+3. **Stage 3: Log Cleanup**
+   ```bash
+   mkdir -p __graveyard__/logs/$(date +%Y%m%d)
+   mv startup_log_*.json __graveyard__/logs/$(date +%Y%m%d)/
+   mv *.log __graveyard__/logs/$(date +%Y%m%d)/ 2>/dev/null || true
+   ```
+
+4. **Stage 4: Documentation Consolidation**
+   - Move implementation summaries to docs/
+   - Consolidate README variants
+   - Archive outdated guides
+
+### Validation Checks
+
+#### Post-Cleanup Validation
+```bash
+# Verify core functionality intact
+npm run build:check || echo "Build validation failed"
+python -c "import sys; sys.path.append('.'); from centralized-vault.vault_api_server import app; print('API imports OK')"
+
+# Verify essential files present
+test -f package.json && echo "✓ package.json"
+test -f .env && echo "✓ .env"
+test -f ThePlan.md && echo "✓ ThePlan.md"
+test -f README.md && echo "✓ README.md"
+```
+
+#### File Count Monitoring
+```bash
+# Before cleanup
+find . -type f | wc -l > cleanup_before_count.txt
+
+# After cleanup  
+find . -type f | wc -l > cleanup_after_count.txt
+
+# Report reduction
+echo "Files removed: $(($(cat cleanup_before_count.txt) - $(cat cleanup_after_count.txt)))"
+```
+
+### Consolidation Rules
+
+#### Vault Directory Consolidation
+- `vault/` (primary) ← merge from `centralized-vault/`, `vault-integration/`, `.vault/`
+- Maintain single source of truth for vault operations
+
+#### Config File Consolidation  
+- `docker-compose.yml` (development)
+- `docker-compose.prod.yml` (production)
+- Remove: `docker-compose.test.yml`, `docker-compose.python.yml`, `docker-compose.yaml`
+
+#### Requirements Consolidation
+- `requirements.txt` (core dependencies)
+- `requirements-dev.txt` (development dependencies)  
+- `requirements-prod.txt` (production dependencies)
+- Remove scattered: `requirements_*.txt` variants
+
+### Protection Rules
+
+#### Never Delete
+- `ThePlan.md` - Project roadmap
+- `TODO.md` - Active task list
+- `.env` - Environment configuration
+- `package.json` - Node.js dependencies
+- `governance/` - Governance framework
+- Active agent files in `agents/`
+
+#### Review Before Delete
+- Any file modified in last 7 days
+- Files referenced in package.json scripts
+- Configuration files with unique content
+- Documentation with no duplicates
+
+### Recovery Protocol
+
+#### Backup Strategy
+```bash
+# Create incremental backup before major cleanup
+tar -czf cleanup_backup_$(date +%Y%m%d_%H%M%S).tar.gz \
+  --exclude='.next' \
+  --exclude='node_modules' \
+  --exclude='__pycache__' \
+  .
+```
+
+#### Rollback Procedure
+```bash
+# If cleanup breaks functionality:
+# 1. Stop all services
+# 2. Restore from backup
+# 3. Verify functionality
+# 4. Document what went wrong
+```
+
+## Implementation
+
+This rule triggers automatic cleanup validation on:
+- Pre-commit hooks (via git hooks)
+- Before deployment (CI/CD integration)
+- Weekly scheduled maintenance
+- Manual cleanup requests
+
+Cleanup operations require explicit confirmation for destructive actions and automatically log all changes for audit trail.

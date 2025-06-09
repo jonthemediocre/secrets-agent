@@ -1,0 +1,17 @@
+{
+  "rule_id": "MON-002",
+  "category": "MON",
+  "severity": "REQUIRED",
+  "title": "Performance Monitoring",
+  "description": "Agents MUST track and report performance metrics",
+  "implementation_requirements": [
+    "Implement get_performance_metrics() method",
+    "Track request counts and response times",
+    "Report resource utilization metrics",
+    "Monitor error rates and success rates"
+  ],
+  "validation_method": "check_performance_monitoring",
+  "sync_priority": 6,
+  "last_updated": "2025-06-07T12:46:18.387793",
+  "version": "2.0.0"
+}

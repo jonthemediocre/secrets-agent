@@ -1,0 +1,77 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.618306'
+---
+
+# RULE TYPE: Always
+# FILE PATTERNS: cli.py, vanta_seed/api/main.py, vanta_seed/core/vanta_master_core.py
+
+# Layer 3 Activation Protocol (CLI / API Interface)
+
+## Phase Context
+
+This protocol governs the implementation of Layer 3, focusing on creating external command-line (CLI) and Application Programming Interfaces (API) for the VANTA system. This layer bridges the internal agentic core (Layers 1 & 2) with external users, systems, or interfaces.
+
+**Prerequisite:** Layer 2 (Agentic Cascade Swarm Activation) MUST be complete and validated.
+
+## Core Objective
+
+To provide robust, secure, and user-friendly CLI and REST API interfaces for controlling and observing the VANTA system, including triggering rituals/cascades, querying status, and accessing logs.
+
+## Implementation Requirements
+
+1.  **Technology Choices:**
+    *   CLI: MUST use `typer` (preferred) or `argparse`.
+    *   API: MUST use `FastAPI`.
+    *   API Validation: MUST use `Pydantic` models for request/response validation.
+2.  **Interface Parity (Core Functions):** The CLI and API MUST provide access to the same core set of functionalities:
+    *   Triggering rituals by name.
+    *   Triggering cascades by ID.
+    *   Querying agent/system status.
+    *   Accessing recent logs.
+3.  **Core Interaction:**
+    *   Both CLI handlers and API endpoints MUST interact with `VantaMasterCore` through clearly defined, secure methods.
+    *   `VantaMasterCore` MUST expose the necessary functionality (e.g., `trigger_ritual_by_name`, `trigger_cascade_by_id`, `get_agent_status`) for these interfaces.
+    *   Direct manipulation of core state from handlers/endpoints is PROHIBITED; all actions must go through `VantaMasterCore` methods.
+4.  **CLI Standards (`cli.py` / `vanta_seed/utils/cli_handler.py`):
+    *   Commands MUST be clearly named and documented (use help strings).
+    *   Input parameters MUST be validated.
+    *   Output MUST be user-friendly and informative.
+    *   MUST handle errors gracefully and provide meaningful exit codes.
+5.  **API Standards (`vanta_seed/api/main.py` / `vanta_seed/utils/api_handler.py`):
+    *   Endpoints MUST follow RESTful principles where applicable.
+    *   Request bodies and query parameters MUST be validated using Pydantic.
+    *   Responses MUST use appropriate HTTP status codes.
+    *   Error responses MUST provide clear error messages.
+    *   Consider adding basic authentication/authorization mechanisms if required by `THEPLAN.md`.
+6.  **Testing:**
+    *   Basic unit/integration tests MUST be created for core CLI commands.
+    *   Basic integration tests MUST be created for core API endpoints (using `httpx` and `pytest`).
+7.  **Validation:** All code related to Layer 3 MUST pass the Agentic Build and Validate CI workflow (`.github/workflows/validate_agentic_commit.yml`).
+
+## Binding Activation
+
+Completion of these implementation requirements signifies that Layer 3 (CLI / API Interface) is considered **ONLINE** and **FUNCTIONAL**. This makes the VANTA system externally controllable and marks a major step towards independence from the development environment.
+
+## Documentation
+
+-   CLI usage MUST be documented (e.g., via `--help` flags and in `README.md` or `docs/cli_usage.md`).
+-   API endpoints MUST be documented (e.g., using FastAPI's automatic OpenAPI/Swagger docs and potentially `docs/api_reference.md`).
+-   An overview MUST be added to `docs/layer3_cli_api_overview.md`.
+
+# 930-CLI-API-Interface-Activation-Standards
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines standards for activating and interacting with system functionalities via Command Line Interfaces (CLIs) and APIs, particularly for Layer 3 (user/developer-facing) interactions. It covers command structure, API endpoint design, authentication, parameter handling, and response formats to ensure a consistent and user-friendly experience.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

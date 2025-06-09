@@ -1,0 +1,164 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 003-L2: Agent Bus UAP Integration Requirements
+
+## Purpose
+Defines mandatory agent bus integration patterns that ensure all agents can participate in UAP-MDC Level 3 production workflows with proper signature validation and context detection.
+
+## Required Agent Bus Components
+
+### 1. VantaMasterCore UAP Integration (MANDATORY)
+```python
+# EVERY PROJECT WITH AGENTS MUST IMPLEMENT
+class VantaMasterCoreUAPIntegration:
+    """Required UAP integration methods for VantaMasterCore"""
+    
+    def detect_production_context(self) -> bool:
+        """Detect if agent is running in L3 production context"""
+        # Implementation required
+        pass
+        
+    def activate_l3_production_mode(self):
+        """Activate L3 production mode with UAP validation"""
+        # Implementation required
+        pass
+        
+    def initialize_agent_with_uap_detection(self, agent_config: dict):
+        """Initialize agents with UAP compliance detection"""
+        # Implementation required
+        pass
+```
+
+### 2. BaseAgent UAP Compliance (MANDATORY)
+```python
+class BaseAgentUAPCompliance:
+    """Required UAP compliance methods for all agents"""
+    
+    def _detect_uap_compliance_level(self) -> str:
+        """Detect and return current UAP compliance level"""
+        # Implementation required
+        pass
+        
+    def log_agentic_event_with_uap_signature(self, event_data: dict):
+        """Log events with UAP signature validation"""
+        # Implementation required
+        pass
+```
+
+### 3. CascadeExecutor Pattern Detection (MANDATORY)
+```python
+class CascadeExecutorPatternDetection:
+    """Required pattern detection methods for cascade execution"""
+    
+    def trigger_cascade_with_uap_context(self, cascade_config: dict):
+        """Trigger cascades with UAP context preservation"""
+        # Implementation required
+        pass
+        
+    def execute_step_with_pattern_detection(self, step_config: dict):
+        """Execute cascade steps with pattern detection"""
+        # Implementation required
+        pass
+```
+
+### 4. MCP Production Context Validation (MANDATORY)
+```python
+class MCPProductionContextValidation:
+    """Required production context validation for MCP tools"""
+    
+    def execute_tool_with_production_context(self, tool_name: str, params: dict):
+        """Execute MCP tools with production context validation"""
+        # Implementation required
+        pass
+        
+    def _is_production_context(self) -> bool:
+        """Validate if current context is production-ready"""
+        # Implementation required
+        pass
+```
+
+## Agent Bus Validation System
+```python
+class AgentBusUAPValidator:
+    """Validate agent bus UAP integration compliance"""
+    
+    def validate_l3_agent_integration(self, project_path: str) -> dict:
+        """Validate that project implements L3 agent bus integration"""
+        required_components = {
+            "vanta_master_core_uap_integration": {
+                "file": f"{project_path}/vanta_seed/core/vanta_master_core.py",
+                "required_methods": [
+                    "detect_production_context",
+                    "activate_l3_production_mode", 
+                    "initialize_agent_with_uap_detection"
+                ],
+                "mandatory": True
+            },
+            "base_agent_uap_compliance": {
+                "file": f"{project_path}/vanta_seed/core/base_agent.py",
+                "required_methods": [
+                    "_detect_uap_compliance_level",
+                    "log_agentic_event_with_uap_signature"
+                ],
+                "mandatory": True
+            },
+            "cascade_executor_pattern_detection": {
+                "file": f"{project_path}/vanta_seed/core/cascade_executor.py", 
+                "required_methods": [
+                    "trigger_cascade_with_uap_context",
+                    "execute_step_with_pattern_detection"
+                ],
+                "mandatory": True
+            },
+            "mcp_production_context_validation": {
+                "file": f"{project_path}/vanta_seed/core/mcp_server_tools.py",
+                "required_methods": [
+                    "execute_tool_with_production_context",
+                    "_is_production_context"
+                ],
+                "mandatory": True
+            }
+        }
+        
+        return self._validate_components(required_components)
+        
+    def _validate_components(self, components: dict) -> dict:
+        """Validate required components exist with proper methods"""
+        validation_results = {
+            "compliant": True,
+            "missing_components": [],
+            "missing_methods": []
+        }
+        
+        for component_name, requirements in components.items():
+            if not os.path.exists(requirements["file"]):
+                validation_results["missing_components"].append(component_name)
+                validation_results["compliant"] = False
+            else:
+                # Check for required methods (simplified validation)
+                missing_methods = self._check_methods_exist(
+                    requirements["file"], 
+                    requirements["required_methods"]
+                )
+                if missing_methods:
+                    validation_results["missing_methods"].extend(
+                        [(component_name, method) for method in missing_methods]
+                    )
+                    validation_results["compliant"] = False
+                    
+        return validation_results
+```
+
+## Integration Enforcement
+- **Initialization Blocking:** Prevent agent initialization without UAP integration
+- **Runtime Validation:** Continuous validation of UAP compliance during agent operations
+- **Auto-Injection:** Automatically inject UAP integration methods into existing agent classes
+
+## Development Workflow Integration
+- Detect missing UAP integration during development
+- Provide auto-completion for required UAP methods
+- Generate boilerplate UAP integration code when creating new agents
+

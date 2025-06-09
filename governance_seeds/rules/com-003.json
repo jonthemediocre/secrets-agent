@@ -1,0 +1,16 @@
+{
+  "rule_id": "COM-003",
+  "category": "COM",
+  "severity": "REQUIRED",
+  "title": "Cross-Protocol Orchestration",
+  "description": "Support mixed protocol workflows and optimal protocol selection",
+  "implementation_requirements": [
+    "Implement handle_cross_protocol_request() method",
+    "Support CrossProtocolRequest handling",
+    "Implement protocol optimization logic"
+  ],
+  "validation_method": "check_cross_protocol_support",
+  "sync_priority": 8,
+  "last_updated": "2025-06-07T12:15:43.882746",
+  "version": "2.0.0"
+}

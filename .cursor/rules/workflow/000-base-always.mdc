@@ -1,0 +1,66 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:31:54.041132'
+---
+
+---
+description: Base RZN Application Rules
+globs: **/*
+alwaysApply: true
+---
+
+# Universal Base Development Principles
+
+## Core Architectural Patterns
+- Implement proper separation of concerns between client and server logic
+- Centralize shared resources in dedicated, well-organized files
+- Implement comprehensive error boundaries and graceful failure handling
+- Follow Test-Driven Development practices
+- Apply consistent logging and monitoring patterns
+
+## User Experience Principles
+- Implement progressive disclosure for complex interfaces
+- Support full keyboard navigation and accessibility standards
+- Use visual differentiation and clear information hierarchy
+- Reduce cognitive load through consistent patterns
+- Provide clear feedback for user actions and system states
+
+## Data Access Principles
+- Handle connection failures gracefully with appropriate fallbacks
+- Support development mode with mock data capabilities
+- Implement proper connection pooling and resource management
+- Apply consistent error handling across data layers
+
+## Error Handling Standards
+- Log errors appropriately before displaying to users
+- Provide actionable steps for users when errors occur
+- Implement component-level error boundaries
+- Handle specific error types with targeted recovery strategies
+
+## Cognitive Load Optimization
+- Use visual differentiation for interface elements
+- Implement single-focus interfaces where possible
+- Reduce decision paralysis through clear patterns
+- Use color-coding and iconography for quick recognition
+
+## AI-Assisted Development
+- Document insights and learnings in standardized formats
+- Use consistent categorization for organizing learnings
+- Apply iterative improvement based on documented patterns
+- Reference established patterns when implementing similar features
+
+## Rule System Integration
+- Follow project-specific MDC rule conventions
+- Maintain awareness of external rule dependencies
+- Use automated tools for rule system maintenance
+- Apply rule updates through established synchronization processes
+
+## Quality Assurance Foundation
+- Establish baseline for project structure standards
+- Ensure consistent practices across all project components
+- Maintain compatibility with broader ecosystem requirements
+- Support extensibility for project-specific enhancements

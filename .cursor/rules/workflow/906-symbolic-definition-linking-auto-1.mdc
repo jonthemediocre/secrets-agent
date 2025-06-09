@@ -1,0 +1,57 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.509058'
+---
+
+\
+# RULE TYPE: Best Practice
+# RULE ID: 906-symbolic-definition-linking
+# FILE PATTERNS: THEPLAN.md, docs/**/*.md, **/*_definitions.md, **/*.schema.json
+
+# 906: Symbolic Definition ↔️ Plan Linking Rule
+
+## 1. Purpose
+
+Ensures that foundational definition documents (especially those related to the core symbolic layer, agent types, event schemas, or architectural primitives) are consistently reflected or referenced within the primary project plan (`THEPLAN.md`) and relevant architectural documentation. This maintains coherence between high-level planning and low-level definitions.
+
+## 2. Trigger Conditions
+
+This rule should be considered or automatically suggested when:
+-   Files matching `**/*_definitions.md` (e.g., `vanta_agi_definitions.md`) are created or significantly modified.
+-   Core schema files (`**/*.schema.json`) related to agent communication, events, or memory are changed.
+-   Significant changes are made to symbolic concepts within `THEPLAN.md`.
+-   New agents or core services are introduced that rely on specific symbolic or schematic definitions.
+
+## 3. Required Action
+
+-   **Cross-Reference:** Ensure that `THEPLAN.md` contains references to the relevant definition file(s) when discussing the concepts they define.
+-   **Integrate Core Definitions:** For truly foundational definitions (like those in `vanta_agi_definitions.md`), relevant summaries or direct definitions SHOULD be integrated into the appropriate section of `THEPLAN.md` (e.g., Section 3: Core Architectural Philosophy).
+-   **Update Architecture Docs:** If definition changes impact system architecture, ensure `docs/system_architecture_overview.md` or similar documents are updated or linked.
+-   **Commit Annotation:** Use commit message tags like `#symbolic_sync` or `#definition_update` when performing these integrations.
+
+## 4. Rationale
+
+-   **Coherence:** Keeps the project plan aligned with the detailed definitions that underpin its concepts.
+-   **Discoverability:** Makes it easier for developers and the AI to find the source-of-truth definitions for key terms and structures.
+-   **Consistency:** Prevents divergence between high-level strategy and low-level implementation details.
+
+## 5. Example
+
+> Modified `vanta_agi_definitions.md` to refine the `Collapse` process. Updated Section 3 in `THEPLAN.md` with the new definition summary and linked back to the source MD file. #symbolic_sync
+
+# Conceptual-Definition-Linking-in-Documentation
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule promotes the use of symbolic or conceptual definition linking within documentation. It encourages creating a connected web of knowledge by consistently linking terms, concepts, and components to their definitions or primary documentation, enhancing clarity, discoverability, and understanding of the system.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

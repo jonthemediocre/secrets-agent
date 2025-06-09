@@ -1,91 +1,69 @@
-# Multi-stage build for production-ready, secure container
-FROM node:20-alpine AS base
+# Multi-stage Dockerfile for Secrets Agent production deployment
 
-# Install security updates and required packages
-RUN apk update && \
-    apk upgrade && \
-    apk add --no-cache \
-        dumb-init \
-        curl \
-        ca-certificates && \
-    rm -rf /var/cache/apk/*
-
-# Create non-root user
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S secrets-agent -u 1001
-
-# Set working directory
+# Stage 1: Dependencies
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Dependencies stage
-FROM base AS deps
-
 # Copy package files
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production
 
-# Install dependencies with security audit
-RUN npm ci --only=production --audit-level=moderate && \
-    npm cache clean --force && \
-    rm -rf ~/.npm
+# Stage 2: Builder
+FROM node:18-alpine AS builder
+WORKDIR /app
 
-# Build stage
-FROM base AS build
-
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install all dependencies (including dev)
-RUN npm ci --audit-level=moderate
-
-# Copy source code
+# Copy dependencies
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Build application
-RUN npm run build:prod && \
-    npm run test:unit && \
-    npm prune --production
+# Set production environment
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-# Production stage
-FROM base AS production
+# Generate Prisma client and build application
+RUN npx prisma generate
+RUN npm run build
 
-# Set environment
-ENV NODE_ENV=production \
-    PORT=3000 \
-    LOG_LEVEL=info \
-    METRICS_ENABLED=true
+# Stage 3: Runner (Production)
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+# Create non-root user for security
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
 # Copy built application
-COPY --from=build --chown=secrets-agent:nodejs /app/dist ./dist
-COPY --from=deps --chown=secrets-agent:nodejs /app/node_modules ./node_modules
-COPY --from=build --chown=secrets-agent:nodejs /app/package.json ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
-# Copy configuration files
-COPY --chown=secrets-agent:nodejs config/ ./config/
+# Copy necessary files
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/package.json ./package.json
 
-# Create necessary directories
-RUN mkdir -p /app/logs /app/data /app/tmp && \
-    chown -R secrets-agent:nodejs /app/logs /app/data /app/tmp
+# Install production dependencies
+COPY --from=deps /app/node_modules ./node_modules
 
-# Security hardening
-RUN chmod -R 755 /app && \
-    chmod -R 644 /app/config/ && \
-    chmod +x /app/dist/cli/index.js
+# Set permissions
+RUN chown -R nextjs:nodejs /app
+USER nextjs
 
-# Switch to non-root user
-USER secrets-agent
+# Environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME="0.0.0.0"
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-  CMD curl -f http://localhost:${PORT}/health || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
 
 # Expose port
 EXPOSE 3000
 
-# Use dumb-init to handle signals properly
-ENTRYPOINT ["dumb-init", "--"]
-
-# Start application
-CMD ["node", "dist/server/index.js"]
+# Start the application
+CMD ["node", "server.js"]
 
 # Metadata
 LABEL \

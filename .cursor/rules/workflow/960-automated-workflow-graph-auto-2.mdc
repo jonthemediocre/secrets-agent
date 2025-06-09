@@ -1,0 +1,109 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.392204'
+---
+
+# RULE TYPE: Process Automation
+# FILE PATTERNS: .cursor/rules/agent_cascade_definitions.mdc, scripts/generate_workflow_graph.py
+
+# 960-Automated-Workflow-Graph-Generation-and-Maintenance
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines standards for the automated generation and maintenance of workflow graphs (e.g., using tools like Mermaid from code or configuration). It aims to ensure that visual representations of workflows are accurate, up-to-date, and consistently available, improving understanding and documentation of complex processes.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
+## 1. Purpose
+
+This rule outlines the process for automatically generating and updating a visual representation of the application's workflow using Mermaid diagrams. This ensures that workflow documentation remains synchronized with the system's actual defined processes, particularly agent cascades.
+
+## 2. Triggering Mechanisms & Scheduling
+
+This process can be triggered through various mechanisms, catering to different operational needs:
+
+### 2.1. CI/CD Pipeline (Primary Automated Trigger)
+-   **Events:** Automatically upon pushes to main development branches (e.g., `main`, `develop`), on pull request events, or on scheduled cron runs within the CI/CD system (e.g., daily).
+-   **Implementation:** Defined in CI/CD workflow files (e.g., `.github/workflows/validate_agentic_commit.yml` or a dedicated workflow).
+
+### 2.2. Manual Execution
+-   **How:** Direct execution of the underlying script (`scripts/generate_workflow_graph.py`).
+-   **Use Case:** Local generation, debugging, or ad-hoc updates.
+
+### 2.3. VANTA Internal Scheduling & Event-Driven Triggers (Future Enhancements / Advanced Integration)
+
+As the VANTA framework matures, more sophisticated, context-aware triggers originating from within VANTA itself are envisioned:
+
+-   **Time and Date Based (Internal VANTA Scheduler):
+    -   **Concept:** A future VANTA internal scheduling component (e.g., part of `VantaMasterCore` or a dedicated `SchedulerAgent` using libraries like APScheduler) could invoke this script at predefined times or intervals.
+
+-   **By Agent Actions / Completion:
+    -   **Concept:** A significant agent action (e.g., `Vanta! Coder` completing a major feature implementation, a `DeploymentAgent` succeeding) could emit an MCP signal.
+    -   **Mechanism:** This signal would trigger a specific cascade (defined in `agent_cascade_definitions.mdc`) which includes a step to execute the `generate_workflow_graph.py` script (likely via a `ToolCallingAgent` or a specialized `DocumentationUpdateAgent`).
+
+-   **By Context of Project Progress / Milestones:
+    -   **Concept:** The system recognizes the completion of a major development phase or milestone.
+    -   **Mechanism (Explicit):**
+        -   Manual trigger via a VANTA CLI command (e.g., `vanta docs update-workflow --reason "Phase 2 complete"`).
+        -   A `MilestoneMonitorAgent` could watch key project documents (e.g., `THEPLAN.md`, `ROADMAP.md`) for explicit status changes (e.g., `[COMPLETED] Phase X`).
+    -   **Mechanism (Implicit - Advanced):** A sophisticated agent could infer phase completion based on commit patterns, task closure rates, etc.
+    -   **Workflow:** Detection of phase/milestone completion would lead to an MCP signal, triggering a documentation update cascade.
+
+-   **Significant Change Detection in Source Definitions:
+    -   **Concept:** If `agent_cascade_definitions.mdc` (the graph's primary data source) is significantly altered, the graph should be regenerated.
+    -   **Mechanism:** Could be a file watcher within VANTA (if running persistently) or a dedicated check within the CI/CD pipeline that compares file hashes.
+
+-   **Post-Release / Deployment:
+    -   **Concept:** After a successful deployment, ensure all documentation, including the workflow graph, is up-to-date.
+    -   **Mechanism:** If VANTA manages or is aware of deployments, it could trigger this as a post-deployment step in a release cascade.
+
+-   **On-Demand via VANTA API/CLI:
+    -   **Concept:** Allow users or other systems to request a graph update at any time.
+    -   **Mechanism:** Through dedicated CLI commands (e.g., `vanta system update-workflow-graph`) or API endpoints.
+
+## 3. Workflow Data Source
+
+-   **Primary Source:** The `agent_cascade_definitions.mdc` file located in `.cursor/rules/` is the primary source of information for generating the workflow graph. The graph should depict the defined cascades, their steps, and the agents involved.
+-   **Future Enhancements:** The system may evolve to incorporate other sources, such as API endpoint definitions, explicit workflow annotations in code, or data from `THEPLAN.md` regarding high-level process flows.
+
+## 4. Graph Generation Script (`scripts/generate_workflow_graph.py`)
+
+-   **Input:** Reads and parses `.cursor/rules/agent_cascade_definitions.mdc`.
+-   **Processing:**
+    -   Translates cascade profiles and their agent sequences into Mermaid flowchart syntax.
+    -   Each cascade SHOULD be represented as a distinct subgraph if possible.
+    -   Steps within a cascade (agent calls, tool calls, mcp_signal, trigger_cascade) SHOULD be represented as nodes with appropriate labels and shapes.
+    -   Connections between steps SHOULD indicate the flow of execution.
+-   **Output:** Writes the generated Mermaid syntax to a designated file (e.g., `docs/application_workflow.mermaid`). This output file should be committed back to the repository when run in CI/CD.
+-   **Error Handling:** The script MUST handle parsing errors in the source file gracefully and log informative messages.
+
+## 5. CI/CD Integration Actions
+
+-   The CI workflow (e.g., `.github/workflows/validate_agentic_commit.yml` or a dedicated workflow) MUST include a step to:
+    1.  Execute `scripts/generate_workflow_graph.py`.
+    2.  If changes are detected in `docs/application_workflow.mermaid`, commit and push the updated file back to the repository. This requires careful configuration to avoid commit loops (e.g., using a bot user, specific commit messages, and conditions).
+
+## 6. Expected Output File
+
+-   The standard location for the generated graph is `docs/application_workflow.mermaid`.
+-   This file can then be rendered by any Mermaid-compatible viewer or embedded in other documentation.
+
+## 7. Benefits
+
+-   **Automated Documentation:** Keeps workflow diagrams up-to-date with minimal manual effort.
+-   **Visual Understanding:** Provides a clear visual overview of complex agent interactions and cascades.
+-   **Impact Analysis:** Helps visualize the potential impact of changes to cascade definitions.
+
+## 8. Evolution
+
+-   The detail and scope of the generated graph may evolve. For example, it could include conditional logic, parameters, or links to agent-specific documentation.
+-   The script should be designed with extensibility in mind to accommodate new data sources or more complex graphing requirements.

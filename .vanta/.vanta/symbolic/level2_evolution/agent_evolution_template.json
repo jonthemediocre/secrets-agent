@@ -1,0 +1,20 @@
+{
+  "agent_evolution_template": {
+    "agent_id": "placeholder",
+    "current_stage": "stage_1_foundation",
+    "compliance_metrics": {
+      "uap_base_inheritance": "not_assessed",
+      "protocol_support": "not_assessed",
+      "tool_implementation": "not_assessed",
+      "registry_integration": "not_assessed",
+      "cascade_compatibility": "not_assessed"
+    },
+    "symbolic_progression": {
+      "foundation_cube": "inactive",
+      "communication_star": "inactive",
+      "evolution_dodecahedron": "inactive"
+    },
+    "level3_readiness_score": 0.0,
+    "next_evolution_requirements": []
+  }
+}

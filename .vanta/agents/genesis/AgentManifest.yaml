@@ -1,0 +1,36 @@
+agent_templates:
+  bootstrap_agent:
+    archetype: athena
+    role: Scanner/Evaluator/Instantiator
+    trinity_affinity: cube
+  consciousness_agent:
+    archetype: hermes
+    role: Symbolic Evolution Tracker
+    trinity_affinity: star_tetrahedron
+  replicator_agent:
+    archetype: prometheus
+    role: Dynamic L3 Generator
+    trinity_affinity: dodecahedron
+genesis_protocol:
+  auto_instantiation: true
+  symbolic_dna_source: symbolic_dna.yaml
+  version: '2.1'
+symbolic_dna_patterns:
+  file_intelligence_agent:
+    delta_function: pattern_recognition_then_synthesis
+    traits:
+    - analytical
+    - systematic
+    - relationship_mapping
+    triggers:
+    - unanalyzed_files
+    - dependency_complexity
+  security_guardian_agent:
+    delta_function: threat_detection_then_mitigation
+    traits:
+    - protective
+    - vigilant
+    - rule_enforcement
+    triggers:
+    - security_gaps
+    - compliance_needs

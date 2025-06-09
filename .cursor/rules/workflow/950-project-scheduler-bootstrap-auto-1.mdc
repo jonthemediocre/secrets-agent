@@ -1,0 +1,90 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.632311'
+---
+
+# RULE TYPE: AutoAttached / AgentRequested
+# FILE PATTERNS: .project-init-marker, THEPLAN.md, README.md
+# INTENDED AUDIENCE: AI Assistant
+
+# 950: Project Scheduler Bootstrap Protocol
+
+## 1. Purpose
+
+This rule guides the AI assistant in ensuring that a project (especially one where the `.cursor` directory and its rules have been copied) has a basic task scheduling mechanism considered or bootstrapped. This facilitates project-specific automation and adherence to rituals that might require scheduling (e.g., periodic maintenance, rule optimization checks).
+
+This protocol does NOT grant the AI autonomous ability to inject schedulers into arbitrary projects. It activates when the AI is operating within a project where this rule is present (e.g., due to a copied `.cursor` directory) and relevant files are accessed or this rule is explicitly invoked.
+
+## 2. Triggering Conditions
+
+*   **Auto-Attachment:** When files like `THEPLAN.md`, `README.md` are opened or attached, as these are often reviewed early in a project's lifecycle.
+*   **Marker File:** If a user creates an empty file named `.project-init-marker` in the project root, its presence can serve as a deliberate trigger for this rule when that file is encountered.
+*   **Agent Requested:** The user can explicitly invoke this rule (e.g., `@950-project-scheduler-bootstrap.mdc check scheduler setup`).
+
+## 3. AI Assistant Actions & Workflow
+
+Upon activation, the AI assistant should perform the following steps for the **current project**:
+
+### Step 3.1: Determine Project Type (Heuristic)
+
+*   Check for indicators of a VANTA-based project (e.g., presence of `vanta_seed/` directory, `blueprint.yaml` with VANTA-specific structures).
+*   If not clearly VANTA, assume a generic project context.
+
+### Step 3.2: Check for Existing Scheduler Configuration
+
+*   **For VANTA Projects:**
+    *   Look for a VANTA scheduler configuration file (e.g., `config/scheduler_config.yaml` or `vanta_seed/config/schedules.yaml` - to be standardized by VANTA framework).
+    *   Check if `VantaMasterCore` or a `SchedulerAgent` shows evidence of scheduler integration (e.g., APScheduler import, schedule loading logic).
+*   **For Generic Projects:**
+    *   Look for common scheduler setup files (e.g., a `crontab.txt` for notes, a simple `scripts/scheduler.py` using `APScheduler` or `schedule` library, or a GitHub Actions workflow file for scheduled tasks in `.github/workflows/`).
+
+### Step 3.3: Propose Action Based on Findings
+
+*   **Scenario A: No Scheduler Configuration Found**
+    *   **VANTA Project:**
+        *   Inform the user: "This VANTA project does not appear to have its internal task scheduler configured yet."
+        *   Suggest: "Would you like me to help you create a template `config/scheduler_config.yaml` and outline the integration steps for `VantaMasterCore` or a `SchedulerAgent` based on APScheduler? This would enable automated execution of internal VANTA rituals and maintenance tasks."
+        *   Offer to create a basic configuration file with example scheduled jobs (e.g., a placeholder for the MDC Rule Optimizer ritual).
+    *   **Generic Project:**
+        *   Inform the user: "This project doesn't seem to have a dedicated task scheduler set up."
+        *   Suggest: "If you plan to have automated background tasks, we could set up a simple Python scheduler using APScheduler, or define a scheduled GitHub Actions workflow. What would you prefer?"
+        *   Offer to create a template script or workflow file.
+
+*   **Scenario B: Scheduler Configuration Found but Incomplete/Outdated**
+    *   Inform the user: "I found a scheduler configuration at `[path]`, but it seems [describe issue, e.g., empty, old, missing key components]."
+    *   Suggest: "Would you like to review and update it? We can add standard scheduled tasks like [example: periodic MDC rule optimization check]."
+
+*   **Scenario C: Scheduler Configuration Appears Present and Functional**
+    *   Inform the user: "It looks like a scheduler is already configured for this project (found at `[path]`)."
+    *   (Optional) Suggest: "We can review its current scheduled jobs if you'd like."
+
+### Step 3.4: Execution (User-Confirmed)
+
+*   If the user agrees to a setup or modification proposal, use `edit_file` to create or update the necessary configuration files or script stubs.
+*   Provide guidance on installing dependencies (e.g., `pip install apscheduler`).
+*   Log the action in the AI's response signature (e.g., "Helped bootstrap scheduler config").
+
+## 4. Important Considerations
+
+*   **Project Context is Key:** All actions are within the current project where this `.cursor` directory resides.
+*   **User Confirmation:** No files should be created or modified without explicit user confirmation.
+*   **VANTA Scheduler Standardization:** For VANTA projects, the exact paths and structure of scheduler configurations should eventually be standardized within the VANTA framework itself. This rule will adapt to those standards as they evolve.
+
+This protocol aims to make your process of copying the `.cursor` directory more powerful by ensuring that key project infrastructure, like a task scheduler, is consistently considered and set up.
+
+# 950-Project-Task-Scheduler-Bootstrap-Guidelines
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule provides guidelines for bootstrapping and configuring a project's task scheduler. It covers initial setup of the scheduling infrastructure, defining default configurations, registering core scheduled tasks, and ensuring the scheduler is operational and integrated with the project's logging and monitoring systems.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

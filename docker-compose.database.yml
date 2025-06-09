@@ -1,0 +1,276 @@
+# VANTA Framework Database Infrastructure
+# Production-ready PostgreSQL + Redis setup for hybrid state management
+
+version: '3.8'
+
+services:
+  # PostgreSQL Primary Database
+  vanta-postgres-primary:
+    image: postgres:15-alpine
+    container_name: vanta-postgres-primary
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: vanta_production
+      POSTGRES_USER: vanta_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_REPLICATION_USER: replicator
+      POSTGRES_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD}
+    command: |
+      postgres 
+      -c wal_level=replica 
+      -c max_wal_senders=3 
+      -c max_replication_slots=3
+      -c hot_standby=on
+      -c archive_mode=on
+      -c archive_command='test ! -f /var/lib/postgresql/archive/%f && cp %p /var/lib/postgresql/archive/%f'
+    volumes:
+      - postgres-primary-data:/var/lib/postgresql/data
+      - postgres-archive:/var/lib/postgresql/archive
+      - ./scripts/init-replication.sql:/docker-entrypoint-initdb.d/init-replication.sql
+    ports:
+      - "15432:5432"
+    networks:
+      - vanta-db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vanta_admin -d vanta_production"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # PostgreSQL Read Replica
+  vanta-postgres-replica:
+    image: postgres:15-alpine
+    container_name: vanta-postgres-replica
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vanta_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGUSER: vanta_admin
+      POSTGRES_DB: vanta_production
+      POSTGRES_MASTER_SERVICE: vanta-postgres-primary
+      POSTGRES_REPLICATION_USER: replicator
+      POSTGRES_REPLICATION_PASSWORD: ${POSTGRES_REPLICATION_PASSWORD}
+    command: |
+      bash -c "
+      if [ ! -s \$PGDATA/PG_VERSION ]; then
+        pg_basebackup -h vanta-postgres-primary -D \$PGDATA -U replicator -v -P -W
+        echo 'standby_mode = on' >> \$PGDATA/recovery.conf
+        echo 'primary_conninfo = ''host=vanta-postgres-primary port=5432 user=replicator''' >> \$PGDATA/recovery.conf
+        echo 'trigger_file = ''/tmp/postgresql.trigger''' >> \$PGDATA/recovery.conf
+      fi
+      postgres -c hot_standby=on
+      "
+    volumes:
+      - postgres-replica-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    depends_on:
+      - vanta-postgres-primary
+    networks:
+      - vanta-db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vanta_admin"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Master
+  vanta-redis-master:
+    image: redis:7-alpine
+    container_name: vanta-redis-master
+    restart: unless-stopped
+    command: |
+      redis-server 
+      --appendonly yes 
+      --appendfsync everysec
+      --maxmemory 1gb
+      --maxmemory-policy allkeys-lru
+      --save 900 1
+      --save 300 10
+      --save 60 10000
+    volumes:
+      - redis-master-data:/data
+    ports:
+      - "16379:6379"
+    networks:
+      - vanta-db-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Replica
+  vanta-redis-replica:
+    image: redis:7-alpine
+    container_name: vanta-redis-replica
+    restart: unless-stopped
+    command: |
+      redis-server 
+      --replicaof vanta-redis-master 6379
+      --appendonly yes
+      --readonly yes
+    volumes:
+      - redis-replica-data:/data
+    ports:
+      - "16380:6379"
+    depends_on:
+      - vanta-redis-master
+    networks:
+      - vanta-db-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis Sentinel for High Availability
+  vanta-redis-sentinel:
+    image: redis:7-alpine
+    container_name: vanta-redis-sentinel
+    restart: unless-stopped
+    command: |
+      sh -c "
+      echo 'port 26379' > /etc/redis/sentinel.conf
+      echo 'sentinel monitor vanta-master vanta-redis-master 6379 1' >> /etc/redis/sentinel.conf
+      echo 'sentinel down-after-milliseconds vanta-master 10000' >> /etc/redis/sentinel.conf
+      echo 'sentinel failover-timeout vanta-master 60000' >> /etc/redis/sentinel.conf
+      echo 'sentinel parallel-syncs vanta-master 1' >> /etc/redis/sentinel.conf
+      redis-sentinel /etc/redis/sentinel.conf
+      "
+    ports:
+      - "16377:26379"
+    depends_on:
+      - vanta-redis-master
+      - vanta-redis-replica
+    networks:
+      - vanta-db-network
+
+  # Database Connection Pooler (PgBouncer)
+  vanta-pgbouncer:
+    image: pgbouncer/pgbouncer:latest
+    container_name: vanta-pgbouncer
+    restart: unless-stopped
+    environment:
+      DATABASES_HOST: vanta-postgres-primary
+      DATABASES_PORT: 5432
+      DATABASES_USER: vanta_admin
+      DATABASES_PASSWORD: ${POSTGRES_PASSWORD}
+      DATABASES_DBNAME: vanta_production
+      POOL_MODE: transaction
+      MAX_CLIENT_CONN: 1000
+      DEFAULT_POOL_SIZE: 20
+      MIN_POOL_SIZE: 5
+      RESERVE_POOL_SIZE: 5
+    ports:
+      - "6432:5432"
+    depends_on:
+      - vanta-postgres-primary
+    networks:
+      - vanta-db-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -p 5432"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Database Migration Service
+  vanta-migrations:
+    build:
+      context: .
+      dockerfile: Dockerfile.migrations
+    container_name: vanta-migrations
+    environment:
+      DATABASE_URL: postgresql://vanta_admin:${POSTGRES_PASSWORD}@vanta-postgres-primary:5432/vanta_production
+      REDIS_URL: redis://vanta-redis-master:6379
+    depends_on:
+      vanta-postgres-primary:
+        condition: service_healthy
+      vanta-redis-master:
+        condition: service_healthy
+    volumes:
+      - ./migrations:/app/migrations
+      - ./scripts:/app/scripts
+    networks:
+      - vanta-db-network
+    profiles:
+      - migration
+
+  # Backup Service
+  vanta-backup:
+    image: postgres:15-alpine
+    container_name: vanta-backup
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      BACKUP_SCHEDULE: "0 2 * * *"  # Daily at 2 AM
+      BACKUP_RETENTION_DAYS: 30
+      S3_BUCKET: ${BACKUP_S3_BUCKET}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+    command: |
+      sh -c "
+      echo '${BACKUP_SCHEDULE} /scripts/backup.sh' | crontab -
+      crond -f
+      "
+    volumes:
+      - backup-data:/backups
+      - ./scripts/backup.sh:/scripts/backup.sh:ro
+    depends_on:
+      - vanta-postgres-primary
+    networks:
+      - vanta-db-network
+    profiles:
+      - backup
+
+  # Database Monitoring
+  vanta-db-exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter
+    container_name: vanta-postgres-exporter
+    restart: unless-stopped
+    environment:
+      DATA_SOURCE_NAME: postgresql://vanta_admin:${POSTGRES_PASSWORD}@vanta-postgres-primary:5432/vanta_production?sslmode=disable
+    ports:
+      - "9187:9187"
+    depends_on:
+      - vanta-postgres-primary
+    networks:
+      - vanta-db-network
+    profiles:
+      - monitoring
+
+  vanta-redis-exporter:
+    image: oliver006/redis_exporter
+    container_name: vanta-redis-exporter
+    restart: unless-stopped
+    environment:
+      REDIS_ADDR: redis://vanta-redis-master:6379
+    ports:
+      - "9121:9121"
+    depends_on:
+      - vanta-redis-master
+    networks:
+      - vanta-db-network
+    profiles:
+      - monitoring
+
+volumes:
+  postgres-primary-data:
+    driver: local
+  postgres-replica-data:
+    driver: local
+  postgres-archive:
+    driver: local
+  redis-master-data:
+    driver: local
+  redis-replica-data:
+    driver: local
+  backup-data:
+    driver: local
+
+networks:
+  vanta-db-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16 

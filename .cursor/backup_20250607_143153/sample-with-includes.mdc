@@ -1,0 +1,22 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: **/*.py
+
+## Sample Rule with Includes
+
+This rule demonstrates the include directive system.
+
+@include common/code-quality.md
+@include %global/python-standards.yaml
+
+### Additional Python Guidelines
+
+- Use type hints for all function parameters
+- Follow PEP 8 naming conventions
+- Add docstrings to all public functions
+
+@include common/error-handling.md

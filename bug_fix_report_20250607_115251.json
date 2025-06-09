@@ -1,0 +1,650 @@
+{
+  "total_fixes_applied": 1,
+  "total_fixes_pending": 79,
+  "fix_types_applied": {
+    "syntax_correction": 1
+  },
+  "applied_fixes": [
+    {
+      "file": "vanta_secrets_audit.py",
+      "line": 7,
+      "type": "syntax_correction",
+      "confidence": 0.95,
+      "expert": "syntax_fixer"
+    }
+  ],
+  "pending_fixes": [
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 434,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 435,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 436,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 642,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 643,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 663,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "demo_enhanced_security_hardening.py",
+      "line": 279,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "production_deploy.py",
+      "line": 18,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "test_runner.py",
+      "line": 14,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "windows_gui_enhanced.py",
+      "line": 522,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "windows_gui_enhanced.py",
+      "line": 558,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "windows_gui_enhanced.py",
+      "line": 614,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "windows_gui_enhanced.py",
+      "line": 675,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "windows_gui_launcher.py",
+      "line": 8,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "agents\\VaultAccessAgent.py",
+      "line": 126,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "agent_core\\enhanced_action_security.py",
+      "line": 459,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "agent_core\\enhanced_action_security.py",
+      "line": 459,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "agent_core\\runtime_governance_engine.py",
+      "line": 545,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "tests\\test_agent_memory_system.py",
+      "line": 103,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "tests\\test_windows_gui_enhanced.py",
+      "line": 37,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\msvs_emulation.py",
+      "line": 1206,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\msvs_emulation.py",
+      "line": 1230,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 128,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 254,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 298,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 317,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 335,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 358,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\win_tool.py",
+      "line": 370,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\input.py",
+      "line": 176,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\input.py",
+      "line": 237,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\input.py",
+      "line": 904,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\input.py",
+      "line": 1187,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "__graveyard__\\20250605\\broken-typescript\\node_modules\\node-gyp\\gyp\\pylib\\gyp\\generator\\gypd.py",
+      "line": 26,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "vanta_seed\\agents\\cursor_rules_sync_agent.py",
+      "line": 590,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "vanta_2_0\\src\\core\\rollback_recovery_manager.py",
+      "line": 109,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "vanta_2_0\\src\\core\\rollback_recovery_manager.py",
+      "line": 161,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": ".cursor\\agents\\rule_checker_agent.py",
+      "line": 22,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": ".cursor\\agents\\rule_checker_agent.py",
+      "line": 26,
+      "type": "security_warning",
+      "confidence": 0.8,
+      "expert": "security_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 3,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 5,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 6,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 7,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 8,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 9,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 10,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 11,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 12,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 13,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 14,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 15,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 16,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 17,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 18,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 19,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 20,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 21,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 22,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "setup.py",
+      "line": 23,
+      "type": "dependency_improvement",
+      "confidence": 0.7,
+      "expert": "dependency_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 84,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 298,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 585,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "codebase_bug_buster_coe.py",
+      "line": 653,
+      "type": "performance_suggestion",
+      "confidence": 0.7,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_enhanced.py",
+      "line": 237,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_enhanced.py",
+      "line": 431,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_enhanced.py",
+      "line": 435,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_enhanced.py",
+      "line": 438,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "a2a_messaging_system.py",
+      "line": 121,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "a2a_messaging_system.py",
+      "line": 165,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "a2a_messaging_system.py",
+      "line": 178,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "a2a_messaging_system.py",
+      "line": 189,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "a2a_messaging_system.py",
+      "line": 253,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 167,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 366,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 401,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 405,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 409,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 412,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    },
+    {
+      "file": "cli_to_web_interface_audit.py",
+      "line": 415,
+      "type": "performance_suggestion",
+      "confidence": 0.6,
+      "expert": "performance_fixer",
+      "requires_manual_review": true
+    }
+  ]
+}

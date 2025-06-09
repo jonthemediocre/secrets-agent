@@ -1,0 +1,61 @@
+---
+description: Example always rule for core language rules (variables, functions, classes)
+type: always
+created: '2025-06-07T14:31:54.654064'
+example: true
+category: core
+alwaysApply: true
+priority: high
+migrated: true
+migration_date: '2025-06-07T14:32:13.768587'
+---
+
+# Core Always Rule Example
+
+## Description
+
+This is an example always rule for core language rules (variables, functions, classes). It demonstrates the proper structure and content for rules in the core category.
+
+## Rule Implementation
+
+This rule is automatically enforced and cannot be bypassed. It applies to all relevant code without exception.
+
+## Examples
+
+### Good Pattern
+
+```javascript
+// Example of following this rule
+const examplePattern = {
+  // Implementation that follows best practices
+  property: 'value'
+};
+```
+
+### Poor Pattern
+
+```javascript
+// Example of violating this rule
+var badPattern = {
+  // Implementation that violates the rule
+  prop: 'val'
+};
+```
+
+## Rationale
+
+This rule exists to:
+- Promote best practices in core language rules (variables, functions, classes)
+- Ensure consistency across the codebase
+- Prevent common mistakes and issues
+- Support maintainable code patterns
+
+## Related Rules
+
+- See other rules in the core/ folder
+- Consider complementary rules in related folders
+- Review always rules that may take precedence
+
+## Notes
+
+This is an example rule for demonstration purposes. Modify it according to your specific needs and requirements.

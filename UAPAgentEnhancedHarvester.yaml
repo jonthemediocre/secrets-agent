@@ -1,0 +1,250 @@
+# UAP Agent Manifest - AgentEnhancedHarvester
+# Level 2 Compliance - Multi-Agent Credential Discovery & Extraction
+
+agentId: "agent-enhanced-harvester"
+version: "2.0.0"
+uapLevel: 2
+
+# Agent Identity & Purpose
+identity:
+  name: "AgentEnhancedHarvester"
+  symbolicIntent: "Autonomous multi-agent credential discovery and extraction with self-evolving intelligence"
+  description: "Advanced harvesting agent that orchestrates multiple specialized AI agents for comprehensive credential discovery, extraction, validation, and optimization"
+  
+roles:
+  - enhanced-harvester
+  - multi-agent-orchestrator
+  - credential-discoverer
+  - extraction-optimizer
+  - security-validator
+
+# Lifecycle Compliance - EXPLICIT UAP SUPPORT
+lifecycleCompliance:
+  supportsPlan: true
+  supportsExecute: true
+  supportsCollapse: true
+  
+planPhase:
+  canAnalyzeObjectives: true
+  canSelectOptimalAgents: true
+  canEstimateDuration: true
+  canCalculateConfidence: true
+  strategies:
+    - multi-agent-discovery
+    - targeted-extraction
+    - comprehensive-harvest
+    - balanced-approach
+
+executePhase:
+  supportsMultiAgentOrchestration: true
+  supportsParallelExecution: true
+  supportsRealTimeOptimization: true
+  
+collapsePhase:
+  consolidatesResults: true
+  generatesInsights: true
+  providesRecommendations: true
+  plansNextActions: true
+
+# Agent Capabilities Matrix
+capabilities:
+  - name: "Multi-Agent Service Discovery"
+    description: "Orchestrates 5+ specialized agents for comprehensive API service discovery"
+    inputTypes: ["discovery-criteria", "constraints"]
+    outputTypes: ["service-inventory", "classification-matrix"]
+    confidenceLevel: 0.95
+    
+  - name: "Intelligent Credential Extraction"
+    description: "AI-powered extraction using multiple agents with adaptive patterns"
+    inputTypes: ["service-identifiers", "extraction-parameters"]
+    outputTypes: ["harvested-credentials", "extraction-metadata"]
+    confidenceLevel: 0.92
+    
+  - name: "Security Validation & Scoring"
+    description: "Multi-layered security validation with threat analysis"
+    inputTypes: ["raw-credentials", "security-policies"]
+    outputTypes: ["validated-credentials", "security-scores"]
+    confidenceLevel: 0.96
+    
+  - name: "Orchestration Optimization"
+    description: "Autonomous workflow optimization with performance monitoring"
+    inputTypes: ["orchestration-data", "performance-metrics"]
+    outputTypes: ["optimization-recommendations", "efficiency-gains"]
+    confidenceLevel: 0.90
+
+# Known Tools & MCP Callable Functions
+knownTools:
+  - discoverServicesWithAgents
+  - harvestWithAgentOrchestration
+  - validateCredentialsWithAgents
+  - optimizeOrchestrationWorkflow
+  - enhanceExtractionIntelligence
+  - generateSystemInsights
+  - performMutation
+  - plan
+  - execute
+  - collapse
+  - startHarvestSession
+
+# Hook System Integration
+hooks:
+  events:
+    - agent_initialized
+    - discovery_started
+    - discovery_completed
+    - extraction_started
+    - extraction_completed
+    - validation_performed
+    - orchestration_optimized
+    - session_started
+    - session_completed
+    - session_failed
+    - tool_installed
+    - credentials_extracted
+    - authentication_completed
+    - harvest_error
+  
+  mutations:
+    - enhance_discovery
+    - optimize_extraction
+    - improve_validation
+    - strengthen_security
+
+# Autonomous Mutation Capabilities
+mutationCapabilities:
+  - name: "enhance_discovery"
+    description: "Autonomously improves service discovery algorithms and patterns"
+    triggers: ["low_discovery_rate", "missed_services", "performance_degradation"]
+    safeguards: ["rollback_enabled", "pattern_validation", "confidence_threshold"]
+    
+  - name: "optimize_extraction"
+    description: "Self-improves credential extraction efficiency and accuracy"
+    triggers: ["extraction_failures", "timeout_issues", "format_mismatches"]
+    safeguards: ["backup_patterns", "gradual_rollout", "success_tracking"]
+    
+  - name: "improve_validation"
+    description: "Enhances security validation rules and threat detection"
+    triggers: ["false_positives", "security_gaps", "compliance_requirements"]
+    safeguards: ["security_audit", "rule_verification", "expert_review"]
+    
+  - name: "strengthen_security"
+    description: "Autonomously upgrades security measures and protocols"
+    triggers: ["security_incidents", "threat_landscape_changes", "audit_findings"]
+    safeguards: ["security_testing", "gradual_deployment", "monitoring_enhanced"]
+
+# Multi-Agent Coordination
+agentSystem:
+  totalAgents: 5
+  agentTypes:
+    - discovery-agent: "Service Discovery & Classification"
+    - extraction-agent: "Credential Extraction & Parsing"
+    - validation-agent: "Security Validation & Scoring"
+    - optimization-agent: "Workflow & Performance Optimization"
+    - security-agent: "Threat Analysis & Intelligence"
+  
+  orchestrationStrategies:
+    - load_balancing: "Distribute workload across agents optimally"
+    - consensus_building: "Multi-agent validation and agreement"
+    - performance_optimization: "Real-time efficiency improvements"
+    - error_recovery: "Autonomous error handling and recovery"
+
+# Security Classification
+security:
+  classification: "HIGH"
+  reason: "Handles sensitive credential data and has autonomous modification capabilities"
+  
+  permissions:
+    - "read:api_services"
+    - "execute:cli_commands"
+    - "write:harvested_credentials"
+    - "modify:extraction_patterns"
+    - "manage:agent_orchestration"
+    - "audit:security_events"
+  
+  dataAccess:
+    - "api_service_registry"
+    - "credential_storage_vault"
+    - "cli_tool_configurations"
+    - "orchestration_metrics"
+    - "security_audit_logs"
+
+# Resource Requirements
+resourceRequirements:
+  memory: "512MB"
+  cpu: "2 cores"
+  storage: "100MB"
+  network: true
+  
+  dependencies:
+    - CLIHarvester
+    - VaultAgent
+    - APIServiceRegistry
+    - SecurityUtils
+
+# Performance Metrics
+performanceTargets:
+  discoveryAccuracy: ">95%"
+  extractionSuccess: ">90%"
+  validationPrecision: ">96%"
+  orchestrationEfficiency: ">85%"
+  averageResponseTime: "<30s"
+  autonomationLevel: "HIGH"
+
+# Compliance & Auditing
+compliance:
+  standards:
+    - "UAP Level 2"
+    - "MCP Compatible"
+    - "Security Tier HIGH"
+  
+  auditTrail:
+    enabled: true
+    retention: "90 days"
+    events: ["mutations", "discoveries", "extractions", "validations"]
+  
+  monitoring:
+    realTimeMetrics: true
+    performanceTracking: true
+    securityAlerting: true
+    agentHealthChecks: true
+
+# CLI Integration
+cliCommands:
+  discover: "npm run uap discover-services --agent enhanced-harvester"
+  extract: "npm run uap extract-credentials --agent enhanced-harvester --services <list>"
+  validate: "npm run uap validate-credentials --agent enhanced-harvester"
+  optimize: "npm run uap optimize-orchestration --agent enhanced-harvester"
+  manifest: "npm run uap manifest agent-enhanced-harvester"
+  status: "npm run uap status --agent enhanced-harvester"
+
+# Autonomous Behavior Configuration
+autonomySettings:
+  level: "FULL"
+  mutationThreshold: 0.8
+  confidenceRequirement: 0.85
+  rollbackEnabled: true
+  humanApprovalRequired: false
+  
+  learningPatterns:
+    - pattern_recognition: "Automatic credential format detection"
+    - strategy_adaptation: "Dynamic orchestration strategy selection"
+    - performance_optimization: "Real-time workflow improvements"
+    - security_enhancement: "Continuous threat detection updates"
+
+# Integration Points
+integrations:
+  vault:
+    agent: "VaultAgent"
+    operations: ["store", "retrieve", "backup"]
+  
+  orchestrator:
+    agent: "AgentOrchestrator"
+    operations: ["coordinate", "delegate", "optimize"]
+  
+  security:
+    agent: "SecurityAgent"
+    operations: ["validate", "encrypt", "audit"]
+
+version: "2.0.0"
+lastUpdated: "2024-12-19"
+maintainer: "UAP Agent System" 

@@ -1,0 +1,20 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:32:13.660719'
+---
+
+profiles:
+  - profile_id: auto_attach_package_json
+    description: Trigger on package.json changes
+    trigger_type: FILE_SAVED # This is a conceptual trigger, actual execution depends on system capabilities
+    steps:
+      - name: HandlePackageJson
+        agent: pattern_matcher_agent # Conceptual agent
+        task_data:
+          patterns:
+            - "package.json"
+            - "**/package.json"

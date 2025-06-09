@@ -1,0 +1,126 @@
+---
+description: Template for AI agent guidance rules
+type: agent
+agents:
+- cursor
+- ai-assistant
+complexity: medium
+created: '2025-06-07T14:31:54.652149'
+---
+
+# AI Agent Guidance Rule Template
+
+## Description
+
+This is a template for creating rules that provide guidance to AI assistants and code completion tools.
+
+## AI Assistant Guidance
+
+This rule provides context and guidance to AI assistants for:
+
+- Code generation and completion
+- Refactoring suggestions
+- Best practice recommendations
+- Context-aware assistance
+
+### Target Agents
+
+- **Cursor AI**: Integrated development environment assistance
+- **AI Assistant**: General code assistance and completion
+- **Code Review Bots**: Automated review guidance
+- **Documentation Generators**: Context for documentation
+
+## Guidance Context
+
+### When to Apply
+
+AI assistants should consider this rule when:
+- Generating new code
+- Suggesting refactoring
+- Providing code completion
+- Reviewing code changes
+- Creating documentation
+
+### Guidance Principles
+
+1. **Context Awareness**: Understand the current codebase context
+2. **Best Practices**: Suggest industry-standard patterns
+3. **Consistency**: Maintain existing code patterns
+4. **Safety**: Avoid potentially problematic patterns
+
+## Examples
+
+### AI Suggestion Context
+
+```typescript
+// When user types: "create a user service"
+// AI should consider this rule and suggest:
+
+class UserService {
+  // Rule-guided implementation
+  private readonly repository: UserRepository;
+  
+  constructor(repository: UserRepository) {
+    this.repository = repository;
+  }
+  
+  // Methods following rule guidelines
+}
+```
+
+### Code Completion Guidance
+
+```typescript
+// When user starts typing: "const user"
+// AI should suggest patterns that follow this rule:
+
+const userData = await userService.fetchUser(id); // ✓ Good
+const user = getUser(id);                         // ✗ Less preferred
+```
+
+## Complexity Considerations
+
+### Medium Complexity Rule
+
+This rule requires:
+- Understanding of context and patterns
+- Balancing multiple considerations
+- Nuanced application based on situation
+
+### AI Decision Factors
+
+When applying this rule, AI should consider:
+- Existing code patterns in the project
+- Framework and library conventions
+- Team coding standards
+- Performance implications
+
+## Integration Points
+
+### Development Tools
+
+- **IDE Autocomplete**: Influence suggestion ranking
+- **Code Generation**: Guide template selection
+- **Refactoring Tools**: Inform transformation choices
+- **Code Review**: Provide automated feedback
+
+### Workflow Integration
+
+- Real-time suggestions during coding
+- Pre-commit guidance and warnings
+- Pull request review assistance
+- Documentation generation context
+
+## Rationale
+
+AI guidance rules provide:
+- **Intelligent Assistance**: Context-aware code suggestions
+- **Learning Support**: Help developers learn best practices
+- **Consistency**: Maintain team coding standards
+- **Productivity**: Reduce manual decision-making
+
+## Related Rules
+
+- Other agent rules for complementary guidance
+- Auto rules that may trigger alongside this guidance
+- Always rules that take precedence over suggestions

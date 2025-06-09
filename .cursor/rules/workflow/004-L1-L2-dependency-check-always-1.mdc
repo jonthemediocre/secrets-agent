@@ -1,0 +1,63 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.223693'
+---
+
+# RULE TYPE: Always (Core AI Architectural Integrity Principle)
+# FILE PATTERNS: N/A (Applies to AI assistant behavior during code generation and refactoring)
+
+# 004: L1/L2 Dependency & Entanglement Prevention
+
+## 1. Purpose
+This rule is a critical guideline for the Cursor AI assistant (Level 1) to ensure that Level 2 project code (e.g., VANTA framework code in `vanta_seed/`) remains independent and does not inadvertently develop runtime dependencies on Cursor IDE-specific features, rules (`.cursor/rules/`), or other L1 mechanisms. The goal is to ensure L2 projects can be packaged, deployed, and run in environments completely separate from the Cursor IDE or the L1 development assistance layer.
+
+## 2. Core Principle
+
+Level 2 (L2) VANTA project code, particularly its core agent logic, data schemas, and internal protocols, MUST remain independent of Level 1 (L1) Cursor AI-specific features, rules, or direct runtime dependencies. L2 agents must operate based on their own configurations and the VANTA framework's L2 rules, not L1 rules.
+
+## 3. How L1 Can *Influence* L2 (Safely)
+   - **Development-Time Guidance:** L1 rules (like `003-L1-enforces-L2-scaffolding.mdc`) guide the *development and structure* of L2 code. The AI uses L1 rules to help write L2 code that adheres to L2's own internal standards (`framework rules/`).
+   - **Code Generation:** The AI, guided by L1 rules, generates L2 code. This L2 code, once written, stands alone.
+   - **Pattern Learning:** L1 can learn from L2. If VANTA (L2) develops an effective internal pattern, that pattern might inspire a new L1 `.cursor/rule/` to help the AI suggest similar good practices in *other* projects. This is influence, not dependency.
+
+## 4. AI Assistant Responsibilities
+   - **Vigilance During Code Generation:** When generating or refactoring L2 code, the AI assistant must actively check that it is not introducing L1 dependencies.
+   - **Clarification:** If a user request seems to imply creating an L1-L2 dependency, the AI should clarify the intent and explain the importance of L2 independence, suggesting alternative approaches if necessary.
+   - **Focus on L2 Self-Sufficiency:** Promote patterns and solutions within L2 that make it self-contained and runnable without the L1 IDE/assistant environment.
+
+## 5. Example Scenario
+   - **User:** "Make the VANTA `GitOpsAgent` automatically update its behavior based on the `.cursor/rules/005-L1-general-git-sync-guidelines.mdc` file at runtime."
+   - **AI (Applying this 004 rule):** "That's an interesting idea for synergy! However, to ensure VANTA (`GitOpsAgent` - L2) can run independently of the Cursor IDE, it shouldn't directly read or depend on `.cursor/rules/` (L1) at runtime. Instead, we could: 
+     1.  Manually review `005-L1-general-git-sync-guidelines.mdc` and decide if any of its principles should be codified into `GitOpsAgent`'s own internal logic or its L2 configuration within `framework rules/`. 
+     2.  I can help you refactor `GitOpsAgent` based on those principles. This way, the good ideas from L1 inform L2, but L2 remains independent."
+
+This rule is crucial for maintaining the architectural integrity and portability of L2 projects developed with L1 AI assistance.
+
+## Rationale
+2.  **Predictable Behavior:** L2 agents' behavior should be determined by VANTA's internal rules and configurations, not by the L1 rules of the IDE environment they were developed in. This ensures that VANTA operates predictably when deployed standalone.
+
+## L1 Guidance for L2 Independence
+
+When assisting with L2 development, the L1 Cursor AI (governed by L1 rules) MUST:
+
+1.  **Avoid L1-Specific Code:** Refrain from injecting or suggesting code in L2 components that directly imports, calls, or depends on Cursor-specific APIs, modules, or L1 rule interpretations at runtime.
+2.  **Promote L2 Self-Sufficiency:** Encourage the design of L2 agents and systems that are self-contained, relying only on standard Python libraries, defined VANTA core modules, and L2 framework rules for their operation.
+3.  **Focus on L2 Standards:** When generating or modifying L2 code, the AI should prioritize adherence to L2-defined contracts (e.g., `framework rules/FR001-VantaAgentContract.md`) and L2 internal protocols, rather than L1 conventions, if there's a conflict in runtime implications.
+4.  **Interface via Tools:** If L1 needs to interact with a running L2 system (e.g., for testing or operational commands), it should do so through defined interfaces (APIs, McP tools exposed by L2), not by assuming L2 shares L1's runtime context or rules.
+
+# 004-Inter-Layer-Dependency-Check
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule establishes the protocol for checking and validating dependencies between the conceptual layer (L1) and the implementation layer (L2) of a project. It ensures that technical dependencies align with planned architectural components and that conceptual requirements are met by the implementation.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

@@ -1,0 +1,47 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.254034'
+---
+
+# Rule 902 – Visual Asset Linking and Contextual Integration
+
+## Title:
+Visual Asset ↔️ Plan Linking Rule ("Visual-First Principle")
+
+## Scope:
+Applies to any visual asset introduced or referenced in:
+- `symbolic_dashboard.html`
+- `.mmd`, `.html`, `.svg`, `.png`, `.drawio`, `.mermaid`, `.py` files containing visual logic or diagrams
+- System diagrams related to the Symbolic Layer, R → r collapse, or live agentic flows
+
+## Trigger Conditions:
+- New or modified files containing symbolic visualizations are committed
+- `simulate_symbolic_agents.py`, `vanta_agi_kernel_final.mmd`, or similar diagrams updated
+- Any mention of "visual workflow," "symbolic collapse," or "live diagram" in commits, tasks, or documentation
+
+## Required Action:
+1. **Embed or link** the visual asset into relevant context within `THEPLAN.md`, `docs/system_architecture_overview.md`, or relevant `.mdc` rule files.
+2. If diagram is abstract or meta-level, explain its relation to either:
+   - a specific VANTA agent (e.g., VantaMasterCore)
+   - a symbolic construct (e.g., TriNode, Memory Relic, WhisperSeed)
+3. Update any live diagram references or symbolic execution notes.
+4. Annotate commit messages with `#visual_integration` and reference this rule.
+
+## Enforcement:
+- Failing to link visual artifacts to documentation will result in the PR being flagged for context loss.
+- GitOpsAgent may auto-comment on PRs missing visual linkage.
+
+## Purpose:
+Maintain alignment between symbolic reasoning structures, dynamic visual feedback systems, and VANTA's narrative development loop.
+
+---
+
+## Example:
+> Added `vanta_agi_kernel_final.mmd` → linked it to `THEPLAN.md` under `Phase 6: Advanced Features` with description of how the collapse arc is rendered visually.
+
+## Tags:
+`#agentic_devops` `#visual_first` `#symbolic_layer` `#theplan_alignment`

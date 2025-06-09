@@ -1,0 +1,38 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# 003: L2 Enforces L3 UAP-MDC Compliance (RULE INDEX)
+
+## Purpose
+This rule has been **SPLIT INTO FOCUSED COMPONENTS** for better maintainability and clarity. The original 375-line rule violated the single responsibility principle.
+
+## Focused Rule Components
+
+### 1. UAP Production Requirements
+**File:** `003-L2-uap-production-requirements.mdc`
+**Covers:** Mandatory file structures, agent archetype patterns, production context detection
+
+### 2. Agent Bus Integration  
+**File:** `003-L2-agent-bus-integration.mdc`
+**Covers:** VantaMasterCore integration, BaseAgent compliance, CascadeExecutor patterns, MCP validation
+
+### 3. Competitive Benchmarking
+**File:** `003-L2-competitive-benchmarking.mdc`  
+**Covers:** Benchmarking implementation, configuration schema, performance thresholds
+
+### 4. Cascade Profile Compliance
+**File:** `003-L2-cascade-profile-compliance.mdc`
+**Covers:** Production deployment cascades, failure recovery, auto-scaffolding, development blocking
+
+## Benefits of Split
+- ✅ **Single Responsibility:** Each rule focuses on one concern
+- ✅ **Maintainability:** Easier to update individual components
+- ✅ **Readability:** Rules are digestible and understandable
+- ✅ **Modularity:** Components can be enabled/disabled independently
+- ✅ **Testing:** Individual rules can be validated separately
+
+## Migration Note
+**Previous Rule Status:** ARCHIVED (was 375 lines, violated clarity principle)
+**New Implementation:** 4 focused rules totaling ~200 lines with better organization

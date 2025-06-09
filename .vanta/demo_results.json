@@ -1,0 +1,41 @@
+{
+  "demo_timestamp": "2025-06-07T17:41:35.363985+00:00",
+  "execution_time_seconds": 53.9862380027771,
+  "success": true,
+  "metrics": {
+    "start_time": 1749318041.3756642,
+    "phases_completed": 6,
+    "agents_created": 5,
+    "rules_generated": 3,
+    "messages_sent": 7,
+    "coherence_scores": [
+      {
+        "agent_id": "SecurityGuardianAgent",
+        "coherence": 0.7216382252559727,
+        "collapse_risk": 0.0
+      },
+      {
+        "agent_id": "EvolutionAgent",
+        "coherence": 0.6657565415244596,
+        "collapse_risk": 0.0
+      },
+      {
+        "agent_id": "HermesIntegrator",
+        "coherence": 0.7193651877133106,
+        "collapse_risk": 0.0
+      }
+    ],
+    "interventions_triggered": 0
+  },
+  "capabilities_demonstrated": [
+    "recursive_agent_genesis",
+    "symbolic_intent_mesh",
+    "agent_lifecycle_reflex_loops",
+    "dynamic_mdc_rule_generation",
+    "trinity_node_coordination",
+    "real_time_coherence_monitoring",
+    "inline_a2a_communication",
+    "self_evolution_mechanisms"
+  ],
+  "bootstrap_version": "2.1"
+}

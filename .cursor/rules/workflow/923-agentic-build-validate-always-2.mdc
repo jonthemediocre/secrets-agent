@@ -1,0 +1,61 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:31:54.349654'
+---
+
+# RULE TYPE: Always
+# FILE PATTERNS: Not applicable for Always rules
+
+# Agentic Build and Validate Ritual Standard
+
+## Purpose
+To ensure the integrity, quality, and compliance of the VANTA codebase before changes are merged into primary branches (e.g., `main`, `develop`). This automated ritual acts as a gatekeeper, preventing regressions and enforcing development standards.
+
+## Workflow Trigger
+This validation workflow MUST be triggered automatically on:
+- Every push to primary branches (`main`, `develop`, or others defined in `THEPLAN.md`).
+- Every pull request targeting primary branches.
+
+## Implementation
+- The canonical implementation resides in `.github/workflows/validate_agentic_commit.yml`.
+- Deviations or alternative implementations MUST be documented and justified in `THEPLAN.md`.
+
+## Validation Steps (Order Matters)
+
+1.  **Dependency Installation:** Install project dependencies (`requirements.txt`) and testing dependencies (`requirements.testing.txt` if present).
+2.  **MDC Rule Validation (Placeholder):**
+    - Lint and validate the syntax and structure of all `.cursor/rules/*.mdc` files.
+    - Requires a dedicated script (e.g., `scripts/validate_mdc_rules.py`).
+    - *Status: Placeholder - requires implementation.* 
+3.  **JSON Schema Validation:**
+    - Validate all `*.schema.json` files against the JSON Schema standard using `jsonschema`.
+4.  **Testing (Pytest):**
+    - Execute all tests within the `tests/` directory using `pytest`.
+    - Ensure compliance with `.cursor/rules/910-vanta-testing-protocol.mdc`.
+5.  **Code Formatting (Black):**
+    - Check code formatting using `black --check`.
+6.  **Linting (Flake8):**
+    - Lint code using `flake8`.
+7.  **Type Checking (MyPy):**
+    - Perform static type checking using `mypy` (adjust flags like `--ignore-missing-imports` as needed).
+8.  **Agent Contract Validation (Placeholder):**
+    - Validate agent configurations, base class adherence, and required methods.
+    - Requires a dedicated script (e.g., `scripts/validate_agents.py`).
+    - *Status: Placeholder - requires implementation.* 
+
+## Failure Handling
+- If **any** validation step fails, the workflow MUST exit with a non-zero status code.
+- Failed workflows MUST block pull request merges and indicate failure clearly in the CI/CD interface.
+
+## Logging
+- Each step MUST log informative messages indicating its start and success/failure.
+- Error messages MUST be clear, concise, and provide enough context for debugging.
+- Logs should be structured for potential future analysis by agents.
+
+## Evolution
+- This protocol will evolve. New validation steps (e.g., security scanning, performance testing) may be added.
+- Changes MUST be reflected in both the workflow file (`validate_agentic_commit.yml`) and this MDC rule.

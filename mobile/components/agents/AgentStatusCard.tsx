@@ -1,0 +1,1 @@
+// Mobile Status Card Component

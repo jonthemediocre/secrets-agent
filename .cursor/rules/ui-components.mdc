@@ -1,141 +1,91 @@
 ---
 description: UI component and styling guidelines using Shadcn UI, Radix UI, and Tailwind
 globs: components/.tsx, .css, .scss, ui/.tsx
-type: autoAttached
+alwaysApply: false
 ---
-# RULE TYPE: Auto Attached
-# FILE PATTERNS: components/.tsx, .css, .scss, ui/.tsx
+# DEPRECATED: UI Components Guidelines
 
-# UI Component Guidelines
+## ⚠️ This Rule Has Been Split Into Focused Components
 
-## Component Library
-- Use Shadcn UI components when available
-- Follow Radix UI accessibility practices
-- Customize components using the Tailwind config
-- Create reusable components for repeated UI patterns
+This comprehensive UI rule has been split into **4 specialized, focused rules** for better maintainability and clarity:
 
-## Styling Principles
-- Use Tailwind CSS for styling
-- Follow the project's color scheme in `tailwind.config.js`
-- Use CSS variables for theme values
-- Maintain dark mode compatibility
-- Follow responsive design principles
+### 🧩 For Shadcn UI Component Usage
+**Use: `552-shadcn-ui-components.mdc`**
+- Installation and setup
+- Component usage patterns
+- Customization and variants
+- Performance considerations
+- Maintenance and updates
+- Integration with other systems
 
-## Component Structure
-- Keep components focused and single-purpose
-- Use proper typing for component props
-- Extract complex logic to custom hooks
-- Implement proper loading and error states
-- Follow responsive design principles
+### 🎨 For Tailwind CSS Styling
+**Use: `553-tailwind-styling-standards.mdc`**
+- Tailwind configuration
+- Class organization patterns  
+- Responsive design standards
+- Animation and transitions
+- Dark mode and theming
+- Performance optimization
 
-## Accessibility
-- Ensure proper ARIA attributes
-- Maintain keyboard navigation
-- Support screen readers
-- Use sufficient color contrast
-- Test with assistive technologies
+### ♿ For Accessibility Standards
+**Use: `554-ui-accessibility-standards.mdc`**
+- WCAG 2.1 AA compliance
+- Semantic HTML foundations
+- ARIA implementation
+- Keyboard navigation
+- Color and contrast
+- Screen reader support
 
-## Shadcn UI Usage
-- Import components from `@/components/ui`
-- Customize using Tailwind classes
-- Follow the component documentation
-- Update the components using the Shadcn CLI
-- Maintain the component registry
+### 🏗️ For Component Architecture
+**Use: `555-component-architecture.mdc`**
+- Component design principles
+- API design patterns
+- State management patterns
+- Custom hooks patterns
+- Error handling
+- Performance optimization
 
-## Icons
-- Use the centralized Icons component
-- Maintain consistent icon sizing
-- Provide appropriate accessibility attributes
-- Follow the icon guidelines in `icon-guidelines.md`
+## Why This Change?
 
-## Forms
-- Use the Form components from Shadcn UI
-- Implement proper validation using Zod
-- Show clear error messages
-- Maintain form state properly
-- Provide appropriate feedback on submission
-- For detailed form guidelines, see: **@form-handling.mdc**
+The original 80-line rule was violating the **single responsibility principle** by covering:
+- Component library usage ✂️ **Now 552**
+- Styling standards ✂️ **Now 553**  
+- Accessibility requirements ✂️ **Now 554**
+- Architecture patterns ✂️ **Now 555**
 
-## Best Practices
-- Use semantic HTML elements
-- Maintain consistent spacing using Tailwind's spacing scale
-- Follow a mobile-first approach
-- Implement proper focus management
-- Use CSS Grid and Flexbox appropriately
+## Migration Guide
 
-## Data Fetching Integration
-- Use SWR for data fetching in components
-- Implement proper loading states
-- Handle errors gracefully
-- For detailed data fetching guidelines, see: **@data-fetching.mdc**
-
-## Related MDC Rules
-- **@form-handling.mdc**: For form validation and submission
-- **@data-fetching.mdc**: For data fetching in UI components
-- **@page-structure.mdc**: For page layout and composition
-- **@testing.mdc**: For component testing guidelines
-- **@400-adhd-patterns.mdc**: For ADHD-friendly UI patterns
-
-## UI Framework
-- Use Shadcn UI and Tailwind for components and styling
-- Implement responsive design with Tailwind CSS using a mobile-first approach
-- Use `next/image` package for images 
-
-## Install new Shadcn components
-
-```sh
-pnpm dlx shadcn@latest add COMPONENT
-```
-
-Example:
-
-```sh
-pnpm dlx shadcn@latest add progress
-```
-
-## Data Fetching with SWR
-For API get requests to server use the `swr` package:
-
-```typescript
-const searchParams = useSearchParams();
-const page = searchParams.get("page") || "1";
-const { data, isLoading, error } = useSWR<PlanHistoryResponse>(
-  `/api/user/planned/history?page=${page}`
-);
-```
-
-## Loading Components
-Use the `LoadingContent` component to handle loading states:
-
+### ✅ Continue Using These Patterns:
 ```tsx
-<Card>
-  <LoadingContent loading={isLoading} error={error}>
-    {data && <MyComponent data={data} />}
-  </LoadingContent>
-</Card>
+// Shadcn UI imports (552-shadcn-ui-components.mdc)
+import { Button } from "@/components/ui/button"
+
+// Tailwind styling (553-tailwind-styling-standards.mdc)
+<div className={cn("bg-background text-foreground", className)}>
+
+// Accessibility (554-ui-accessibility-standards.mdc)
+<button aria-label="Close dialog" onClick={onClose}>
+
+// Component patterns (555-component-architecture.mdc)
+const MyComponent = memo(({ data }) => { ... })
 ```
 
-## Form Components
-### Text Inputs
-```tsx
-<Input
-  type="email"
-  name="email"
-  label="Email"
-  registerProps={register("email", { required: true })}
-  error={errors.email}
-/>
-```
+### 🔄 New Focused Rules Provide:
+- **Deeper guidance** on each topic
+- **More examples** and patterns  
+- **Better error prevention**
+- **Clearer decision frameworks**
+- **Comprehensive testing patterns**
 
-### Text Area
-```tsx
-<Input
-  type="text"
-  autosizeTextarea
-  rows={3}
-  name="message"
-  placeholder="Paste in email content"
-  registerProps={register("message", { required: true })}
-  error={errors.message}
-/>
-``` 
+## 🎯 Action Required
+
+**Stop referencing `@ui-components.mdc`** and use the specific focused rules:
+- **@552-shadcn-ui-components.mdc** for component usage
+- **@553-tailwind-styling-standards.mdc** for styling
+- **@554-ui-accessibility-standards.mdc** for accessibility
+- **@555-component-architecture.mdc** for architecture
+
+This ensures you get the most relevant, detailed guidance for your specific UI development task.
+
+---
+*This split follows the **value-based feature prioritization** principle established in `550-value-based-feature-prioritization.mdc` - each rule now has high value and low complexity within its focused domain.* 

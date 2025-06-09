@@ -1,0 +1,15 @@
+# Demo vault file
+database:
+  host: prod-db.example.com
+  username: app_user
+  password: super_secure_password_123
+  
+api_keys:
+  stripe: sk_live_demo_key_123
+  twilio: demo_auth_token_456
+  
+certificates:
+  ssl_cert: |
+    -----BEGIN CERTIFICATE-----
+    [Demo certificate content]
+    -----END CERTIFICATE-----

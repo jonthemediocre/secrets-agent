@@ -1,0 +1,20 @@
+delivered: true
+delivery_attempts: 0
+expires_at: null
+message_id: f7ba96ce-d754-4f49-95a9-a0f47730e722_SymbolicReasoningAgent
+message_type: symbolic_emergence
+payload:
+  archetypal_resonance: null
+  consciousness_level: null
+  emergence_location: null
+  pattern_type: apollo_harmonization
+  symbolic_significance: null
+priority: 75
+processed: false
+recipient_id: SymbolicReasoningAgent
+response_required: false
+routing_strategy: symbolic_consciousness
+sender_id: SymbolicEvolutionTracker
+symbolic_trigger: apollo_harmonization
+timestamp: '2025-06-07T17:41:28.041305+00:00'
+trinity_context: null

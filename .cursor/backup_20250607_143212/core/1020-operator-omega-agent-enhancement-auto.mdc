@@ -1,0 +1,68 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.198406'
+---
+
+---
+description: "Level 2 rule for OperatorOmega agent enhancement with context analysis, anti-orphan validation, and intelligent development orchestration"
+globs:
+  - "**/operator_omega_agent.py"
+  - "**/enhanced_operator_omega_agent.py"
+  - "**/agents/core/**/*.py"
+type: autoAttached
+alwaysApply: true
+---
+
+# RULE TYPE: Auto Attached
+# FILE PATTERNS: **/operator_omega_agent.py, **/enhanced_operator_omega_agent.py, **/agents/core/**/*.py
+
+# 1020: OperatorOmega Agent Enhancement - Level 2 Rule Integration
+
+## 1. Purpose
+
+This Level 2 rule enforces the architectural enhancements required for the `OperatorOmegaAgent`. It ensures the agent does not operate in a vacuum, but instead integrates with the broader development context by analyzing project plans, preventing orphaned code, and justifying its actions based on clear value.
+
+## 2. Core Requirements for `OperatorOmegaAgent`
+
+Any implementation of `OperatorOmegaAgent` MUST include the following components and logic:
+
+### a. Context Analysis Module (`ContextAnalyzer`)
+
+- **Responsibility**: To analyze the application's context *before* code generation.
+- **Inputs**: `theplan.md`, `TODO.md`, and a recursive scan of the current codebase.
+- **Functionality**:
+    - `scan_project_files()`: Identifies key architectural patterns, existing modules, and dependencies.
+    - `analyze_project_plans()`: Parses `theplan.md` and `TODO.md` to understand current priorities, planned features, and technical debt.
+    - `build_context_summary()`: Creates a comprehensive summary of the current project state to guide the planning phase.
+
+### b. Anti-Orphan Validation Module (`AntiOrphanValidator`)
+
+- **Responsibility**: To ensure generated code is not "orphaned" (i.e., isolated and without clear integration points).
+- **Functionality**:
+    - `validate_integration_points()`: Checks if the proposed code connects to existing modules, services, or APIs.
+    - `check_for_callers()`: Verifies that new functions/classes are called by existing or other newly generated code.
+    - `confirm_value_add()`: Ensures the generated code directly addresses a need identified in the context analysis and provides a clear justification. Rejects code that is over-engineered or does not align with project goals.
+
+### c. Enhanced `run` Method Logic
+
+The main `run` method in `OperatorOmegaAgent` MUST be updated to follow this sequence:
+
+1.  **Initialize `ContextAnalyzer`** and run a full analysis.
+2.  **Pass context summary** to the `plan` method. The plan must now include an `architectural_fit_strategy`.
+3.  **During refinement loops**, generated candidates must be scored on `quality`, `clarity`, AND `integration_score`.
+4.  **Before returning the final candidate**, it MUST pass through the `AntiOrphanValidator`.
+5.  **If validation fails**, the agent MUST either trigger another refinement loop to fix the integration or return a failure state with a clear explanation of why the code would be orphaned.
+
+## 3. Symbolic Trace Requirements
+
+The agent's `symbolic_trace` output MUST be enriched to include:
+- `context_analysis_summary`: The output from the `ContextAnalyzer`.
+- `anti_orphan_validation_report`: The results from the `AntiOrphanValidator`, including the pass/fail status and justification.
+
+## 4. Rationale
+
+This rule transforms `OperatorOmegaAgent` from a simple code generator into a true AI Architect. It ensures that all generated code is purposeful, integrated, and aligned with the project's strategic goals, preventing technical debt and promoting a coherent, maintainable codebase.

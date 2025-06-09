@@ -1,0 +1,22 @@
+delivered: true
+delivery_attempts: 0
+expires_at: null
+message_id: 9f6f7f42-1eb7-4180-a9ae-d619ffd84a65_BootstrapAgent
+message_type: genesis_notification
+payload:
+  agent_type: evolution_tracker
+  archetypal_alignment: prometheus
+  capabilities:
+  - pattern_evolution
+  - delta_processing
+  new_agent_id: NewEvolutionAgent
+  trinity_role: star_tetrahedron
+priority: 75
+processed: false
+recipient_id: BootstrapAgent
+response_required: false
+routing_strategy: broadcast
+sender_id: BootstrapAgent
+symbolic_trigger: null
+timestamp: '2025-06-07T17:39:54.166288+00:00'
+trinity_context: null

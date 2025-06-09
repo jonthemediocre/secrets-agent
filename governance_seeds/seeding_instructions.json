@@ -1,0 +1,16 @@
+{
+  "title": "UAP Level 2 Governance Seeding Instructions",
+  "version": "2.0.0",
+  "instructions": [
+    "1. Import vanta_seed framework in application",
+    "2. Ensure all agents inherit from UAPAgentBase",
+    "3. Implement required protocol support (MCP, A2A, Cross-Protocol)",
+    "4. Register agents with COMPONENT_REGISTRY on startup",
+    "5. Run compliance validation using COMPLIANCE_VALIDATOR",
+    "6. Maintain minimum 90% compliance score",
+    "7. Monitor and report agent health and performance",
+    "8. Follow security and access control requirements"
+  ],
+  "sync_command": "await sync_uap_governance(app_id='your_app_id')",
+  "validation_command": "await validate_app_compliance(app_id='your_app_id')"
+}

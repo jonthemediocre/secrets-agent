@@ -1,0 +1,126 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.382489'
+---
+
+# RULE TYPE: Always (Core KEB Governance)
+# FILE PATTERNS: event_schemas/**/*.yaml, event_schemas/**/*.json (Applies to all event schema definitions)
+
+# 101: Kernel Event Bus (KEB) Governance Protocol
+
+## 1. Purpose
+
+This document establishes the governance protocol for all events published and consumed via the VantaMasterCore Kernel Event Bus (KEB). Adherence to this protocol is mandatory to ensure consistency, interoperability, discoverability, and maintainability of event-driven interactions within the VANTA ecosystem.
+
+## 2. Scope
+
+This protocol applies to:
+- All event schema definitions (typically stored in `/event_schemas/`).
+- All agents and services that produce or consume KEB events.
+- All tooling related to event validation, documentation, and CI/CD integration.
+
+## 3. Core Principles
+
+- **Clarity & Explicitness**: Event structures and semantics must be clear and unambiguous.
+- **Consistency**: Events of similar types or domains should follow consistent patterns.
+- **Discoverability**: Event schemas should be easily discoverable and understandable.
+- **Evolvability**: The system must support schema evolution without breaking existing consumers unnecessarily.
+- **Validation**: All events and schemas must be validated against defined rules.
+
+## 4. Event Schema Management
+
+### 4.1. Schema Language & Location
+- Event schemas MUST be defined using YAML or JSON, conforming to a recognized schema definition language (e.g., OpenAPI Schema Object, AsyncAPI Schema Object, or JSON Schema).
+- All event schemas MUST be stored in the `/event_schemas/` directory, organized by domain or event category (e.g., `/event_schemas/task_events.yaml`, `/event_schemas/system_events.yaml`).
+- A conceptual `components.schemas` section (as seen in OpenAPI/AsyncAPI) can be used within these files to define reusable base event structures or common data types.
+
+### 4.2. Schema Validation
+- All event schemas MUST be valid according to their chosen schema definition language.
+- Automated validation of schemas MUST be integrated into the CI/CD pipeline (e.g., using `scripts/validate_event_schemas.py`).
+- This script should check for syntactic correctness, adherence to naming conventions, and presence of mandatory fields.
+
+### 4.3. Schema Registry (Conceptual)
+- The `/event_schemas/` directory in Git serves as the primary schema registry.
+- Future: A dedicated schema registry service may be implemented if complexity warrants.
+
+## 5. Event Naming Conventions
+
+- Event type names SHOULD follow a `Domain.Context.Action` or `Domain.EntityStateChange` pattern in `UpperCamelCase`.
+- Examples:
+    - `Task.Assignment.Created.v1`
+    - `Secret.AccessPolicy.Updated.v1`
+    - `System.Health.Reported.v1`
+    - `User.Preference.Changed.v1`
+- Versioning (e.g., `.v1`) MUST be appended to the event type name to allow for schema evolution.
+
+## 6. Event Payload Structure
+
+### 6.1. Mandatory Base Fields
+All events published to the KEB MUST include the following top-level fields in their payload (unless explicitly justified for highly specialized system-level events):
+
+- **`event_id`**: (String, UUID) Unique identifier for this specific event instance.
+- **`event_type`**: (String) The standardized name of the event (e.g., "Task.Assignment.Created.v1").
+- **`event_version`**: (String, SemVer e.g., "1.0.0") Semantic version of the event's schema (distinct from the version in the `event_type` name, which is a major version indicator).
+- **`timestamp_iso`**: (String, ISO 8601 UTC date-time) Timestamp of when the event was generated.
+- **`source_system_id`**: (String) Identifier of the agent, service, or component that originated the event (e.g., "VantaMasterCore", "SecretStorageAgent", "UserInterfaceService").
+- **`correlation_id`**: (String, UUID, Optional) Identifier to correlate related events in a single workflow or transaction. If an event is a direct response to another or part of a chain, it should carry the same `correlation_id` as the initiating event.
+- **`data`**: (Object) The actual event-specific payload, whose structure is defined by the specific event schema.
+
+### 6.2. Payload Design
+- Payloads (`data` field) SHOULD be designed to be as self-contained and understandable as possible.
+- Avoid overly generic structures; define clear, specific fields for each event type.
+- Use consistent field naming conventions (e.g., `snake_case` or `camelCase`, to be standardized for payload data).
+- Sensitive information in payloads MUST be handled according to security and privacy guidelines (e.g., encryption, redaction).
+
+## 7. Event Versioning Strategy
+
+- Event schemas MUST follow Semantic Versioning 2.0.0 (`MAJOR.MINOR.PATCH`).
+- **MAJOR** version change: For incompatible API changes to the event schema.
+- **MINOR** version change: For adding functionality in a backwards-compatible manner.
+- **PATCH** version change: For backwards-compatible bug fixes or clarifications.
+- The `event_version` field in the payload reflects this detailed version.
+- The version suffix in the `event_type` (e.g., `.v1`) indicates the major version for routing and subscription purposes.
+- Consumers SHOULD be designed to be tolerant of new, non-breaking fields (Minor/Patch changes).
+
+## 8. Review & Approval Process
+
+- All new event schemas or changes to existing schemas MUST be reviewed and approved via a Pull Request (PR) process.
+- Reviews should verify adherence to this governance protocol, clarity of the schema, and potential impact on consumers.
+- The `VANTA Kernel Protocol Automation` (CI/CD workflow) MUST include steps to validate event schemas as part of the PR checks.
+
+## 9. Documentation
+
+- Event schemas SHOULD include clear descriptions for the event itself and each field.
+- The `VANTA Kernel Protocol Automation` workflow SHOULD generate human-readable documentation from the event schemas (e.g., into `docs/events.md`).
+
+## 10. Tooling (Future)
+
+- Consider developing or adopting tools for:
+    - Generating client stubs or Pydantic models from event schemas.
+    - Visualizing event flows and dependencies.
+    - Testing event production and consumption.
+
+## 11. Compliance
+
+- `VantaMasterCore` and all KEB-integrated agents MUST adhere to this protocol.
+- The `GuardianAgent` (or a similar governance agent) may monitor the KEB for non-compliant events in the future.
+
+---
+*This protocol is a living document and will evolve with the VANTA system.*
+
+# 101-System-Event-Governance
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule establishes a governance framework for system events across all projects. It covers event definition, naming conventions, payload structure, publishing/subscription mechanisms, and ensuring that events are discoverable, auditable, and consistently managed, particularly in event-driven architectures.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

@@ -1,0 +1,212 @@
+---
+description: 
+globs: *.tsx, *.jsx, *.vue, *.svelte, *.html, page.tsx, layout.tsx
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: *.tsx, *.jsx, *.vue, *.svelte, *.html, page.tsx, layout.tsx
+
+# Value-Based Feature Prioritization in Interface Design
+
+## Rule Purpose
+
+This rule ensures that every interface element is evaluated against **user value** vs **implementation complexity** before being added, keeping interfaces focused on core user needs while avoiding feature bloat.
+
+## The Value-Complexity Framework
+
+### Priority Matrix
+```
+High Value, Low Complexity  → ✅ IMPLEMENT FIRST (Quick Wins)
+High Value, High Complexity → 🔄 SIMPLIFY OR PHASE (Strategic)  
+Low Value, Low Complexity   → 🤔 CONSIDER (If Resources Allow)
+Low Value, High Complexity  → ❌ DELETE (Resource Drain)
+```
+
+## Evaluation Criteria
+
+### Value Assessment (User Impact Score 1-5)
+- **Primary Use Case Alignment**: Does this directly support the main user goal?
+- **Usage Frequency**: How often will users interact with this element?
+- **Decision Support**: Does this help users make important decisions?
+- **Error Prevention**: Does this prevent user mistakes or confusion?
+- **Trust & Confidence**: Does this increase user confidence in the system?
+
+### Complexity Assessment (Implementation Cost Score 1-5)
+- **Backend Dependencies**: APIs, databases, external services required
+- **Maintenance Overhead**: Ongoing development and support needed
+- **Testing Requirements**: Complexity of verification and edge cases
+- **External Dependencies**: Reliance on third-party services or data
+- **Performance Impact**: Effect on page load times and responsiveness
+
+## Implementation Guidelines
+
+### Before Adding Any Interface Element, Ask:
+
+#### Value Questions:
+- [ ] **Problem-Solution Fit**: Does this solve a real, validated user problem?
+- [ ] **Frequency Justification**: Is this problem common enough to warrant UI real estate?
+- [ ] **User Seeking Behavior**: Would users actively look for this feature?
+- [ ] **Cognitive Load**: Does this reduce mental effort or increase it?
+- [ ] **Competitive Advantage**: Does this differentiate us meaningfully?
+
+#### Complexity Questions:
+- [ ] **Data Availability**: Can this be built with existing data sources?
+- [ ] **Maintenance Burden**: Will this require ongoing updates or monitoring?
+- [ ] **Failure Modes**: What happens if dependencies break or data is unavailable?
+- [ ] **Simpler Alternatives**: Is there a lower-complexity way to provide similar value?
+- [ ] **Resource Trade-offs**: What else could we build with the same effort?
+
+#### Validation Questions:
+- [ ] **Assumption Testing**: How can we validate this assumption quickly and cheaply?
+- [ ] **User Behavior**: What do users currently do without this feature?
+- [ ] **Removal Test**: What would happen if we removed this entirely?
+- [ ] **Success Metrics**: How will we measure if this actually provides value?
+
+## Decision Framework
+
+### For Each Interface Element:
+
+1. **Score Value (1-5)** using the criteria above
+2. **Score Complexity (1-5)** using the criteria above  
+3. **Apply Decision Matrix**:
+   - Value 4-5, Complexity 1-2: ✅ Build immediately
+   - Value 4-5, Complexity 3-5: 🔄 Simplify or phase approach
+   - Value 1-3, Complexity 1-2: 🤔 Build if resources allow
+   - Value 1-3, Complexity 3-5: ❌ Delete or don't build
+
+### Special Considerations:
+
+#### Delete Without Hesitation:
+- Vanity metrics (download counts, view statistics)
+- Broken external links or non-functional buttons
+- Placeholder data that confuses users
+- Features that duplicate existing functionality
+- Elements that require constant manual updates
+
+#### Simplify Before Building:
+- Real-time dashboards → Static summaries
+- Complex animations → Simple state changes  
+- Dynamic external data → Static representative data
+- Full feature sets → Core functionality only
+- Personalization → Sensible defaults
+
+#### Build for Core Journey:
+- Primary task completion paths
+- Error prevention and recovery
+- Clear navigation and orientation
+- Actionable feedback and status
+- Essential decision-support information
+
+## Code Examples
+
+### ❌ Low Value, High Complexity (Delete)
+```tsx
+// Real-time download statistics - requires backend, analytics, minimal user value
+const [downloadStats, setDownloadStats] = useState()
+useEffect(() => {
+  // Complex polling logic for vanity metrics
+}, [])
+```
+
+### 🔄 High Value, High Complexity (Simplify)
+```tsx
+// Instead of real-time API metrics, use static meaningful numbers
+const apiHealth = {
+  status: "operational", // Simple status instead of complex monitoring
+  uptime: "99.9%",       // Static high-level metric
+  lastCheck: "2 min ago" // Approximate rather than real-time
+}
+```
+
+### ✅ High Value, Low Complexity (Implement)
+```tsx
+// Clear error states help users recover from problems
+{error && (
+  <Alert variant="destructive">
+    <AlertDescription>
+      {error.message} 
+      <Button onClick={retry} variant="outline" size="sm">Try Again</Button>
+    </AlertDescription>
+  </Alert>
+)}
+```
+
+## Warning Signs (Anti-Patterns)
+
+### Red Flags in Interface Design:
+- **Feature Creep**: "While we're at it, let's also add..."
+- **Tech Showcase**: Building features to demonstrate technical capability
+- **Competitor Copying**: Adding features just because competitors have them
+- **Internal Requests**: Building for internal convenience vs user value
+- **Placeholder Syndrome**: Showing fake data "until we build the real thing"
+
+### Common Complexity Traps:
+- Real-time everything (when periodic updates suffice)
+- Premature personalization (before understanding common needs)
+- External API dependencies (when static data would work)
+- Complex state management (when simple props would work)
+- Over-engineered animations (when simple transitions suffice)
+
+## Success Patterns
+
+### High-Value, Low-Complexity Wins:
+- Clear loading states and error messages
+- Consistent navigation and breadcrumbs  
+- Helpful placeholder text and examples
+- Logical default values and states
+- Simple keyboard shortcuts for power users
+
+### When to Invest in Complexity:
+- Core user workflows that are used daily
+- Features that prevent costly user errors
+- Integrations that eliminate manual work
+- Security features that build trust
+- Performance optimizations for slow operations
+
+## Implementation Strategy
+
+### Phase 1: Core Value (Week 1)
+- Implement all High Value, Low Complexity features
+- Remove all Low Value, High Complexity elements
+- Document assumptions for future validation
+
+### Phase 2: Strategic Features (Week 2-4)  
+- Simplify High Value, High Complexity features
+- Build simplified versions first, iterate based on usage
+- A/B test assumptions where possible
+
+### Phase 3: Polish (Ongoing)
+- Add Low Value, Low Complexity features only if core experience is solid
+- Continuously evaluate and remove unused features
+- Monitor user behavior to validate value assumptions
+
+## Validation Methods
+
+### Quick Value Validation:
+- **User interviews**: "What would you do without this feature?"
+- **Usage analytics**: Track interaction rates with new elements
+- **A/B testing**: Show/hide features to measure impact
+- **Support tickets**: Do users ask about missing features?
+
+### Complexity Validation:
+- **Development time**: Track actual vs estimated implementation time
+- **Bug rates**: Monitor defect rates for different complexity levels
+- **Maintenance burden**: Measure ongoing development overhead
+- **Performance impact**: Monitor page load and interaction speeds
+
+## Rule Application
+
+When reviewing or creating interface code:
+
+1. **Audit existing elements** using the value-complexity matrix
+2. **Challenge each new feature** with the evaluation questions
+3. **Prefer simplification** over feature addition
+4. **Document decisions** and assumptions for future review
+5. **Regularly revisit** and remove unused or low-value elements
+
+Remember: **The best feature is often the one you don't build.** Focus on doing fewer things exceptionally well rather than many things adequately.
+
+---
+
+This rule helps maintain lean, user-focused interfaces by systematically evaluating every design decision against real user value rather than perceived impressiveness or technical interest.
+

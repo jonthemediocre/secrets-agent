@@ -1,0 +1,37 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# Next.js Specific Development Patterns
+
+## Component Architecture
+- Use Server and Client Components appropriately in Next.js
+- Client Components must include "use client" directive at the top
+- Implement proper error boundaries around React components
+- Use React Suspense for loading states and data fetching
+
+## UI Component Standards
+- Use the centralized Icons object from `src/components/ui/icons.tsx`
+- Never use direct Lucide icon imports in components
+- Error boundaries should provide user-friendly fallback UI
+- Follow React component composition patterns
+- Implement proper TypeScript typing for all components
+
+## File Organization
+- Follow Next.js 13+ app directory structure
+- Organize components in logical feature-based directories
+- Use consistent naming conventions for pages, layouts, and components
+- Implement proper barrel exports for cleaner imports
+
+## Performance Optimization
+- Use Next.js Image component for optimized image delivery
+- Implement proper code splitting with dynamic imports
+- Use React.memo and useMemo for expensive computations
+- Follow Next.js caching strategies for API routes and pages
+
+## Development Workflow
+- Use Next.js development server hot reload capabilities
+- Implement proper TypeScript configuration for Next.js
+- Follow Next.js deployment best practices
+- Use Next.js built-in ESLint configuration as baseline

@@ -1,0 +1,84 @@
+{
+  "mcpServers": {
+    "vanta-architecture": {
+      "command": "python",
+      "args": [
+        "mcp_servers/vanta_architecture_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": ".",
+        "REDIS_URL": "redis://localhost:6379",
+        "LOG_LEVEL": "INFO"
+      },
+      "description": "VANTA Architecture patterns and code generation server for agent-first development",
+      "capabilities": [
+        "list_architectural_patterns",
+        "get_pattern_details", 
+        "generate_agent_code",
+        "validate_agent_implementation",
+        "scaffold_phase_implementation"
+      ],
+      "resources": [
+        "vanta://patterns/all",
+        "vanta://templates/all",
+        "vanta://guides/implementation"
+      ]
+    },
+    "universal-agent-platform": {
+      "command": "python",
+      "args": [
+        "mcp_servers/universal_agent_platform_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": ".",
+        "REDIS_URL": "redis://localhost:6379",
+        "LOG_LEVEL": "INFO"
+      },
+      "description": "Level 2 Universal Agent Platform for complete full-stack application generation",
+      "capabilities": [
+        "generate_theplan_md",
+        "scaffold_fullstack_application",
+        "generate_agent_ecosystem",
+        "create_coe_delegation_system",
+        "deploy_mcp_controlled_application"
+      ],
+      "resources": [
+        "uap://patterns/universal",
+        "uap://templates/fullstack",
+        "uap://guides/theplan"
+      ]
+    },
+    "vanta-security": {
+      "command": "python", 
+      "args": [
+        "mcp_servers/vanta_security_server.py"
+      ],
+      "env": {
+        "PYTHONPATH": ".",
+        "REDIS_URL": "redis://localhost:6379", 
+        "LOG_LEVEL": "INFO"
+      },
+      "description": "VANTA Security Intelligence MCP Server for threat detection and compliance",
+      "capabilities": [
+        "analyze_security_threats",
+        "generate_security_policies",
+        "validate_compliance",
+        "create_security_agents"
+      ],
+      "resources": [
+        "vanta://security/policies",
+        "vanta://security/threats",
+        "vanta://security/compliance"
+      ]
+    }
+  },
+  "client": {
+    "name": "vanta-client",
+    "version": "2.0.0",
+    "description": "VANTA AI Agent Client with Level 2 Universal Agent Platform support"
+  },
+  "logging": {
+    "level": "INFO",
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  }
+} 

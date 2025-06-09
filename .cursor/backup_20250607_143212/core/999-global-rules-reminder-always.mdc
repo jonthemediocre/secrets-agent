@@ -1,0 +1,21 @@
+---
+description: 'RULE TYPE: Always'
+created: '2025-06-07T14:31:54.394776'
+migrated: true
+original_file: 999-global-rules-reminder.mdc
+type: always
+migration_fixes:
+- Added missing frontmatter delimiters
+- Fixed YAML formatting (added space after colon)
+---
+
+---
+# RULE TYPE: Always
+# FILE PATTERNS: **/*
+
+## Global Rules Activation Reminder
+
+**IMPORTANT: ** This project uses global rules that need to be activated in your IDE.
+
+### Quick Setup for Cursor IDE:
+---

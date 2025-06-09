@@ -1,0 +1,71 @@
+---
+description: Template for always-enforced rules
+alwaysApply: true
+type: always
+priority: high
+created: '2025-06-07T14:31:54.650987'
+---
+
+# Always Rule Template
+
+## Description
+
+This is a template for creating always-enforced rules. These rules are mandatory and automatically applied in all applicable contexts.
+
+## Enforcement
+
+This rule is **mandatory** and will be enforced automatically without exception.
+
+## Requirements
+
+- Must be followed in all circumstances
+- Violations will be flagged immediately
+- No manual override available
+- Applies to all relevant contexts
+
+## Examples
+
+### Required Pattern
+
+```javascript
+// Always use this pattern
+const CONSTANT_VALUE = 'required-format';
+```
+
+### Prohibited Pattern
+
+```javascript
+// Never use this pattern
+var variableName = 'prohibited-format';
+```
+
+## Rationale
+
+### Why This Rule Exists
+
+This rule exists to enforce critical standards that:
+- Prevent common errors
+- Ensure consistency across the codebase
+- Maintain code quality standards
+- Support automated tooling
+
+### Benefits
+
+- **Consistency**: Uniform code patterns across all files
+- **Quality**: Prevents low-quality code patterns
+- **Automation**: Enables reliable automated checks
+- **Maintainability**: Reduces cognitive load for developers
+
+## Implementation
+
+This rule will be automatically enforced by:
+- Real-time code analysis
+- Pre-commit hooks
+- CI/CD pipeline checks
+- IDE integrations
+
+## Related Rules
+
+- Link to related always rules
+- Reference complementary patterns
+- Note any rule hierarchies

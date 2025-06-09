@@ -1,0 +1,22 @@
+delivered: true
+delivery_attempts: 0
+expires_at: null
+message_id: d9ec10bf-6f2d-4450-8e14-4b27dc202b9e_SecurityGuardianAgent
+message_type: genesis_notification
+payload:
+  agent_type: evolution_tracker
+  archetypal_alignment: prometheus
+  capabilities:
+  - pattern_evolution
+  - delta_processing
+  new_agent_id: NewEvolutionAgent
+  trinity_role: star_tetrahedron
+priority: 75
+processed: false
+recipient_id: SecurityGuardianAgent
+response_required: false
+routing_strategy: broadcast
+sender_id: BootstrapAgent
+symbolic_trigger: null
+timestamp: '2025-06-07T17:41:26.007433+00:00'
+trinity_context: null

@@ -1,0 +1,187 @@
+audit_summary:
+  expo_interface_coverage:
+    coverage_percentage: 0.0
+    covered: 0
+  full_coverage:
+    coverage_percentage: 0.0
+    covered: 0
+  missing_coverage:
+    count: 482
+    percentage: 100.0
+  total_features: 482
+  web_interface_coverage:
+    coverage_percentage: 92.1
+    covered: 444
+critical_missing:
+- defined_in: .cursor\agents\agent_base.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\agent_base_AgentBase
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: AgentBase
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: .cursor\agents\collapse_monitor_agent.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\collapse_monitor_agent_CollapseMonitorAgent
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: CollapseMonitorAgent
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: .cursor\agents\data_unifier_agent.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\data_unifier_agent_DataUnifierAgent
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: DataUnifierAgent
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: .cursor\agents\ritual_upkeep_agent.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\ritual_upkeep_agent_AgentBase
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: AgentBase
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: .cursor\agents\ritual_upkeep_agent.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\ritual_upkeep_agent_RitualUpkeepAgent
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: RitualUpkeepAgent
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: .cursor\agents\rule_checker_agent.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: .cursor\agents\rule_checker_agent_RuleCheckerAgent
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: RuleCheckerAgent
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: UAP\runners\UAPAgentBase.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: UAP\runners\UAPAgentBase_UAPAgentBase
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: UAPAgentBase
+  type: agent
+  web_api_routes: []
+  web_components:
+  - components\ErrorBoundary.tsx
+  - components\LoginScreen.tsx
+  - components\AuthGuard.tsx
+- defined_in: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\MSVSProject.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\MSVSProject_Tool
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: Tool
+  type: tool
+  web_api_routes:
+  - api\v1\mcp\tools\route.ts
+  - api\mcp\tools\route.ts
+  web_components: []
+- defined_in: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\MSVSSettings.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\MSVSSettings__Tool
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: _Tool
+  type: tool
+  web_api_routes:
+  - api\v1\mcp\tools\route.ts
+  - api\mcp\tools\route.ts
+  web_components: []
+- defined_in: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\flock_tool.py
+  expo_components: []
+  expo_screens: []
+  exposed_in_expo: false
+  exposed_in_web: true
+  id: __graveyard__\20250605\broken-typescript\node_modules\node-gyp\gyp\pylib\gyp\flock_tool_FlockTool
+  missing_reason: Missing mobile interface representation
+  missing_representation: true
+  name: FlockTool
+  type: tool
+  web_api_routes:
+  - api\v1\mcp\tools\route.ts
+  - api\mcp\tools\route.ts
+  web_components: []
+type_breakdown:
+  agent:
+    expo_covered: 0
+    total: 54
+    web_covered: 54
+  rule:
+    expo_covered: 0
+    total: 28
+    web_covered: 1
+  security:
+    expo_covered: 0
+    total: 37
+    web_covered: 37
+  symbolic:
+    expo_covered: 0
+    total: 11
+    web_covered: 0
+  tool:
+    expo_covered: 0
+    total: 7
+    web_covered: 7
+  utility:
+    expo_covered: 0
+    total: 345
+    web_covered: 345

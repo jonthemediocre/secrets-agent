@@ -1,0 +1,62 @@
+---
+description: Example auto rule for documentation and comment standards
+type: auto
+created: '2025-06-07T14:31:54.662989'
+example: true
+category: documentation
+globs:
+- '**/*.md'
+- '**/*.mdx'
+migrated: true
+migration_date: '2025-06-07T14:32:13.780797'
+---
+
+# Documentation Auto Rule Example
+
+## Description
+
+This is an example auto rule for documentation and comment standards. It demonstrates the proper structure and content for rules in the documentation category.
+
+## Rule Implementation
+
+This rule automatically applies to files matching the specified glob patterns. It activates based on file type and location.
+
+## Examples
+
+### Good Pattern
+
+```javascript
+// Example of following this rule
+const examplePattern = {
+  // Implementation that follows best practices
+  property: 'value'
+};
+```
+
+### Poor Pattern
+
+```javascript
+// Example of violating this rule
+var badPattern = {
+  // Implementation that violates the rule
+  prop: 'val'
+};
+```
+
+## Rationale
+
+This rule exists to:
+- Promote best practices in documentation and comment standards
+- Ensure consistency across the codebase
+- Prevent common mistakes and issues
+- Support maintainable code patterns
+
+## Related Rules
+
+- See other rules in the documentation/ folder
+- Consider complementary rules in related folders
+- Review always rules that may take precedence
+
+## Notes
+
+This is an example rule for demonstration purposes. Modify it according to your specific needs and requirements.

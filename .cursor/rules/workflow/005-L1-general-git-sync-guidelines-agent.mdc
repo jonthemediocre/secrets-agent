@@ -1,0 +1,58 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: agent
+migrated: true
+migration_date: '2025-06-07T14:31:54.075779'
+---
+
+# RULE TYPE: Best Practice (AI Assistant Guideline)
+# FILE PATTERNS: N/A (Applies to general Git-related queries and code generation)
+
+# 005-General-Git-Sync-Guidelines
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule establishes general guidelines and best practices for Git synchronization within projects. It covers aspects like branching strategies, commit hygiene, merging protocols, and maintaining a clean and understandable version history to facilitate effective collaboration and codebase stability.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
+## 1. Purpose
+This rule provides Level 1 (Cursor AI, project-agnostic) guidelines for Git operations, focusing on commit messages, staging, and general workflow. These guidelines are inspired by effective practices observed and implemented in Level 2 systems like VANTA's `GitOpsAgent` and aim to promote clarity and consistency in version control across any project.
+
+## 2. Commit Message Standards
+   - **Semantic Clarity:** Strive for commit messages that clearly describe the change.
+     - *Good Example:* `feat: Implement user authentication via OAuth`
+     - *Good Example:* `fix: Correct off-by-one error in pagination logic`
+     - *Good Example:* `docs: Update README with setup instructions`
+     - *Good Example:* `refactor: Simplify data fetching in Profile component`
+     - *Good Example (Schema/Config):* `chore(schemas): Update UserProfile schema with new address field`
+   - **Brevity:** Keep the subject line concise (ideally under 50 characters).
+   - **Body (Optional):** If more detail is needed, provide a more extensive explanation in the commit message body, separated from the subject by a blank line.
+
+## 3. Staging Practices
+   - **Atomic Commits:** Aim to stage and commit related changes together. Avoid overly broad commits that bundle unrelated modifications.
+   - **Targeted Staging:** When appropriate, suggest staging specific files or directories that form a logical unit of change.
+     - *Example Suggestion:* "It looks like you've modified schema files and related service logic. Consider staging `schemas/` and `services/user_service.py` together for this commit."
+
+## 4. Branching (General Advice)
+   - Encourage the use of feature branches for new development or significant changes to keep the main branch stable.
+   - Suggest merging feature branches back into the main branch using pull/merge requests where appropriate for the project's workflow.
+
+## 5. Inspiration from L2 (Contextual Adaptation)
+   - While these are L1 general guidelines, the AI may subtly adapt its suggestions if it has context from an L2 system (like VANTA) that employs more specific or advanced Git protocols. For instance, if VANTA's `GitOpsAgent` uses commit prefixes tied to rituals (e.g., `ritual(user_onboarding): Commit initial setup files`), the L1 AI should respect and understand such patterns when operating within that L2 project context, but not enforce them globally unless specified by the user.
+
+## 6. AI Assistant Role
+   - When assisting with Git operations, the AI should:
+     - Offer to help construct well-formatted commit messages.
+     - Suggest appropriate files to stage if the user's intent is clear.
+     - Remind the user to pull recent changes before pushing if a collaborative environment is implied.
+     - Explain Git concepts if the user seems unsure.
+
+This rule helps the Level 1 AI provide more effective and standardized Git assistance across diverse projects.

@@ -1,0 +1,490 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: .cursor/rules/*.mdc
+
+# Rule Splitting Methodology
+
+## Rule Purpose
+
+This methodology provides a systematic approach for identifying overly complex MDC rules and splitting them into focused, maintainable components that follow the single responsibility principle.
+
+## Detection Criteria for Complex Rules
+
+### 🚨 **Immediate Split Indicators**
+
+#### **1. Line Count Thresholds**
+```
+- 150+ lines: Consider splitting
+- 300+ lines: Mandatory split
+- 500+ lines: Emergency refactor needed
+```
+
+#### **2. Multiple Responsibilities (SRP Violations)**
+```
+Rule covers 3+ distinct domains:
+❌ ui-components.mdc: Shadcn + Tailwind + Accessibility + Architecture
+❌ data-management.mdc: Fetching + Caching + State + Validation  
+❌ api-integration.mdc: Routes + Client + Auth + Error handling
+```
+
+#### **3. Reference Complexity**
+```
+Rule references 5+ other rules:
+- Indicates it's trying to be a "hub" rule
+- Should be broken into specialized rules
+- Each reference suggests a potential split boundary
+```
+
+#### **4. Update Frequency Issues**
+```
+- Multiple developers editing same rule frequently
+- Merge conflicts on single rule file
+- Different sections updated for unrelated reasons
+```
+
+### 📊 **Complexity Assessment Matrix**
+
+| Indicator | Low (1) | Medium (2) | High (3) | Critical (4) |
+|-----------|---------|------------|----------|--------------|
+| **Line Count** | < 50 | 50-150 | 150-300 | 300+ |
+| **Responsibilities** | 1 | 2 | 3 | 4+ |
+| **External References** | 0-2 | 3-4 | 5-7 | 8+ |
+| **File Patterns** | 1-2 | 3-5 | 6-10 | 10+ |
+| **Update Conflicts** | Never | Rarely | Monthly | Weekly+ |
+
+**Total Score:**
+- **5-8**: Well-scoped rule ✅
+- **9-12**: Consider optimization 🔄  
+- **13-16**: Split recommended ⚠️
+- **17-20**: Immediate split required 🚨
+
+## Analysis Methodology
+
+### **Phase 1: Domain Identification**
+
+#### **1. Content Categorization**
+```markdown
+# Analyze rule content by domain:
+
+## Technical Domains
+- Frontend (UI, styling, components)
+- Backend (APIs, databases, services)  
+- DevOps (deployment, infrastructure)
+- Testing (unit, integration, e2e)
+
+## Functional Domains  
+- Authentication & Authorization
+- Data Management & State
+- Error Handling & Logging
+- Performance & Optimization
+
+## Architectural Domains
+- Component Architecture
+- Service Architecture  
+- Data Architecture
+- Security Architecture
+```
+
+#### **2. Dependency Mapping**
+```typescript
+// Create dependency graph
+interface RuleDependency {
+  section: string
+  dependsOn: string[]
+  providesFor: string[]
+  canStandAlone: boolean
+}
+
+// Example analysis
+const uiComponentsAnalysis: RuleDependency[] = [
+  {
+    section: "Shadcn UI Usage",
+    dependsOn: ["Tailwind Config"],
+    providesFor: ["Component Architecture"],
+    canStandAlone: true
+  },
+  {
+    section: "Accessibility Guidelines", 
+    dependsOn: ["Semantic HTML"],
+    providesFor: ["Component Testing"],
+    canStandAlone: true
+  }
+]
+```
+
+#### **3. Usage Pattern Analysis**
+```bash
+# Track which sections are referenced most
+grep -r "@ui-components.mdc" .cursor/rules/ | \
+  sed 's/.*@ui-components\.mdc: \(.*\)/\1/' | \
+  sort | uniq -c | sort -nr
+
+# Output example:
+# 15 Shadcn UI component imports
+# 8 Accessibility ARIA patterns  
+# 3 Tailwind styling approaches
+# 1 Component architecture patterns
+```
+
+### **Phase 2: Split Strategy Selection**
+
+#### **Strategy 1: Domain-Based Split**
+```
+Best for: Rules covering distinct technical domains
+Example: ui-components.mdc → 
+  - shadcn-ui-components.mdc
+  - tailwind-styling-standards.mdc  
+  - ui-accessibility-standards.mdc
+  - component-architecture.mdc
+```
+
+#### **Strategy 2: Layer-Based Split**
+```
+Best for: Rules covering different architectural layers
+Example: api-integration.mdc →
+  - api-route-definitions.mdc
+  - api-client-patterns.mdc
+  - api-authentication.mdc
+  - api-error-handling.mdc
+```
+
+#### **Strategy 3: Lifecycle-Based Split**
+```
+Best for: Rules covering different phases of development
+Example: testing-guidelines.mdc →
+  - unit-testing-patterns.mdc
+  - integration-testing.mdc
+  - e2e-testing-strategies.mdc
+  - testing-infrastructure.mdc
+```
+
+#### **Strategy 4: Feature-Based Split**
+```
+Best for: Rules covering distinct features or capabilities
+Example: data-management.mdc →
+  - data-fetching-patterns.mdc
+  - data-caching-strategies.mdc
+  - state-management.mdc
+  - data-validation.mdc
+```
+
+## Implementation Process
+
+### **Step 1: Planning Phase**
+
+#### **Create Split Plan Document**
+```markdown
+# Rule Split Plan: [ORIGINAL_RULE_NAME]
+
+## Analysis Summary
+- Current line count: XXX
+- Complexity score: XX/20
+- Identified domains: [list]
+- Split strategy: [selected strategy]
+
+## Proposed New Rules
+1. [XXX-new-rule-1.mdc] - [Domain/responsibility]
+2. [XXX-new-rule-2.mdc] - [Domain/responsibility]
+3. [XXX-new-rule-3.mdc] - [Domain/responsibility]
+
+## Migration Impact
+- Files affected: [list]
+- Rules that reference this: [list]
+- Estimated effort: [hours/days]
+
+## Success Criteria
+- [ ] Each new rule < 200 lines
+- [ ] Single responsibility per rule
+- [ ] No circular dependencies
+- [ ] Migration path documented
+```
+
+### **Step 2: Content Extraction**
+
+#### **Template for New Focused Rules**
+```markdown
+# RULE TYPE: [Auto Attached | Always | Manual]
+# FILE PATTERNS: [specific patterns for this domain]
+
+# [Focused Rule Title]
+
+## Rule Purpose
+[Single, clear statement of responsibility]
+
+## [Main Section 1]
+### [Subsection with clear scope]
+[Comprehensive guidance for this specific aspect]
+
+## [Main Section 2]
+### [Another focused subsection]
+[Deep dive into patterns and examples]
+
+## Integration Points
+[How this rule works with other focused rules]
+
+## Related Rules
+- **[related-rule.mdc]** - [What it provides]
+- **[another-rule.mdc]** - [How it connects]
+
+Remember: **[Single guiding principle for this domain]**
+```
+
+### **Step 3: Systematic Extraction Process**
+
+#### **1. Create New Rule Files**
+```bash
+# Follow numbering convention
+# 550-559: Core development methodology
+# 560-569: Architecture patterns  
+# 570-579: Testing and quality
+# 580-589: Performance and optimization
+# 590-599: Security and compliance
+
+# Create files with proper numbering
+touch .cursor/rules/557-focused-rule-1.mdc
+touch .cursor/rules/558-focused-rule-2.mdc
+touch .cursor/rules/559-focused-rule-3.mdc
+```
+
+#### **2. Content Migration Checklist**
+```markdown
+For each new rule:
+- [ ] Extract relevant content from original
+- [ ] Add comprehensive examples
+- [ ] Include error patterns to avoid
+- [ ] Add testing considerations
+- [ ] Link to related rules
+- [ ] Validate single responsibility
+- [ ] Ensure 100-300 line target
+```
+
+### **Step 4: Original Rule Deprecation**
+
+#### **Deprecation Template**
+```markdown
+# DEPRECATED: [Original Rule Name]
+
+## ⚠️ This Rule Has Been Split Into Focused Components
+
+This comprehensive rule has been split into **X specialized, focused rules** for better maintainability and clarity:
+
+### 🎯 For [Domain 1]
+**Use: `XXX-focused-rule-1.mdc`**
+- [Key responsibilities]
+- [Main patterns covered]
+
+### 🎯 For [Domain 2]  
+**Use: `XXX-focused-rule-2.mdc`**
+- [Key responsibilities]
+- [Main patterns covered]
+
+## Why This Change?
+The original XX-line rule was violating the **single responsibility principle** by covering:
+- [Domain 1] ✂️ **Now XXX**
+- [Domain 2] ✂️ **Now XXX**
+
+## Migration Guide
+### ✅ Continue Using These Patterns:
+[Code examples with new rule references]
+
+## 🎯 Action Required
+**Stop referencing `@original-rule.mdc`** and use the specific focused rules.
+```
+
+## Validation and Quality Assurance
+
+### **Post-Split Validation Checklist**
+
+#### **1. Rule Quality Metrics**
+```typescript
+interface RuleQualityMetrics {
+  lineCount: number          // Target: 100-300
+  responsibilities: number   // Target: 1
+  externalReferences: number // Target: 2-5
+  examples: number          // Target: 5-10
+  errorPatterns: number     // Target: 3-5
+  testingGuidance: boolean  // Target: true
+}
+
+// Quality gates
+const validateRule = (metrics: RuleQualityMetrics): boolean => {
+  return (
+    metrics.lineCount >= 100 && metrics.lineCount <= 300 &&
+    metrics.responsibilities === 1 &&
+    metrics.externalReferences <= 5 &&
+    metrics.examples >= 5 &&
+    metrics.errorPatterns >= 3 &&
+    metrics.testingGuidance === true
+  )
+}
+```
+
+#### **2. Integration Testing**
+```bash
+# Test that new rules work together
+grep -r "@557-" .cursor/rules/ # Check cross-references
+grep -r "@558-" .cursor/rules/ # Validate dependencies
+grep -r "@559-" .cursor/rules/ # Ensure no circular refs
+
+# Test rule application
+cursor --test-rules 557-focused-rule-1.mdc
+cursor --test-rules 558-focused-rule-2.mdc
+cursor --test-rules 559-focused-rule-3.mdc
+```
+
+#### **3. Usage Validation**
+```markdown
+# Validate each new rule can be used independently:
+
+Test Scenarios:
+- [ ] Developer can follow rule without referencing others
+- [ ] Examples are complete and runnable
+- [ ] Error patterns are clearly identified
+- [ ] Integration points are well-documented
+- [ ] Testing guidance is actionable
+```
+
+## Common Split Patterns
+
+### **Pattern 1: Technology Stack Split**
+```
+Before: frontend-development.mdc (400 lines)
+After:
+- react-component-patterns.mdc (180 lines)
+- css-styling-standards.mdc (160 lines)  
+- javascript-best-practices.mdc (150 lines)
+```
+
+### **Pattern 2: Architectural Layer Split**  
+```
+Before: full-stack-architecture.mdc (500 lines)
+After:
+- frontend-architecture.mdc (200 lines)
+- api-layer-patterns.mdc (180 lines)
+- database-design-patterns.mdc (170 lines)
+```
+
+### **Pattern 3: Development Phase Split**
+```
+Before: project-workflow.mdc (350 lines)
+After:
+- development-setup.mdc (140 lines)
+- coding-standards.mdc (120 lines)
+- deployment-processes.mdc (110 lines)
+```
+
+### **Pattern 4: Domain Capability Split**
+```
+Before: user-management.mdc (450 lines)  
+After:
+- user-authentication.mdc (180 lines)
+- user-authorization.mdc (160 lines)
+- user-profile-management.mdc (140 lines)
+```
+
+## Maintenance and Evolution
+
+### **Monitoring Split Success**
+
+#### **1. Usage Analytics**
+```typescript
+// Track rule usage patterns
+interface RuleUsageMetrics {
+  ruleName: string
+  referencesCount: number
+  updateFrequency: number
+  conflictRate: number
+  developerSatisfaction: number
+}
+
+// Monitor post-split metrics
+const monitorSplitSuccess = (metrics: RuleUsageMetrics[]) => {
+  return {
+    avgLinesPerRule: metrics.reduce((acc, m) => acc + m.lineCount, 0) / metrics.length,
+    totalConflicts: metrics.reduce((acc, m) => acc + m.conflictRate, 0),
+    avgSatisfaction: metrics.reduce((acc, m) => acc + m.developerSatisfaction, 0) / metrics.length
+  }
+}
+```
+
+#### **2. Continuous Improvement**
+```markdown
+# Quarterly Rule Health Check:
+
+Questions to Ask:
+- Are any new rules showing complexity indicators?
+- Do developers prefer the split rules over the original?
+- Are there new integration patterns emerging?
+- Should any rules be merged or further split?
+
+Actions:
+- [ ] Review rule usage analytics
+- [ ] Survey developer experience
+- [ ] Identify new splitting candidates  
+- [ ] Update methodology based on learnings
+```
+
+### **When NOT to Split**
+
+#### **Keep Together When:**
+```
+✅ Content is tightly coupled and cannot stand alone
+✅ Total rule is < 150 lines and covers single domain
+✅ Splitting would create circular dependencies
+✅ Usage patterns show developers need it as single reference
+✅ Content represents sequential steps in single process
+```
+
+#### **Anti-patterns to Avoid:**
+```
+❌ Splitting just to hit line count targets
+❌ Creating rules with < 50 lines of content
+❌ Breaking logical workflows across multiple rules
+❌ Creating dependencies that require reading 5+ rules
+❌ Splitting stable, well-used rules without clear benefit
+```
+
+## Implementation Timeline
+
+### **Immediate Actions (Week 1)**
+- [ ] Audit existing rules using complexity matrix
+- [ ] Identify top 3 candidates for splitting
+- [ ] Create split plans for priority rules
+
+### **Short Term (Month 1)**  
+- [ ] Implement splits for highest complexity rules
+- [ ] Update cross-references in other rules
+- [ ] Validate developer experience with new structure
+
+### **Long Term (Quarter 1)**
+- [ ] Complete systematic review of all rules
+- [ ] Establish ongoing monitoring processes
+- [ ] Document lessons learned and methodology updates
+
+## Success Metrics
+
+### **Target Outcomes:**
+- **95%** of rules under 300 lines
+- **100%** of rules follow single responsibility principle  
+- **50%** reduction in rule update conflicts
+- **80%** developer satisfaction with rule clarity
+- **Zero** circular dependencies between rules
+
+### **Quality Gates:**
+- New rules must pass validation checklist
+- Split plans must be reviewed by 2+ developers
+- Migration impact must be documented
+- Deprecation notices must provide clear guidance
+
+## Related Rules
+
+- **550-value-based-feature-prioritization.mdc** - Framework for deciding what to build
+- **000-framework-index.mdc** - Overall rule organization
+- **911-ai-response-signature.mdc** - Quality standards for AI outputs
+
+Remember: **The best rule is often the one you split in two.** Focus on single responsibility and developer usability over comprehensive coverage.
+

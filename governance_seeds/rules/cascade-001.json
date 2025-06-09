@@ -1,0 +1,17 @@
+{
+  "rule_id": "CASCADE-001",
+  "category": "CASCADE",
+  "severity": "MANDATORY",
+  "title": "Cascade Execution Compatibility",
+  "description": "All agents MUST be cascade-execution compatible",
+  "implementation_requirements": [
+    "Implement execute_in_cascade() method",
+    "Support CascadeContext handling",
+    "Return CascadeResult format",
+    "Handle rollback scenarios"
+  ],
+  "validation_method": "check_cascade_compatibility",
+  "sync_priority": 8,
+  "last_updated": "2025-06-07T12:15:43.882753",
+  "version": "2.0.0"
+}

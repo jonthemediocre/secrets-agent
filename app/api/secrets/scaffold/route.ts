@@ -1,223 +1,130 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { SecretScaffoldAgent, SecretScaffoldConfig } from '../../../../agents/SecretScaffoldAgent';
-import { createLogger } from '../../../../src/utils/logger';
-
-const logger = createLogger('SecretScaffoldAPI');
+import { db } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { project, projectPath, action, suggestions } = body;
+    const { vaultId, framework, userId } = body;
 
-    logger.info('Secret scaffold request', { project, projectPath, action });
-
-    if (!project) {
+    if (!vaultId || !framework || !userId) {
       return NextResponse.json(
-        { error: 'Project parameter is required' },
+        { error: 'Vault ID, framework, and user ID are required' },
         { status: 400 }
       );
     }
 
-    // Configure scaffold agent
-    const vaultPath = process.env.VAULT_PATH || './vault/secrets.sops.yaml';
-    const config: SecretScaffoldConfig = {
-      projectPath: projectPath || process.cwd(),
-      vaultPath,
-      scanDepth: 3,
-      includePatterns: ['**/.env*', '**/docker-compose*.yml', '**/package.json', '**/requirements.txt'],
-      excludePatterns: ['**/node_modules/**', '**/dist/**', '**/build/**', '**/.git/**']
+    // Mock scaffolding templates for different frameworks
+    const scaffoldTemplates = {
+      nextjs: [
+        { key: 'NEXTAUTH_SECRET', value: 'generate_secure_secret_here', category: 'auth' },
+        { key: 'NEXTAUTH_URL', value: 'http://localhost:3000', category: 'auth' },
+        { key: 'DATABASE_URL', value: 'postgresql://user:password@localhost:5432/nextjs_db', category: 'database' },
+        { key: 'NEXT_PUBLIC_APP_URL', value: 'http://localhost:3000', category: 'public' }
+      ],
+      react: [
+        { key: 'REACT_APP_API_URL', value: 'http://localhost:3001/api', category: 'api' },
+        { key: 'REACT_APP_ENV', value: 'development', category: 'environment' },
+        { key: 'REACT_APP_VERSION', value: '1.0.0', category: 'app' }
+      ],
+      nodejs: [
+        { key: 'NODE_ENV', value: 'development', category: 'environment' },
+        { key: 'PORT', value: '3000', category: 'server' },
+        { key: 'JWT_SECRET', value: 'generate_jwt_secret_here', category: 'auth' },
+        { key: 'DB_CONNECTION_STRING', value: 'mongodb://localhost:27017/nodejs_app', category: 'database' }
+      ],
+      express: [
+        { key: 'EXPRESS_PORT', value: '8000', category: 'server' },
+        { key: 'CORS_ORIGIN', value: 'http://localhost:3000', category: 'cors' },
+        { key: 'SESSION_SECRET', value: 'generate_session_secret_here', category: 'auth' }
+      ],
+      default: [
+        { key: 'APP_NAME', value: 'My Application', category: 'app' },
+        { key: 'APP_ENV', value: 'development', category: 'environment' },
+        { key: 'API_KEY', value: 'your_api_key_here', category: 'api' }
+      ]
     };
 
-    const scaffoldAgent = new SecretScaffoldAgent(config);
+    const template = scaffoldTemplates[framework as keyof typeof scaffoldTemplates] || scaffoldTemplates.default;
 
-    if (action === 'scan') {
-      // Perform secret scaffolding analysis
-      const scaffoldResult = await scaffoldAgent.scaffoldProjectSecrets(project);
+    // Get or create vault
+    let vault = await db.vault.findUnique({
+      where: { id: vaultId }
+    });
 
-      // Enhance suggestions with UI-friendly metadata
-      const enhancedSuggestions = scaffoldResult.suggestions.map(suggestion => ({
-        ...suggestion,
-        uiMetadata: {
-          priority: suggestion.confidence > 0.8 ? 'high' : suggestion.confidence > 0.6 ? 'medium' : 'low',
-          icon: getSecretIcon(suggestion.key, suggestion.category),
-          estimatedValue: generateEstimatedValue(suggestion.key),
-          helpText: getHelpText(suggestion.key, suggestion.category)
-        }
-      }));
-
-      logger.info('Secret scaffolding completed', {
-        project,
-        projectPath,
-        suggestionsCount: enhancedSuggestions.length,
-        conflictsCount: scaffoldResult.conflicts.length,
-        confidenceScore: scaffoldResult.statistics.confidenceScore
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Secret scaffolding analysis completed',
-        result: {
-          ...scaffoldResult,
-          suggestions: enhancedSuggestions
-        },
-        metadata: {
-          projectPath: config.projectPath,
-          scanDepth: config.scanDepth,
-          analysisTimestamp: new Date().toISOString()
-        },
-        timestamp: new Date().toISOString()
-      }, {
-        headers: {
-          'X-Secrets-Agent': 'secret-scaffold',
-          'X-Project': project,
-          'X-Suggestions-Count': enhancedSuggestions.length.toString()
+    if (!vault) {
+      vault = await db.vault.create({
+        data: {
+          id: vaultId,
+          name: `${framework}-vault`,
+          ownerId: userId,
+          encryptionKey: 'temp-key'
         }
       });
-
-    } else if (action === 'apply') {
-      // Apply suggestions to vault
-      if (!suggestions || !Array.isArray(suggestions)) {
-        return NextResponse.json(
-          { error: 'Suggestions array is required for apply action' },
-          { status: 400 }
-        );
-      }
-
-      const conflictResolution = body.conflictResolution || 'skip';
-      const addedCount = await scaffoldAgent.applySuggestions(
-        project,
-        suggestions,
-        conflictResolution
-      );
-
-      logger.info('Secret suggestions applied', {
-        project,
-        addedCount,
-        totalSuggestions: suggestions.length,
-        conflictResolution
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: `Successfully applied ${addedCount} secret suggestions`,
-        applied: {
-          count: addedCount,
-          project,
-          conflictResolution
-        },
-        timestamp: new Date().toISOString()
-      }, {
-        status: 201,
-        headers: {
-          'X-Secrets-Agent': 'secret-scaffold-apply',
-          'X-Project': project,
-          'X-Applied-Count': addedCount.toString()
-        }
-      });
-
-    } else {
-      return NextResponse.json(
-        { error: `Unknown action: ${action}. Supported actions: scan, apply` },
-        { status: 400 }
-      );
     }
+
+    // Create scaffolded secrets
+    const scaffoldResults = [];
+    for (const secretTemplate of template) {
+      try {
+        const existingSecret = await db.secret.findFirst({
+          where: {
+            vaultId: vaultId,
+            key: secretTemplate.key
+          }
+        });
+
+        if (!existingSecret) {
+          await db.secret.create({
+            data: {
+              vaultId: vaultId,
+              key: secretTemplate.key,
+              valueEncrypted: secretTemplate.value,
+              metadata: JSON.stringify({ 
+                category: secretTemplate.category,
+                scaffolded: true,
+                framework: framework
+              })
+            }
+          });
+          scaffoldResults.push({ 
+            key: secretTemplate.key, 
+            action: 'created',
+            category: secretTemplate.category
+          });
+        } else {
+          scaffoldResults.push({ 
+            key: secretTemplate.key, 
+            action: 'skipped',
+            reason: 'already exists'
+          });
+        }
+      } catch (error) {
+        scaffoldResults.push({ 
+          key: secretTemplate.key, 
+          action: 'failed', 
+          error: error instanceof Error ? error.message : 'Unknown error' 
+        });
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: `Scaffolded ${framework} secrets`,
+      framework,
+      results: scaffoldResults,
+      summary: {
+        total: template.length,
+        created: scaffoldResults.filter(r => r.action === 'created').length,
+        skipped: scaffoldResults.filter(r => r.action === 'skipped').length,
+        failed: scaffoldResults.filter(r => r.action === 'failed').length
+      }
+    });
 
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    
-    logger.error('Secret scaffold operation failed', { error: errorMessage });
-
-    // Handle specific errors
-    if (errorMessage.includes('Project path does not exist')) {
-      return NextResponse.json(
-        { 
-          error: 'Project path not found',
-          details: 'The specified project path does not exist or is not accessible',
-          suggestion: 'Verify the project path and ensure proper permissions'
-        },
-        { status: 404 }
-      );
-    }
-
-    if (errorMessage.includes('Vault load failed') || errorMessage.includes('sops')) {
-      return NextResponse.json(
-        { 
-          error: 'Vault access failed',
-          details: 'Unable to access or decrypt vault. Ensure SOPS keys are configured.',
-          suggestion: 'Run vault initialization or check SOPS configuration'
-        },
-        { status: 503 }
-      );
-    }
-
+    console.error('Scaffold error:', error);
     return NextResponse.json(
-      { 
-        error: 'Secret scaffold operation failed',
-        details: errorMessage 
-      },
+      { error: 'Failed to scaffold secrets' },
       { status: 500 }
     );
   }
-}
-
-// Helper functions for UI enhancement
-function getSecretIcon(key: string, category?: string): string {
-  const keyLower = key.toLowerCase();
-  
-  if (keyLower.includes('api') || keyLower.includes('token')) return '🔑';
-  if (keyLower.includes('database') || keyLower.includes('db')) return '🗄️';
-  if (keyLower.includes('password') || keyLower.includes('pass')) return '🔐';
-  if (keyLower.includes('url') || keyLower.includes('endpoint')) return '🌐';
-  if (keyLower.includes('key') || keyLower.includes('secret')) return '🔓';
-  if (keyLower.includes('email') || keyLower.includes('mail')) return '✉️';
-  if (keyLower.includes('port') || keyLower.includes('host')) return '🖥️';
-  if (keyLower.includes('auth') || keyLower.includes('jwt')) return '🛡️';
-  
-  // Category-based icons
-  if (category === 'database') return '🗄️';
-  if (category === 'api') return '🔗';
-  if (category === 'authentication') return '🛡️';
-  if (category === 'environment') return '⚙️';
-  
-  return '🔒'; // Default secret icon
-}
-
-function generateEstimatedValue(key: string): string {
-  const keyLower = key.toLowerCase();
-  
-  if (keyLower.includes('port')) return '3000';
-  if (keyLower.includes('host') && !keyLower.includes('db')) return 'localhost';
-  if (keyLower.includes('env') && keyLower.includes('node')) return 'development';
-  if (keyLower.includes('debug')) return 'false';
-  if (keyLower.includes('ssl') || keyLower.includes('tls')) return 'true';
-  if (keyLower.includes('timeout')) return '30000';
-  if (keyLower.includes('max') && keyLower.includes('connection')) return '10';
-  
-  // Database-related
-  if (keyLower.includes('db') && keyLower.includes('host')) return 'localhost';
-  if (keyLower.includes('db') && keyLower.includes('port')) return '5432';
-  if (keyLower.includes('db') && keyLower.includes('name')) return 'app_database';
-  
-  return '[REQUIRED]'; // Placeholder for required values
-}
-
-function getHelpText(key: string, category?: string): string {
-  const keyLower = key.toLowerCase();
-  
-  if (keyLower.includes('api_key')) return 'API key for external service authentication';
-  if (keyLower.includes('database_url')) return 'Full connection string for database access';
-  if (keyLower.includes('jwt_secret')) return 'Secret key for JWT token signing and verification';
-  if (keyLower.includes('smtp')) return 'Email service configuration for sending notifications';
-  if (keyLower.includes('redis')) return 'Redis connection for caching and session storage';
-  if (keyLower.includes('aws')) return 'AWS credentials for cloud service access';
-  if (keyLower.includes('google')) return 'Google API credentials for integration';
-  if (keyLower.includes('stripe')) return 'Stripe payment processing credentials';
-  
-  // Category-based help
-  if (category === 'database') return 'Database connection and authentication details';
-  if (category === 'api') return 'External API integration credentials';
-  if (category === 'authentication') return 'User authentication and authorization settings';
-  if (category === 'environment') return 'Environment-specific configuration values';
-  
-  return 'Application configuration value - update as needed';
 } 

@@ -1,0 +1,68 @@
+---
+description: null
+globs: null
+alwaysApply: true
+type: always
+migrated: true
+migration_date: '2025-06-07T14:32:13.447522'
+---
+
+# RULE TYPE: Best Practice / Tooling
+# FILE PATTERNS: **/*.py
+# DESCRIPTION: Recommends configuring and running static analysis tools to catch errors like usage before definition.
+
+# Static Analysis Configuration Guideline
+
+## 1. Purpose
+
+To ensure code quality and catch common errors early (like using variables/classes before they are defined), this rule recommends the integration and configuration of standard Python static analysis tools.
+
+## 2. Recommended Tools
+
+- **`flake8`:** A popular linter framework.
+  - **Plugins:** Consider `flake8-bugbear` (catches common bugs, including some usage-before-definition cases like B008) and `flake8-comprehensions`.
+- **`pylint`:** Another comprehensive linter with extensive checks.
+- **`mypy`:** A static type checker, excellent for finding type errors and related issues, including some forms of undefined names.
+- **`ruff`:** An extremely fast linter and formatter, written in Rust, capable of replacing `flake8`, `isort`, and others, often with better performance and more checks enabled by default.
+
+## 3. Configuration Recommendation
+
+- **Project Configuration:** Configure these tools via project-level files (e.g., `pyproject.toml`, `.flake8`, `.pylintrc`, `mypy.ini`).
+- **Key Checks (Enable/Enforce):**
+  - **Usage Before Definition:** Ensure linters are configured to flag instances where a variable, function, or class is used before it has been assigned or defined in the current scope (e.g., `F821` in `flake8`/`pyflakes`, various checks in `pylint`).
+  - **Undefined Names:** Ensure type checkers (`mypy`) or linters flag usage of names that cannot be resolved.
+  - **Typing:** Enforce type hints and run `mypy` to catch type inconsistencies.
+
+## 4. Integration Recommendation
+
+- **Pre-Commit Hooks:** Integrate these tools into pre-commit hooks (using the `pre-commit` framework) to automatically check code before it's committed.
+- **CI/CD Pipeline:** Include static analysis checks as a mandatory step in your Continuous Integration pipeline.
+- **IDE Integration:** Configure your IDE (e.g., VS Code, PyCharm) to run these linters/checkers in real-time or on save.
+
+## 5. Example `pyproject.toml` Snippets (Illustrative)
+
+```toml
+# Example using Ruff (combines linting/formatting)
+[tool.ruff]
+line-length = 88
+select = ["E", "F", "W", "C90", "I", "N", "UP", "B", "A", "COM", "LOG", "T20"]
+ignore = ["E501"]
+
+[tool.ruff.lint.flake8-bugbear]
+unused-loop-control-variable = true
+
+# Example using mypy
+[tool.mypy]
+python_version = "3.12"
+warnings = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+```
+
+## 6. Benefits
+- Catches errors automatically without needing to run the code.
+- Enforces code style and quality standards consistently.
+- Improves code readability and maintainability.
+
+---
+**End of Rule Content**

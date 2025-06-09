@@ -2,6 +2,8 @@ import { EventEmitter } from 'events';
 import { createLogger } from '../utils/logger';
 import { MCPServer } from './MCPServer';
 import { APIGateway } from './APIGateway';
+import AgentBridge from './AgentBridge';
+import CICDIntegration from './CICDIntegration';
 
 const logger = createLogger('MonitoringService');
 
@@ -35,17 +37,42 @@ export interface Alert {
   data?: any;
 }
 
+export interface MonitoringConfig {
+  enabled: boolean;
+  scanIntervalMinutes: number;
+  autoImportSecrets: boolean;
+  enableAlerts: boolean;
+  alertThresholds: {
+    newSecretsFound: number;
+    criticalRiskSecrets: number;
+  };
+}
+
 export class MonitoringService extends EventEmitter {
   private metrics: Map<string, Metric> = new Map();
   private healthChecks: Map<string, HealthCheck> = new Map();
   private alerts: Alert[] = [];
   private mcpServer: MCPServer;
   private apiGateway: APIGateway;
+  private config: MonitoringConfig;
+  private agentBridge: AgentBridge;
+  private cicdIntegration: CICDIntegration;
+  private isRunning = false;
+  private intervalId: NodeJS.Timeout | null = null;
 
-  constructor(mcpServer: MCPServer, apiGateway: APIGateway) {
+  constructor(mcpServer: MCPServer, apiGateway: APIGateway, config: MonitoringConfig) {
     super();
     this.mcpServer = mcpServer;
     this.apiGateway = apiGateway;
+    this.config = config;
+    this.agentBridge = new AgentBridge();
+    this.cicdIntegration = new CICDIntegration({
+      enabled: true,
+      blockSecrets: true,
+      scanPatterns: [],
+      allowedFiles: ['node_modules', '.git', 'dist', 'build'],
+      notifications: {}
+    });
     this.setupMetrics();
     this.setupHealthChecks();
     this.setupEventListeners();
@@ -379,4 +406,189 @@ export class MonitoringService extends EventEmitter {
 
     logger.info('Metrics collection started');
   }
-} 
+
+  /**
+   * Start continuous monitoring
+   */
+  async start(): Promise<void> {
+    if (this.isRunning) {
+      logger.warn('Monitoring service is already running');
+      return;
+    }
+
+    this.isRunning = true;
+    logger.info('Starting continuous secret monitoring', {
+      intervalMinutes: this.config.scanIntervalMinutes,
+      autoImport: this.config.autoImportSecrets
+    });
+
+    // Initial setup
+    await this.setupInitialConfiguration();
+
+    // Start continuous scanning
+    await this.agentBridge.setupContinuousMonitoring(this.config.scanIntervalMinutes);
+
+    // Setup periodic health checks
+    this.intervalId = setInterval(async () => {
+      await this.performHealthCheck();
+    }, 5 * 60 * 1000); // Every 5 minutes
+
+    logger.info('Continuous monitoring started successfully');
+  }
+
+  /**
+   * Stop continuous monitoring
+   */
+  async stop(): Promise<void> {
+    if (!this.isRunning) {
+      return;
+    }
+
+    this.isRunning = false;
+    
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+      this.intervalId = null;
+    }
+
+    logger.info('Continuous monitoring stopped');
+  }
+
+  /**
+   * Get monitoring status
+   */
+  async getStatus() {
+    const agentStatus = await this.agentBridge.getAgentStatus();
+    
+    return {
+      isRunning: this.isRunning,
+      config: this.config,
+      agentSystem: agentStatus,
+      lastHealthCheck: new Date().toISOString(),
+      uptime: this.isRunning ? 'Active' : 'Stopped'
+    };
+  }
+
+  /**
+   * Setup initial configuration
+   */
+  private async setupInitialConfiguration(): Promise<void> {
+    try {
+      // Install CI/CD hooks if not present
+      await this.cicdIntegration.installPreCommitHooks();
+      
+      // Create GitHub Actions workflow
+      await this.cicdIntegration.createGitHubActionsWorkflow();
+      
+      logger.info('Initial CI/CD configuration completed');
+    } catch (error) {
+      logger.warn('Failed to setup initial configuration:', error);
+    }
+  }
+
+  /**
+   * Perform periodic health check
+   */
+  private async performHealthCheck(): Promise<void> {
+    try {
+      logger.info('🔍 Performing monitoring health check...');
+      
+      // Check if agent system is responsive
+      const agentStatus = await this.agentBridge.getAgentStatus();
+      
+      if (agentStatus.agentSystemStatus !== 'ready' && agentStatus.agentSystemStatus !== 'scanning') {
+        logger.warn('Agent system not in healthy state:', agentStatus.agentSystemStatus);
+      }
+
+      // Check for any critical issues
+      const criticalIssues = [];
+      
+      if (agentStatus.statistics.secretsManaged === 0) {
+        criticalIssues.push('No secrets are currently managed');
+      }
+
+      if (criticalIssues.length > 0) {
+        logger.warn('Critical monitoring issues detected:', criticalIssues);
+      }
+
+      logger.info('Health check completed', {
+        agentStatus: agentStatus.agentSystemStatus,
+        secretsManaged: agentStatus.statistics.secretsManaged,
+        issues: criticalIssues.length
+      });
+
+    } catch (error) {
+      logger.error('Health check failed:', error);
+    }
+  }
+
+  /**
+   * Trigger manual scan
+   */
+  async triggerManualScan(): Promise<any> {
+    try {
+      logger.info('🚀 Triggering manual secret discovery scan...');
+      
+      const result = await this.agentBridge.executeRealDiscovery();
+      
+      // Auto-import if configured
+      if (this.config.autoImportSecrets && result.discoveries.length > 0) {
+        // Find default vault for import
+        const { PrismaClient } = await import('@prisma/client');
+        const prisma = new PrismaClient();
+        const vault = await prisma.vault.findFirst();
+        
+        if (vault) {
+          const importedCount = await this.agentBridge.autoImportSecrets(
+            result.discoveries, 
+            vault.id
+          );
+          
+          result.importedCount = importedCount;
+          logger.info(`Auto-imported ${importedCount} secrets during manual scan`);
+        }
+      }
+
+      // Check alert thresholds
+      if (this.config.enableAlerts) {
+        await this.checkAlertThresholds(result);
+      }
+
+      return result;
+    } catch (error) {
+      logger.error('Manual scan failed:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Check if alert thresholds are exceeded
+   */
+  private async checkAlertThresholds(result: any): Promise<void> {
+    const criticalSecrets = result.discoveries.filter((d: any) => d.risk === 'critical');
+    
+    if (result.secretsFound >= this.config.alertThresholds.newSecretsFound) {
+      logger.warn(`ALERT: ${result.secretsFound} new secrets found (threshold: ${this.config.alertThresholds.newSecretsFound})`);
+    }
+
+    if (criticalSecrets.length >= this.config.alertThresholds.criticalRiskSecrets) {
+      logger.warn(`ALERT: ${criticalSecrets.length} critical risk secrets found (threshold: ${this.config.alertThresholds.criticalRiskSecrets})`);
+    }
+  }
+}
+
+// Create singleton instance
+const defaultConfig: MonitoringConfig = {
+  enabled: true,
+  scanIntervalMinutes: 30,
+  autoImportSecrets: true,
+  enableAlerts: true,
+  alertThresholds: {
+    newSecretsFound: 5,
+    criticalRiskSecrets: 1
+  }
+};
+
+export const monitoringService = new MonitoringService(new MCPServer(), new APIGateway(), defaultConfig);
+
+export default MonitoringService; 

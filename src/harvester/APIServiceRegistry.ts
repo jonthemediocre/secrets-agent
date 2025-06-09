@@ -1,5 +1,4 @@
-import { APIService } from '../vault/VaultTypes';
-import { APICategory, CLISupport, AuthMethod, KeyFormat } from '../vault/VaultTypes';
+import { APIService, AuthMethod, KeyFormat, APICategory } from '../vault/VaultTypes';
 
 /**
  * Top 100 API Services Registry for APIHarvester
@@ -686,6 +685,29 @@ export const API_SERVICES_REGISTRY: APIService[] = [
     cliSupported: false,
     docUrl: 'https://clerk.com/docs/reference/backend-api',
     envVars: ['CLERK_SECRET_KEY', 'NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY']
+  },
+  {
+    id: 'jira',
+    name: 'Jira',
+    description: 'Issue tracking and agile project management',
+    category: 'development-tools',
+    popularity: 92,
+    authMethods: ['api-token', 'oauth'],
+    keyFormats: ['ATATT[A-Za-z0-9_-]{16,}'],
+    cliSupported: true,
+    cliSupport: {
+      available: true,
+      toolName: 'jira',
+      installCommand: 'go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest',
+      authCommand: 'jira init',
+      keyExtractionMethod: 'config',
+      configPath: '~/.config/jira/config.yml'
+    },
+    cliTool: 'jira',
+    cliInstallCmd: 'go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest',
+    cliLoginCmd: 'jira init',
+    docUrl: 'https://developer.atlassian.com/cloud/jira/platform/rest/v3/',
+    envVars: ['JIRA_API_TOKEN', 'JIRA_BASE_URL']
   }
 ];
 
@@ -1024,21 +1046,6 @@ const DEV_TOOLS_SERVICES: APIService[] = [
     cliSupported: false,
     docUrl: 'https://developers.linear.app/docs',
     envVars: ['LINEAR_API_KEY']
-  },
-  {
-    id: 'jira',
-    name: 'Jira',
-    description: 'Issue tracking and agile project management',
-    category: 'development-tools',
-    popularity: 92,
-    authMethods: ['api-token', 'oauth'],
-    keyFormats: ['ATATT[A-Za-z0-9_-]{16,}'],
-    cliSupported: true,
-    cliTool: 'jira',
-    cliInstallCmd: 'go install github.com/ankitpokhrel/jira-cli/cmd/jira@latest',
-    cliLoginCmd: 'jira init',
-    docUrl: 'https://developer.atlassian.com/cloud/jira/platform/rest/v3/',
-    envVars: ['JIRA_API_TOKEN', 'JIRA_BASE_URL']
   },
   {
     id: 'confluence',

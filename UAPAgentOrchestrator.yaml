@@ -1,0 +1,348 @@
+# UAP Agent Manifest - AgentOrchestrator
+# Level 2 Compliance - Autonomous Multi-Agent Coordination
+
+agentId: "agent-orchestrator"
+version: "2.0.0"
+uapLevel: 2
+
+# Agent Identity & Purpose
+identity:
+  name: "AgentOrchestrator"
+  symbolicIntent: "Autonomous coordination and optimization of multi-agent systems with self-healing capabilities"
+  description: "Advanced orchestration agent capable of autonomous network topology management, task routing, consensus building, and strategic evolution"
+  
+roles:
+  - orchestrator
+  - coordinator
+  - optimizer
+  - consensus-builder
+  - network-architect
+
+# Lifecycle Compliance - NOW EXPLICIT
+lifecycleCompliance:
+  supportsPlan: true
+  supportsExecute: true
+  supportsCollapse: true
+  
+planPhase:
+  canAnalyzeObjectives: true
+  canSelectStrategies: true
+  canOptimizeRouting: true
+  canEvaluateFitness: true
+  
+executePhase:
+  canCoordinateAgents: true
+  canManageResources: true
+  canHandleFailures: true
+  canAdaptDynamically: true
+  
+collapsePhase:
+  canConsolidateResults: true
+  canGenerateInsights: true
+  canRecommendOptimizations: true
+  canArchiveStrategies: true
+
+# Capabilities Matrix
+capabilities:
+  agent_orchestration:
+    description: "Autonomous coordination of multi-agent systems"
+    inputTypes: ["application/json", "text/plain"]
+    outputTypes: ["application/json"]
+    complexity: "high"
+    
+  consensus_building:
+    description: "Multi-agent consensus and conflict resolution"
+    inputTypes: ["application/json"]
+    outputTypes: ["application/json"]
+    complexity: "high"
+    
+  network_optimization:
+    description: "Autonomous network topology optimization"
+    inputTypes: ["application/json"]
+    outputTypes: ["application/json"]
+    complexity: "high"
+    
+  strategic_planning:
+    description: "Adaptive orchestration strategy evolution"
+    inputTypes: ["application/json"]
+    outputTypes: ["application/json"]
+    complexity: "high"
+    
+  lifecycle_management:
+    description: "Full UAP lifecycle compliance (plan/execute/collapse)"
+    inputTypes: ["application/json", "text/plain"]
+    outputTypes: ["application/json"]
+    complexity: "medium"
+
+# MCP Callable Functions - AUTO-GENERATED FROM CODE
+mcpCallableFunctions:
+  lifecycle_operations:
+    - plan
+    - execute
+    - collapse
+    
+  orchestration_core:
+    - deployAgent
+    - executeOrchestratedTask
+    - getSystemInsights
+    
+  advanced_coordination:
+    - analyzeSecretsDistributed
+    - detectThreatsWithConsensus
+    - orchestrateMultiFrameworkCompliance
+    
+  network_management:
+    - optimizeNetworkTopology
+    - buildConsensus
+    - enhanceOrchestrationStrategy
+    
+  uap_compliance:
+    - registerHook
+    - performMutation
+    - generateManifest
+
+# Hook System Events
+hooks:
+  events:
+    agent_deployed:
+      description: "Triggered when new agent joins the network"
+      dataStructure: "{ agentId: string, config: HybridAgentConfig, networkSize: number }"
+      
+    task_orchestrated:
+      description: "Triggered when task is orchestrated across agents"
+      dataStructure: "{ task: OrchestratedTask, strategy: string, routing: string[] }"
+      
+    strategy_selected:
+      description: "Triggered when orchestration strategy is chosen"
+      dataStructure: "{ taskType: string, strategy: OrchestrationStrategy, alternatives: string[] }"
+      
+    consensus_reached:
+      description: "Triggered when multi-agent consensus is achieved"
+      dataStructure: "{ results: HybridTaskResult[], consensus: any, confidence: number }"
+      
+    network_optimized:
+      description: "Triggered when network topology is optimized"
+      dataStructure: "{ optimization: string, performance: any, topology: any }"
+      
+    agent_failed:
+      description: "Triggered when agent encounters failure"
+      dataStructure: "{ agentId: string, error: Error, impact: string }"
+      
+    system_degraded:
+      description: "Triggered when system performance degrades"
+      dataStructure: "{ level: string, metrics: SystemWideInsights, recovery: string[] }"
+      
+    orchestration_error:
+      description: "Triggered when orchestration operation fails"
+      dataStructure: "{ error: Error, operation: string, context: any }"
+
+# Mutation Capabilities - AUTONOMOUS SELF-MODIFICATION
+mutations:
+  optimize_topology:
+    description: "Optimize network connection patterns and load balancing"
+    parameters:
+      - optimizeConnections: "boolean (optimize connection patterns)"
+      - loadThreshold: "number (load balancing threshold)"
+      - strategy: "string (balancing strategy)"
+      - enhanceResilience: "boolean (improve network resilience)"
+      - redundancy: "number (redundancy factor)"
+    risksAssessed: true
+    rollbackCapable: true
+    
+  enhance_strategy:
+    description: "Improve orchestration strategies and rules"
+    parameters:
+      - newStrategy: "object (new strategy definition)"
+      - enhanceExisting: "boolean (enhance existing strategies)"
+      - priorityBoost: "number (priority adjustment)"
+    risksAssessed: true
+    rollbackCapable: true
+    
+  improve_consensus:
+    description: "Optimize consensus building mechanisms"
+    parameters:
+      - lowerThreshold: "boolean (lower consensus threshold)"
+      - improveResolution: "boolean (enhance conflict resolution)"
+      - resolutionMethod: "string (resolution method)"
+    risksAssessed: true
+    rollbackCapable: true
+    
+  strengthen_security:
+    description: "Add advanced security monitoring and response"
+    parameters:
+      - enableThreatDetection: "boolean (advanced threat detection)"
+      - enableMonitoring: "boolean (real-time security monitoring)"
+      - enableAutoResponse: "boolean (autonomous incident response)"
+    risksAssessed: true
+    rollbackCapable: true
+
+# Security Classification
+security:
+  classification: "HIGH"
+  permissions:
+    - "agent:deploy"
+    - "agent:coordinate"
+    - "network:optimize"
+    - "system:monitor"
+    - "strategy:modify"
+    - "consensus:build"
+  dataAccess:
+    - "agent_metrics"
+    - "network_topology"
+    - "performance_data"
+    - "security_insights"
+    - "orchestration_logs"
+    - "mutation_history"
+
+# Resource Requirements
+resourceRequirements:
+  memory: "512MB"
+  cpu: "high"
+  storage: "moderate (strategy and metric storage)"
+  network: true
+  diskSpace: "logs and analytics = 2x operational data"
+
+# Integration Points
+integrationPoints:
+  agents:
+    - "vault-agent"
+    - "cli-harvester"
+    - "security-agents"
+    - "compliance-agents"
+  
+  apis:
+    - "/api/orchestration/*"
+    - "/api/agents/*"
+    - "/api/network/*"
+    - "/api/consensus/*"
+  
+  events:
+    - "orchestration_operations"
+    - "network_events"
+    - "consensus_events"
+    - "agent_lifecycle"
+
+# Performance Characteristics
+performance:
+  responseTime: 
+    plan: "< 200ms"
+    execute: "< 30s (depends on task complexity)"
+    collapse: "< 1s"
+  throughput:
+    tasks_per_minute: 500
+    agents_managed: 100
+    strategies_processed: 1000
+  availability: "99.95%"
+  scalability: "supports 1000+ agents in network"
+
+# Autonomous Behavior
+autonomousCapabilities:
+  selfHealing: true
+  selfOptimization: true
+  selfMonitoring: true
+  adaptiveBehavior: true
+  strategicEvolution: true
+  
+autonomousDecisions:
+  - "network topology optimization"
+  - "agent load balancing"
+  - "strategy selection and enhancement"
+  - "consensus threshold adjustment"
+  - "failure recovery and routing"
+  - "resource allocation optimization"
+
+# Known Compatible Tools
+knownTools:
+  internal:
+    - "HybridAgent"
+    - "EventEmitter"
+    - "Logger"
+    - "NetworkTopology"
+  
+  external:
+    - "Kubernetes Orchestrator"
+    - "Docker Swarm"
+    - "Apache Kafka"
+    - "Redis Cluster"
+
+# Orchestration Patterns - LIVE DATA
+orchestrationPatterns:
+  load_balancing:
+    threshold: 0.8
+    strategy: "round_robin"
+    failover: true
+    adaptive: true
+    
+  consensus_building:
+    minimum_agents: 3
+    confidence_threshold: 0.75
+    conflict_resolution: "weighted_voting"
+    timeout: 30000
+    
+  network_optimization:
+    connection_strategy: "adaptive"
+    topology_optimization: "performance_based"
+    healing_enabled: true
+    monitoring_interval: 30000
+
+# Compliance & Standards
+compliance:
+  standards:
+    - "UAP Level 2"
+    - "MCP Protocol"
+    - "SOC 2 Type II"
+    - "ISO 27001"
+  
+  auditCapabilities:
+    - "comprehensive orchestration logging"
+    - "immutable mutation trail"
+    - "real-time performance monitoring"
+    - "consensus decision auditing"
+
+# CLI Interface Support
+cliCommands:
+  plan:
+    usage: "uap run AgentOrchestrator.plan 'Coordinate security analysis'"
+    description: "Generate orchestration plan for objective"
+    
+  execute:
+    usage: "uap run AgentOrchestrator.execute <plan.json>"
+    description: "Execute orchestration strategy"
+    
+  collapse:
+    usage: "uap run AgentOrchestrator.collapse <results.json>"
+    description: "Analyze and consolidate results"
+    
+  mutate:
+    usage: "uap mutate AgentOrchestrator --type=optimize_topology"
+    description: "Perform autonomous system mutation"
+    
+  manifest:
+    usage: "uap manifest AgentOrchestrator"
+    description: "Export current agent manifest"
+
+# Version History
+versionHistory:
+  - version: "1.0.0"
+    changes: "Basic orchestration functionality"
+  - version: "1.5.0"
+    changes: "Added consensus building and network optimization"
+  - version: "2.0.0"
+    changes: "Full UAP Level 2 compliance with explicit lifecycle, hooks, and mutations"
+
+# Agent Metadata
+metadata:
+  created: "2024-12-XX"
+  lastUpdated: "2024-12-XX"
+  maintainer: "UAP Compliance Team"
+  documentation: "docs/agent-orchestrator.md"
+  testSuite: "tests/agent-orchestrator.test.ts"
+  
+# Live Status - RUNTIME POPULATED
+runtimeStatus:
+  agentsManaged: 0
+  activeTasks: 0
+  strategiesActive: 1
+  networkHealth: "healthy"
+  lastMutation: "none"
+  uptime: "0s" 

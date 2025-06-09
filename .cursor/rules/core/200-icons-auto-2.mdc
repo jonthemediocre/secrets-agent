@@ -1,0 +1,137 @@
+---
+description: null
+globs: src/**/*.ts,.tsx
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.205082'
+---
+
+---
+description: Guidelines for icon usage and management in the application
+globs:
+  - src/components/ui/icons.tsx
+  - src/**/*.ts,tsx
+---
+
+# 200-Iconography-and-Visual-Asset-Guidelines
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule provides guidelines for the use of iconography and other visual assets across projects. It covers aspects like preferred icon sets, image formats, sizing, accessibility considerations, and maintaining visual consistency in UIs, documentation, and branding materials.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here
+
+# Icon Usage Guidelines
+
+## Icon Management
+- Use centralized icon management
+- Import icons from icons.tsx
+- Follow naming conventions
+- Maintain icon consistency
+
+## Icon Implementation
+- Use proper icon components
+- Handle icon sizing
+- Implement icon colors
+- Support icon variants
+
+## Icon Accessibility
+- Add proper ARIA labels
+- Ensure proper contrast
+- Support screen readers
+- Handle focus states
+
+## Icon Performance
+- Optimize icon assets
+- Use proper loading
+- Implement caching
+- Monitor performance
+
+## Icon Documentation
+- Document icon usage
+- Provide examples
+- Document variants
+- Keep icon list updated
+
+## Icon Testing
+- Test icon rendering
+- Test accessibility
+- Test responsiveness
+- Test performance
+
+## Icon Maintenance
+- Regular updates
+- Remove unused icons
+- Add new icons
+- Update documentation
+
+# Icon Usage Standards
+
+## Icon Components
+- Use SVG icons for scalability
+- Create reusable icon components
+- Maintain consistent sizing
+- Support color customization
+
+## Accessibility
+- Add proper ARIA labels
+- Ensure sufficient contrast
+- Provide text alternatives
+- Support high contrast mode
+
+## Performance
+- Optimize SVG files
+- Use appropriate icon sizes
+- Implement lazy loading
+- Bundle icons efficiently
+
+## Design System
+- Follow consistent style
+- Use standard icon set
+- Maintain visual hierarchy
+- Support dark/light modes
+
+## Core Principles
+- Always use the central Icons object from `src/components/ui/icons.tsx`
+- Never import Lucide icons directly in components
+- Add new icons to the Icons object before using them
+
+## Using Icons
+- Import the Icons object: `import { Icons } from '@/components/ui/icons';`
+- Reference icons as: `<Icons.iconName />`
+- Set size with the size prop: `<Icons.iconName size={20} />`
+- Override color with className if needed: `<Icons.iconName className="text-primary" />`
+
+## Adding New Icons
+- When adding new icons, follow these steps:
+  1. Import the icon from lucide-react in `icons.tsx`
+  2. Add it to the Icons object with an appropriate name
+  3. Group related icons with a comment
+  4. Use consistent naming patterns
+
+## Examples
+```tsx
+// Good
+import { Icons } from '@/components/ui/icons';
+
+function MyComponent() {
+  return <Icons.settings size={18} className="text-muted-foreground" />;
+}
+
+// Bad
+import { Settings } from 'lucide-react';
+
+function MyComponent() {
+  return <Settings size={18} className="text-muted-foreground" />;
+}
+```
+
+## Testing
+- Make sure icons are properly imported in your tests
+- Mock the Icons object for component tests if needed

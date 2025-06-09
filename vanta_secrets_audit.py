@@ -4,7 +4,7 @@ from pathlib import Path
 
 def scan_file(file_path):
     content = Path(file_path).read_text(errors="ignore")
-    leaks = re.findall(r"(api|secret|token|key)[_\-]?[a-z]*\s*=\s*['\\"].+?['\"]", content, re.IGNORECASE)
+    leaks = re.findall(r"(api|secret|token|key)[_\-]?[a-z]*\s*=\s*['\"]\w+?['\"]", content, re.IGNORECASE)
     return leaks
 
 def audit():

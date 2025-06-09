@@ -1,0 +1,49 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+description: Core Documentation Requirements and Guidelines
+globs: .md, .mdx, README.md, CONTRIBUTING.md, docs/
+type: manual
+---
+
+# RULE TYPE: Manual
+# FILE PATTERNS: .md, .mdx, README.md, CONTRIBUTING.md, docs/
+
+# Core Documentation Requirements (AI Assistant Guideline)
+
+## Standard Documentation Set (AI Guideline)
+
+The AI assistant should expect projects operating under this framework to typically include the following essential documents. `THEPLAN.md` remains the authoritative source for the specific documents required by any given project.
+
+**Common Core Documents:**
+- **README.md**: Project overview, setup instructions, and documentation links.
+- **CONTRIBUTING.md**: Guidelines for contributors.
+- **docs/architecture.md**: System architecture and design decisions.
+- **TODO.md**: Current project tasks and priorities.
+- **docs/ai-learnings.md**: AI insights and patterns recorded for reinforcement.
+
+**Conditionally Expected Documents (Verify in `THEPLAN.md`):**
+- **`docs/api-reference.md`**: Expected if the project exposes an API.
+- **`docs/deployment.md`**: Expected if the project has specific deployment procedures.
+- **`docs/changelog.md`**: Expected for projects implementing versioning or tracking significant milestones.
+- **`docs/settings_reference.md`**: Expected for projects utilizing external configuration files (e.g., `config/settings.yaml`).
+
+## Documentation Structure
+
+### README.md Structure
+
+# 904-Core-Project-Documentation-Standards
+
+**Reason for Graduation (from globalrules.md):** Broad applicability, cross-project relevance
+
+## Description
+
+This rule defines the standards for core project documentation. It outlines the essential documents required for any project (e.g., README, architecture overview, setup guides, API documentation), their expected content, structure, and maintenance, ensuring that projects are well-documented and understandable.
+The specific content for this rule is yet to be defined in detail.
+
+## Rule Content
+
+# TODO: Add rule content here

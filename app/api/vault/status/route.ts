@@ -37,12 +37,30 @@ export async function GET(request: NextRequest) {
       const sopsConfigPath = path.join(process.cwd(), '.sops.yaml');
       const sopsConfig = await fs.readFile(sopsConfigPath, 'utf-8');
       sopsConfigured = sopsConfig.includes('age') || sopsConfig.includes('pgp');
-      
-      // Count keys in SOPS config
-      const keyMatches = sopsConfig.match(/age:|pgp:/g);
-      keyCount = keyMatches ? keyMatches.length : 0;
     } catch (err) {
       console.log('SOPS config not found or invalid');
+    }
+
+    // Count actual secrets in vault, not encryption keys
+    try {
+      const vaultFile = path.join(process.cwd(), 'vault', 'secrets.sops.yaml');
+      const vaultContent = await fs.readFile(vaultFile, 'utf-8');
+      
+      if (vaultContent.trim().startsWith('{')) {
+        // JSON format vault
+        const vaultData = JSON.parse(vaultContent);
+        if (vaultData.projects && Array.isArray(vaultData.projects)) {
+          keyCount = vaultData.projects.reduce((total: number, project: any) => {
+            return total + (project.secrets ? project.secrets.length : 0);
+          }, 0);
+        }
+      } else {
+        // YAML format - count key-value pairs
+        const lines = vaultContent.split('\n');
+        keyCount = lines.filter(line => line.includes(':') && !line.trim().startsWith('#')).length;
+      }
+    } catch (err) {
+      console.log('Could not count vault secrets:', err);
     }
 
     // Check vault path accessibility

@@ -1,0 +1,16 @@
+{
+  "rule_id": "SEC-001",
+  "category": "SEC",
+  "severity": "CRITICAL",
+  "title": "Authentication Requirements",
+  "description": "All inter-agent communication MUST be authenticated",
+  "implementation_requirements": [
+    "Implement authentication validation in message handlers",
+    "Verify agent identity and permissions",
+    "Handle authentication failures securely"
+  ],
+  "validation_method": "check_authentication_requirements",
+  "sync_priority": 10,
+  "last_updated": "2025-06-07T12:46:18.387787",
+  "version": "2.0.0"
+}

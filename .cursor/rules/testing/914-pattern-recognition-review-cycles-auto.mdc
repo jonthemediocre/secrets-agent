@@ -1,0 +1,248 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: auto
+migrated: true
+migration_date: '2025-06-07T14:31:54.306749'
+---
+
+# RULE TYPE: Scheduled
+# FILE PATTERNS: *.mdc, *.md
+
+# Pattern Recognition Accuracy Review Cycles
+
+## Requirement
+
+This rule establishes periodic review cycles to validate and improve the accuracy of Magic Prompt and RL pattern recognition using the training standards from rule 913. It ensures continuous improvement of AI signature quality and pattern detection capabilities.
+
+## Review Schedule
+
+### Weekly Pattern Accuracy Review
+**Frequency:** Every Monday  
+**Duration:** 30 minutes  
+**Scope:** Previous week's AI responses and signatures  
+
+**Review Process:**
+1. **Sample Collection:** Randomly select 20 AI responses from the previous week
+2. **Pattern Validation:** Apply 913 training standards to validate signatures
+3. **Accuracy Scoring:** Calculate pattern detection accuracy rates
+4. **Gap Analysis:** Identify missed patterns and false positives
+5. **Improvement Actions:** Update recognition guidelines if needed
+
+### Monthly Deep Validation Cycle
+**Frequency:** First Monday of each month  
+**Duration:** 2 hours  
+**Scope:** Comprehensive pattern recognition assessment  
+
+**Deep Review Process:**
+1. **Statistical Analysis:** Analyze pattern detection trends over the month
+2. **Cross-Framework Validation:** Test patterns across MDC, DSL, YAML, Rego formats
+3. **Training Effectiveness:** Evaluate 913 rule training scenario accuracy
+4. **Benchmark Comparison:** Compare against cross-framework standards
+5. **Rule Evolution:** Propose updates to training materials
+
+## Review Metrics and Targets
+
+### Core Accuracy Metrics
+```yaml
+pattern_detection_accuracy:
+  magic_prompt_recognition: "> 90%"
+  rl_pattern_recognition: "> 90%"
+  agent_level_classification: "> 85%"
+  false_positive_rate: "< 5%"
+  false_negative_rate: "< 10%"
+
+consistency_metrics:
+  cross_framework_alignment: "> 95%"
+  reviewer_agreement: "> 90%"
+  temporal_consistency: "> 85%"
+```
+
+### Quality Indicators
+- **Pattern Coverage:** All 4 Magic Prompt patterns covered weekly
+- **RL Pattern Coverage:** All 4 RL patterns covered weekly  
+- **Agent Level Distribution:** L1/L2/L3 representation in samples
+- **Improvement Trending:** 5% accuracy gain quarterly
+
+## Review Protocol
+
+### Step 1: Sample Selection
+```
+Selection Criteria:
+- Random sampling from AI responses
+- Include various response types (simple, complex, iterative)
+- Ensure pattern diversity representation
+- Include both development and production contexts
+```
+
+### Step 2: Pattern Validation Matrix
+```
+For each sampled response, validate:
+┌─────────────────────┬─────────────┬─────────────┬─────────────┐
+│ Pattern Type        │ Detected?   │ Correctly?  │ Confidence  │
+├─────────────────────┼─────────────┼─────────────┼─────────────┤
+│ Multi-Stage Analysis│ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Expert Consultation │ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Iterative Refinement│ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Strategic Synthesis │ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Evaluation Decisions│ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Feedback Adjustment │ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Performance Learning│ Y/N         │ Y/N         │ 0.0-1.0     │
+│ Threshold Management│ Y/N         │ Y/N         │ 0.0-1.0     │
+└─────────────────────┴─────────────┴─────────────┴─────────────┘
+```
+
+### Step 3: Accuracy Calculation
+```python
+# Pseudocode for accuracy calculation
+def calculate_accuracy(validation_matrix):
+    total_patterns = len(validation_matrix)
+    correct_detections = sum(row.correctly_detected for row in validation_matrix)
+    
+    accuracy = correct_detections / total_patterns
+    false_positive_rate = sum(row.false_positive for row in validation_matrix) / total_patterns
+    false_negative_rate = sum(row.false_negative for row in validation_matrix) / total_patterns
+    
+    return {
+        'accuracy': accuracy,
+        'false_positive_rate': false_positive_rate,
+        'false_negative_rate': false_negative_rate
+    }
+```
+
+## Review Actions and Escalation
+
+### Green Zone (> 90% Accuracy)
+- **Action:** Continue current training standards
+- **Frequency:** Maintain weekly reviews
+- **Documentation:** Log successful patterns for reinforcement
+
+### Yellow Zone (80-90% Accuracy)
+- **Action:** Enhanced training focus on problem patterns
+- **Frequency:** Increase to bi-weekly detailed reviews
+- **Documentation:** Create additional training examples
+- **Escalation:** Update 913 rule with new scenarios
+
+### Red Zone (< 80% Accuracy)
+- **Action:** Immediate training intervention required
+- **Frequency:** Daily pattern validation until improvement
+- **Documentation:** Comprehensive gap analysis and retraining
+- **Escalation:** Revise cross-framework standards and 911 signature format
+
+## Training Reinforcement Protocols
+
+### Pattern Reinforcement (Weekly)
+```markdown
+For each correctly identified pattern:
+1. Document the successful recognition
+2. Add to positive training examples
+3. Reinforce pattern indicators that worked
+4. Share successful cases in training materials
+```
+
+### Gap Remediation (As Needed)
+```markdown
+For each missed or incorrectly identified pattern:
+1. Analyze why the pattern was missed
+2. Identify missing indicators or weak signals
+3. Create targeted training scenarios
+4. Update pattern recognition guidelines
+5. Test improved recognition on similar cases
+```
+
+## Cross-Framework Integration
+
+### MDC Integration
+- Update 913 training rule with new examples from review cycles
+- Enhance pattern recognition guidelines based on findings
+- Integrate successful recognition patterns into rule content
+
+### YAML/DSL/Rego Integration  
+- Export successful pattern recognition metrics to cross-framework standards
+- Update confidence thresholds based on review data
+- Share pattern improvements across all rule formats
+
+## Review Documentation
+
+### Weekly Review Report Template
+```yaml
+review_date: "YYYY-MM-DD"
+reviewer: "AI_System_ID"
+sample_size: 20
+period_covered: "YYYY-MM-DD to YYYY-MM-DD"
+
+accuracy_metrics:
+  magic_prompt_accuracy: "XX.X%"
+  rl_pattern_accuracy: "XX.X%"
+  overall_accuracy: "XX.X%"
+  false_positive_rate: "X.X%"
+  false_negative_rate: "X.X%"
+
+key_findings:
+  - "Finding 1"
+  - "Finding 2"
+  
+improvement_actions:
+  - "Action 1"
+  - "Action 2"
+
+next_review_date: "YYYY-MM-DD"
+```
+
+### Monthly Deep Review Report Template
+```yaml
+review_month: "YYYY-MM"
+comprehensive_sample_size: 100
+trend_analysis_period: "Monthly"
+
+statistical_summary:
+  pattern_detection_trends: "Description"
+  accuracy_improvement: "X.X% change from previous month"
+  training_effectiveness: "Assessment of 913 rule training"
+
+cross_framework_validation:
+  mdc_alignment: "XX.X%"
+  yaml_alignment: "XX.X%"
+  dsl_alignment: "XX.X%"
+  rego_alignment: "XX.X%"
+
+recommendations:
+  rule_updates: ["Update 1", "Update 2"]
+  training_enhancements: ["Enhancement 1", "Enhancement 2"]
+  framework_improvements: ["Improvement 1", "Improvement 2"]
+```
+
+## Success Criteria
+
+### Short-term (Monthly)
+- [ ] 90%+ pattern recognition accuracy maintained
+- [ ] All review cycles completed on schedule  
+- [ ] Gap remediation actions implemented within 1 week
+- [ ] Training materials updated based on findings
+
+### Medium-term (Quarterly)
+- [ ] 5% accuracy improvement over baseline
+- [ ] Cross-framework alignment > 95%
+- [ ] Zero critical pattern recognition failures
+- [ ] Training effectiveness validated across all patterns
+
+### Long-term (Annually)
+- [ ] Pattern recognition system fully autonomous
+- [ ] Training materials comprehensive and battle-tested
+- [ ] Cross-framework standards widely adopted
+- [ ] Continuous improvement cycle established
+
+## Purpose
+
+This rule ensures that the sophisticated pattern recognition capabilities developed in rule 913 are continuously validated, improved, and maintained at high accuracy levels. It creates a feedback loop for training effectiveness and enables data-driven improvements to AI signature quality.
+
+---
+
+# 914-Pattern-Recognition-Review-Cycles
+
+**Reason for Creation:** Establish systematic validation and improvement cycles for AI pattern recognition accuracy using training standards from rule 913.
+
+## Description
+
+This rule creates a comprehensive review system with weekly and monthly cycles to validate Magic Prompt and RL pattern recognition accuracy. It provides metrics, protocols, and improvement actions to ensure continuous enhancement of AI signature quality and pattern detection capabilities across all supported rule formats.

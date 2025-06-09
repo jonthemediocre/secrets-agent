@@ -1,0 +1,89 @@
+---
+description: null
+globs: null
+alwaysApply: false
+type: agent
+migrated: true
+migration_date: '2025-06-07T14:31:54.281007'
+---
+
+# RULE TYPE: AgentRequested
+# FILE PATTERNS: .cursor/rules/**/*.mdc
+# INTENDED AUDIENCE: AI Assistant, System Architects
+
+# 909: MDC Rule Optimization Protocol & Agent Definition
+
+## 1. Purpose
+
+This document defines the operational protocol for the **MDC Rule Optimizer Agent**. The primary goal of this agent and its associated ritual ("Ritual Collapse Assessment") is to maintain a lean, effective, and understandable set of MDC rules within the `.cursor/rules/` directory. This involves identifying opportunities for rule consolidation, pruning redundant or outdated rules, and ensuring the overall rule set is optimized for clarity and AI assistant performance.
+
+## 2. Agent: MDC Rule Optimizer Agent
+
+*   **ID:** `mdc_rule_optimizer_agent` (Conceptual)
+*   **Objective:** To analyze the existing MDC rule set and propose changes that improve its structure, efficiency, and maintainability without negatively impacting the AI assistant's intended behavior.
+*   **Core Task:** Execute the "Ritual Collapse Assessment."
+
+## 3. Ritual: Ritual Collapse Assessment
+
+This ritual is performed by the `mdc_rule_optimizer_agent`.
+
+### 3.1. Inputs:
+
+*   The entire contents of the `.cursor/rules/` directory.
+*   (Optionally) The `agents.index.mpc.json` file if available, for context on agent capabilities referenced in rules.
+*   (Optionally) `THEPLAN.md` for high-level project context.
+
+### 3.2. Analytical Steps:
+
+1.  **Rule Ingestion & Parsing:**
+    *   Load all `.mdc` files from `.cursor/rules/`.
+    *   Parse YAML frontmatter (description, globs, type, alwaysApply, etc.) and the Markdown body of each rule.
+
+2.  **Glob Analysis:**
+    *   Identify rules with identical `globs`.
+    *   Identify rules where one rule's `globs` are a strict subset/superset of another's.
+    *   Look for highly similar or overlapping glob patterns that might indicate potential for merging.
+
+3.  **Content & Semantic Analysis:**
+    *   Compare `description` fields for semantic similarity.
+    *   Analyze the Markdown body of rules to identify overlapping instructions, guidelines, or purposes.
+    *   Pay special attention to rules with similar `type` (e.g., multiple `alwaysApply` rules covering similar scopes).
+
+4.  **Redundancy & Obsolescence Check:**
+    *   Identify rules that might be fully superseded by newer, more comprehensive rules.
+    *   Flag rules that appear outdated based on project evolution (cross-reference with `THEPLAN.md` if available).
+    *   Look for rules that are effectively empty or provide minimal, trivial guidance that could be incorporated elsewhere.
+
+5.  **Understanding Rule Invocation (Conservative Approach):
+    *   The agent's understanding of how Cursor invokes rules is based *solely* on the explicit metadata within the `.mdc` files (e.g., `globs`, `alwaysApply`, `type`).
+    *   Proposals must be conservative and acknowledge that Cursor's internal prioritization or dynamic rule interaction mechanisms are not fully known to the agent.
+    *   The primary goal of optimization is to enhance clarity and maintainability *for both human authors and the AI assistant referencing these rules*, without making assumptions about undocumented Cursor internals.
+
+### 3.3. Output & Proposal Generation:
+
+The agent should produce a report detailing its findings and recommendations. For each proposed change (merge or prune):
+
+*   **Affected Rules:** List the `.mdc` file(s) targeted.
+*   **Nature of Proposal:** Merge / Prune.
+*   **Justification:** Detailed reasoning based on the analysis (e.g., "Rules A and B have identical globs and highly similar descriptions focusing on Python linting. Content from Rule B can be integrated into Rule A.").
+*   **Proposed Action (for Merges):**
+    *   Suggest which rule should be the primary (kept/expanded).
+    *   Provide a draft of the merged content, new `description`, and consolidated `globs`.
+*   **Impact Consideration:** Briefly note any potential considerations or areas to double-check regarding how the change might influence AI behavior (based on the conservative understanding of rule invocation).
+
+### 3.4. Execution Context:
+
+*   This ritual can be triggered manually by a developer/admin.
+*   It can be scheduled periodically (e.g., monthly) as part of a larger system maintenance workflow.
+*   It can be invoked via an MCP signal if integrated into an agentic system.
+
+## 4. Guiding Principles for Optimization
+
+*   **Clarity over Absolute Minimization:** The goal is not just fewer rules, but clearer, more effective rules.
+*   **Maintainability:** Changes should make the rule set easier to understand and manage.
+*   **Conservatism:** When in doubt about the impact of a change on Cursor's behavior, err on the side of caution or recommend further human review.
+*   **Non-Destructive Proposals:** The agent proposes changes; it does not directly modify rules without approval.
+
+## 5. Tooling Integration
+
+The `mdc_rule_optimizer_agent` may leverage existing scripts like `scripts/validate_mdc_rules.py` for initial parsing or validation steps, but its core logic involves more advanced semantic analysis.

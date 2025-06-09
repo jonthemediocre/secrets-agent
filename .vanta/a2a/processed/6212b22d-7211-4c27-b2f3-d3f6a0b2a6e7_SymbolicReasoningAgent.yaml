@@ -1,0 +1,20 @@
+delivered: true
+delivery_attempts: 0
+expires_at: null
+message_id: 6212b22d-7211-4c27-b2f3-d3f6a0b2a6e7_SymbolicReasoningAgent
+message_type: symbolic_emergence
+payload:
+  archetypal_resonance: prometheus
+  consciousness_level: 0.75
+  emergence_location: agent_interactions
+  pattern_type: consciousness_emergence
+  symbolic_significance: high
+priority: 75
+processed: false
+recipient_id: SymbolicReasoningAgent
+response_required: false
+routing_strategy: symbolic_consciousness
+sender_id: SymbolicReasoningAgent
+symbolic_trigger: consciousness_emergence
+timestamp: '2025-06-07T17:39:54.167449+00:00'
+trinity_context: null

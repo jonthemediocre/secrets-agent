@@ -1,0 +1,419 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# RULE TYPE: Always
+# FILE PATTERNS: src/agents/*Agent.py, UAP/runners/*.py, governance/integration/*.py
+
+# UAP Level 3 Runtime Orchestrator Standards
+
+## Purpose
+Define standards and implementation guidelines for Universal Agent Protocol (UAP) Level 3 Runtime Orchestrators that manage multi-project ecosystems, coordinate cross-project resources, and provide autonomous infrastructure deployment.
+
+## Core Principles
+
+### 1. Multi-Project Ecosystem Management
+UAP Level 3 agents must operate across the entire project ecosystem, not just within a single project:
+
+```python
+class UAP_Level3_Agent:
+    """
+    UAP Level 3 Runtime Orchestrator
+    
+    Required capabilities:
+    - Multi-project discovery and coordination
+    - Cross-project resource distribution  
+    - Autonomous infrastructure deployment
+    - Agent bus integration and orchestration
+    - Real-time ecosystem monitoring
+    """
+    
+    def __init__(self):
+        self.ecosystem_root = self._discover_ecosystem_root()
+        self.projects = self._discover_all_projects()
+        self.agent_bus = self._initialize_agent_bus()
+        self.vault_coordinator = self._initialize_vault_coordinator()
+```
+
+### 2. Required Infrastructure Capabilities
+
+#### VANTA AI API Auto-Setup
+All Level 3 orchestrators must implement automatic VANTA AI API deployment:
+
+```python
+async def deploy_vanta_api(self, project_path: str) -> Dict[str, Any]:
+    """
+    Deploy VANTA AI API infrastructure to a project
+    
+    Must include:
+    - API endpoint configuration  
+    - Authentication setup
+    - Health monitoring
+    - Integration with existing project structure
+    """
+    pass
+```
+
+#### Auto CLI Vault Setup  
+Automatic vault CLI deployment across all discovered projects:
+
+```python
+async def setup_vault_cli(self, project_path: str) -> Dict[str, Any]:
+    """
+    Setup vault CLI infrastructure in project
+    
+    Must include:
+    - CLI tool installation
+    - Vault configuration
+    - Secret scanning capabilities
+    - Integration with project build system
+    """
+    pass
+```
+
+#### Secret Vacuum and Distribution
+Cross-project secret harvesting and redistribution:
+
+```python
+async def vacuum_and_distribute_secrets(self) -> Dict[str, Any]:
+    """
+    Vacuum secrets from projects and redistribute through vault
+    
+    Must include:
+    - Secret discovery across all projects
+    - Secure vault storage
+    - Access policy management
+    - Automated secret rotation
+    """
+    pass
+```
+
+### 3. Agent Bus Integration
+
+#### Real-Time Coordination
+Level 3 agents must integrate with the agent bus for real-time coordination:
+
+```python
+class AgentBusIntegration:
+    async def initialize_agent_bus(self) -> None:
+        """Initialize connection to the agent communication bus"""
+        pass
+        
+    async def broadcast_ecosystem_status(self, status: Dict[str, Any]) -> None:
+        """Broadcast ecosystem status to all connected agents"""
+        pass
+        
+    async def coordinate_cross_project_actions(self, actions: List[Dict[str, Any]]) -> None:
+        """Coordinate actions that span multiple projects"""
+        pass
+```
+
+### 4. Memory and Context Management
+
+#### Universal Agent Memory
+Level 3 agents must maintain cross-project context and memory:
+
+```python
+class UniversalAgentMemory:
+    def __init__(self):
+        self.project_contexts: Dict[str, ProjectContext] = {}
+        self.cross_project_relationships: Dict[str, List[str]] = {}
+        self.ecosystem_history: List[EcosystemEvent] = []
+        
+    async def store_project_context(self, project_id: str, context: ProjectContext) -> None:
+        """Store project-specific context information"""
+        pass
+        
+    async def get_cross_project_dependencies(self, project_id: str) -> List[str]:
+        """Get projects that depend on or are depended upon by given project"""  
+        pass
+```
+
+### 5. Code as Tools Integration
+
+#### CLI Access and Execution
+Level 3 agents must have full CLI access and code execution capabilities:
+
+```python
+class CodeAsToolsIntegration:
+    async def execute_cli_command(self, 
+                                command: str, 
+                                project_path: str,
+                                timeout: int = 30) -> Dict[str, Any]:
+        """Execute CLI command in project context"""
+        pass
+        
+    async def deploy_code_tools(self, project_path: str) -> Dict[str, Any]:
+        """Deploy code-based tools to project"""
+        pass
+        
+    async def sync_tool_versions(self) -> Dict[str, Any]:
+        """Ensure consistent tool versions across all projects"""
+        pass
+```
+
+## Implementation Standards
+
+### 1. UAP Manifest Configuration
+
+All Level 3 agents must have a corresponding UAP manifest:
+
+```yaml
+# UAP/manifests/{agent_name}.uap.yaml
+title: 'Agent Name Runtime Orchestrator'
+version: '3.0.0'
+level: 3
+agent_roles:
+  orchestrator: 'Multi-project ecosystem coordination'
+  distributor: 'Cross-project resource distribution'
+  integrator: 'VANTA AI API auto setup'
+  synchronizer: 'Agent and rules synchronization'
+capabilities:
+  memory: 'Universal Agent Memory with cross-project context'
+  tools: 'Code as tools, CLI access, async execution'
+  bus: 'Agent bus integration for real-time coordination'
+  vault: 'Cross-project secret management and distribution'
+  ecosystem: 'Multi-project discovery and management'
+  infrastructure: 'Autonomous deployment and configuration'
+symbolic_intent:
+  primary: 'Orchestrate entire multi-project development ecosystem'
+  secondary: 'Automate infrastructure deployment across all projects'
+  tertiary: 'Ensure cross-project coherence and resource sharing'
+triggers:
+  startup: 'Ecosystem discovery and agent registration'
+  project_detected: 'Auto-deploy VANTA infrastructure'
+  secret_discovered: 'Vacuum and redistribute through vault'
+  agent_request: 'Coordinate cross-project actions'
+requirements:
+  minimum_projects: 5
+  ecosystem_coverage: 0.8
+  response_time_ms: 1000
+```
+
+### 2. Discovery and Registration
+
+Level 3 agents must be discoverable by the enhanced AgentDiscoveryService:
+
+```python
+# Must be detectable by these indicators
+LEVEL_3_INDICATORS = [
+    "UAP Level 3",
+    "Runtime Orchestrator", 
+    "ecosystem_management",
+    "multi_project",
+    "cross_project_sync"
+]
+
+# Must implement these interfaces
+class RuntimeOrchestratorInterface:
+    async def discover_ecosystem(self) -> Dict[str, Any]: pass
+    async def coordinate_agents(self) -> Dict[str, Any]: pass
+    async def manage_infrastructure(self) -> Dict[str, Any]: pass
+    async def distribute_resources(self) -> Dict[str, Any]: pass
+```
+
+### 3. Governance Integration
+
+Level 3 agents must integrate with governance systems:
+
+```python
+from governance.integration.omega_executor import OmegaExecutor
+
+class GovernanceIntegration:
+    def __init__(self):
+        self.governance_executor = OmegaExecutor()
+        
+    async def validate_cross_project_policy(self, action: Dict[str, Any]) -> bool:
+        """Validate action against cross-project governance policies"""
+        return await self.governance_executor.validate_policy_compliance(action)
+        
+    async def enforce_ecosystem_standards(self) -> Dict[str, Any]:
+        """Enforce standards across all projects in ecosystem"""
+        return await self.governance_executor.enforce_standards()
+```
+
+### 4. Error Handling and Resilience
+
+Level 3 agents must implement robust error handling:
+
+```python
+class ErrorHandling:
+    async def handle_project_failure(self, project_id: str, error: Exception) -> None:
+        """Handle failure in a single project without affecting ecosystem"""
+        pass
+        
+    async def recover_from_ecosystem_failure(self) -> Dict[str, Any]:
+        """Recover from ecosystem-wide failures"""
+        pass
+        
+    async def maintain_partial_functionality(self, 
+                                           failed_projects: List[str]) -> Dict[str, Any]:
+        """Maintain functionality even with some projects unavailable"""
+        pass
+```
+
+## Integration Requirements
+
+### 1. Agent Registry Integration
+
+Level 3 agents must be registered in the enhanced agent discovery system:
+
+```json
+{
+  "agent_id": "operator_omega_runtime",
+  "level": 3,
+  "type": "runtime_orchestrator", 
+  "runtime_capabilities": [
+    "ecosystem_management",
+    "cross_project_coordination",
+    "agent_bus_integration",
+    "vault_integration"
+  ],
+  "ecosystem_scope": "multi_project"
+}
+```
+
+### 2. VANTA Backend Integration
+
+Must integrate with existing VANTA backend services:
+
+- VaultAgent coordination
+- SecretRotatorAgent cooperation  
+- APIManagerAgent integration
+- AuthAgent authentication flows
+
+### 3. CLI Tool Integration
+
+Must work with existing CLI infrastructure:
+
+```bash
+# Must support these CLI patterns
+python cli_enhanced.py --orchestrator-mode
+./secrets_agent_launch_wizard.py --level3-deploy
+python project_scanner.py --orchestrator-scan
+```
+
+## Testing Requirements
+
+### 1. Multi-Project Testing
+
+Level 3 agents must include comprehensive testing:
+
+```python
+# test_level3_orchestrator.py
+async def test_ecosystem_discovery():
+    """Test discovery of all projects in ecosystem"""
+    pass
+    
+async def test_cross_project_coordination(): 
+    """Test coordination of actions across multiple projects"""
+    pass
+    
+async def test_infrastructure_deployment():
+    """Test autonomous infrastructure deployment"""
+    pass
+    
+async def test_secret_vacuum_distribution():
+    """Test secret harvesting and redistribution"""
+    pass
+```
+
+### 2. Resilience Testing
+
+Must test failure scenarios:
+
+```python
+async def test_partial_ecosystem_failure():
+    """Test behavior when some projects are unavailable"""
+    pass
+    
+async def test_network_partition_recovery():
+    """Test recovery from network partitions"""
+    pass
+    
+async def test_resource_exhaustion_handling():
+    """Test behavior under resource constraints"""
+    pass
+```
+
+## Examples
+
+### 1. Correct Implementation
+
+```python
+class OperatorOmegaAgent(UAPAgentBase):
+    """
+    UAP Level 3 Runtime Orchestrator for multi-project ecosystem management
+    
+    Manages 93+ projects with:
+    - VANTA AI API auto setup
+    - Auto CLI vault setup  
+    - Cross-project secret vacuum and distribution
+    - Agent bus integration and orchestration
+    - Universal Agent Memory with cross-project context
+    """
+    
+    def __init__(self):
+        super().__init__()
+        self.level = 3
+        self.ecosystem_projects = []
+        self.agent_bus = None
+        self.universal_memory = UniversalAgentMemory()
+        
+    async def setup(self) -> None:
+        """Initialize runtime orchestrator"""
+        await self._discover_ecosystem()
+        await self._initialize_agent_bus()
+        await self._setup_universal_memory()
+        
+    async def process_task(self, task_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Process orchestration tasks"""
+        if task_data.get("type") == "ecosystem_coordination":
+            return await self._coordinate_ecosystem(task_data)
+        elif task_data.get("type") == "infrastructure_deployment":
+            return await self._deploy_infrastructure(task_data)
+        # ... handle other task types
+```
+
+### 2. Incorrect Implementation
+
+```python
+# ❌ Bad: Level 2 agent without ecosystem capabilities
+class SimpleAgent(AgentBase):
+    def process_task(self, task_data):
+        # Single project focus only
+        return {"result": "simple task completed"}
+```
+
+## Best Practices
+
+1. **Ecosystem-First Design**: Always consider the entire ecosystem, not just individual projects
+2. **Async by Default**: All operations should be asynchronous to handle multiple projects concurrently  
+3. **Graceful Degradation**: Continue operating even when some projects are unavailable
+4. **Resource Efficiency**: Optimize for managing 100+ projects simultaneously
+5. **Security-First**: Ensure secure handling of secrets and credentials across projects
+6. **Observability**: Provide comprehensive logging and monitoring across the ecosystem
+7. **Governance Compliance**: Always validate actions against governance policies
+
+## Validation
+
+Level 3 agents must pass these validation checks:
+
+```python
+# Validation checklist
+VALIDATION_CHECKS = [
+    "implements_ecosystem_discovery",
+    "has_cross_project_coordination", 
+    "includes_agent_bus_integration",
+    "supports_vault_integration",
+    "implements_universal_memory",
+    "has_governance_integration",
+    "includes_error_handling",
+    "supports_code_as_tools",
+    "has_uap_manifest",
+    "registered_in_discovery_service"
+]
+```
+
+This rule ensures that UAP Level 3 Runtime Orchestrators are properly implemented with full ecosystem management capabilities, robust error handling, and integration with the broader VANTA infrastructure.

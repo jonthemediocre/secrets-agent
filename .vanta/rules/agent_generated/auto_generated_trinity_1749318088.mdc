@@ -1,0 +1,73 @@
+---
+id: auto_generated_trinity_1749318088
+description: Trinity coordination rule for executor_overload rebalancing
+authored_by: SecurityGuardianAgent
+justification: "Trinity imbalance detected: Execution agents experiencing high load, planner agents underutilized"
+linked_to: ['/rules/trinity_governance/coordination.rule.yaml']
+collaboration_agents: ['TrinityCoordinator', 'ConsensusAgent']
+type: trinity
+priority: 75
+version: 1.0
+created_at: 2025-06-07T17:41:28.029776+00:00
+risk_level: high
+---
+
+# Auto-Trinity: executor_overload Coordination
+
+## Auto-Generated Context
+- **Agent**: SecurityGuardianAgent
+- **Detection**: trinity_monitoring
+- **Risk Level**: high
+- **Mitigation**: rebalance_trinity_roles
+- **Trigger Event**: Trinity coordination issue: executor_overload
+
+
+# Trinity Coordination Rule
+
+## Trinity Node Rebalancing
+- **Affected Nodes**: dodecahedron_agents
+- **Coordination Issue**: Trinity coordination issue: executor_overload
+
+## Role Redistribution Strategy
+1. Assess current node performance
+2. Identify imbalance causes
+3. Redistribute roles and responsibilities
+4. Implement coordination protocols
+5. Monitor harmony metrics
+
+## Consensus Mechanisms
+- Decision-making protocols
+- Conflict resolution procedures
+- Collaboration enhancement
+- Communication optimization
+
+## Harmony Metrics
+- Role efficiency scores
+- Collaboration effectiveness
+- Consensus achievement rate
+- System-wide coherence
+
+
+## Validation Criteria
+- Rule implementation successful
+- No negative side effects observed
+- Performance impact within acceptable limits
+- Compliance requirements satisfied
+- Trinity harmony restored
+- Node coordination improved
+- Consensus mechanisms functional
+
+## Evolution Triggers
+- Performance degradation detected
+- New requirements identified
+- Technology stack changes
+- Regulatory updates
+- Trinity role evolution
+- Coordination pattern changes
+- Harmony metric degradation
+
+## Collaboration Notes
+This rule was generated in collaboration with: TrinityCoordinator, ConsensusAgent
+
+## Linked Rules
+- /rules/trinity_governance/coordination.rule.yaml
