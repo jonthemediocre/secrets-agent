@@ -1,0 +1,17 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "encryption": {
+      "algorithm": "aes-256-gcm",
+      "keyDerivation": "pbkdf2",
+      "iterations": 100000
+    },
+    "created": "2025-06-09T06:11:19.218Z",
+    "lastUpdated": "2025-06-09T06:11:19.218Z",
+    "checksum": "0e5cb3fd3a4b59eb5d30ace2dcab456614669a9384b4684920fe1ff7e42beace"
+  },
+  "data": "g4l+YEPuQPby5+iBnbxGb7IUx4QeWkGvLhNku0/duTKrZuk2nyMgy49QEzJbpWGYZeyE/ovgAQ8vRpXt2UlczEPtcGzTLaC7cPotQB9irsJMIsTJI1d0pjbm58c1Fq2Q5+2ZpLJ+Lmqxw426AMfU0LFntyFe2RQc6HX/FbFSXrSQMzWmOTkrEpRq6h4=",
+  "salt": "8tMu0ETvvkD0GBhrvblh2OSmXNd7Xo0y3SA3DDFblWM=",
+  "iv": "N5y+kbBolcVJqs2sHZ1I0g==",
+  "authTag": "zT1/xwa1cdqog90tC4kZgw=="
+}
