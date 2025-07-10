@@ -93,7 +93,7 @@
     "react-dom": "^18.2.0",
     "recharts": "^2.15.3",
     "sqlite3": "^5.1.7",
-    "tailwind-merge": "^3.3.0",
+    "tailwind-merge": "^3.3.1",
     "uuid": "^9.0.1",
     "winston": "^3.11.0"
   },
@@ -107,7 +107,7 @@
     "@types/helmet": "^0.0.48",
     "@types/jest": "^29.5.14",
     "@types/js-yaml": "^4.0.9",
-    "@types/jsonwebtoken": "^9.0.9",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20.11.16",
     "@types/node-cron": "^3.0.11",
     "@types/react": "^18.2.0",
