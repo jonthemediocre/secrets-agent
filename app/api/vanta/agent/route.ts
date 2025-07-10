@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { VantaEnhancedAgent, VantaEnhancementConfig } from '../../../../src/lib/vanta/VantaEnhancedAgent';
 import { HybridAgent, HybridAgentConfig } from '../../../../src/agents/HybridAgent';
 import { createLogger } from '../../../../src/utils/logger';
-import { registerAgentForTrinityManagement } from '../trinity/route';
 
 const logger = createLogger('VantaAgentAPI');
 
@@ -137,9 +136,6 @@ async function createVantaAgent(
     await vantaAgent.initialize();
     
     vantaAgents.set(agentId, vantaAgent);
-
-    // Register agent for Trinity Node management
-    registerAgentForTrinityManagement(agentId, vantaAgent);
 
     logger.info('VANTA enhanced agent created and registered', { agentId });
 

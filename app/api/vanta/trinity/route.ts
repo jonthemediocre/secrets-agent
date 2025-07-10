@@ -266,13 +266,4 @@ async function getNodeMetrics(nodeId: string): Promise<NextResponse> {
       { status: 500 }
     );
   }
-}
-
-/**
- * Utility function to register an agent for Trinity Node management
- * This can be called from the VANTA agent API when agents are created
- */
-export function registerAgentForTrinityManagement(agentId: string, agent: VantaEnhancedAgent): void {
-  registeredAgents.set(agentId, agent);
-  logger.info('Agent registered for Trinity Node management', { agentId });
 } 
